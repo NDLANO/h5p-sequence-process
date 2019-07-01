@@ -1,0 +1,33 @@
+{
+  "title": "Sequense / process",
+  "description": "Put elements in the right sequence with additional labels and reflection on why the specific order",
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "patchVersion": 0,
+  "runnable": 1,
+  "author": "Cerpus",
+  "license": "MIT",
+  "machineName": "H5P.SequenceProcess",
+  "embedTypes": [
+    "iframe"
+  ],
+  "preloadedJs": [
+    {
+      "path": "dist/h5p-sequence-process.js"
+    }
+  ],
+  "preloadedDependencies": [
+    {
+      "machineName": "H5P.ResourceList",
+      "majorVersion": 1,
+      "minorVersion": 0
+    }
+  ],
+  "editorDependencies": [
+    {
+      "machineName": "H5PEditor.VerticalTabs",
+      "majorVersion": 1,
+      "minorVersion": 3
+    }
+  ]
+}

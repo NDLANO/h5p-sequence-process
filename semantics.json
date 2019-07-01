@@ -1,0 +1,77 @@
+[
+  {
+    "name": "header",
+    "type": "text",
+    "label": "Header",
+    "importance": "medium"
+  },
+  {
+    "name": "description",
+    "type": "text",
+    "label": "Task description",
+    "importance": "low",
+    "optional": true
+  },
+  {
+    "name": "statementsList",
+    "type": "list",
+    "label": "Statements",
+    "entity": "statement",
+    "importance": "high",
+    "min": 1,
+    "defaultNum": 1,
+    "field": {
+      "name": "text",
+      "type": "text",
+      "label": "Text",
+      "importance": "high",
+      "description": "The statement that the user needs to process"
+    }
+  },
+  {
+    "type": "list",
+    "name": "labelsList",
+    "label": "Labels",
+    "entity": "label",
+    "optional": true,
+    "field": {
+      "name": "label",
+      "type": "text",
+      "label": "Label",
+      "optional": true
+    }
+  },
+  {
+    "name": "type",
+    "type": "library",
+    "label": "Resources",
+    "importance": "medium",
+    "options": [
+      "H5P.ResourceList 1.0"
+    ],
+    "description": "Optional links to resources."
+  },
+  {
+    "name": "behaviour",
+    "type": "group",
+    "label": "Behavioural settings",
+    "importance": "low",
+    "description": "These options will let you control the behaviour.",
+    "fields": [
+      {
+        "name": "enableRetry",
+        "type": "boolean",
+        "label": "Enable retry?",
+        "description": "Tick off this if you want the user to be able to retry",
+        "default": true
+      },
+      {
+        "name": "provideSummary",
+        "type": "boolean",
+        "label": "Show summary",
+        "description": "Do you want the user to provide a summary explaining the reasons for his/her answers",
+        "default": true
+      }
+    ]
+  }
+]
