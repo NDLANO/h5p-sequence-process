@@ -1,32 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Sequenced extends React.Component {
+const Sequenced = props => {
+    const {
+        statement,
+        actions
+    } = props;
 
-    static propTypes = {
-        provided: PropTypes.object,
-        statement: PropTypes.object,
-    };
-
-    render() {
-        const {
-            provided,
-            statement
-        } = this.props;
-
-        return (
+    return (
+        <div
+            className="h5p-droparea"
+        >
             <div
-                className="h5p-droparea"
-                ref={provided.innerRef}
-                {...provided.dragHandleProps}
-                {...provided.draggableProps}
+                className="h5p-sequence-statement"
             >
-                <div
-                    className="h5p-sequence-statement"
-                >
-                    {statement.statement}
+                <i className="fa fa-arrows" />
+                <div>
+                    {statement}
                 </div>
+                {actions}
             </div>
-        );
-    }
-}
+        </div>
+    );
+
+};
+
+Sequenced.propTypes = {
+    statement: PropTypes.string,
+    actions: PropTypes.object,
+};
+
+export default Sequenced;

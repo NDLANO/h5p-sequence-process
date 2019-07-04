@@ -1,27 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-export default class Remaining extends React.Component {
+const Placeholder = () => {
 
-    static propTypes = {
-        provided: PropTypes.object,
-        statement: PropTypes.object,
-    };
+    return (
+        <div
+            className="h5p-droparea"
+        />
+    );
+};
 
-    render() {
-        const {
-            provided
-        } = this.props;
-
-        return (
-            <div
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                ref={provided.innerRef}
-                className="h5p-sequence-statement"
-            >
-                {statement.statement}
-            </div>
-        );
-    }
-}
+export default Placeholder;

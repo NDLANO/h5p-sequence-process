@@ -3,6 +3,7 @@ import React, {Fragment} from 'react';
 import Header from 'components/Header/Header';
 import SequenceSurface from 'components/SequenceSurface/SequenceSurface';
 import Summary from "./Summary/Summary";
+import Footer from "./Footer/Footer";
 
 export default class Main extends React.Component {
     render() {
@@ -11,6 +12,7 @@ export default class Main extends React.Component {
                 <Header />
                 <SequenceSurface />
                 <Summary/>
+                <Footer/>
             </Fragment>
         );
     }

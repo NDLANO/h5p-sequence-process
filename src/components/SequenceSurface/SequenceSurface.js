@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import md5 from 'md5';
 import { SequenceProcessContext } from 'context/SequenceProcessContext';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from 'components/Column/Column';
-import Statement from "../Statement/Statement";
+import StatementList from "components/StatementList/StatementList";
 
 export default class SequenceSurface extends React.Component {
 
@@ -13,21 +13,18 @@ export default class SequenceSurface extends React.Component {
         statements: [],
         sequencedStatements: [],
         remainingStatements: [],
+        showOneColumn: false,
+        labels: [],
     };
 
     constructor(props) {
         super(props);
 
         this.onDropEnd = this.onDropEnd.bind(this);
-        this.onDropUpdate = this.onDropUpdate.bind(this);
-    }
-
-    onDropUpdate(update) {
-        console.log(update);
     }
 
     onDropEnd(dragResult) {
-        console.log(dragResult);
+        //console.log(dragResult);
         let {
             combine,
             destination,
@@ -42,66 +39,84 @@ export default class SequenceSurface extends React.Component {
         if (destination !== null && destination.droppableId === source.droppableId && destination.index === source.index) {
             return;
         }
-        const newSequencedStatements = Array.from(this.state.sequencedStatements);
-        const newRemainingStatements = Array.from(this.state.remainingStatements);
+        const sequencedStatements = Array.from(this.state.sequencedStatements);
+        const remainingStatements = Array.from(this.state.remainingStatements);
 
+        let droppedIndex = null, draggedIndex;
+        draggableId = draggableId.replace(/\w+-/, "");
         if (combine !== null) {
-            draggableId = combine.draggableId.replace("sequenced-", "");
-            const combinationIndex = this.state.placeholderElements.indexOf(draggableId);
-            newSequencedStatements.splice(combinationIndex, 0, draggableId);
-        } else if (destination !== null) {
-            draggableId = draggableId.replace("remaining-", "");
-            newSequencedStatements.splice(destination.index, 1, draggableId);
+            const droppedOnId = combine.draggableId.replace("sequenced-", "");
+            droppedIndex = sequencedStatements.indexOf(droppedOnId);
+            draggedIndex = sequencedStatements.indexOf(draggableId);
+        } else {
+            if (source.droppableId === destination.droppableId) {
+                sequencedStatements.splice(source.index, 1);
+                sequencedStatements.splice(destination.index, 0, draggableId);
+            } else {
+                droppedIndex = destination.index < sequencedStatements.length ? destination.index : sequencedStatements.length - 1;
+                draggedIndex = sequencedStatements.indexOf(draggableId);
+            }
         }
-        newRemainingStatements.splice(source.index, 1);
-        this.state.statements[draggableId].isPlaceholder = destination === 'processed';
+
+        if (droppedIndex !== null) {
+            [sequencedStatements[droppedIndex], sequencedStatements[draggedIndex]] = [sequencedStatements[draggedIndex], sequencedStatements[droppedIndex]];
+        }
+
+        if (remainingStatements.length > 0 && source.droppableId !== 'processed') {
+            remainingStatements.splice(source.index, 1);
+        }
+
+        const draggedStatement = Object.assign({}, this.state.statements[draggableId]);
+        draggedStatement.isPlaceholder = false; //destination === 'processed';
 
         this.setState({
-            sequencedStatements: newSequencedStatements,
-            remainingStatements: newRemainingStatements,
+            statements: {
+                ...this.state.statements,
+                [draggableId]: draggedStatement
+            },
+            sequencedStatements: sequencedStatements,
+            remainingStatements: remainingStatements,
+            showOneColumn: remainingStatements.length === 0,
         });
-    }
-
-    getUniqueId(existing) {
-        const id = md5(Math.floor(Math.random() * 1000000));
-        if (existing.hasOwnProperty(id)) {
-            return this.getUniqueId(existing);
-        }
-        return id;
     }
 
     componentDidMount() {
         const {
-            params
+            params: {
+                statementsList,
+                labelsList,
+            }
         } = this.context;
-        const statements = params.statementsList.reduce((existing, current, index) => {
+
+        const statements = statementsList.reduce((existing, current) => {
             const id = md5(current);
             existing[id] = {
                 id: id,
                 statement: current,
-//                initIndex: index,
-                isPlaceholder: false,
-//                placeholderId: this.getUniqueId(existing),
+                isPlaceholder: true,
             };
             return existing;
         }, {});
 
+        console.log(statements);
+
         this.setState({
             statements: statements,
-            remainingStatements: [],
+            remainingStatements: Object.keys(statements),
             sequencedStatements: Object.keys(statements),
+            labels: labelsList.map(label => {
+                return {
+                    id: md5(label),
+                    label,
+                };
+            }),
         });
     }
 
-    render() {
-        return (
-            <div
-                className="h5p-sequenceSurface"
-            >
-                <DragDropContext
-                    className="h5p-sequenceSurface"
-                    onDragEnd={this.onDropEnd}
-                >
+    handleSurface() {
+        if (this.state.showOneColumn !== true) {
+            return (
+                <Fragment>
                     <Column
                         droppableId={"processed"}
                         combine={true}
@@ -110,7 +125,7 @@ export default class SequenceSurface extends React.Component {
                         {this.state.sequencedStatements
                             .map(statementId => this.state.statements[statementId])
                             .map((statement, index) => (
-                                <Statement
+                                <StatementList
                                     key={"sequenced-" + statement.id}
                                     draggableType="sequenced"
                                     statement={statement}
@@ -127,7 +142,7 @@ export default class SequenceSurface extends React.Component {
                         {this.state.remainingStatements
                             .map(statementId => this.state.statements[statementId])
                             .map((statement, index) => (
-                                <Statement
+                                <StatementList
                                     key={"remaining-" + statement.id}
                                     draggableType="remaining"
                                     statement={statement}
@@ -136,6 +151,44 @@ export default class SequenceSurface extends React.Component {
                             ))
                         }
                     </Column>
+                </Fragment>
+            );
+        } else {
+            return (
+                <Fragment>
+                    <Column
+                        droppableId={"processed"}
+                        columnType="sequenced"
+                    >
+                        {this.state.sequencedStatements
+                            .map(statementId => this.state.statements[statementId])
+                            .map((statement, index) => (
+                                <StatementList
+                                    key={"sequenced-" + statement.id}
+                                    draggableType="sequenced"
+                                    statement={statement}
+                                    index={index}
+                                    isSingleColumn={true}
+                                    labels={this.state.labels}
+                                />
+                            ))
+                        }
+                    </Column>
+                </Fragment>
+            );
+        }
+    }
+
+    render() {
+        return (
+            <div
+                className="h5p-sequenceSurface"
+            >
+                <DragDropContext
+                    className="h5p-sequenceSurface"
+                    onDragEnd={this.onDropEnd}
+                >
+                    {this.handleSurface()}
                 </DragDropContext>
             </div>
         );

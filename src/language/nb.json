@@ -1,5 +1,10 @@
 {
   "summary": "Oppsummering",
-  "typeYourReasonsForSuchAnswers": "Skriv en begrunnelse for dine svar"
+  "typeYourReasonsForSuchAnswers": "Skriv en begrunnelse for dine svar",
+  "resources": "Ressurser",
+  "save": "Lagre",
+  "comment": "Kommentar",
+  "selectAllLabelsConnectedToThisItem": "Velg merkelappene forbundet med dette elementet",
+  "restart": "Start på nytt"
 }
 

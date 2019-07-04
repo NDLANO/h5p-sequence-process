@@ -42,7 +42,7 @@
     }
   },
   {
-    "name": "type",
+    "name": "resourcesList",
     "type": "library",
     "label": "Resources",
     "importance": "medium",

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Droppable } from 'react-beautiful-dnd';
-import Statement from 'components/Statement/Statement';
 import classnames from 'classnames';
 
 export default class Column extends React.Component {
@@ -49,9 +48,7 @@ export default class Column extends React.Component {
                                 ref={provided.innerRef}
                             >
                                 {children}
-                                <div style={{visibility: 'hidden', height: 0}}>
-                                    {provided.placeholder}
-                                </div>
+                                {provided.placeholder}
                             </div>
                         )
                     }}

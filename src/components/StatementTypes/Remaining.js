@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Remaining extends React.Component {
+const Remaining = props => {
+    const {
+        statement
+    } = props;
 
-    static propTypes = {
-        provided: PropTypes.object,
-        statement: PropTypes.object,
-    };
-
-    render() {
-        const {
-            provided
-        } = this.props;
-
-        return (
-            <div
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                ref={provided.innerRef}
-                className="h5p-sequence-statement"
-            >
-                {statement.statement}
+    return (
+        <div
+            className="h5p-sequence-statement"
+        >
+            <i className="fa fa-arrows" />
+            <div>
+                {statement}
             </div>
-        );
-    }
-}
+        </div>
+    );
+
+};
+
+Remaining.propTypes = {
+    statement: PropTypes.string,
+};
+
+export default Remaining;

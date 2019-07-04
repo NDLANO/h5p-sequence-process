@@ -1,5 +1,10 @@
 {
   "summary": "Summary",
-  "typeYourReasonsForSuchAnswers": "Type your reasons for such answers"
+  "typeYourReasonsForSuchAnswers": "Type your reasons for such answers",
+  "resources": "Resources",
+  "save": "Save",
+  "comment": "Comment",
+  "selectAllLabelsConnectedToThisItem": "Select all labels connected to this item",
+  "restart": "Restart"
 }
 

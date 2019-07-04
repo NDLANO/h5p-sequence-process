@@ -1,48 +1,91 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from "react-beautiful-dnd";
+import Remaining from "components/StatementTypes/Remaining";
+import Sequenced from "components/StatementTypes/Sequenced";
+import Placeholder from "components/StatementTypes/Placeholder";
+import ActionsList from "../Actions/ActionsList";
+import Comment from "../Actions/Comment";
+import Labels from "../Actions/Labels";
 
 export default class StatementList extends React.Component {
-
     static propTypes = {
-        statements: PropTypes.array,
+        statement: PropTypes.object,
+        index: PropTypes.number.isRequired,
+        draggableType: PropTypes.string.isRequired,
+        isSingleColumn: PropTypes.bool,
+        labels: PropTypes.array,
     };
 
     static defaultProps = {
-        statements: [],
+        isSingleColumn: false,
+        statement: {},
+        labels: [],
     };
+
+    handleStatementType() {
+        const {
+            statement,
+            draggableType,
+            isSingleColumn,
+            labels,
+        } = this.props;
+
+        if (draggableType === 'remaining') {
+            return (
+                <Remaining
+                    statement={statement.statement}
+                />
+            );
+        } else if (draggableType === 'sequenced' && !statement.isPlaceholder) {
+            let actions;
+            if (isSingleColumn) {
+                actions = (
+                    <ActionsList>
+                        <Labels
+                            labels={labels}
+                        />
+                        <Comment/>
+                    </ActionsList>
+                )
+            }
+            return (
+                <Sequenced
+                    statement={statement.statement}
+                    actions={actions}
+                />
+            )
+        } else if (draggableType === 'sequenced') {
+            return (
+                <Placeholder
+                    statement={statement}
+                />
+            );
+        }
+    }
 
     render() {
         const {
-            statements,
+            index,
+            statement,
+            draggableType,
         } = this.props;
 
         return (
-            <Fragment>
-                {statements.map((statement, index) => {
-                    return (
-                        <Draggable
-                            draggableId={statement.id}
-                            index={index}
-                        >
-                            {provided => (
-                                <div
-                                    className="h5p-droparea"
-                                    ref={provided.innerRef}
-                                    {...provided.dragHandleProps}
-                                    {...provided.draggableProps}
-                                >
-                                    <div
-                                        className={!isPlaceholder ? "h5p-sequence-statement" : ""}
-                                    >
-                                        {label}
-                                    </div>
-                                </div>
-                            )}
-                        </Draggable>
-                    );
-                })}
-            </Fragment>
-        );
+            <Draggable
+                draggableId={draggableType + "-" + statement.id}
+                index={index}
+            >
+                {provided => (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                    >
+                        {this.handleStatementType()}
+                    </div>
+                )}
+            </Draggable>
+        )
     }
 }

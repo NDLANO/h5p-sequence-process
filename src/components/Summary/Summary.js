@@ -12,7 +12,7 @@ export default class Summary extends React.PureComponent {
         } = this.context;
         return (
             <div className={classnames('h5p-sequence-summary')}>
-                <p>Summary</p>
+                <p>{translations.summary}</p>
                 <textarea
                     placeholder={translations.typeYourReasonsForSuchAnswers}
                 />

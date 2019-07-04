@@ -11,12 +11,8 @@ H5P.SequenceProcess = (function () {
 
   const breakPoints = [
     {
-      "className": "h5p-phone-size",
-      "shouldAdd": width => width <= 480
-    },
-    {
       "className": "h5p-medium-tablet-size",
-      "shouldAdd": width => width > 480 && width < 768
+      "shouldAdd": width => width >= 480 && width < 768
     },
     {
       "className": "h5p-large-tablet-size",
@@ -28,7 +24,7 @@ H5P.SequenceProcess = (function () {
     },
   ];
 
-  const supportedLanguages = {en: languages.languageEn, nb: languages.languageNb};
+  const supportedLanguages = {en: languages.languageEn, nb: languages.languageNb, nn: languages.languageNn};
 
   function Wrapper(params, contentId, extras = {}) {
     // Initialize event inheritance
@@ -38,6 +34,7 @@ H5P.SequenceProcess = (function () {
     let container;
     this.params = params;
     this.behaviour = params.behaviour || {};
+    this.resizeEvents = [];
 
     const {
       language = 'en'
@@ -49,19 +46,24 @@ H5P.SequenceProcess = (function () {
       wrapper = document.createElement('div');
       wrapper.classList.add('h5p-process-sequence-wrapper');
 
+      const contextParams = {
+        params: this.params,
+        behaviour: this.behaviour,
+        id: contentId,
+        translations: this.l10n,
+        language: language,
+        registerResizeEvent: this.registerResizeEvent
+      };
+
       ReactDOM.render(
-        <SequenceProcessContext.Provider value={{
-          params: this.params,
-          behaviour: this.behaviour,
-          id: contentId,
-          translations: this.l10n,
-          language: language,
-        }}>
+        <SequenceProcessContext.Provider value={contextParams}>
           <Main />
         </SequenceProcessContext.Provider>,
         wrapper
       );
     };
+
+    this.registerResizeEvent = callback => this.resizeEvents.push(callback);
 
     this.attach = $container => {
       if (!wrapper) {
@@ -78,7 +80,7 @@ H5P.SequenceProcess = (function () {
       return wrapper.getBoundingClientRect();
     };
 
-    this.on('resize', event => {
+    this.on('resize', () => {
       const rect = this.getRect();
       breakPoints.forEach(item => {
         if (item.shouldAdd(rect.width)) {
@@ -87,6 +89,7 @@ H5P.SequenceProcess = (function () {
           wrapper.classList.remove(item.className);
         }
       });
+      this.resizeEvents.forEach(callback => callback(rect));
     });
   }
 
