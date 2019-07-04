@@ -1,0 +1,72 @@
+{
+  "semantics": [
+    {
+      "label": "Header"
+    },
+    {
+      "label": "Task description"
+    },
+    {
+      "label": "Statements",
+      "entity": "statement",
+      "field": {
+        "label": "Statement",
+        "description": "The statement that the user needs to process"
+      }
+    },
+    {
+      "label": "Labels",
+      "entity": "label",
+      "field": {
+        "label": "Label"
+      }
+    },
+    {
+      "label": "Resources",
+      "description": "Optional links to resources."
+    },
+    {
+      "label": "Behavioural settings",
+      "description": "These options will let you control the behaviour.",
+      "fields": [
+        {
+          "label": "Enable retry?",
+          "description": "Tick off this if you want the user to be able to retry"
+        },
+        {
+          "label": "Show summary",
+          "description": "Do you want the user to provide a summary explaining the reasons for his/her answers"
+        }
+      ]
+    },
+    {
+      "label": "Localize",
+      "fields": [
+        {
+          "label": "Summary",
+          "default": "Summary"
+        },
+        {
+          "label": "Placeholder for the text boxes",
+          "default": "Type your reasons for such answers"
+        },
+        {
+          "label": "Label for \"Resources\"-button",
+          "default": "Resources"
+        },
+        {
+          "label": "Label for \"Save\"-button",
+          "default": "Resources"
+        },
+        {
+          "label": "Guides text for selecting tags",
+          "default": "Select all labels connected to this item"
+        },
+        {
+          "label": "Label for \"Restart\"-button",
+          "default": "Restart"
+        }
+      ]
+    }
+  ]
+}

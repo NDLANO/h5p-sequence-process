@@ -42,9 +42,11 @@ export default class StatementList extends React.Component {
             if (isSingleColumn) {
                 actions = (
                     <ActionsList>
-                        <Labels
-                            labels={labels}
-                        />
+                        {labels.length > 0 && (
+                            <Labels
+                                labels={labels}
+                            />
+                        )}
                         <Comment/>
                     </ActionsList>
                 )

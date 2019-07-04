@@ -1,0 +1,72 @@
+{
+  "semantics": [
+    {
+      "label": "Overskrift"
+    },
+    {
+      "label": "Beskrivelse"
+    },
+    {
+      "label": "Påstander",
+      "entity": "statement",
+      "field": {
+        "label": "Påstand",
+        "description": "Påstand som brukeren skal ta stilling til"
+      }
+    },
+    {
+      "label": "Merkelapper",
+      "entity": "label",
+      "field": {
+        "label": "Merkelapp"
+      }
+    },
+    {
+      "label": "Ressurser",
+      "description": "Valgfrie lenker til ressurser."
+    },
+    {
+      "label": "Innstillinger",
+      "description": "Disse innstillingene lar deg bestemme oppførsel.",
+      "fields": [
+        {
+          "label": "Tillat å ta på nytt?",
+          "description": "Kryss av hvis du vil at brukeren skal kunne besvare på nytt"
+        },
+        {
+          "label": "Vis oppsummering",
+          "description": "Vil du at brukeren skal oppgi en oppsummering der vedkommende begrunner sine valg?"
+        }
+      ]
+    },
+    {
+      "label": "Localize",
+      "fields": [
+        {
+          "label": "Oppsummering",
+          "default": "Oppsummering"
+        },
+        {
+          "label": "Midlertidig tekst for tekstfeltene",
+          "default": "Skriv en begrunnelse for dine svar"
+        },
+        {
+          "label": "Tekst på \"Ressurs\"-knappen",
+          "default": "Ressurser"
+        },
+        {
+          "label": "Tekst på \"Lagre\"-knappen",
+          "default": "Lagre"
+        },
+        {
+          "label": "Hjelpetekst når bruker skal velge merkelapper",
+          "default": "Velg merkelappene forbundet med dette elementet"
+        },
+        {
+          "label": "Tekst på \"Start på nytt\"-knappen",
+          "default": "Start på nytt"
+        }
+      ]
+    }
+  ]
+}

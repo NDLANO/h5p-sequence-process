@@ -83,8 +83,8 @@ export default class SequenceSurface extends React.Component {
     componentDidMount() {
         const {
             params: {
-                statementsList,
-                labelsList,
+                statementsList = [],
+                labelsList = [],
             }
         } = this.context;
 
@@ -98,7 +98,7 @@ export default class SequenceSurface extends React.Component {
             return existing;
         }, {});
 
-        console.log(statements);
+//        console.log(statements);
 
         this.setState({
             statements: statements,

@@ -73,5 +73,49 @@
         "default": true
       }
     ]
+  },
+  {
+    "name": "l10n",
+    "type": "group",
+    "label": "Localize",
+    "common": true,
+    "fields": [
+      {
+        "name": "summary",
+        "type": "text",
+        "label": "Summary",
+        "default": "Summary"
+      },
+      {
+        "name": "typeYourReasonsForSuchAnswers",
+        "type": "text",
+        "label": "Placeholder for the text boxes",
+        "default": "Type your reasons for such answers"
+      },
+      {
+        "name": "resources",
+        "type": "text",
+        "label": "Label for \"Resources\"-button",
+        "default": "Resources"
+      },
+      {
+        "name": "save",
+        "type": "text",
+        "label": "Label for \"Save\"-button",
+        "default": "Resources"
+      },
+      {
+        "name": "selectAllLabelsConnectedToThisItem",
+        "type": "text",
+        "label": "Guides text for selecting tags",
+        "default": "Select all labels connected to this item"
+      },
+      {
+        "name": "restart",
+        "type": "text",
+        "label": "Label for \"Restart\"-button",
+        "default": "Restart"
+      }
+    ]
   }
 ]

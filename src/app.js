@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import Main from "components/Main";
 import {SequenceProcessContext} from 'context/SequenceProcessContext';
-import * as languages from 'language';
 
 // Load library
 H5P = H5P || {};
@@ -24,8 +23,6 @@ H5P.SequenceProcess = (function () {
     },
   ];
 
-  const supportedLanguages = {en: languages.languageEn, nb: languages.languageNb, nn: languages.languageNn};
-
   function Wrapper(params, contentId, extras = {}) {
     // Initialize event inheritance
     H5P.EventDispatcher.call(self);
@@ -40,7 +37,16 @@ H5P.SequenceProcess = (function () {
       language = 'en'
     } = extras;
 
-    this.l10n = Object.assign({}, languages.languageEn, supportedLanguages[language]);
+    console.log(params);
+
+    this.l10n = Object.assign({}, {
+      "summary": "Summary",
+      "typeYourReasonsForSuchAnswers": "Type your reasons for such answers",
+      "resources": "Resources",
+      "save": "Save",
+      "selectAllLabelsConnectedToThisItem": "Select all labels connected to this item",
+      "restart": "Restart"
+    }, params.l10n);
 
     const createElements = () => {
       wrapper = document.createElement('div');
@@ -70,6 +76,8 @@ H5P.SequenceProcess = (function () {
         createElements();
       }
 
+      this.registerResizeEvent(this.onResize);
+
       // Append elements to DOM
       $container[0].appendChild(wrapper);
       $container[0].classList.add('h5p-sequence-process');
@@ -80,8 +88,7 @@ H5P.SequenceProcess = (function () {
       return wrapper.getBoundingClientRect();
     };
 
-    this.on('resize', () => {
-      const rect = this.getRect();
+    this.onResize = rect => {
       breakPoints.forEach(item => {
         if (item.shouldAdd(rect.width)) {
           wrapper.classList.add(item.className);
@@ -89,6 +96,10 @@ H5P.SequenceProcess = (function () {
           wrapper.classList.remove(item.className);
         }
       });
+    };
+
+    this.on('resize', () => {
+      const rect = this.getRect();
       this.resizeEvents.forEach(callback => callback(rect));
     });
   }
