@@ -4,9 +4,9 @@ import { Draggable } from "react-beautiful-dnd";
 import Remaining from "components/StatementTypes/Remaining";
 import Sequenced from "components/StatementTypes/Sequenced";
 import Placeholder from "components/StatementTypes/Placeholder";
-import ActionsList from "../Actions/ActionsList";
-import Comment from "../Actions/Comment";
-import Labels from "../Actions/Labels";
+import ActionsList from "components/Actions/ActionsList";
+import Comment from "components/Actions/Comment";
+import Labels from "components/Actions/Labels";
 
 export default class StatementList extends React.Component {
     static propTypes = {
