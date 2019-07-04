@@ -37,8 +37,6 @@ H5P.SequenceProcess = (function () {
       language = 'en'
     } = extras;
 
-    console.log(params);
-
     this.l10n = Object.assign({}, {
       "summary": "Summary",
       "typeYourReasonsForSuchAnswers": "Type your reasons for such answers",
