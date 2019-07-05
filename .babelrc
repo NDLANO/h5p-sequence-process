@@ -6,7 +6,7 @@
       {
         "targets": "last 2 versions, ie 11, > 0.5%, not dead",
         "useBuiltIns": "entry",
-        "corejs": 3
+        "corejs": 2
       }
     ]
   ],
