@@ -85,6 +85,9 @@ export default class SequenceSurface extends React.Component {
             params: {
                 statementsList = [],
                 labelsList = [],
+            },
+            behaviour: {
+                prepopulate: prepopulated = false
             }
         } = this.context;
 
@@ -93,7 +96,7 @@ export default class SequenceSurface extends React.Component {
             existing[id] = {
                 id: id,
                 statement: current,
-                isPlaceholder: true,
+                isPlaceholder: !prepopulated,
             };
             return existing;
         }, {});
@@ -102,7 +105,7 @@ export default class SequenceSurface extends React.Component {
 
         this.setState({
             statements: statements,
-            remainingStatements: Object.keys(statements),
+            remainingStatements: prepopulated === true ? [] : Object.keys(statements),
             sequencedStatements: Object.keys(statements),
             labels: labelsList.map(label => {
                 return {
@@ -110,6 +113,7 @@ export default class SequenceSurface extends React.Component {
                     label,
                 };
             }),
+            showOneColumn: prepopulated,
         });
     }
 

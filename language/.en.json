@@ -36,6 +36,10 @@
         {
           "label": "Show summary",
           "description": "Do you want the user to provide a summary explaining the reasons for his/her answers"
+        },
+        {
+          "label": "Pre-populate the statements",
+          "description": "The user starts off with the statements already ordered"
         }
       ]
     },
