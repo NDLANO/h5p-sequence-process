@@ -7,4 +7,6 @@ export const SequenceProcessContext = React.createContext({
     language: 'en',
     translations: {},
     registerResizeEvent: () => {},
+    registerReset: () => {},
+    reset: () => {},
 });

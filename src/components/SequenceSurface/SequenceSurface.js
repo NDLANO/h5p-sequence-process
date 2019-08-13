@@ -20,6 +20,7 @@ export default class SequenceSurface extends React.Component {
     constructor(props) {
         super(props);
 
+        this.init = this.init.bind(this);
         this.onDropEnd = this.onDropEnd.bind(this);
         this.handleOnStatementChange = this.handleOnStatementChange.bind(this);
     }
@@ -68,7 +69,7 @@ export default class SequenceSurface extends React.Component {
         }
 
         const draggedStatement = Object.assign({}, this.state.statements[draggableId]);
-        draggedStatement.isPlaceholder = false; //destination === 'processed';
+        draggedStatement.isPlaceholder = destination === 'processed';
 
         this.setState({
             statements: {
@@ -82,6 +83,14 @@ export default class SequenceSurface extends React.Component {
     }
 
     componentDidMount() {
+        const {
+            registerReset
+        } = this.context;
+        this.init();
+        registerReset(this.init);
+    }
+
+    init() {
         const {
             params: {
                 statementsList = [],

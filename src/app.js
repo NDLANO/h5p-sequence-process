@@ -33,6 +33,7 @@ H5P.SequenceProcess = (function () {
     this.params = params;
     this.behaviour = params.behaviour || {};
     this.resizeEvents = [];
+    this.resetStack = [];
 
     const {
       language = 'en'
@@ -57,7 +58,9 @@ H5P.SequenceProcess = (function () {
         id: contentId,
         translations: this.l10n,
         language: language,
-        registerResizeEvent: this.registerResizeEvent
+        registerResizeEvent: this.registerResizeEvent,
+        registerReset: this.registerReset,
+        reset: this.onReset,
       };
 
       ReactDOM.render(
@@ -69,6 +72,7 @@ H5P.SequenceProcess = (function () {
     };
 
     this.registerResizeEvent = callback => this.resizeEvents.push(callback);
+    this.registerReset = callback => this.resetStack.push(callback);
 
     this.attach = $container => {
       if (!wrapper) {
@@ -85,6 +89,10 @@ H5P.SequenceProcess = (function () {
 
     this.getRect = () => {
       return wrapper.getBoundingClientRect();
+    };
+
+    this.onReset = () => {
+      this.resetStack.forEach(callback => callback());
     };
 
     this.onResize = rect => {

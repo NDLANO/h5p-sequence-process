@@ -24,10 +24,16 @@ export default class Footer extends React.Component {
     }
 
     render() {
+        const {
+            reset
+        } = this.context;
         return (
             <footer>
                 {this.state.behaviour.enableRetry === true && (
-                    <button className={"h5p-sequence-button-restart"}>
+                    <button
+                        className={"h5p-sequence-button-restart"}
+                        onClick={reset}
+                    >
                         <i className={"fa fa-refresh"} />
                         {this.state.translations.restart}
                     </button>
