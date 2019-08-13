@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from "../../context/SequenceProcessContext";
-import Popover from "components/Popover/Popover";
+import Popover from "../Popover/Popover.js";
 
 export default class Labels extends React.PureComponent {
 
@@ -9,10 +9,13 @@ export default class Labels extends React.PureComponent {
 
     static propTypes = {
         labels: PropTypes.array,
+        onLabelChange: PropTypes.func,
+        selectedLabelArray: PropTypes.array,
     };
 
     static defaultProps = {
-        labels: []
+        labels: [],
+        selectedLabelArray: [],
     };
 
     state = {
@@ -48,11 +51,18 @@ export default class Labels extends React.PureComponent {
                             <label
                                 key={label.id}
                             >
-                                <input value={label.id} type={"checkbox"}/> {label.label}
+                                <input
+                                    value={label.id}
+                                    type={"checkbox"}
+                                    checked={this.props.selectedLabelArray.indexOf(label.id) !== -1}
+                                    onChange={() => this.props.onLabelChange(label.id)}
+                                /> {label.label}
                             </label>
                         ))}
                         </div>
-                        <button>{translations.save}</button>
+                        <button
+                            onClick={this.onToggleModal}
+                        >{translations.save}</button>
                     </div>
                 )}
             >

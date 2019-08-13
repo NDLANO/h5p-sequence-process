@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from "react-beautiful-dnd";
-import Remaining from "components/StatementTypes/Remaining";
-import Sequenced from "components/StatementTypes/Sequenced";
-import Placeholder from "components/StatementTypes/Placeholder";
-import ActionsList from "components/Actions/ActionsList";
-import Comment from "components/Actions/Comment";
-import Labels from "components/Actions/Labels";
+import Remaining from "../StatementTypes/Remaining";
+import Sequenced from "../StatementTypes/Sequenced";
+import Placeholder from "../StatementTypes/Placeholder";
+import ActionsList from "../Actions/ActionsList";
+import Comment from "../Actions/Comment";
+import Labels from "../Actions/Labels";
 
 export default class StatementList extends React.Component {
     static propTypes = {
@@ -15,13 +15,41 @@ export default class StatementList extends React.Component {
         draggableType: PropTypes.string.isRequired,
         isSingleColumn: PropTypes.bool,
         labels: PropTypes.array,
+        onStatementChange: PropTypes.func,
+        selectedLabels: PropTypes.array,
     };
 
     static defaultProps = {
         isSingleColumn: false,
         statement: {},
         labels: [],
+        selectedLabels: [],
     };
+
+    constructor(props){
+        super(props);
+
+        this.handleOnLabelChange = this.handleOnLabelChange.bind(this);
+        this.handleOnCommentChange = this.handleOnCommentChange.bind(this);
+    }
+
+    handleOnLabelChange(labelId) {
+        const statement = JSON.parse(JSON.stringify(this.props.statement));
+        let selectedLabels = statement.selectedLabels;
+        let labelIndex = selectedLabels.indexOf(labelId);
+        if( labelIndex !== -1){
+            selectedLabels.splice(labelIndex, 1);
+        } else {
+            selectedLabels.push(labelId);
+        }
+        this.props.onStatementChange(statement);
+    }
+
+    handleOnCommentChange(comment) {
+        const statement = Object.assign({}, this.props.statement);
+        statement.comment = comment;
+        this.props.onStatementChange(statement);
+    }
 
     handleStatementType() {
         const {
@@ -45,9 +73,13 @@ export default class StatementList extends React.Component {
                         {labels.length > 0 && (
                             <Labels
                                 labels={labels}
+                                selectedLabelArray={this.props.selectedLabels}
+                                onLabelChange={this.handleOnLabelChange}
                             />
                         )}
-                        <Comment/>
+                        <Comment
+                            onCommentChange={this.handleOnCommentChange}
+                        />
                     </ActionsList>
                 )
             }

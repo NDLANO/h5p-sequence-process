@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import md5 from 'md5';
-import { SequenceProcessContext } from 'context/SequenceProcessContext';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 import { DragDropContext } from 'react-beautiful-dnd';
-import Column from 'components/Column/Column';
-import StatementList from "components/StatementList/StatementList";
+import Column from '../Column/Column';
+import StatementList from "../StatementList/StatementList";
 
 export default class SequenceSurface extends React.Component {
 
@@ -21,6 +21,7 @@ export default class SequenceSurface extends React.Component {
         super(props);
 
         this.onDropEnd = this.onDropEnd.bind(this);
+        this.handleOnStatementChange = this.handleOnStatementChange.bind(this);
     }
 
     onDropEnd(dragResult) {
@@ -97,6 +98,8 @@ export default class SequenceSurface extends React.Component {
                 id: id,
                 statement: current,
                 isPlaceholder: !prepopulated,
+                selectedLabels: [],
+                comment: null,
             };
             return existing;
         }, {});
@@ -115,6 +118,15 @@ export default class SequenceSurface extends React.Component {
             }),
             showOneColumn: prepopulated,
         });
+    }
+
+    handleOnStatementChange(statement) {
+        this.setState({
+            statements: {
+                ...this.state.statements,
+                [statement.id]: statement
+            }
+        })
     }
 
     handleSurface() {
@@ -174,6 +186,8 @@ export default class SequenceSurface extends React.Component {
                                     index={index}
                                     isSingleColumn={true}
                                     labels={this.state.labels}
+                                    onStatementChange={this.handleOnStatementChange}
+                                    selectedLabels={statement.selectedLabels}
                                 />
                             ))
                         }

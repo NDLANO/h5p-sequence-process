@@ -5,7 +5,7 @@ var nodeEnv = process.env.NODE_ENV || 'development';
 var isDev = (nodeEnv !== 'production');
 var config = {
     entry: {
-        dist: './src/app.js'
+        dist: path.join(__dirname, 'src', 'app.js')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

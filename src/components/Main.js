@@ -1,7 +1,7 @@
 import './SPStyle.scss';
 import React, {Fragment} from 'react';
-import Header from 'components/Header/Header';
-import SequenceSurface from 'components/SequenceSurface/SequenceSurface';
+import Header from './Header/Header';
+import SequenceSurface from '../components/SequenceSurface/SequenceSurface';
 import Summary from "./Summary/Summary";
 import Footer from "./Footer/Footer";
 

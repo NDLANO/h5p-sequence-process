@@ -185,6 +185,10 @@ $h5pSequenceFontSize: 14px;
     justify-content: center;
     align-items: center;
     background: white;
+
+    .fa-close {
+      margin-top: -1px;
+    }
   }
 
   &.close-button-top {

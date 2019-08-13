@@ -1,24 +1,38 @@
 import React from 'react';
-import { SequenceProcessContext } from "context/SequenceProcessContext";
+import PropTypes from 'prop-types';
+import {SequenceProcessContext} from "../../context/SequenceProcessContext";
 import Popover from "../Popover/Popover";
 
 export default class Comment extends React.Component {
 
     static contextType = SequenceProcessContext;
 
-    state = {
-        showPopover: false,
+    static propTypes = {
+        onCommentChange: PropTypes.func,
+        comment: PropTypes.string,
     };
 
-    constructor(props){
+    state = {
+        showPopover: false,
+        comment: '',
+    };
+
+    constructor(props) {
         super(props);
         this.onToggleModal = this.onToggleModal.bind(this);
+        this.handleCommentChange = this.handleCommentChange.bind(this);
     }
 
     onToggleModal() {
         this.setState({
             showPopover: !this.state.showPopover
-        })
+        }, this.props.onCommentChange(this.state.comment))
+    }
+
+    handleCommentChange(event) {
+        this.setState({
+            comment: event.target.value,
+        });
     }
 
     render() {
@@ -32,9 +46,15 @@ export default class Comment extends React.Component {
                 show={this.state.showPopover}
                 popoverContent={(
                     <div>
-                        <textarea placeholder={translations.typeYourReasonsForSuchAnswers} />
+                        <textarea
+                            placeholder={translations.typeYourReasonsForSuchAnswers}
+                            onChange={this.handleCommentChange}
+                            value={this.state.comment}
+                        />
                         <div>
-                            <button>Save</button>
+                            <button
+                                onClick={this.onToggleModal}
+                            >{this.context.translations.save}</button>
                         </div>
                     </div>
                 )}
