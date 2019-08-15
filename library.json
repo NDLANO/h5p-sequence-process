@@ -3,7 +3,7 @@
   "description": "Put elements in the right sequence with additional labels and reflection on why the specific order",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 1,
+  "patchVersion": 2,
   "runnable": 1,
   "author": "Cerpus",
   "license": "MIT",
@@ -21,6 +21,31 @@
       "machineName": "H5P.ResourceList",
       "majorVersion": 1,
       "minorVersion": 0
+    },
+    {
+      "machineName": "MustacheJS",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "FontAwesome",
+      "majorVersion": 4,
+      "minorVersion": 5
+    },
+    {
+      "machineName": "filesaver",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5P.JoubelUI",
+      "majorVersion": 1,
+      "minorVersion": 3
+    },
+    {
+      "machineName": "H5P.ExportPage",
+      "majorVersion": 1,
+      "minorVersion": 1
     }
   ],
   "editorDependencies": [

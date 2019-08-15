@@ -45,7 +45,8 @@ H5P.SequenceProcess = (function () {
       "resources": "Resources",
       "save": "Save",
       "selectAllLabelsConnectedToThisItem": "Select all labels connected to this item",
-      "restart": "Restart"
+      "restart": "Restart",
+      "createDocument": "Create document",
     }, params.l10n);
 
     const createElements = () => {

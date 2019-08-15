@@ -9,7 +9,8 @@ $h5pSequenceFontSize: 14px;
   font-weight: bold;
 }
 
-.h5p-sequence-button-restart {
+.h5p-sequence-button-restart,
+.h5p-sequence-button-export {
   @extend .h5p-sequence-button;
   margin-top: 15px;
   border-radius: 30px;
@@ -215,4 +216,8 @@ $h5pSequenceFontSize: 14px;
     display: block;
     margin-right: 10px;
   }
+}
+
+.joubel-create-document {
+  top: 0;
 }
