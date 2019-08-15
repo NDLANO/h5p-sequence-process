@@ -27,7 +27,7 @@ export default class Header extends React.Component {
             registerResizeEvent,
         } = this.context;
 
-        if( resourcesList.params.resourceList.length > 0){
+        if( resourcesList.params.resourceList.filter(element => Object.keys(element).length !== 0 && element.constructor === Object).length > 0){
             this.resourceList = new H5P.ResourceList(resourcesList.params, id, language);
             this.resourceList.attach(this.resourceContainer);
 
@@ -54,7 +54,7 @@ export default class Header extends React.Component {
 
         return (
             <header className={"h5p-sequence-header"}>
-                {this.resourceList !== null && (
+                {this.resourceList !== null && this.state.hasResources === true && (
                     <button className={"h5p-sequence-resources-btn"} onClick={this.showResourceList}>
                         <span className={classnames(['fa-stack'])}>
                             <i className={"fa fa-circle-thin fa-stack-2x"} />
