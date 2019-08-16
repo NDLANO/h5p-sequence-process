@@ -34,16 +34,11 @@ export default class Export extends Component {
             return accumulated;
         }, {});
 
-        // labelNoLabels: translations.labelNoLabels,
-        //     labelSummaryComment: "Kommentar oppsummering",
-        //     labelComment: "Kommentar",
-        //     labelLabels: "Etiketter",
-        //     labelAvailableLabel: "Tilgjengelige etiketter",
-        //     labelStatement: "Påstand",
-
         return Object.assign({}, translations, {
             mainTitle: header,
             description,
+            hasResources: resources.length > 0,
+            hasLabels: userInput.labels.length > 0,
             summaryComment: summary,
             allLabels: userInput.labels.map(label => label.label),
             resources: resources,
