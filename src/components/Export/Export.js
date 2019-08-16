@@ -75,7 +75,7 @@ export default class Export extends Component {
             "",
             translations.selectAll,
             translations.export,
-            "http://contentauthor.local/exportTemplate.docx", //H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
+            H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
             exportObject
         );
         this.exportDocument.getElement().prependTo(this.exportContainer);
