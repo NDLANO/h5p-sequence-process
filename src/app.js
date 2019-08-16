@@ -34,19 +34,31 @@ H5P.SequenceProcess = (function () {
     this.behaviour = params.behaviour || {};
     this.resizeEvents = [];
     this.resetStack = [];
+    this.collectExportValuesStack = [];
 
     const {
       language = 'en'
     } = extras;
 
     this.l10n = Object.assign({}, {
-      "summary": "Summary",
-      "typeYourReasonsForSuchAnswers": "Type your reasons for such answers",
-      "resources": "Resources",
-      "save": "Save",
-      "selectAllLabelsConnectedToThisItem": "Select all labels connected to this item",
-      "restart": "Restart",
-      "createDocument": "Create document",
+      summary: "Summary",
+      typeYourReasonsForSuchAnswers: "Type your reasons for such answers",
+      resources: "Resources",
+      save: "Save",
+      electAllLabelsConnectedToThisItem: "Select all labels connected to this item",
+      restart: "Restart",
+      createDocument: "Create document",
+      labelSummaryComment: "Summary comment",
+      labelComment: "Comment",
+      noLabels: "Ingen etiketter",
+      labelLabels: "Labels",
+      labelAvailableLabels: "Available labels",
+      labelStatement: "Statement",
+      labelNoComment: "No comment",
+      labelResources: "Resources",
+      labelNoLabels: "No labels",
+      selectAll: "Select all",
+      export: "Export",
     }, params.l10n);
 
     const createElements = () => {
@@ -62,6 +74,7 @@ H5P.SequenceProcess = (function () {
         registerResizeEvent: this.registerResizeEvent,
         registerReset: this.registerReset,
         reset: this.onReset,
+        collectExportValues: this.collectExportValues,
       };
 
       ReactDOM.render(
@@ -70,6 +83,16 @@ H5P.SequenceProcess = (function () {
         </SequenceProcessContext.Provider>,
         wrapper
       );
+    };
+
+    this.collectExportValues = (index, callback) => {
+      if( typeof index !== "undefined"){
+        this.collectExportValuesStack.push({key: index, callback: callback});
+      } else {
+        const exportValues = {};
+        this.collectExportValuesStack.forEach(({key, callback}) => exportValues[key] = callback());
+        return exportValues;
+      }
     };
 
     this.registerResizeEvent = callback => this.resizeEvents.push(callback);

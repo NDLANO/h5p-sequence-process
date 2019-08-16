@@ -60,9 +60,6 @@ export default class Labels extends React.PureComponent {
                             </label>
                         ))}
                         </div>
-                        <button
-                            onClick={this.onToggleModal}
-                        >{translations.save}</button>
                     </div>
                 )}
             >

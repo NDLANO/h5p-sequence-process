@@ -25,18 +25,26 @@ export default class Header extends React.Component {
             id,
             language = 'en',
             registerResizeEvent,
+            collectExportValues,
         } = this.context;
 
-        if( resourcesList.params.resourceList.filter(element => Object.keys(element).length !== 0 && element.constructor === Object).length > 0){
+        const filterResourceList = element => Object.keys(element).length !== 0 && element.constructor === Object;
+        if( resourcesList.params.resourceList.filter(filterResourceList).length > 0){
             this.resourceList = new H5P.ResourceList(resourcesList.params, id, language);
             this.resourceList.attach(this.resourceContainer);
 
             registerResizeEvent(() => this.resourceList.trigger('resize'));
-
             this.setState({
                 hasResources: true
             });
         }
+        collectExportValues('resources', () => resourcesList.params.resourceList
+            .filter(filterResourceList)
+            .map(resource => Object.assign({}, {
+                title: "",
+                url: "",
+                introduction: "",
+            }, resource)) || []);
     }
 
     showResourceList() {

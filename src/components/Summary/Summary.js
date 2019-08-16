@@ -8,16 +8,23 @@ export default class Summary extends React.PureComponent {
 
     constructor(props){
         super(props);
+        this.state = Summary.getInitState();
 
         this.handleReset = this.handleReset.bind(this);
-        this.state = Summary.getInitState();
+        this.sendExportValues = this.sendExportValues.bind(this);
+    }
+
+    sendExportValues() {
+        return this.state.comment;
     }
 
     componentDidMount() {
         const {
-            registerReset
+            registerReset,
+            collectExportValues,
         } = this.context;
 
+        collectExportValues('summary', this.sendExportValues);
         registerReset(this.handleReset);
     }
 

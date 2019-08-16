@@ -51,11 +51,6 @@ export default class Comment extends React.Component {
                             onChange={this.handleCommentChange}
                             value={this.state.comment}
                         />
-                        <div>
-                            <button
-                                onClick={this.onToggleModal}
-                            >{this.context.translations.save}</button>
-                        </div>
                     </div>
                 )}
             >

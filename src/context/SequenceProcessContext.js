@@ -9,4 +9,5 @@ export const SequenceProcessContext = React.createContext({
     registerResizeEvent: () => {},
     registerReset: () => {},
     reset: () => {},
+    collectExportValues: () => {},
 });

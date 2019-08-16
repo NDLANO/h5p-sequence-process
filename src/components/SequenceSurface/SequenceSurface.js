@@ -22,6 +22,7 @@ export default class SequenceSurface extends React.Component {
 
         this.init = this.init.bind(this);
         this.onDropEnd = this.onDropEnd.bind(this);
+        this.sendExportValues = this.sendExportValues.bind(this);
         this.handleOnStatementChange = this.handleOnStatementChange.bind(this);
     }
 
@@ -82,12 +83,27 @@ export default class SequenceSurface extends React.Component {
         });
     }
 
+    sendExportValues() {
+        const {
+            labels,
+            statements,
+            sequencedStatements,
+        } = this.state;
+        return {
+            labels,
+            statements,
+            sequencedStatements,
+        }
+    }
+
     componentDidMount() {
         const {
-            registerReset
+            registerReset,
+            collectExportValues
         } = this.context;
         this.init();
         registerReset(this.init);
+        collectExportValues('userInput', this.sendExportValues);
     }
 
     init() {

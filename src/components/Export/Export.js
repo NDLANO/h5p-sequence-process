@@ -13,50 +13,70 @@ export default class Export extends Component {
         this.handleExport = this.handleExport.bind(this);
     }
 
-    handleExport() {
+    getExportObject() {
         const {
-            registerResizeEvent
+            params: {
+                header,
+                description
+            },
+            translations,
+            collectExportValues,
         } = this.context;
 
-        this.exportDocument = new H5P.ExportPage("Tittel her",
+        const {
+            resources,
+            summary,
+            userInput
+        } = collectExportValues();
+
+        const labelsStructured = userInput.labels.reduce((accumulated, current) => {
+            accumulated[current.id] = current.label;
+            return accumulated;
+        }, {});
+
+        // labelNoLabels: translations.labelNoLabels,
+        //     labelSummaryComment: "Kommentar oppsummering",
+        //     labelComment: "Kommentar",
+        //     labelLabels: "Etiketter",
+        //     labelAvailableLabel: "Tilgjengelige etiketter",
+        //     labelStatement: "Påstand",
+
+        return Object.assign({}, translations, {
+            mainTitle: header,
+            description,
+            summaryComment: summary,
+            allLabels: userInput.labels.map(label => label.label),
+            resources: resources,
+            sortedStatementList: userInput.sequencedStatements
+                .map(statement => userInput.statements[statement])
+                .map(statement => {
+                    return {
+                        labels: statement.selectedLabels.map(label => labelsStructured[label]),
+                        comment: statement.comment || "",
+                        title: statement.statement,
+                    }
+                })
+        });
+    }
+
+    handleExport() {
+        const {
+            registerResizeEvent,
+            translations,
+        } = this.context;
+
+        const exportObject = this.getExportObject();
+
+        this.exportDocument = new H5P.ExportPage(
+            exportObject.mainTitle,
             "Her kommer en forhåndsvisning av eksporten",
             false,
             "",
             "",
-            "Velg alt",
-            "Exporter",
-            H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
-            {
-                mainTitle: "[Tittelen på oppgaven]",
-                summaryComment: "Min kommentar om alt",
-                noLabel: "Ingen etiketter",
-                labelSummaryComment: "Kommentar oppsummering",
-                labelComment: "Kommentar",
-                labelHeader: "Etiketter",
-                labelStatement: "Påstand",
-                sortedStatementList: [
-                    {
-                        title: "Kongen av haugen",
-                        labels: ["Test", "Test 2"],
-                        comment: "Statement comment"
-                    },
-                    {
-                        title: "Andreplass er første taper",
-                        labels: [],
-                        comment: ""
-                    },
-                    {
-                        title: "Tredje mann i bakken",
-                        labels: [],
-                        comment: "Unna vei"
-                    },
-                    {
-                        title: "Fire i sekken",
-                        labels: ["Tungt"],
-                        comment: ""
-                    }
-                ],
-            }
+            translations.selectAll,
+            translations.export,
+            "http://contentauthor.local/exportTemplate.docx", //H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
+            exportObject
         );
         this.exportDocument.getElement().prependTo(this.exportContainer);
         registerResizeEvent(() => this.exportDocument.trigger('resize'));
