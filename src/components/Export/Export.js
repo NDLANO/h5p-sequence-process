@@ -7,6 +7,8 @@ export default class Export extends Component {
     exportDocument = null;
     exportContainer = null;
 
+    exportObject = null;
+
     constructor(props) {
         super(props);
 
@@ -39,6 +41,7 @@ export default class Export extends Component {
             description,
             hasResources: resources.length > 0,
             hasLabels: userInput.labels.length > 0,
+            hasSummaryComment: summary.length > 0,
             summaryComment: summary,
             allLabels: userInput.labels.map(label => label.label),
             resources: resources,
@@ -54,24 +57,55 @@ export default class Export extends Component {
         });
     }
 
+    getExportPreview() {
+        const documentExportTemplate =
+            '<div class="export-preview">' +
+            '<div class="page-header" role="heading" tabindex="-1">' +
+            ' <h1 class="page-title">{{mainTitle}}</h1>' +
+            '</div>' +
+            '<div class="page-description">{{description}}</div>' +
+            '<table>' +
+            '<tr><th>{{headerStatement}}</th><th>{{headerLabels}}</th><th>{{headerComment}}</th></tr>' +
+            '{{#sortedStatementList}}<tr><td>{{title}}</td><td>{{#labels}}<li>{{.}}</li>{{/labels}}</td><td>{{comment}}</td></tr>{{/sortedStatementList}}' +
+            '</table>' +
+            '<h2>{{labelSummaryComment}}</h2>' +
+            '<p>{{^hasSummaryComment}}{{labelNoSummaryComment}}{{/hasSummaryComment}}{{summaryComment}}</p>' +
+            '<h2>{{header}}</h2>' +
+            '{{^resources}}<p>{{labelNoResources}}</p>{{/resources}}' +
+            '{{#hasResources}}' +
+            '<table>' +
+            '<tr><th>{{headerTitle}}</th><th>{{headerIntro}}</th><th>{{headerUrl}}</th></tr>' +
+            '{{#resources}}<tr><td>{{title}}</td><td>{{#labels}}<li>{{.}}</li>{{/labels}}</td><td>{{url}}</td></tr>{{/resources}}' +
+            '</table>' +
+            '{{/hasResources}}' +
+            '<h2>{{headerAvailableLabels}}</h2>' +
+            '{{^hasLabels}}<p>{{labelNoLabels}}</p>{{/hasLabels}}' +
+            '{{#allLabels}}' +
+            '<li>{{.}}</li>' +
+            '{{/allLabels}}' +
+            '</div>';
+
+        return Mustache.render(documentExportTemplate, this.exportObject);
+    }
+
     handleExport() {
         const {
             registerResizeEvent,
             translations,
         } = this.context;
 
-        const exportObject = this.getExportObject();
+        this.exportObject = this.getExportObject();
 
         this.exportDocument = new H5P.ExportPage(
-            exportObject.mainTitle,
-            "Her kommer en forhåndsvisning av eksporten",
+            this.exportObject.mainTitle,
+            this.getExportPreview(),
             false,
             "",
             "",
             translations.selectAll,
             translations.export,
             H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
-            exportObject
+            this.exportObject
         );
         this.exportDocument.getElement().prependTo(this.exportContainer);
         registerResizeEvent(() => this.exportDocument.trigger('resize'));
@@ -91,7 +125,7 @@ export default class Export extends Component {
                     <i className={"fa fa-download"}/>
                     {translations.createDocument}
                 </button>
-                <div className={"test"} ref={el => this.exportContainer = el}/>
+                <div className={"export-container"} ref={el => this.exportContainer = el}/>
             </Fragment>
         )
     }

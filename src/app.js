@@ -59,7 +59,7 @@ H5P.SequenceProcess = (function () {
       labelNoLabels: "No labels",
       selectAll: "Select all",
       export: "Export",
-    }, params.l10n);
+    }, params.l10n, params.resourceReport);
 
     const createElements = () => {
       wrapper = document.createElement('div');

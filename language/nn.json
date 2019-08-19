@@ -1,106 +1,131 @@
 {
   "semantics": [
     {
-      "englishLabel": "Header",
       "label": "Overskrift"
     },
     {
-      "englishLabel": "Task description",
       "label": "Beskrivelse"
     },
     {
-      "englishLabel": "Statements",
       "label": "Påstander",
-      "englishEntity": "statement",
       "entity": "statement",
       "field": {
-        "englishLabel": "Text",
         "label": "Påstand",
-        "englishDescription": "The statement that the user needs to process",
         "description": "Påstand som brukeren skal ta stilling til"
       }
     },
     {
-      "englishLabel": "Labels",
       "label": "Merkelapper",
-      "englishEntity": "label",
       "entity": "label",
       "field": {
-        "englishLabel": "Label",
         "label": "Merkelapp"
       }
     },
     {
-      "englishLabel": "Resources",
       "label": "Ressurser",
-      "englishDescription": "Optional links to resources.",
       "description": "Valgfrie lenker til ressurser."
     },
     {
-      "englishLabel": "Behavioural settings",
       "label": "Innstillinger",
-      "englishDescription": "These options will let you control the behaviour.",
       "description": "Disse innstillingene lar deg bestemme oppførsel.",
       "fields": [
         {
-          "englishLabel": "Enable retry?",
           "label": "Tillat å ta på nytt?",
-          "englishDescription": "Tick off this if you want the user to be able to retry",
           "description": "Kryss av hvis du vil at brukeren skal kunne besvare på nytt"
         },
         {
-          "englishLabel": "Show summary",
           "label": "Vis oppsummering",
-          "englishDescription": "Do you want the user to provide a summary explaining the reasons for his/her answers",
           "description": "Vil du at brukeren skal oppgi en oppsummering der vedkommende begrunner sine valg?"
         },
         {
-          "englishLabel": "Pre-populate the statements",
           "label": "Forhåndsutfyll påstandene",
-          "englishDescription": "The user starts off with the statements already ordered",
           "description": "Når brukeren starter er påstandene ferdig plassert i rekkefølge"
         }
       ]
     },
     {
-      "englishLabel": "Localize",
       "label": "Localize",
       "fields": [
         {
-          "englishLabel": "Summary",
           "label": "Oppsummering",
-          "englishDefault": "Summary",
           "default": "Oppsummering"
         },
         {
-          "englishLabel": "Placeholder for the text boxes",
           "label": "Midlertidig tekst for tekstfeltene",
-          "englishDefault": "Type your reasons for such answers",
           "default": "Skriv en begrunnelse for dine svar"
         },
         {
-          "englishLabel": "Label for \"Resources\"-button",
           "label": "Tekst på \"Ressurs\"-knappen",
-          "englishDefault": "Resources",
           "default": "Ressurser"
         },
         {
-          "englishLabel": "Label for \"Save\"-button",
-          "label": "Tekst på \"Lagre\"-knappen",
-          "englishDefault": "Resources",
-          "default": "Lagre"
-        },
-        {
-          "englishLabel": "Guides text for selecting tags",
           "label": "Hjelpetekst når bruker skal velge merkelapper",
-          "englishDefault": "Select all labels connected to this item",
           "default": "Velg merkelappene forbundet med dette elementet"
         },
         {
-          "englishLabel": "Label for \"Restart\"-button",
           "label": "Tekst på \"Start på nytt\"-knappen",
-          "englishDefault": "Restart",
           "default": "Start på nytt"
+        }
+      ]
+    },
+    {
+      "label": "Ressursrapport",
+      "fields": [
+        {
+          "label": "Tekst på \"Opprett dokument\"-knappen",
+          "default": "Opprett dokument"
+        },
+        {
+          "label": "Tekst på \"Eksporter\"-knappen",
+          "default": "Eksporter"
+        },
+        {
+          "label": "Tekst på \"Velg alt\"-knappen",
+          "default": "Velg alt"
+        },
+        {
+          "label": "Overskrift i \"Påstand\"-kolonnen,",
+          "default": "Påstand"
+        },
+        {
+          "label": "Overskrift i \"Etikkett\"-kolonnen,",
+          "default": "Etiketter"
+        },
+        {
+          "label": "Overskrift i \"Kommentar\"-kolonnen,",
+          "default": "Kommentar"
+        },
+        {
+          "label": "Overskrift over \"Ressurser\"-tabellen",
+          "default": "Ressurser"
+        },
+        {
+          "label": "Overskrift i 'Tittel'-kolonnen",
+          "default": "Tittel"
+        },
+        {
+          "label": "Overskrift i 'Ingress'-kolonnen",
+          "default": "Ingress"
+        },
+        {
+          "label": "Overskrift i 'Lenke'-kolonnen",
+          "default": "Lenke"
+        },
+        {
+          "label": "Tekst når ingen ressurser er registrert",
+          "default": "Ingen ressurser"
+        },
+        {
+          "label": "Overskrift for \"Oppsummering kommentar\"",
+          "default": "Oppsummering kommentar"
+        },
+        {
+          "label": "Tekst som vises når ingen oppsummering er gitt",
+          "default": "Ingen oppstummering"
+        },
+        {
+          "label": "Overskrift før utlisting av \"Tilgjengelige etiketter\"",
+          "default": "Tilgjengelige etiketter"
         }
       ]
     }

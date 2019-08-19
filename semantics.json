@@ -84,6 +84,7 @@
   {
     "name": "l10n",
     "type": "group",
+    "importance": "low",
     "label": "Localize",
     "common": true,
     "fields": [
@@ -106,12 +107,6 @@
         "default": "Resources"
       },
       {
-        "name": "save",
-        "type": "text",
-        "label": "Label for \"Save\"-button",
-        "default": "Resources"
-      },
-      {
         "name": "selectAllLabelsConnectedToThisItem",
         "type": "text",
         "label": "Guides text for selecting tags",
@@ -122,6 +117,99 @@
         "type": "text",
         "label": "Label for \"Restart\"-button",
         "default": "Restart"
+      }
+    ]
+  },
+  {
+    "label": "Resource report",
+    "importance": "low",
+    "name": "resourceReport",
+    "type": "group",
+    "common": true,
+    "fields": [
+      {
+        "name": "createDocument",
+        "type": "text",
+        "label": "Label for \"Create document\"-button",
+        "default": "Create document"
+      },
+      {
+        "name": "export",
+        "type": "text",
+        "label": "Label on \"Export\" button",
+        "default": "Export"
+      },
+      {
+        "name": "selectAll",
+        "type": "text",
+        "label": "Label on \"Select all\" button",
+        "default": "Select all"
+      },
+      {
+        "name": "headerStatement",
+        "type": "text",
+        "label": "Statement header in statement table",
+        "default": "Statements"
+      },
+      {
+        "name": "headerLabels",
+        "type": "text",
+        "label": "Labels header in statement table",
+        "default": "Labels"
+      },
+      {
+        "name": "headerComment",
+        "type": "text",
+        "label": "Comment header in statement table",
+        "default": "Comment"
+      },
+      {
+        "name": "header",
+        "type": "text",
+        "label": "Header above the \"Resource\" table",
+        "default": "Resources"
+      },
+      {
+        "name": "headerTitle",
+        "type": "text",
+        "label": "Title header in resource table",
+        "default": "Title"
+      },
+      {
+        "name": "headerIntro",
+        "type": "text",
+        "label": "Intro header in resource table",
+        "default": "Intro"
+      },
+      {
+        "name": "headerUrl",
+        "type": "text",
+        "label": "Url header in resource table",
+        "default": "Url"
+      },
+      {
+        "name": "labelNoResources",
+        "type": "text",
+        "label": "Label when no resources are found",
+        "default": "No resources"
+      },
+      {
+        "name": "labelSummaryComment",
+        "type": "text",
+        "label": "Header for summary comment",
+        "default": "Summary comment"
+      },
+      {
+        "name": "labelNoSummaryComment",
+        "type": "text",
+        "label": "Label when no summary is provided",
+        "default": "No comment"
+      },
+      {
+        "name": "headerAvailableLabels",
+        "type": "text",
+        "label": "Header for listing of labels in the report",
+        "default": "Available labels"
       }
     ]
   }

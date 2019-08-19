@@ -71,6 +71,67 @@
           "default": "Restart"
         }
       ]
+    },
+    {
+      "label": "Resource report",
+      "fields": [
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
+        },
+        {
+          "label": "Label on \"Export\" button",
+          "default": "Export"
+        },
+        {
+          "label": "Label on \"Select all\" button",
+          "default": "Select all"
+        },
+        {
+          "label": "Statement header in statement table",
+          "default": "Statements"
+        },
+        {
+          "label": "Labels header in statement table",
+          "default": "Labels"
+        },
+        {
+          "label": "Comment header in statement table",
+          "default": "Comment"
+        },
+        {
+          "label": "Header above the \"Resource\" table",
+          "default": "Resources"
+        },
+        {
+          "label": "Title header in resource table",
+          "default": "Title"
+        },
+        {
+          "label": "Intro header in resource table",
+          "default": "Intro"
+        },
+        {
+          "label": "Url header in resource table",
+          "default": "Url"
+        },
+        {
+          "label": "Label when no resources are found",
+          "default": "No resources"
+        },
+        {
+          "label": "Header for \"Summary comment\"",
+          "default": "Summary comment"
+        },
+        {
+          "label": "Label when no summary is provided",
+          "default": "No comment"
+        },
+        {
+          "label": "Header for listing of labels in the report",
+          "default": "Available labels"
+        }
+      ]
     }
   ]
 }

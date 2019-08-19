@@ -221,3 +221,27 @@ $h5pSequenceFontSize: 14px;
 .joubel-create-document {
   top: 0;
 }
+
+.export-preview {
+  .page-description {
+    font-style: italic;
+  }
+
+  table {
+    width: 100%;
+    border: 1px solid rgba(0, 90, 255, 0.34);
+  }
+  table tr:nth-child(even){
+    background-color: rgba(176, 200, 236, 0.34);
+  }
+
+  th {
+    text-align: start;
+    background-color: rgba(45, 119, 193, 0.34);
+    border-collapse: collapse;
+  }
+
+  li {
+    margin-left: 5px;
+  }
+}
