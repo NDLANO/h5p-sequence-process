@@ -26,21 +26,24 @@ H5P.SequenceProcess = (function () {
 
   function Wrapper(params, contentId, extras = {}) {
     // Initialize event inheritance
-    H5P.EventDispatcher.call(self);
+    H5P.EventDispatcher.call(this);
 
-    let wrapper;
+    const {
+      language = 'en'
+    } = extras;
+
     let container;
     this.params = params;
     this.behaviour = params.behaviour || {};
     this.resizeEvents = [];
     this.resetStack = [];
     this.collectExportValuesStack = [];
+    this.wrapper = null;
+    this.id = contentId;
+    this.language = language;
+    this.activityStartTime = new Date();
 
-    const {
-      language = 'en'
-    } = extras;
-
-    this.l10n = Object.assign({}, {
+    this.translations = Object.assign({}, {
       summary: "Summary",
       typeYourReasonsForSuchAnswers: "Type your reasons for such answers",
       resources: "Resources",
@@ -62,26 +65,15 @@ H5P.SequenceProcess = (function () {
     }, params.l10n, params.resourceReport);
 
     const createElements = () => {
-      wrapper = document.createElement('div');
+      const wrapper = document.createElement('div');
       wrapper.classList.add('h5p-process-sequence-wrapper');
-
-      const contextParams = {
-        params: this.params,
-        behaviour: this.behaviour,
-        id: contentId,
-        translations: this.l10n,
-        language: language,
-        registerResizeEvent: this.registerResizeEvent,
-        registerReset: this.registerReset,
-        reset: this.onReset,
-        collectExportValues: this.collectExportValues,
-      };
+      this.wrapper = wrapper;
 
       ReactDOM.render(
-        <SequenceProcessContext.Provider value={contextParams}>
+        <SequenceProcessContext.Provider value={this}>
           <Main />
         </SequenceProcessContext.Provider>,
-        wrapper
+        this.wrapper
       );
     };
 
@@ -95,44 +87,44 @@ H5P.SequenceProcess = (function () {
       }
     };
 
-    this.registerResizeEvent = callback => this.resizeEvents.push(callback);
     this.registerReset = callback => this.resetStack.push(callback);
 
     this.attach = $container => {
-      if (!wrapper) {
+      if (!this.wrapper) {
         createElements();
       }
 
-      this.registerResizeEvent(this.onResize);
-
       // Append elements to DOM
-      $container[0].appendChild(wrapper);
+      $container[0].appendChild(this.wrapper);
       $container[0].classList.add('h5p-sequence-process');
       container = $container;
     };
 
     this.getRect = () => {
-      return wrapper.getBoundingClientRect();
+      return this.wrapper.getBoundingClientRect();
     };
 
-    this.onReset = () => {
+    this.reset = () => {
       this.resetStack.forEach(callback => callback());
     };
 
-    this.onResize = rect => {
+    this.resize = () => {
+      if (!this.wrapper) {
+        return;
+      }
+        const rect = this.getRect();
       breakPoints.forEach(item => {
         if (item.shouldAdd(rect.width)) {
-          wrapper.classList.add(item.className);
+          this.wrapper.classList.add(item.className);
         } else {
-          wrapper.classList.remove(item.className);
+          this.wrapper.classList.remove(item.className);
         }
       });
     };
 
-    this.on('resize', () => {
-      const rect = this.getRect();
-      this.resizeEvents.forEach(callback => callback(rect));
-    });
+    this.getRect = this.getRect.bind(this);
+    this.resize = this.resize.bind(this);
+    this.on('resize', this.resize);
   }
 
   return Wrapper;

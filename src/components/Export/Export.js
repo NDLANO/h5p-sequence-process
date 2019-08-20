@@ -90,11 +90,12 @@ export default class Export extends Component {
 
     handleExport() {
         const {
-            registerResizeEvent,
             translations,
         } = this.context;
 
         this.exportObject = this.getExportObject();
+
+        this.context.triggerXAPIScored(0, 0, 'completed');
 
         this.exportDocument = new H5P.ExportPage(
             this.exportObject.mainTitle,
@@ -108,7 +109,7 @@ export default class Export extends Component {
             this.exportObject
         );
         this.exportDocument.getElement().prependTo(this.exportContainer);
-        registerResizeEvent(() => this.exportDocument.trigger('resize'));
+        H5P.$window.on('resize', () => this.exportDocument.trigger('resize'));
     }
 
     render() {

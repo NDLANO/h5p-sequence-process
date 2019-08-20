@@ -24,7 +24,6 @@ export default class Header extends React.Component {
             params: {resourcesList},
             id,
             language = 'en',
-            registerResizeEvent,
             collectExportValues,
         } = this.context;
 
@@ -33,7 +32,6 @@ export default class Header extends React.Component {
             this.resourceList = new H5P.ResourceList(resourcesList.params, id, language);
             this.resourceList.attach(this.resourceContainer);
 
-            registerResizeEvent(() => this.resourceList.trigger('resize'));
             this.setState({
                 hasResources: true
             });
