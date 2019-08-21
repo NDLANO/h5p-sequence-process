@@ -10,8 +10,10 @@ const Remaining = props => {
         <div
             className="h5p-sequence-statement"
         >
-            <i className="fa fa-arrows" />
             <div>
+                <div className={"h5p-sequence-drag-element"}>
+                    <i className="fa fa-arrows" />
+                </div>
                 {statement}
             </div>
         </div>

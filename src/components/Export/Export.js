@@ -75,7 +75,7 @@ export default class Export extends Component {
             '{{#hasResources}}' +
             '<table>' +
             '<tr><th>{{headerTitle}}</th><th>{{headerIntro}}</th><th>{{headerUrl}}</th></tr>' +
-            '{{#resources}}<tr><td>{{title}}</td><td>{{#labels}}<li>{{.}}</li>{{/labels}}</td><td>{{url}}</td></tr>{{/resources}}' +
+            '{{#resources}}<tr><td>{{title}}</td><td>{{introduction}}</td><td>{{url}}</td></tr>{{/resources}}' +
             '</table>' +
             '{{/hasResources}}' +
             '<h2>{{headerAvailableLabels}}</h2>' +

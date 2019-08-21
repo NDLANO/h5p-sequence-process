@@ -101,6 +101,11 @@ $h5pSequenceFontSize: 14px;
   border-radius: 3px;
   font-weight: bold;
 
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+
   .fa-arrows {
     color: #747474;
     width: 40px;
@@ -220,6 +225,14 @@ $h5pSequenceFontSize: 14px;
     display: block;
     margin-right: 10px;
   }
+}
+
+.h5p-sequence-drag-element {
+  border-right: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  margin-right: 13px;
+  min-height: 44px;
 }
 
 .joubel-create-document {
