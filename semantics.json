@@ -78,6 +78,22 @@
         "label": "Pre-populate the statements",
         "description": "The user starts off with the statements already ordered",
         "default": false
+      },
+      {
+        "name": "randomizeStatements",
+        "type": "boolean",
+        "label": "Randomize the statements",
+        "description": "Will randomize the pre-populated statements",
+        "default": false,
+        "widget": "showWhen",
+        "showWhen": {
+          "rules": [
+            {
+              "field": "prepopulate",
+              "equals": true
+            }
+          ]
+        }
       }
     ]
   },

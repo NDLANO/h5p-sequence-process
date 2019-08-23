@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import md5 from 'md5';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext';
-import { DragDropContext } from 'react-beautiful-dnd';
+import {SequenceProcessContext} from '../../context/SequenceProcessContext';
+import {DragDropContext} from 'react-beautiful-dnd';
 import Column from '../Column/Column';
 import StatementList from "../StatementList/StatementList";
 
@@ -155,26 +155,30 @@ export default class SequenceSurface extends React.Component {
     }
 
     handleSurface() {
-        if (this.state.showOneColumn !== true) {
-            return (
-                <Fragment>
-                    <Column
-                        droppableId={"processed"}
-                        combine={true}
-                        columnType="sequenced"
-                    >
-                        {this.state.sequencedStatements
-                            .map(statementId => this.state.statements[statementId])
-                            .map((statement, index) => (
-                                <StatementList
-                                    key={"sequenced-" + statement.id}
-                                    draggableType="sequenced"
-                                    statement={statement}
-                                    index={index}
-                                />
-                            ))
-                        }
-                    </Column>
+        return (
+            <Fragment>
+                <Column
+                    droppableId={"processed"}
+                    combine={!this.state.showOneColumn}
+                    columnType="sequenced"
+                >
+                    {this.state.sequencedStatements
+                        .map(statementId => this.state.statements[statementId])
+                        .map((statement, index) => (
+                            <StatementList
+                                key={"sequenced-" + statement.id}
+                                draggableType="sequenced"
+                                statement={statement}
+                                index={index}
+                                isSingleColumn={this.state.showOneColumn}
+                                labels={this.state.labels}
+                                onStatementChange={this.handleOnStatementChange}
+                                selectedLabels={statement.selectedLabels}
+                            />
+                        ))
+                    }
+                </Column>
+                {this.state.remainingStatements.length > 0 && (
                     <Column
                         droppableId="start"
                         disableDrop={true}
@@ -192,34 +196,9 @@ export default class SequenceSurface extends React.Component {
                             ))
                         }
                     </Column>
-                </Fragment>
-            );
-        } else {
-            return (
-                <Fragment>
-                    <Column
-                        droppableId={"processed"}
-                        columnType="sequenced"
-                    >
-                        {this.state.sequencedStatements
-                            .map(statementId => this.state.statements[statementId])
-                            .map((statement, index) => (
-                                <StatementList
-                                    key={"sequenced-" + statement.id}
-                                    draggableType="sequenced"
-                                    statement={statement}
-                                    index={index}
-                                    isSingleColumn={true}
-                                    labels={this.state.labels}
-                                    onStatementChange={this.handleOnStatementChange}
-                                    selectedLabels={statement.selectedLabels}
-                                />
-                            ))
-                        }
-                    </Column>
-                </Fragment>
-            );
-        }
+                )}
+            </Fragment>
+        );
     }
 
     render() {
@@ -230,6 +209,7 @@ export default class SequenceSurface extends React.Component {
                 <DragDropContext
                     className="h5p-sequenceSurface"
                     onDragEnd={this.onDropEnd}
+                    onDragUpdate={this.onDropUpdate}
                 >
                     {this.handleSurface()}
                 </DragDropContext>

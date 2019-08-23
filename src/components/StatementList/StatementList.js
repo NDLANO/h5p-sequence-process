@@ -73,7 +73,7 @@ export default class StatementList extends React.Component {
                         {labels.length > 0 && (
                             <Labels
                                 labels={labels}
-                                selectedLabelArray={this.props.selectedLabels}
+                                selectedLabelArray={statement.selectedLabels}
                                 onLabelChange={this.handleOnLabelChange}
                             />
                         )}
@@ -87,6 +87,7 @@ export default class StatementList extends React.Component {
                 <Sequenced
                     statement={statement.statement}
                     actions={actions}
+                    //labels={statement.selectedLabels.map(label => labels.filter(labelObject => labelObject.id === label).map(label => label.label))}
                 />
             )
         } else if (draggableType === 'sequenced') {
@@ -111,12 +112,15 @@ export default class StatementList extends React.Component {
                 index={index}
             >
                 {provided => (
-                    <div
-                        ref={provided.innerRef}
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                    >
-                        {this.handleStatementType()}
+                    <div className={"h5p-sequence-draggable-container"}>
+                        <div
+                            className={"h5p-sequence-draggable-element"}
+                            ref={provided.innerRef}
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                        >
+                            {this.handleStatementType()}
+                        </div>
                     </div>
                 )}
             </Draggable>

@@ -1,4 +1,4 @@
-import './SPStyle.scss';
+import './SequenceStyle.scss';
 import React, {Fragment} from 'react';
 import Header from './Header/Header';
 import SequenceSurface from '../components/SequenceSurface/SequenceSurface';
