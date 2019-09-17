@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --mode production",
     "watch": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/to/be/provided"
   },
-  "author": "Cerpus (https://joubel.com)",
+  "author": "Cerpus (https://www.cerpus.com)",
   "license": "MIT",
   "contributors": [],
   "devDependencies": {
