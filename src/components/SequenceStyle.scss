@@ -272,7 +272,7 @@ $h5pColor1: #1f71e8;
   align-items: center;
   cursor: pointer;
   font-size: 20px;
-  transition: background-color .5s, color .5s;
+  transition: background-color 300ms, color 300ms;
 
   &.h5p-sequence-action-active{
     background-color: black;
