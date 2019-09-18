@@ -468,3 +468,42 @@ $h5pColor1: #1f71e8;
 .hidden {
   display: none !important;
 }
+.h5p-sequence-reset-modal {
+  background-color: white;
+  padding: 20px;
+  width: 200px;
+  display: inline-flex;
+  flex-flow: column;
+
+  & div:nth-child(1){
+    margin: 0 auto;
+  }
+
+  & div:nth-child(2){
+    margin-left: auto;
+    margin-top: 20px;
+  }
+
+  span {
+    font-style: italic;
+    font-weight: bold;
+    margin: 10px 0;
+    display: block;
+  }
+
+  button {
+    color: #fff;
+    border-radius: 20px;
+    margin-left: 1em;
+  }
+
+  .yes {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .no {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+}

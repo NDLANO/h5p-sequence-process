@@ -62,6 +62,10 @@ H5P.SequenceProcess = (function () {
       labelNoLabels: "No labels",
       selectAll: "Select all",
       export: "Export",
+      yes: "Yes",
+      no: "No",
+      ifYouContinueAllYourChangesWillBeLost: "If you continue all your changes will be lost.",
+      areYouSure: "Are you sure?",
     }, params.l10n, params.resourceReport);
 
     const createElements = () => {
