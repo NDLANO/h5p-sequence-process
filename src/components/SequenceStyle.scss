@@ -1,7 +1,8 @@
 $h5pSequenceFontSize: 14px;
+$h5pColor1: #1f71e8;
 
 .h5p-sequence-button {
-  background-color: #1f71e8;
+  background-color: $h5pColor1;
   border-radius: 5px;
   color: white;
   padding: 10px 15px;
@@ -34,6 +35,12 @@ $h5pSequenceFontSize: 14px;
   &.h5p-process-sequence-wrapper {
     padding: 30px;
   }
+
+  .h5p-sequence-statement-labels,
+  .h5p-sequence-statement-comment {
+    display: flex;
+  }
+
 }
 
 .h5p-large-tablet-size,
@@ -45,6 +52,12 @@ $h5pSequenceFontSize: 14px;
   .h5p-sequence-number div {
     width: 60px;
     height: 60px;
+  }
+
+  .h5p-sequence-statement-container {
+    display: flex;
+    align-items: stretch;
+    align-content: flex-start;
   }
 }
 
@@ -61,8 +74,8 @@ $h5pSequenceFontSize: 14px;
 
 .h5p-sequence-resources-btn {
   background-color: transparent;
-  border: 1px solid #2070e3;
-  color: #2070e3;
+  border: 1px solid $h5pColor1;
+  color: $h5pColor1;
   border-radius: 40px;
   padding: 8px;
   font-weight: bold;
@@ -113,6 +126,11 @@ $h5pSequenceFontSize: 14px;
   border-radius: 3px;
   font-weight: bold;
 
+  &.h5p-sequence-statement-extra {
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+  }
+
   & > div {
     display: flex;
     align-items: center;
@@ -123,6 +141,94 @@ $h5pSequenceFontSize: 14px;
     width: 40px;
     text-align: center;
   }
+}
+
+.h5p-sequence-statement-container {
+  border: 1px solid #e6e6e6;
+  border-radius: 0 0 3px 3px;
+  background-color: #fbfbfb;
+  padding: 2px;
+
+  .fa {
+    font-size: 20px;
+    color: black;
+    background-color: white;
+    margin: 8px 0 0 13px;
+  }
+}
+
+.h5p-sequence-statement-comment {
+  @extend .h5p-sequence-statement-common;
+  flex: 3;
+  display: block;
+
+  div {
+    flex: auto;
+    display: flex;
+  }
+
+  textarea {
+    background-color: inherit;
+    resize: none;
+    border: 0;
+    width: 100%;
+    word-wrap: break-word;
+    padding: 0;
+    margin: 8px;
+    overflow-y: hidden;
+    font-size: inherit;
+    height: auto;
+  }
+
+}
+
+.h5p-sequence-statement-labels{
+  padding: 4px;
+  flex: 2;
+
+  & > div {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 8px;
+    align-self: flex-start;
+  }
+
+  & > .fa {
+    color: black;
+    background-color: transparent;
+  }
+
+  &:not(.hidden) + .h5p-sequence-statement-comment {
+    border-left: 1px solid #e6e6e6;
+  }
+
+}
+
+.h5p-sequence-statement-label{
+  padding: 3px 10px;
+  margin: 0 12px 10px 0;
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+  position: relative;
+
+  .fa {
+    position: absolute;
+    top: -20px;
+    right: -13px;
+    border-radius: 50%;
+    padding: 4px;
+    height: 11px;
+    width: 11px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fbfbfb;
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
 }
 
 .h5p-sequence-select-list {
@@ -157,15 +263,21 @@ $h5pSequenceFontSize: 14px;
 
 .h5p-sequence-action {
   background-color: white;
+  border-color: transparent;
   border-radius: 50%;
   padding: 10px;
-  height: 18px;
   margin-left: 15px;
   box-shadow: 0 2px 2px #b8b8b8;
   display: flex;
   align-items: center;
   cursor: pointer;
   font-size: 20px;
+  transition: background-color .5s, color .5s;
+
+  &.h5p-sequence-action-active{
+    background-color: black;
+    color: white;
+  }
 }
 
 .h5p-sequence-popover {
@@ -182,6 +294,7 @@ $h5pSequenceFontSize: 14px;
   background-color: black;
   padding: 10px;
   box-shadow: 6px 6px 15px #747474;
+  max-width: 85vw;
 
   textarea {
     min-width: 300px;
@@ -231,7 +344,52 @@ $h5pSequenceFontSize: 14px;
   label {
     min-width: 90px;
     display: block;
-    margin-right: 10px;
+    margin: 3px;
+    position: relative;
+    cursor: pointer;
+    padding-left: 20px;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 16px;
+      width: 16px;
+      background-color: #eee;
+      border-radius: 3px;
+    }
+
+    & input:checked ~ .checkmark {
+      background-color: $h5pColor1;
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    & input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    & .checkmark:after {
+      left: 5px;
+      top: 1px;
+      width: 3px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
   }
 }
 
@@ -305,4 +463,8 @@ $h5pSequenceFontSize: 14px;
   li {
     margin-left: 5px;
   }
+}
+
+.hidden {
+  display: none !important;
 }

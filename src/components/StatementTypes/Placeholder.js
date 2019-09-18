@@ -1,11 +1,15 @@
 import React from 'react';
 
-const Placeholder = () => {
+const Placeholder = ({
+    children
+                     }) => {
 
     return (
         <div
             className="h5p-droparea"
-        />
+        >
+            {children}
+        </div>
     );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from "react-beautiful-dnd";
 import Remaining from "../StatementTypes/Remaining";
@@ -8,56 +8,17 @@ import ActionsList from "../Actions/ActionsList";
 import Comment from "../Actions/Comment";
 import Labels from "../Actions/Labels";
 
-export default class StatementList extends React.Component {
-    static propTypes = {
-        statement: PropTypes.object,
-        index: PropTypes.number.isRequired,
-        draggableType: PropTypes.string.isRequired,
-        isSingleColumn: PropTypes.bool,
-        labels: PropTypes.array,
-        onStatementChange: PropTypes.func,
-        selectedLabels: PropTypes.array,
-    };
+function StatementList(props) {
+    const inputRef = useRef();
+    const [showCommentContainer, toggleCommentContainer] = useState(false);
 
-    static defaultProps = {
-        isSingleColumn: false,
-        statement: {},
-        labels: [],
-        selectedLabels: [],
-    };
-
-    constructor(props){
-        super(props);
-
-        this.handleOnLabelChange = this.handleOnLabelChange.bind(this);
-        this.handleOnCommentChange = this.handleOnCommentChange.bind(this);
-    }
-
-    handleOnLabelChange(labelId) {
-        const statement = JSON.parse(JSON.stringify(this.props.statement));
-        let selectedLabels = statement.selectedLabels;
-        let labelIndex = selectedLabels.indexOf(labelId);
-        if( labelIndex !== -1){
-            selectedLabels.splice(labelIndex, 1);
-        } else {
-            selectedLabels.push(labelId);
-        }
-        this.props.onStatementChange(statement);
-    }
-
-    handleOnCommentChange(comment) {
-        const statement = Object.assign({}, this.props.statement);
-        statement.comment = comment;
-        this.props.onStatementChange(statement);
-    }
-
-    handleStatementType() {
+    function handleStatementType() {
         const {
             statement,
             draggableType,
             isSingleColumn,
             labels,
-        } = this.props;
+        } = props;
 
         if (draggableType === 'remaining') {
             return (
@@ -74,20 +35,26 @@ export default class StatementList extends React.Component {
                             <Labels
                                 labels={labels}
                                 selectedLabelArray={statement.selectedLabels}
-                                onLabelChange={this.handleOnLabelChange}
+                                onLabelChange={handleOnLabelChange}
                             />
                         )}
                         <Comment
-                            onCommentChange={this.handleOnCommentChange}
+                            onCommentChange={handleOnCommentChange}
+                            comment={statement.comment}
+                            onClick={handleCommentClick()}
                         />
                     </ActionsList>
                 )
             }
             return (
                 <Sequenced
-                    statement={statement.statement}
+                    statement={statement}
                     actions={actions}
-                    //labels={statement.selectedLabels.map(label => labels.filter(labelObject => labelObject.id === label).map(label => label.label))}
+                    enableCommentDisplay={showCommentContainer}
+                    inputRef={inputRef}
+                    onCommentChange={handleOnCommentChange}
+                    labels={labels}
+                    onLabelChange={handleOnLabelChange}
                 />
             )
         } else if (draggableType === 'sequenced') {
@@ -99,31 +66,83 @@ export default class StatementList extends React.Component {
         }
     }
 
-    render() {
-        const {
-            index,
-            statement,
-            draggableType,
-        } = this.props;
+    function handleCommentClick() {
+        if( props.enableCommentDisplay !== true){
+            return null;
+        }
 
-        return (
-            <Draggable
-                draggableId={draggableType + "-" + statement.id}
-                index={index}
-            >
-                {provided => (
-                    <div className={"h5p-sequence-draggable-container"}>
-                        <div
-                            className={"h5p-sequence-draggable-element"}
-                            ref={provided.innerRef}
-                            {...provided.dragHandleProps}
-                            {...provided.draggableProps}
-                        >
-                            {this.handleStatementType()}
-                        </div>
-                    </div>
-                )}
-            </Draggable>
-        )
+        return () => {
+            toggleCommentContainer(true);
+            setTimeout(() => inputRef.current.focus(), 0);
+        }
     }
+
+    function handleOnCommentChange(comment) {
+        const statement = Object.assign({}, props.statement);
+        statement.comment = comment;
+        props.onStatementChange(statement);
+        if( !comment || comment.length === 0){
+            toggleCommentContainer(false);
+        }
+    }
+
+    function handleOnLabelChange(labelId){
+        const statement = JSON.parse(JSON.stringify(props.statement));
+        let selectedLabels = statement.selectedLabels;
+        let labelIndex = selectedLabels.indexOf(labelId);
+        if( labelIndex !== -1){
+            selectedLabels.splice(labelIndex, 1);
+        } else {
+            selectedLabels.push(labelId);
+        }
+        props.onStatementChange(statement);
+    }
+
+    const {
+        index,
+        statement,
+        draggableType,
+    } = props;
+
+    return (
+        <Draggable
+            draggableId={draggableType + "-" + statement.id}
+            index={index}
+        >
+            {provided => (
+                <div className={"h5p-sequence-draggable-container"}>
+                    <div
+                        className={"h5p-sequence-draggable-element"}
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                    >
+                        {handleStatementType()}
+                    </div>
+                </div>
+            )}
+        </Draggable>
+    )
 }
+
+
+StatementList. propTypes = {
+    statement: PropTypes.object,
+    index: PropTypes.number.isRequired,
+    draggableType: PropTypes.string.isRequired,
+    isSingleColumn: PropTypes.bool,
+    onStatementChange: PropTypes.func,
+    labels: PropTypes.array,
+    selectedLabels: PropTypes.array,
+    enableCommentDisplay: PropTypes.bool,
+};
+
+StatementList.defaultProps = {
+    isSingleColumn: false,
+    statement: {},
+    enableCommentDisplay: false,
+    labels: [],
+    selectedLabels: [],
+};
+
+export default StatementList;

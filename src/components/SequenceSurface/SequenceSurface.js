@@ -113,9 +113,14 @@ export default class SequenceSurface extends React.Component {
                 labelsList = [],
             },
             behaviour: {
-                prepopulate: prepopulated = false
+                prepopulate: prepopulated = false,
+                randomizeStatements = false,
             }
         } = this.context;
+
+        if (randomizeStatements === true) {
+            statementsList.sort(() => 0.5 - Math.random());
+        }
 
         const statements = statementsList.reduce((existing, current) => {
             const id = md5(current);
@@ -151,7 +156,8 @@ export default class SequenceSurface extends React.Component {
                 ...this.state.statements,
                 [statement.id]: statement
             }
-        })
+        }, () => this.context.trigger('resize'));
+
     }
 
     handleSurface() {
@@ -174,6 +180,7 @@ export default class SequenceSurface extends React.Component {
                                 labels={this.state.labels}
                                 onStatementChange={this.handleOnStatementChange}
                                 selectedLabels={statement.selectedLabels}
+                                enableCommentDisplay={this.context.behaviour.displayCommentsBelowStatement}
                             />
                         ))
                     }

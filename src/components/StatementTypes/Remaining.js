@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DragArrows from "./components/DragArrows";
 
 const Remaining = props => {
     const {
@@ -11,9 +12,7 @@ const Remaining = props => {
             className="h5p-sequence-statement"
         >
             <div>
-                <div className={"h5p-sequence-drag-element"}>
-                    <i className="fa fa-arrows" />
-                </div>
+                <DragArrows />
                 {statement}
             </div>
         </div>

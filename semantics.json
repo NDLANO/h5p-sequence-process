@@ -14,42 +14,65 @@
   },
   {
     "name": "statementsList",
-    "type": "list",
     "label": "Statements",
-    "entity": "statement",
+    "type": "group",
     "importance": "high",
-    "min": 1,
-    "defaultNum": 1,
-    "field": {
-      "name": "text",
-      "type": "text",
-      "label": "Text",
-      "importance": "high",
-      "description": "The statement that the user needs to process"
-    }
+    "expanded": true,
+    "fields": [
+      {
+        "name": "statementsList",
+        "type": "list",
+        "label": "Statements",
+        "importance": "high",
+        "entity": "statement",
+        "optional": true,
+        "min": 1,
+        "field": {
+          "name": "text",
+          "type": "text",
+          "label": "Statement"
+        }
+      }
+    ]
   },
   {
-    "type": "list",
     "name": "labelsList",
     "label": "Labels",
-    "entity": "label",
-    "optional": true,
-    "field": {
-      "name": "label",
-      "type": "text",
-      "label": "Label",
-      "optional": true
-    }
+    "type": "group",
+    "expanded": true,
+    "fields": [
+      {
+        "name": "labelsList",
+        "type": "list",
+        "label": "Labels",
+        "entity": "label",
+        "optional": true,
+        "min": 1,
+        "field": {
+          "name": "text",
+          "type": "text",
+          "label": "Label"
+        }
+      }
+    ]
   },
   {
-    "name": "resourcesList",
-    "type": "library",
+    "name": "resources",
+    "type": "group",
     "label": "Resources",
-    "importance": "medium",
-    "options": [
-      "H5P.ResourceList 1.0"
-    ],
-    "description": "Optional links to resources."
+    "importance": "low",
+    "fields": [
+      {
+        "name": "resourcesList",
+        "type": "library",
+        "label": "Resources",
+        "importance": "medium",
+        "options": [
+          "H5P.ResourceList 1.0"
+        ],
+        "description": "Optional links to resources."
+      }
+    ]
   },
   {
     "name": "behaviour",
@@ -94,6 +117,13 @@
             }
           ]
         }
+      },
+      {
+        "name": "displayCommentsBelowStatement",
+        "type": "boolean",
+        "label": "Display the provided comments below the statement",
+        "description": "If the user has provided a comment, this is shown in the statements list",
+        "default": false
       }
     ]
   },
