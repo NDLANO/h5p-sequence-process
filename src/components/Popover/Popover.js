@@ -24,18 +24,20 @@ const Popover = ({handleClose, show, children, popoverContent}) => {
                     arrowSize={10}
                 >
                     <div className={"h5p-sequence-popover-content"}>
+                        <div>
+                            {popoverContent}
+                        </div>
                         <div
-                            onClick={handleClose}
                             className={classnames("h5p-sequence-popover-close", {
                                 "close-button-top": position === "top",
                                 "close-button-bottom": position === "bottom",
                             })}>
-                                <span className={"close-button"}>
+                                <button
+                                    onClick={handleClose}
+                                    className={"close-button"}
+                                >
                                     <i className={"fa fa-close"} />
-                                </span>
-                        </div>
-                        <div>
-                            {popoverContent}
+                                </button>
                         </div>
                     </div>
                 </ArrowContainer>

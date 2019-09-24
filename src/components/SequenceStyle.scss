@@ -296,9 +296,9 @@ $h5pColor1: #1f71e8;
 
   textarea {
     min-width: 18em;
-    min-height: 4em;
+    min-height: 5em;
     font-size: 1em;
-    display: flex;
+    box-sizing: border-box;
     border: 0;
   }
 }
@@ -308,14 +308,15 @@ $h5pColor1: #1f71e8;
   right: -0.8em;
 
   .close-button {
-    width: 1.24em;
-    height: 1.24em;
-    border: 0.13em solid black;
+    height: 1.8em;
+    border: 0.16em solid black;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
+    padding: 0.3em;
+    color: black;
   }
 
   &.close-button-top {

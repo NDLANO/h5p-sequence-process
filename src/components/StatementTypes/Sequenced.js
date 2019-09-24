@@ -23,7 +23,7 @@ const Sequenced = props => {
         >
             <div
                 className={classnames("h5p-sequence-statement", {
-                    'h5p-sequence-statement-extra': (enableCommentDisplay && statement.comment && statement.comment.length > 0) || statement.selectedLabels.length > 0
+                    'h5p-sequence-statement-extra': enableCommentDisplay || statement.selectedLabels.length > 0
                 })}
             >
                 <div>
