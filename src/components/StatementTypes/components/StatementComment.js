@@ -19,7 +19,7 @@ function StatementComment(props) {
             })}
         >
             <i
-                className={"fa fa-commenting"}
+                className={"fa fa-lg fa-commenting"}
             />
             <textarea
                 ref={inputRef}

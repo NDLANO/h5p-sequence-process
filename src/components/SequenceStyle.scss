@@ -1,11 +1,10 @@
-$h5pSequenceFontSize: 14px;
 $h5pColor1: #1f71e8;
 
 .h5p-sequence-button {
   background-color: $h5pColor1;
-  border-radius: 5px;
+  border-radius: 0.4em;
   color: white;
-  padding: 10px 15px;
+  padding: 0.6em 1em;
   border: none;
   font-weight: bold;
 }
@@ -13,12 +12,13 @@ $h5pColor1: #1f71e8;
 .h5p-sequence-button-restart,
 .h5p-sequence-button-export {
   @extend .h5p-sequence-button;
-  margin-top: 15px;
-  border-radius: 30px;
+  margin-top: 1em;
+  border-radius: 2em;
   font-weight: normal;
+  font-size: initial;
 
   .fa {
-    margin-right: 10px;
+    margin-right: 0.6em;
   }
 }
 
@@ -26,14 +26,14 @@ $h5pColor1: #1f71e8;
 .h5p-large-tablet-size,
 .h5p-large-size {
   & .h5p-sequence-select-list {
-    margin-left: 12px;
+    margin-left: 0.75em;
   }
   & .h5p-sequenceSurface {
     flex-flow: row;
   }
 
   &.h5p-process-sequence-wrapper {
-    padding: 30px;
+    padding: 1.8em;
   }
 
   .h5p-sequence-statement-labels,
@@ -41,17 +41,16 @@ $h5pColor1: #1f71e8;
     display: flex;
   }
 
+  .h5p-sequence-statement .fa-arrows {
+    width: 2.5em;
+  }
+
 }
 
 .h5p-large-tablet-size,
 .h5p-large-size {
   .h5p-sequence-columns {
-    padding: 16px;
-  }
-
-  .h5p-sequence-number div {
-    width: 60px;
-    height: 60px;
+    padding: 1em;
   }
 
   .h5p-sequence-statement-container {
@@ -68,21 +67,21 @@ $h5pColor1: #1f71e8;
 }
 
 .h5p-process-sequence-wrapper {
-  font-size: $h5pSequenceFontSize;
-  padding: 12px;
+  padding: 0.24em;
 }
 
 .h5p-sequence-resources-btn {
   background-color: transparent;
-  border: 1px solid $h5pColor1;
+  border: 0.08em solid $h5pColor1;
   color: $h5pColor1;
-  border-radius: 40px;
-  padding: 8px;
+  border-radius: 3em;
+  padding: 0.5em;
   font-weight: bold;
   float: right;
+  font-size: initial;
 
   .fa-stack {
-    margin-right: 10px;
+    margin-right: 0.7em;
   }
 }
 
@@ -91,14 +90,14 @@ $h5pColor1: #1f71e8;
 }
 
 .h5p-sequence-columns {
-  padding: 6px;
+  padding: 0.4em;
   flex: 1;
-  border: 1px solid #dbdbdb;
-  margin: 10px 0;
+  border: 0.08em solid #dbdbdb;
+  margin: 0.6em 0;
 }
 
 .h5p-sequence-statement-common {
-  padding: 4px;
+  padding: 0.25em;
   display: flex;
   flex-grow: 1;
 }
@@ -110,25 +109,25 @@ $h5pColor1: #1f71e8;
 
 .h5p-droparea {
   @extend .h5p-sequence-statement-common;
-  border: 2px dashed #d1d1d1;
+  border: 0.13em dashed #d1d1d1;
   background-color: white;
-  min-height: 50px;
+  min-height: 3.2em;
   flex-flow: column;
 }
 
 .h5p-sequence-statement {
   @extend .h5p-sequence-statement-common;
   background-color: #f5f5f5;
-  min-height: 44px;
-  border: 1px solid #e6e6e6;
-  border-bottom: 4px solid #e6e6e6;
+  min-height: 2.5em;
+  border: 0.08em solid #e6e6e6;
+  border-bottom: 0.25em solid #e6e6e6;
   align-items: center;
-  border-radius: 3px;
+  border-radius: 0.2em;
   font-weight: bold;
 
   &.h5p-sequence-statement-extra {
     border-bottom: 0;
-    border-radius: 3px 3px 0 0;
+    border-radius: 0.2em 0.2em 0 0;
   }
 
   & > div {
@@ -138,22 +137,20 @@ $h5pColor1: #1f71e8;
 
   .fa-arrows {
     color: #747474;
-    width: 40px;
+    width: 1.1em;
     text-align: center;
   }
 }
 
 .h5p-sequence-statement-container {
-  border: 1px solid #e6e6e6;
-  border-radius: 0 0 3px 3px;
+  border: 0.08em solid #e6e6e6;
+  border-radius: 0 0 0.24em 0.24em;
   background-color: #fbfbfb;
-  padding: 2px;
+  padding: 0.16em;
 
   .fa {
-    font-size: 20px;
     color: black;
-    background-color: white;
-    margin: 8px 0 0 13px;
+    margin: 0.5em 0 0 0.8em;
   }
 }
 
@@ -174,59 +171,61 @@ $h5pColor1: #1f71e8;
     width: 100%;
     word-wrap: break-word;
     padding: 0;
-    margin: 8px;
+    margin: 0.5em;
     overflow-y: hidden;
-    font-size: inherit;
+    font-size: 1em;
     height: auto;
   }
 
 }
 
 .h5p-sequence-statement-labels{
-  padding: 4px;
+  padding: 0.25em;
   flex: 2;
 
   & > div {
     display: flex;
     flex-wrap: wrap;
-    margin: 8px;
+    margin: 0.5em;
     align-self: flex-start;
   }
 
   & > .fa {
     color: black;
+    font-size: 1.2em;
     background-color: transparent;
   }
 
   &:not(.hidden) + .h5p-sequence-statement-comment {
-    border-left: 1px solid #e6e6e6;
+    border-left: 0.08em solid #e6e6e6;
   }
 
 }
 
 .h5p-sequence-statement-label{
-  padding: 3px 10px;
-  margin: 0 12px 10px 0;
-  border-radius: 8px;
+  padding: 0.2em 0.6em;
+  margin: 0.5em 0.7em 0.6em 0;
+  border-radius: 0.5em;
   background-color: black;
   color: white;
   position: relative;
 
   .fa {
     position: absolute;
-    top: -20px;
-    right: -13px;
+    top: -1em;
+    right: -0.8em;
     border-radius: 50%;
-    padding: 4px;
-    height: 11px;
-    width: 11px;
+    padding: 0.1em;
+    height: 1.1em;
+    width: 1.1em;
     display: flex;
     align-items: center;
-    border: 2px solid #fbfbfb;
+    justify-content: center;
+    border: 0.16em solid #fbfbfb;
     background-color: black;
     color: white;
-    font-size: 14px;
     cursor: pointer;
+    margin: 0;
   }
 
 }
@@ -241,13 +240,13 @@ $h5pColor1: #1f71e8;
   flex-flow: column;
 
   p {
-    font-size: 21px;
+    font-size: 1.4em;
   }
 
   textarea {
-    padding: 10px;
-    min-height: 80px;
-    font-size: $h5pSequenceFontSize;
+    padding: 0.6em;
+    min-height: 5em;
+    font-size: 1em;
   }
 }
 
@@ -265,13 +264,13 @@ $h5pColor1: #1f71e8;
   background-color: white;
   border-color: transparent;
   border-radius: 50%;
-  padding: 10px;
-  margin-left: 15px;
-  box-shadow: 0 2px 2px #b8b8b8;
+  padding: 0.5em;
+  margin-left: 1em;
+  box-shadow: 0 0.08em 0.08em #b8b8b8;
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.2em;
   transition: background-color 300ms, color 300ms;
 
   &.h5p-sequence-action-active{
@@ -282,52 +281,49 @@ $h5pColor1: #1f71e8;
 
 .h5p-sequence-popover {
   z-index: 1;
-  max-width: 420px;
-  font-size: $h5pSequenceFontSize;
-
+  max-width: 26em;
+  overflow: visible !important;
   button {
     @extend .h5p-sequence-button;
   }
 }
 
 .h5p-sequence-popover-content {
-  background-color: black;
-  padding: 10px;
-  box-shadow: 6px 6px 15px #747474;
+  background-color: white;
+  border: 0.15em solid black;
+  box-shadow: 0.4em 0.4em 1em #747474;
   max-width: 85vw;
 
   textarea {
-    min-width: 300px;
-    height: 70px;
-    font-size: $h5pSequenceFontSize;
+    min-width: 18em;
+    min-height: 4em;
+    font-size: 1em;
+    display: flex;
+    border: 0;
   }
 }
 
 .h5p-sequence-popover-close {
   position: absolute;
-  right: -13px;
+  right: -0.8em;
 
   .close-button {
-    width: 19px;
-    height: 19px;
-    border: 2px solid black;
+    width: 1.24em;
+    height: 1.24em;
+    border: 0.13em solid black;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
-
-    .fa-close {
-      margin-top: -1px;
-    }
   }
 
   &.close-button-top {
-    top: -15px;
+    top: -0.92em;
   }
 
   &.close-button-bottom {
-    bottom: -13px;
+    bottom: -0.8em;
   }
 
 }
@@ -335,19 +331,18 @@ $h5pColor1: #1f71e8;
 .h5p-sequence-label-list {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 15px;
+  margin-bottom: 1em;
 }
 
 .h5p-sequence-label-popover {
-  color: white;
+  padding: 0.5em;
 
   label {
-    min-width: 90px;
-    display: block;
-    margin: 3px;
+    min-width: 6em;
+    margin: 0.24em 0.3em;
     position: relative;
     cursor: pointer;
-    padding-left: 20px;
+    padding-left: 1.5em;
 
     input {
       position: absolute;
@@ -359,10 +354,11 @@ $h5pColor1: #1f71e8;
       position: absolute;
       top: 0;
       left: 0;
-      height: 16px;
-      width: 16px;
+      height: 1em;
+      width: 1em;
       background-color: #eee;
-      border-radius: 3px;
+      border-radius: 0.16em;
+      border: 0.08em solid;
     }
 
     & input:checked ~ .checkmark {
@@ -380,12 +376,11 @@ $h5pColor1: #1f71e8;
     }
 
     & .checkmark:after {
-      left: 5px;
-      top: 1px;
-      width: 3px;
-      height: 8px;
+      left: 0.3em;
+      width: 0.24em;
+      height: 0.5em;
       border: solid white;
-      border-width: 0 3px 3px 0;
+      border-width: 0 0.24em 0.24em 0;
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
@@ -394,41 +389,17 @@ $h5pColor1: #1f71e8;
 }
 
 .h5p-sequence-drag-element {
-  border-right: 1px solid #e6e6e6;
+  border-right: 0.08em solid #e6e6e6;
   display: flex;
   align-items: center;
-  margin-right: 13px;
-  min-height: 44px;
-}
-
-.h5p-sequence-number {
-
-  align-items: center;
-  display: flex;
-
-  div {
-    border: 1px solid #e6e6e6;
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 8px;
-    background-color: white;
-    font-size: 1.8em;
-  }
-}
-
-.h5p-sequence-number-container {
-  display: flex;
-  flex-grow: 1;
+  margin-right: 0.8em;
+  //min-height: 2.7em;
 }
 
 .h5p-sequence-draggable-container {
   display: flex;
   align-items: stretch;
-  margin: 8px auto;
+  margin: 0.5em auto;
 }
 
 .h5p-sequence-draggable-element,
@@ -448,7 +419,7 @@ $h5pColor1: #1f71e8;
 
   table {
     width: 100%;
-    border: 1px solid rgba(0, 90, 255, 0.34);
+    border: 0.08em solid rgba(0, 90, 255, 0.34);
   }
   table tr:nth-child(even){
     background-color: rgba(176, 200, 236, 0.34);
@@ -461,7 +432,7 @@ $h5pColor1: #1f71e8;
   }
 
   li {
-    margin-left: 5px;
+    margin-left: 0.35em;
   }
 }
 
@@ -470,8 +441,8 @@ $h5pColor1: #1f71e8;
 }
 .h5p-sequence-reset-modal {
   background-color: white;
-  padding: 20px;
-  width: 200px;
+  padding: 0.4em;
+  max-width: 85vw;
   display: inline-flex;
   flex-flow: column;
 
@@ -481,19 +452,19 @@ $h5pColor1: #1f71e8;
 
   & div:nth-child(2){
     margin-left: auto;
-    margin-top: 20px;
+    margin-top: 0.6em;
   }
 
   span {
     font-style: italic;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 0.6em 0;
     display: block;
   }
 
   button {
     color: #fff;
-    border-radius: 20px;
+    border-radius: 2em;
     margin-left: 1em;
   }
 
@@ -506,4 +477,9 @@ $h5pColor1: #1f71e8;
     background-color: #28a745;
     border-color: #28a745;
   }
+}
+
+main {
+  display: block;
+  width: auto;
 }

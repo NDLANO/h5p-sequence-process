@@ -16,7 +16,7 @@ function StatementLabel(props) {
             })}
         >
             <i
-                className={"fa fa-tags"}
+                className={"fa fa-lg fa-tags"}
             />
             <div>
                 {labels.filter(label => selectedLabels.indexOf(label.id) !== -1)
@@ -28,7 +28,7 @@ function StatementLabel(props) {
                             {label.label}
                             <i
                                 tabIndex={0}
-                                className={"fa fa-times"}
+                                className={"fa fa-close"}
                                 onClick={() => onLabelChange(label.id)}
                                 onKeyUp={event => {
                                     if (event.keyCode && event.keyCode == 8){
