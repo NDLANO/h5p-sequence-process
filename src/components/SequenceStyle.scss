@@ -170,7 +170,7 @@ $h5pColor1: #1f71e8;
     border: 0;
     width: 100%;
     word-wrap: break-word;
-    padding: 0;
+    padding: 0.2em 0.6em;
     margin: 0.5em;
     overflow-y: hidden;
     font-size: 1em;
@@ -300,6 +300,8 @@ $h5pColor1: #1f71e8;
     font-size: 1em;
     box-sizing: border-box;
     border: 0;
+    margin: 0.4em;
+    padding: 0.2em 0.6em;
   }
 }
 
