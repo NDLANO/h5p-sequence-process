@@ -18,9 +18,6 @@ function StatementComment(props) {
                 "hidden": props.show !== true
             })}
         >
-            <i
-                className={"fa fa-lg fa-commenting"}
-            />
             <textarea
                 ref={inputRef}
                 value={props.comment || ""}

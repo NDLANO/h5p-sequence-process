@@ -15,9 +15,6 @@ function StatementLabel(props) {
                 "hidden": selectedLabels.length === 0,
             })}
         >
-            <i
-                className={"fa fa-lg fa-tags"}
-            />
             <div>
                 {labels.filter(label => selectedLabels.indexOf(label.id) !== -1)
                     .map(label => (
