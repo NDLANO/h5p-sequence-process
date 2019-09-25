@@ -1,9 +1,9 @@
 {
-  "title": "Sequense / process",
+  "title": "Sequence",
   "description": "Put elements in the right sequence with additional labels and reflection on why the specific order",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 12,
+  "patchVersion": 14,
   "runnable": 1,
   "author": "Cerpus",
   "license": "MIT",
