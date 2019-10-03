@@ -5,6 +5,7 @@
   "minorVersion": 0,
   "patchVersion": 14,
   "runnable": 1,
+  "hasIcon": 1,
   "author": "Cerpus",
   "license": "MIT",
   "machineName": "H5P.SequenceProcess",
