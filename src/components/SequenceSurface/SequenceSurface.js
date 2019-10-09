@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import md5 from 'md5';
-import {SequenceProcessContext} from '../../context/SequenceProcessContext';
+import {SequenceProcessContext} from 'context/SequenceProcessContext';
 import {DragDropContext} from 'react-beautiful-dnd';
 import Column from '../Column/Column';
 import StatementList from "../StatementList/StatementList";
