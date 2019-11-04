@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NDLANO/h5p-sequence-process.git"
+    "url": "git+https://github.com/NDLANO/h5p-sequence-process.git"
   },
   "author": "NDLA (https://www.ndla.no)",
   "license": "MIT",
