@@ -144,6 +144,48 @@
           "default": "Tilgjengelige etiketter"
         }
       ]
+    },
+    {
+      "label": "Tilgjengelighet",
+      "fields": [
+        {
+          "label": "Brukt istedenfor 'Kommentar'-ikonet",
+          "default": "Legg til kommentar"
+        },
+        {
+          "label": "Brukt istedenfor 'Lukk' ikonet",
+          "default": "Lukk"
+        },
+        {
+          "label": "Brukt istedenfor 'Dra' ikonet",
+          "default": "Dra"
+        },
+        {
+          "label": "'Slippområde' etikett for skjermleser",
+          "description": "Tilgjengelige variabler er :index",
+          "default": "Slippområde #:index"
+        },
+        {
+          "label": "'Empty droparea' etikett for skjermleser",
+          "description": "Tilgjengelige variabler er :index",
+          "default": "Tomt slippområde #:index"
+        },
+        {
+          "label": "'Flyttbar element' etikett for skjermleser",
+          "description": "Tilgjengelige variabler er :statement",
+          "default": "Flyttbar element: :statement"
+        },
+        {
+          "label": "'Droppsone' etikett for skjermleser",
+          "description": "Tilgjengelige variabler er :index",
+          "default": "Droppsone #:index"
+        },
+        {
+          "label": "'Droppsone med verdi' etikett for skjermleser",
+          "description": "Tilgjengelige variabler er :index og :statement",
+          "default": "Droppsone #:index med verdi: :statement"
+        }
+      ]
     }
   ]
 }

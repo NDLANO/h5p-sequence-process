@@ -148,6 +148,48 @@
           "default": "Available labels"
         }
       ]
+    },
+    {
+      "label": "Accessibility",
+      "fields": [
+        {
+          "label": "Add comment",
+          "default": "Add comment"
+        },
+        {
+          "label": "Close",
+          "default": "Close"
+        },
+        {
+          "label": "Drag",
+          "default": "Drag"
+        },
+        {
+          "label": "'Droparea' label for screenreaders",
+          "description": "Available variables are :index",
+          "default": "Droparea #:index"
+        },
+        {
+          "label": "'Empty droparea' label for screenreaders",
+          "description": "Available variables are :index",
+          "default": "Empty droparea #:index"
+        },
+        {
+          "label": "'Draggable item' label for screenreaders",
+          "description": "Available variables are :statement",
+          "default": "Draggable item: :statement"
+        },
+        {
+          "label": "'Dropzone' label for screenreaders",
+          "description": "Available variables are :index",
+          "default": "Dropzone #:index"
+        },
+        {
+          "label": "'Dropzone with value' label for screenreaders",
+          "description": "Available variables are :index and :statement",
+          "default": "Dropzone #:index with value: :statement"
+        }
+      ]
     }
   ]
 }

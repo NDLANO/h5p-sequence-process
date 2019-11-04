@@ -155,7 +155,7 @@
       {
         "name": "selectAllLabelsConnectedToThisItem",
         "type": "text",
-        "label": "Guides text for selecting tags",
+        "label": "Guiding text when selecting labels",
         "default": "Select all labels connected to this item"
       },
       {
@@ -280,6 +280,68 @@
         "type": "text",
         "label": "Header for listing of labels in the report",
         "default": "Available labels"
+      }
+    ]
+  },
+  {
+    "label": "Accessibility",
+    "importance": "low",
+    "name": "accessibility",
+    "type": "group",
+    "common": true,
+    "fields": [
+      {
+        "name": "addComment",
+        "type": "text",
+        "label": "Used instead of 'Comment'-icon",
+        "default": "Add comment"
+      },
+      {
+        "name": "close",
+        "type": "text",
+        "label": "Used instead of 'Close'-icon",
+        "default": "Close"
+      },
+      {
+        "name": "drag",
+        "type": "text",
+        "label": "Used instead of 'Drag'-icon",
+        "default": "Drag"
+      },
+      {
+        "name": "droparea",
+        "type": "text",
+        "label": "'Droparea' label for screenreaders",
+        "description": "Available variables are :index",
+        "default": "Droparea #:index"
+      },
+      {
+        "name": "emptydroparea",
+        "type": "text",
+        "label": "'Empty droparea' label for screenreaders",
+        "description": "Available variables are :index",
+        "default": "Empty droparea #:index"
+      },
+      {
+        "name": "draggableItem",
+        "type": "text",
+        "label": "'Draggable item' label for screenreaders",
+        "description": "Available variables are :statement",
+        "default": "Draggable item: :statement"
+      },
+      {
+        "name": "dropzone",
+        "type": "text",
+        "label": "'Dropzone' label for screenreaders",
+        "description": "Available variables are :index",
+        "default": "Dropzone #:index"
+      },
+      {
+        "name": "dropzoneWithValue",
+        "type": "text",
+        "label": "'Dropzone with value' label for screenreaders",
+        "description": "Available variables are :index and :statement",
+        "default": "Dropzone #:index with value: :statement"
       }
     ]
   }
