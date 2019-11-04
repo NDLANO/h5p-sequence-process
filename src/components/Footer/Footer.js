@@ -5,10 +5,10 @@ import Reset from "./Reset";
 
 function Footer() {
     return (
-        <footer>
+        <section className={"h5p-sequence-footer"}>
             <Reset/>
             <Export/>
-        </footer>
+        </section>
     );
 }
 

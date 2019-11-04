@@ -1,43 +1,50 @@
 import React from 'react';
 import TinyPopover, { ArrowContainer } from 'react-tiny-popover';
-import classnames from "classnames";
 import PropTypes from "prop-types";
-
-const Popover = ({handleClose, show, children, popoverContent}) => {
+const Popover = ({handleClose, show, children, popoverContent, classnames = [], header, close, align = "end"}) => {
+    classnames.push("h5p-sequence-popover");
     return (
         <TinyPopover
-            containerClassName={"h5p-sequence-popover"}
+            containerClassName={classnames.join(" ")}
             isOpen={show}
             position={['top', 'bottom']}
             windowBorderPadding={10}
             containerStyle={{
                 overflow: "unset",
             }}
-            align={"end"}
+            align={align}
             onClickOutside={handleClose}
             content={({position, targetRect, popoverRect}) => (
                 <ArrowContainer
                     position={position}
                     targetRect={targetRect}
                     popoverRect={popoverRect}
-                    arrowColor={'black'}
+                    arrowColor={'white'}
                     arrowSize={10}
                 >
-                    <div className={"h5p-sequence-popover-content"}>
-                        <div>
-                            {popoverContent}
+                    <div
+                        className={"h5p-sequence-popover-container"}
+                        role={"listitem"}
+                    >
+                        <div className={"h5p-sequence-popover-header"}>
+                            <div>
+                                {header}
+                            </div>
+                            <button
+                                onClick={handleClose}
+                                className={"close-button"}
+                            >
+                                    <span
+                                        className={"h5p-ri hri-close"}
+                                        aria-hidden={true}
+                                    />
+                                <span className="visible-hidden">{close}</span>
+                            </button>
                         </div>
                         <div
-                            className={classnames("h5p-sequence-popover-close", {
-                                "close-button-top": position === "top",
-                                "close-button-bottom": position === "bottom",
-                            })}>
-                                <button
-                                    onClick={handleClose}
-                                    className={"close-button"}
-                                >
-                                    <i className={"fa fa-close"} />
-                                </button>
+                            className={"h5p-sequence-popover-content"}
+                        >
+                            {popoverContent}
                         </div>
                     </div>
                 </ArrowContainer>
@@ -52,6 +59,9 @@ Popover.propTypes = {
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool,
     popoverContent: PropTypes.object,
+    classnames: PropTypes.array,
+    header: PropTypes.string,
+    close: PropTypes.string,
 };
 
 export default Popover;

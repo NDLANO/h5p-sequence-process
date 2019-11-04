@@ -35,20 +35,20 @@ H5P.SequenceProcess = (function () {
     let container;
     this.params = params;
     this.behaviour = params.behaviour || {};
-    this.resizeEvents = [];
     this.resetStack = [];
     this.collectExportValuesStack = [];
     this.wrapper = null;
     this.id = contentId;
     this.language = language;
     this.activityStartTime = new Date();
+    this.activeBreakpoints = [];
 
     this.translations = Object.assign({}, {
       summary: "Summary",
       typeYourReasonsForSuchAnswers: "Type your reasons for such answers",
       resources: "Resources",
       save: "Save",
-      electAllLabelsConnectedToThisItem: "Select all labels connected to this item",
+      selectAllLabelsConnectedToThisItem: "Select all labels connected to this item",
       restart: "Restart",
       createDocument: "Create document",
       labelSummaryComment: "Summary comment",
@@ -62,20 +62,39 @@ H5P.SequenceProcess = (function () {
       labelNoLabels: "No labels",
       selectAll: "Select all",
       export: "Export",
-      yes: "Yes",
-      no: "No",
-      ifYouContinueAllYourChangesWillBeLost: "If you continue all your changes will be lost.",
+      add: "Add alternative",
+      ifYouContinueAllYourChangesWillBeLost: "All the changes will be lost. Are you sure you wish to continue?",
       areYouSure: "Are you sure?",
+      close: "Close",
+      addComment: "Add comment",
+      addLabel: "Add label",
+      drag: "Drag",
+      feedback: "Feedback",
+      submitText: "Submit",
+      submitConfirmedText: "Saved!",
+      confirm: "Confirm",
+      continue: "Continue",
+      cancel: "Cancel",
+      droparea: "Droparea :num",
+      emptydroparea: "Empty droparea :index",
+      draggableItem: "Draggable item :statement",
+      dropzone: "Dropzone :index",
+      dropzoneWithValue: "Dropzone :index with value :statement",
     }, params.l10n, params.resourceReport);
 
     const createElements = () => {
       const wrapper = document.createElement('div');
-      wrapper.classList.add('h5p-process-sequence-wrapper');
+      wrapper.classList.add('h5p-sequence-wrapper');
       this.wrapper = wrapper;
 
       ReactDOM.render(
         <SequenceProcessContext.Provider value={this}>
-          <Main />
+          <Main
+              {...params}
+              id={contentId}
+              language={language}
+              collectExportValues={this.collectExportValues}
+          />
         </SequenceProcessContext.Provider>,
         this.wrapper
       );
@@ -112,18 +131,42 @@ H5P.SequenceProcess = (function () {
       this.resetStack.forEach(callback => callback());
     };
 
+    this.addBreakPoints = wrapper => {
+      this.activeBreakpoints = [];
+      const rect = this.getRect();
+      breakPoints.forEach(item => {
+        if (item.shouldAdd(rect.width)) {
+          wrapper.classList.add(item.className);
+          this.activeBreakpoints.push(item.className);
+        } else {
+          wrapper.classList.remove(item.className);
+        }
+      });
+    };
+
     this.resize = () => {
       if (!this.wrapper) {
         return;
       }
-        const rect = this.getRect();
-      breakPoints.forEach(item => {
-        if (item.shouldAdd(rect.width)) {
-          this.wrapper.classList.add(item.className);
-        } else {
-          this.wrapper.classList.remove(item.className);
-        }
-      });
+      this.addBreakPoints(this.wrapper);
+    };
+
+    /**
+     * Help fetch the correct translations.
+     *
+     * @params key
+     * @params vars
+     * @return {string}
+     */
+    this.translate = (key, vars) => {
+      let translation = this.translations[key];
+      if (vars !== undefined && vars !== null) {
+        translation = Object
+            .keys(vars)
+            .map(key => translation.replace(key, vars[key]))
+            .toString();
+      }
+      return translation;
     };
 
     this.getRect = this.getRect.bind(this);
@@ -131,5 +174,8 @@ H5P.SequenceProcess = (function () {
     this.on('resize', this.resize);
   }
 
+  // Inherit prototype properties
+  Wrapper.prototype = Object.create(H5P.EventDispatcher.prototype);
+  Wrapper.prototype.constructor = Wrapper;
   return Wrapper;
 })();

@@ -1,62 +1,46 @@
-import React from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { SequenceProcessContext } from "../../context/SequenceProcessContext";
 
-export default class Summary extends React.PureComponent {
+function Summary(props) {
 
-    static contextType = SequenceProcessContext;
+    const [comment, setComment] = useState('');
 
-    constructor(props){
-        super(props);
-        this.state = Summary.getInitState();
+    const {
+        reset,
+        exportValues,
+        translate,
+    } = props;
 
-        this.handleReset = this.handleReset.bind(this);
-        this.sendExportValues = this.sendExportValues.bind(this);
-    }
+    exportValues('summary', () => comment);
+    reset(() => setComment(''));
 
-    sendExportValues() {
-        return this.state.comment;
-    }
+    return (
+        <div
+            className={classnames('h5p-sequence-summary')}
+            aria-labelledby={"summary-header"}
+        >
+            <label
+                id={"summary-header"}
+                htmlFor={'summary'}
+            >
+                <h2>{translate('summary')}</h2>
+            </label>
+            <textarea
+                id={"summary"}
+                placeholder={translate('typeYourReasonsForSuchAnswers')}
+                value={comment}
+                onChange={event => setComment(event.target.value)}
+                aria-label={translate('typeYourReasonsForSuchAnswers')}
+            />
+        </div>
+    );
+}
 
-    componentDidMount() {
-        const {
-            registerReset,
-            collectExportValues,
-        } = this.context;
-
-        collectExportValues('summary', this.sendExportValues);
-        registerReset(this.handleReset);
-    }
-
-    static getInitState() {
-        return {
-            comment: ''
-        }
-    }
-
-    handleReset(){
-        this.setState(Summary.getInitState())
-    }
-
-    render() {
-        const {
-            translations,
-            behaviour
-        } = this.context;
-
-        if(behaviour.provideSummary !== true){
-            return null;
-        }
-
-        return (
-            <div className={classnames('h5p-sequence-summary')}>
-                <p>{translations.summary}</p>
-                <textarea
-                    placeholder={translations.typeYourReasonsForSuchAnswers}
-                    value={this.state.comment}
-                    onChange={event => this.setState({comment: event.target.value})}
-                />
-            </div>
-        );
-    }
+Summary.propTypes = {
+    reset: PropTypes.func,
+    exportValues: PropTypes.func,
+    translate: PropTypes.func,
 };
+
+export default Summary;

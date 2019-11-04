@@ -6,7 +6,7 @@ import classnames from "classnames";
 
 function Labels(props){
 
-    const [showPopover, togglePopover] = useState(props.selectedLabelArray.length > 0)
+    const [showPopover, togglePopover] = useState(props.selectedLabelArray.length > 0);
 
     const context = useContext(SequenceProcessContext);
 
@@ -22,11 +22,13 @@ function Labels(props){
 
     return (
         <Popover
-            show={showPopover}
             handleClose={handleToggle}
+            show={showPopover}
+            classnames={context.activeBreakpoints}
+            header={context.translations.selectAllLabelsConnectedToThisItem}
+            close={context.translations.close}
             popoverContent={(
                 <div className={"h5p-sequence-label-popover"}>
-                    <p>{context.translations.selectAllLabelsConnectedToThisItem}</p>
                     <div className={"h5p-sequence-label-list"}>
                         {labels.map(label => (
                             <label
@@ -38,7 +40,10 @@ function Labels(props){
                                     checked={selectedLabelArray.indexOf(label.id) !== -1}
                                     onChange={() => onLabelChange(label.id)}
                                 />
-                                <span className={"checkmark"} />
+                                <span className={classnames("h5p-ri", {
+                                    'hri-checked': selectedLabelArray.indexOf(label.id) !== -1,
+                                    'hri-unchecked': selectedLabelArray.indexOf(label.id) === -1,
+                                })} />
                                 {label.label}
                             </label>
                         ))}
@@ -48,13 +53,21 @@ function Labels(props){
         >
             <button
                 onClick={handleToggle}
-                className={classnames("h5p-sequence-action", {
-                    'h5p-sequence-action-active': props.selectedLabelArray && props.selectedLabelArray.length > 0,
-                })}
+                className={"h5p-sequence-action"}
+                onKeyDown={event => {
+                    if (event.keyCode === 13) {
+                        handleToggle();
+                    }
+                }}
             >
-                <i
-                    className={"fa fa-tags"}
+                <span
+                    className={classnames("h5p-ri", {
+                        "hri-label-empty": !props.selectedLabelArray || props.selectedLabelArray.length === 0,
+                        "hri-label-full": props.selectedLabelArray && props.selectedLabelArray.length > 0,
+                    })}
+                    aria-hidden={"true"}
                 />
+                <span className="visible-hidden">{context.translations.addLabel}</span>
             </button>
         </Popover>
     );
@@ -72,78 +85,3 @@ Labels.defaultProps = {
 };
 
 export default Labels;
-
-export class Labels2 extends React.PureComponent {
-
-    static contextType = SequenceProcessContext;
-
-    static propTypes = {
-        labels: PropTypes.array,
-        onLabelChange: PropTypes.func,
-        selectedLabelArray: PropTypes.array,
-    };
-
-    static defaultProps = {
-        labels: [],
-        selectedLabelArray: [],
-    };
-
-    state = {
-        showPopover: false,
-    };
-
-    constructor(props){
-        super(props);
-
-        this.onToggleModal = this.onToggleModal.bind(this);
-    }
-
-    onToggleModal() {
-        this.setState({
-            showPopover: !this.state.showPopover
-        })
-    }
-
-    render() {
-        const {
-            translations
-        } = this.context;
-
-        return (
-            <Popover
-                show={this.state.showPopover}
-                handleClose={this.onToggleModal}
-                popoverContent={(
-                    <div className={"h5p-sequence-label-popover"}>
-                        <p>{translations.selectAllLabelsConnectedToThisItem}</p>
-                        <div className={"h5p-sequence-label-list"}>
-                        {this.props.labels.map(label => (
-                            <label
-                                key={label.id}
-                            >
-                                <input
-                                    value={label.id}
-                                    type={"checkbox"}
-                                    checked={this.props.selectedLabelArray.indexOf(label.id) !== -1}
-                                    onChange={() => this.props.onLabelChange(label.id)}
-                                /> {label.label}
-                            </label>
-                        ))}
-                        </div>
-                    </div>
-                )}
-            >
-                <button
-                    onClick={this.onToggleModal}
-                    className={classnames("h5p-sequence-action", {
-                        'h5p-sequence-action-active': props.selectedLabelArray && props.selectedLabelArray.length > 0,
-                    })}
-                >
-                    <i
-                        className={"fa fa-tags"}
-                    />
-                </button>
-            </Popover>
-        );
-    }
-}

@@ -1,6 +1,7 @@
-import React, {useRef, useState} from 'react';
+import React, {Fragment, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import { Draggable } from "react-beautiful-dnd";
+import {Draggable} from "react-beautiful-dnd";
+import classnames from 'classnames';
 import Remaining from "../StatementTypes/Remaining";
 import Sequenced from "../StatementTypes/Sequenced";
 import Placeholder from "../StatementTypes/Placeholder";
@@ -12,38 +13,49 @@ function StatementList(props) {
     const inputRef = useRef();
     const [showCommentContainer, toggleCommentContainer] = useState(false);
 
-    function handleStatementType() {
+    function handleStatementType(isDragging) {
         const {
             statement,
             draggableType,
             isSingleColumn,
             labels,
+            enableEditing,
+            translate,
+            index,
         } = props;
 
         if (draggableType === 'remaining') {
             return (
                 <Remaining
-                    statement={statement.statement}
+                    statement={statement}
+                    onStatementChange={handleOnStatementTextEdit}
+                    enableEditing={enableEditing}
+                    isDragging={isDragging}
                 />
             );
         } else if (draggableType === 'sequenced' && !statement.isPlaceholder) {
             let actions;
             if (isSingleColumn) {
                 actions = (
-                    <ActionsList>
+                    <Fragment>
                         {labels.length > 0 && (
-                            <Labels
-                                labels={labels}
-                                selectedLabelArray={statement.selectedLabels}
-                                onLabelChange={handleOnLabelChange}
-                            />
+                            <ActionsList>
+                                <Labels
+                                    labels={labels}
+                                    selectedLabelArray={statement.selectedLabels}
+                                    onLabelChange={handleOnLabelChange}
+                                />
+                            </ActionsList>
                         )}
-                        <Comment
-                            onCommentChange={handleOnCommentChange}
-                            comment={statement.comment}
-                            onClick={handleCommentClick()}
-                        />
-                    </ActionsList>
+                        <ActionsList>
+                            <Comment
+                                onCommentChange={handleOnCommentChange}
+                                comment={statement.comment}
+                                onClick={handleCommentClick()}
+                                inputRef={inputRef}
+                            />
+                        </ActionsList>
+                    </Fragment>
                 )
             }
             return (
@@ -55,19 +67,28 @@ function StatementList(props) {
                     onCommentChange={handleOnCommentChange}
                     labels={labels}
                     onLabelChange={handleOnLabelChange}
+                    onStatementChange={handleOnStatementTextEdit}
+                    enableEditing={enableEditing}
+                    isDragging={isDragging}
+                    index={index}
                 />
             )
         } else if (draggableType === 'sequenced') {
             return (
                 <Placeholder
-                    statement={statement}
-                />
+                    translate={translate}
+                    index={index}
+                >
+                    <div
+                        className={"h5p-sequence-empty"}
+                    />
+                </Placeholder>
             );
         }
     }
 
     function handleCommentClick() {
-        if( props.enableCommentDisplay !== true){
+        if (props.enableCommentDisplay !== true) {
             return null;
         }
 
@@ -81,21 +102,46 @@ function StatementList(props) {
         const statement = Object.assign({}, props.statement);
         statement.comment = comment;
         props.onStatementChange(statement);
-        if( !comment || comment.length === 0){
+        if (!comment || comment.length === 0) {
             toggleCommentContainer(false);
         }
     }
 
-    function handleOnLabelChange(labelId){
+    function handleOnStatementTextEdit(statementText) {
+        const statement = Object.assign({}, props.statement);
+        statement.statement = statementText;
+        statement.editMode = false;
+        props.onStatementChange(statement);
+    }
+
+    function handleOnLabelChange(labelId) {
         const statement = JSON.parse(JSON.stringify(props.statement));
         let selectedLabels = statement.selectedLabels;
         let labelIndex = selectedLabels.indexOf(labelId);
-        if( labelIndex !== -1){
+        if (labelIndex !== -1) {
             selectedLabels.splice(labelIndex, 1);
         } else {
             selectedLabels.push(labelId);
         }
         props.onStatementChange(statement);
+    }
+
+    function getAriaLabel() {
+        const {
+            translate
+        } = props;
+
+        let ariaLabel = "draggableItem";
+        if (draggableType === 'prioritized') {
+            ariaLabel = 'dropzone';
+            if (statement.touched) {
+                ariaLabel = 'dropzoneWithValue';
+            }
+        }
+
+        return translate(ariaLabel, {
+            ':statement': statement.statement
+        });
     }
 
     const {
@@ -108,25 +154,33 @@ function StatementList(props) {
         <Draggable
             draggableId={draggableType + "-" + statement.id}
             index={index}
+            isDragDisabled={draggableType === 'sequenced' && statement.isPlaceholder}
         >
-            {provided => (
-                <div className={"h5p-sequence-draggable-container"}>
+            {(provided, snapshot) => {
+                return (
                     <div
-                        className={"h5p-sequence-draggable-element"}
-                        ref={provided.innerRef}
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
+                        className={"h5p-sequence-draggable-container"}
+                        aria-label={getAriaLabel()}
                     >
-                        {handleStatementType()}
+                        <div
+                            className={classnames("h5p-sequence-draggable-element", {
+                                'h5p-sequence-no-transform': props.disableTransform,
+                            })}
+                            ref={provided.innerRef}
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                        >
+                            {handleStatementType(snapshot.isDragging)}
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }}
         </Draggable>
     )
 }
 
 
-StatementList. propTypes = {
+StatementList.propTypes = {
     statement: PropTypes.object,
     index: PropTypes.number.isRequired,
     draggableType: PropTypes.string.isRequired,
@@ -135,6 +189,9 @@ StatementList. propTypes = {
     labels: PropTypes.array,
     selectedLabels: PropTypes.array,
     enableCommentDisplay: PropTypes.bool,
+    enableEditing: PropTypes.bool,
+    disableTransform: PropTypes.bool,
+    translate: PropTypes.func,
 };
 
 StatementList.defaultProps = {
@@ -143,6 +200,8 @@ StatementList.defaultProps = {
     enableCommentDisplay: false,
     labels: [],
     selectedLabels: [],
+    enableEditing: false,
+    disableTransform: false,
 };
 
 export default StatementList;

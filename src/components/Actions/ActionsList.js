@@ -5,7 +5,9 @@ const ActionsList = (
 ) => {
     return (
         <div className={"h5p-sequence-actionlist"}>
-            {children}
+            <div>
+                {children}
+            </div>
         </div>
     );
 };

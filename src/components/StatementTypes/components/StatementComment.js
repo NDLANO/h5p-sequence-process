@@ -1,15 +1,24 @@
-import React, {useRef} from 'react';
+import React, {useRef, useContext} from 'react';
 import PropTypes from 'prop-types';
 import classsnames from 'classnames';
+import {SequenceProcessContext} from "context/SequenceProcessContext";
 
+/**
+ * @return {null}
+ */
 function StatementComment(props) {
 
+    const context = useContext(SequenceProcessContext);
     const inputRef = props.inputRef || useRef();
 
-    function handleOnChange(event){
+    function handleOnChange(){
         props.onCommentChange(inputRef.current.value);
         inputRef.current.style.height = "auto";
         inputRef.current.style.height = inputRef.current.scrollHeight + "px";
+    }
+
+    if( props.show !== true){
+        return null;
     }
 
     return (
@@ -18,12 +27,22 @@ function StatementComment(props) {
                 "hidden": props.show !== true
             })}
         >
-            <textarea
-                ref={inputRef}
-                value={props.comment || ""}
-                onChange={handleOnChange}
-                onBlur={handleOnChange}
-            />
+            <div>
+                <span
+                    className="h5p-ri hri-comment-full"
+                    aria-hidden={"true"}
+                />
+            </div>
+            <div>
+                <textarea
+                    ref={inputRef}
+                    value={props.comment || ""}
+                    onChange={handleOnChange}
+                    onBlur={handleOnChange}
+                    placeholder={context.translations.typeYourReasonsForSuchAnswers}
+                    aria-label={context.translations.typeYourReasonsForSuchAnswers}
+                />
+            </div>
         </div>
     )
 }

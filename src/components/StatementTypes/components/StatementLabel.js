@@ -1,21 +1,38 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import {SequenceProcessContext} from "context/SequenceProcessContext";
 
+/**
+ * @return {null}
+ */
 function StatementLabel(props) {
+
+    const context = useContext(SequenceProcessContext);
 
     const {
         labels,
         selectedLabels,
         onLabelChange,
     } = props;
+
+    if( selectedLabels.length === 0){
+        return null;
+    }
+
     return (
         <div
             className={classnames("h5p-sequence-statement-labels", {
                 "hidden": selectedLabels.length === 0,
             })}
         >
-            <div>
+                <div>
+                    <span
+                        className="h5p-ri hri-label-full"
+                        aria-hidden={"true"}
+                    />
+                </div>
+                <div>
                 {labels.filter(label => selectedLabels.indexOf(label.id) !== -1)
                     .map(label => (
                         <span
@@ -23,19 +40,26 @@ function StatementLabel(props) {
                             className={"h5p-sequence-statement-label"}
                         >
                             {label.label}
-                            <i
-                                tabIndex={0}
-                                className={"fa fa-close"}
+                            <button
                                 onClick={() => onLabelChange(label.id)}
                                 onKeyUp={event => {
-                                    if (event.keyCode && event.keyCode == 8){
+                                    if (event.keyCode && event.keyCode === 8){
                                         onLabelChange(label.id);
                                     }
                                 }}
-                            />
+                                className={"close-button"}
+                            >
+                                <div>
+                                    <span
+                                        className={"h5p-ri hri-times"}
+                                        aria-hidden={true}
+                                    />
+                                </div>
+                                <span className="visible-hidden">{context.translate('close')}</span>
+                            </button>
                         </span>
                     ))}
-            </div>
+                </div>
         </div>
     )
 }

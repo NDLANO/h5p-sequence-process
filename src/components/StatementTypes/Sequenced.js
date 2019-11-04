@@ -5,6 +5,8 @@ import classnames from "classnames";
 import DragArrows from "./components/DragArrows";
 import StatementComment from "./components/StatementComment";
 import StatementLabel from "./components/StatementLabel";
+import EditableStatement from "./components/EditableStatement";
+import UnEditableStatement from "./components/UnEditableStatement";
 
 const Sequenced = props => {
     const {
@@ -15,39 +17,60 @@ const Sequenced = props => {
         inputRef,
         labels,
         onLabelChange,
+        onStatementChange,
+        enableEditing,
+        isDragging = false,
+        index,
     } = props;
 
     return (
         <Placeholder
-            className="h5p-droparea"
+            index={index}
         >
-            <div
-                className={classnames("h5p-sequence-statement", {
-                    'h5p-sequence-statement-extra': enableCommentDisplay || statement.selectedLabels.length > 0
-                })}
-            >
-                <div>
-                    <DragArrows />
-                    {statement.statement}
+            <div>
+                <div
+                    className={classnames("h5p-sequence-statement", {
+                        'h5p-sequence-statement-extra': enableCommentDisplay || statement.selectedLabels.length > 0,
+                        "h5p-sequence-active-draggable": isDragging
+                    })}
+                >
+                    <div className={"h5p-sequence-statement-sequenced"}>
+                        <DragArrows />
+                        {enableEditing === true && (
+                            <EditableStatement
+                                inEditMode={statement.editMode}
+                                statement={statement.statement}
+                                onBlur={onStatementChange}
+                                idBase={statement.id}
+                            />
+                        )}
+                        {enableEditing !== true && (
+                            <UnEditableStatement
+                                statement={statement.statement}
+                            />
+                        )}
+                    </div>
+                    {actions}
                 </div>
-                {actions}
-            </div>
-            <div
-                className={classnames("h5p-sequence-statement-container", {
-                    "hidden": (statement.selectedLabels.length === 0 && !enableCommentDisplay)
-                })}
-            >
-                <StatementLabel
-                    selectedLabels={statement.selectedLabels}
-                    labels={labels}
-                    onLabelChange={onLabelChange}
-                />
-                <StatementComment
-                    comment={statement.comment}
-                    onCommentChange={onCommentChange}
-                    inputRef={inputRef}
-                    show={enableCommentDisplay}
-                />
+                <div
+                    className={classnames("h5p-sequence-statement-container", {
+                        "hidden": (statement.selectedLabels.length === 0 && !enableCommentDisplay)
+                    })}
+                >
+                    <div>
+                        <StatementLabel
+                            selectedLabels={statement.selectedLabels}
+                            labels={labels}
+                            onLabelChange={onLabelChange}
+                        />
+                        <StatementComment
+                            comment={statement.comment}
+                            onCommentChange={onCommentChange}
+                            inputRef={inputRef}
+                            show={enableCommentDisplay}
+                        />
+                    </div>
+                </div>
             </div>
         </Placeholder>
     );

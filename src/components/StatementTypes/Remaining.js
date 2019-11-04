@@ -1,27 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import DragArrows from "./components/DragArrows";
+import UnEditableStatement from "./components/UnEditableStatement";
+import EditableStatement from "./components/EditableStatement";
 
-const Remaining = props => {
+function Remaining(props) {
     const {
-        statement
+        statement,
+        onStatementChange,
+        enableEditing = false,
+        isDragging = false,
     } = props;
+
+    let displayStatement;
+    if( enableEditing ){
+        displayStatement = (
+            <EditableStatement
+                statement={statement.statement}
+                inEditMode={statement.editMode}
+                onBlur={onStatementChange}
+                idBase={statement.id}
+            />
+        );
+    } else {
+        displayStatement = (
+            <UnEditableStatement
+                statement={statement.statement}
+            />
+        );
+    }
 
     return (
         <div
-            className="h5p-sequence-statement"
+            className={classnames("h5p-sequence-statement",{
+                "h5p-sequence-active-draggable": isDragging
+            })}
         >
-            <div>
+            <div className={"h5p-sequence-statement-remaining"}>
                 <DragArrows />
-                {statement}
+                {displayStatement}
             </div>
         </div>
     );
 
-};
+}
 
 Remaining.propTypes = {
-    statement: PropTypes.string,
+    statement: PropTypes.object,
+    onStatementChange: PropTypes.func,
+    enableEditing: PropTypes.bool,
 };
 
 export default Remaining;
