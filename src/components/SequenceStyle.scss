@@ -226,6 +226,13 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
   font-weight: bold;
   padding: 0;
 
+  &:hover,
+  &:active {
+    .h5p-sequence-delete-button {
+      opacity: 1;
+    }
+  }
+
   .h5p-sequence-select-list &{
     box-shadow: em(3px) em(3px) em(4px) 0 rgba(3, 3, 3, 0.2);
     border: 2px solid #dbe2e8;
@@ -242,7 +249,30 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
     }
   }
 
+  .h5p-sequence-delete-button {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    opacity: 0;
 
+    .h5p-ri {
+      border: 2px solid #e03c34;
+      border-radius: 50%;
+      position: absolute;
+      top: em(-12px);
+      right: em(-12px);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      height: em(30px);
+      width: em(30px);
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+      font-size: 0.7rem;
+      color: #e03c34;
+      z-index: 1;
+    }
+  }
 
   p,
   ul {
@@ -568,7 +598,7 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
 .h5p-sequence-draggable-container {
   display: flex;
   align-items: stretch;
-  margin: 0.5rem auto;
+  margin: 0.8rem auto;
   position: relative;
 }
 

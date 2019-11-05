@@ -7,6 +7,7 @@ import StatementComment from "./components/StatementComment";
 import StatementLabel from "./components/StatementLabel";
 import EditableStatement from "./components/EditableStatement";
 import UnEditableStatement from "./components/UnEditableStatement";
+import DeleteStatement from "../DeleteStatement/DeleteStatement";
 
 const Sequenced = props => {
     const {
@@ -21,6 +22,7 @@ const Sequenced = props => {
         enableEditing,
         isDragging = false,
         index,
+        onStatementDelete,
     } = props;
 
     return (
@@ -34,6 +36,9 @@ const Sequenced = props => {
                         "h5p-sequence-active-draggable": isDragging
                     })}
                 >
+                    <DeleteStatement
+                        onClick={onStatementDelete}
+                    />
                     <div className={"h5p-sequence-statement-sequenced"}>
                         <DragArrows />
                         {enableEditing === true && (
@@ -85,6 +90,7 @@ Sequenced.propTypes = {
     inputRef: PropTypes.object,
     labels: PropTypes.array,
     onLabelChange: PropTypes.func,
+    onStatementDelete: PropTypes.func,
 };
 
 export default Sequenced;

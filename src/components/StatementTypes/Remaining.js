@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import DragArrows from "./components/DragArrows";
 import UnEditableStatement from "./components/UnEditableStatement";
 import EditableStatement from "./components/EditableStatement";
+import DeleteStatement from "../DeleteStatement/DeleteStatement";
 
 function Remaining(props) {
     const {
@@ -11,6 +12,7 @@ function Remaining(props) {
         onStatementChange,
         enableEditing = false,
         isDragging = false,
+        onStatementDelete,
     } = props;
 
     let displayStatement;
@@ -41,6 +43,9 @@ function Remaining(props) {
                 <DragArrows />
                 {displayStatement}
             </div>
+            <DeleteStatement
+                onClick={onStatementDelete}
+            />
         </div>
     );
 
@@ -50,6 +55,7 @@ Remaining.propTypes = {
     statement: PropTypes.object,
     onStatementChange: PropTypes.func,
     enableEditing: PropTypes.bool,
+    onStatementDelete: PropTypes.func,
 };
 
 export default Remaining;

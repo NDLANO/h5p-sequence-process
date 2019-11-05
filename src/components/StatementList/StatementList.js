@@ -31,6 +31,7 @@ function StatementList(props) {
                     onStatementChange={handleOnStatementTextEdit}
                     enableEditing={enableEditing}
                     isDragging={isDragging}
+                    onStatementDelete={handleOnStatementDelete}
                 />
             );
         } else if (draggableType === 'sequenced' && !statement.isPlaceholder) {
@@ -71,6 +72,7 @@ function StatementList(props) {
                     enableEditing={enableEditing}
                     isDragging={isDragging}
                     index={index}
+                    onStatementDelete={handleOnStatementDelete}
                 />
             )
         } else if (draggableType === 'sequenced') {
@@ -105,6 +107,10 @@ function StatementList(props) {
         if (!comment || comment.length === 0) {
             toggleCommentContainer(false);
         }
+    }
+
+    function handleOnStatementDelete() {
+        props.onStatementDelete(props.statement.id);
     }
 
     function handleOnStatementTextEdit(statementText) {
@@ -192,6 +198,7 @@ StatementList.propTypes = {
     enableEditing: PropTypes.bool,
     disableTransform: PropTypes.bool,
     translate: PropTypes.func,
+    onStatementDelete: PropTypes.func,
 };
 
 StatementList.defaultProps = {

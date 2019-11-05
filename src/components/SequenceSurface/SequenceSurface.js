@@ -231,17 +231,15 @@ export default class SequenceSurface extends React.Component {
     }
 
     handleOnStatementChange(statement) {
+        const statements = Array.from(this.state.statements);
+        statements[statement.id] = statement;
         this.setState({
-            statements: {
-                ...this.state.statements,
-                [statement.id]: statement
-            }
+            statements
         }, () => this.context.trigger('resize'));
-
     }
 
     addNewStatement() {
-        const statements = JSON.parse(JSON.stringify(this.state.statements));
+        const statements = Array.from(this.state.statements);
         const id = statements.length;
         const newItem = new StatementDataObject({
             id: id,
@@ -283,6 +281,26 @@ export default class SequenceSurface extends React.Component {
         }, () => this.context.trigger('resize'));
     }
 
+    handleOnDeleteStatement(deleteFrom, statementId){
+        let remainingStatements = Array.from(this.state.remainingStatements);
+        const currentStatement = Object.assign({}, this.state.statements[statementId]);
+        if (deleteFrom === 'remaining'){
+            remainingStatements = remainingStatements.filter(statement => statement !== statementId);
+        } else if (deleteFrom === 'sequenced'){
+            currentStatement.isPlaceholder = true;
+            currentStatement.touched = false;
+            if( currentStatement.added !== true){
+                remainingStatements.push(statementId);
+            }
+        }
+        const statements = Array.from(this.state.statements);
+        statements[currentStatement.id] = currentStatement;
+        this.setState({
+            statements,
+            remainingStatements,
+            showOneColumn: remainingStatements.length === 0,
+        }, () => this.context.trigger('resize'));
+    }
 
     handleSurface() {
         return (
@@ -308,6 +326,7 @@ export default class SequenceSurface extends React.Component {
                                 translate={this.context.translate}
                                 labels={this.state.labels}
                                 selectedLabels={statement.selectedLabels}
+                                onStatementDelete={id => this.handleOnDeleteStatement("sequenced", id)}
                             />
                         ))
                     }
@@ -336,6 +355,7 @@ export default class SequenceSurface extends React.Component {
                                     onStatementChange={this.handleOnStatementChange}
                                     enableEditing={this.context.behaviour.allowAddingOfStatements}
                                     translate={this.context.translate}
+                                    onStatementDelete={id => this.handleOnDeleteStatement("remaining", id)}
                                 />
                             ))
                         }
