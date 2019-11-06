@@ -123,7 +123,7 @@ export default class Export extends Component {
                     className={"h5p-sequence-button-export pull-right"}
                     onClick={this.handleExport}
                 >
-                    <i className={"fa fa-download"}/>
+                    <span className={"h5p-ri hri-document"}/>
                     {translations.createDocument}
                 </button>
                 <div className={"export-container"} ref={el => this.exportContainer = el}/>

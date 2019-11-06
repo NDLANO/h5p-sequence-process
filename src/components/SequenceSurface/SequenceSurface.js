@@ -42,7 +42,7 @@ export default class SequenceSurface extends React.Component {
         this.sendExportValues = this.sendExportValues.bind(this);
         this.handleOnStatementChange = this.handleOnStatementChange.bind(this);
         this.handleOnAddNewRemainingItem = this.handleOnAddNewRemainingItem.bind(this);
-        this.handleOnAddNewPrioritizedItem = this.handleOnAddNewPrioritizedItem.bind(this);
+        this.handleOnAddNewSequencedItem = this.handleOnAddNewSequencedItem.bind(this);
     }
 
     onDragStart(element) {
@@ -146,7 +146,7 @@ export default class SequenceSurface extends React.Component {
             sequencedStatements: sequencedStatements,
             remainingStatements: remainingStatements,
             showOneColumn: remainingStatements.length === 0,
-            canAddPrioritized: remainingStatements.length === 0 && this.context.behaviour.allowAddingOfStatements && sequencedStatements.filter(statementId => !newStatements[statementId].touched).length > 0,
+            canAddPrioritized: remainingStatements.length === 0 && this.context.behaviour.allowAddingOfStatements,
         }, () => this.context.trigger('resize'));
     }
 
@@ -205,7 +205,7 @@ export default class SequenceSurface extends React.Component {
             if (statement !== null) {
                 statementObject.statement = statement;
                 statementObject.isPlaceholder = !prepopulated;
-                statementObject.touched = prepopulated && statementObject.displayIndex <= numberOfStatements;
+                statementObject.touched = prepopulated && index < numberOfStatements;
             } else {
                 statementObject.isPlaceholder = true;
                 statementObject.added = true;
@@ -226,7 +226,7 @@ export default class SequenceSurface extends React.Component {
                 };
             }),
             showOneColumn: prepopulated,
-            canAddPrioritized: allowAddingOfStatements && statements.filter(statement => statement.touched).length < statements.length && remainingStatements.length === 0,
+            canAddPrioritized: allowAddingOfStatements && remainingStatements.length === 0,
         });
     }
 
@@ -263,8 +263,12 @@ export default class SequenceSurface extends React.Component {
         }, () => this.context.trigger('resize'));
     }
 
-    handleOnAddNewPrioritizedItem() {
-        const statements = JSON.parse(JSON.stringify(this.state.statements));
+    handleOnAddNewSequencedItem() {
+        const [statements, id] = this.addNewStatement();
+        statements[id].editMode = true;
+        statements[id].touched = true;
+        statements[id].isPlaceholder = false;
+
         const sequencedStatements = Array.from(this.state.sequencedStatements);
         const untouched = sequencedStatements.filter(elementId => statements[elementId].touched === false);
 
@@ -273,31 +277,36 @@ export default class SequenceSurface extends React.Component {
             statements[statementId].editMode = true;
             statements[statementId].touched = true;
             statements[statementId].isPlaceholder = false;
+        } else {
+            sequencedStatements.push(id);
         }
 
         this.setState({
             statements,
-            canAddPrioritized: untouched.length > 0,
+            sequencedStatements,
+            canAddPrioritized: this.state.remainingStatements.length === 0 && this.context.behaviour.allowAddingOfStatements,
         }, () => this.context.trigger('resize'));
     }
 
     handleOnDeleteStatement(deleteFrom, statementId){
+        let sequencedStatements = Array.from(this.state.sequencedStatements);
         let remainingStatements = Array.from(this.state.remainingStatements);
+        const statements = Array.from(this.state.statements);
         const currentStatement = Object.assign({}, this.state.statements[statementId]);
         if (deleteFrom === 'remaining'){
             remainingStatements = remainingStatements.filter(statement => statement !== statementId);
         } else if (deleteFrom === 'sequenced'){
             currentStatement.isPlaceholder = true;
             currentStatement.touched = false;
-            if( currentStatement.added !== true){
-                remainingStatements.push(statementId);
+            if( currentStatement.added === true){
+                sequencedStatements = sequencedStatements.filter(statement => statement !== statementId);
             }
         }
-        const statements = Array.from(this.state.statements);
         statements[currentStatement.id] = currentStatement;
         this.setState({
             statements,
             remainingStatements,
+            sequencedStatements,
             showOneColumn: remainingStatements.length === 0,
         }, () => this.context.trigger('resize'));
     }
@@ -332,7 +341,7 @@ export default class SequenceSurface extends React.Component {
                     }
                     {this.state.canAddPrioritized === true && (
                         <AddStatement
-                            onClick={this.handleOnAddNewPrioritizedItem}
+                            onClick={this.handleOnAddNewSequencedItem}
                             translations={this.context.translations}
                         />
                     )}
