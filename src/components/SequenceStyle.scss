@@ -281,10 +281,8 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
   }
 
   .h5p-sequence-statement-sequenced {
-    border-radius: $borderRadius 0 0 $borderRadius;
     width: 100%;
     padding: 0.25rem 0;
-    margin: 0.25rem 0 0.25rem 0.25rem;
     background-color: #f6f8f9;
   }
 
@@ -349,13 +347,24 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
     }
   }
 
-  :first-child div {
-    margin: 0.25rem 0.25rem 0.25rem 0;
-    border-radius: 0 $borderRadius $borderRadius 0;
+  & > :first-child {
+    margin-top: 0.25rem;
+    margin-left: 0.25rem;
+    margin-bottom: 0.25rem;
+    border-top-left-radius: $borderRadius;
+    border-bottom-left-radius: $borderRadius;
   }
-  :last-child div {
-    margin: 0.25rem 0.25rem 0.25rem 0;
-    border-radius: 0 $borderRadius $borderRadius 0;
+  & > :last-child {
+    margin-top: 0.25rem;
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    border-top-right-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+    overflow: hidden;
+
+    div {
+      margin: 0;
+    }
   }
 }
 

@@ -40,12 +40,12 @@ function Remaining(props) {
             })}
         >
             <div className={"h5p-sequence-statement-remaining"}>
+                <DeleteStatement
+                    onClick={onStatementDelete}
+                />
                 <DragArrows />
                 {displayStatement}
             </div>
-            <DeleteStatement
-                onClick={onStatementDelete}
-            />
         </div>
     );
 

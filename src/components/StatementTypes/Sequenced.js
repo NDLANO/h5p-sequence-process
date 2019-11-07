@@ -36,10 +36,10 @@ const Sequenced = props => {
                         "h5p-sequence-active-draggable": isDragging
                     })}
                 >
-                    <DeleteStatement
-                        onClick={onStatementDelete}
-                    />
                     <div className={"h5p-sequence-statement-sequenced"}>
+                        <DeleteStatement
+                            onClick={onStatementDelete}
+                        />
                         <DragArrows />
                         {enableEditing === true && (
                             <EditableStatement
