@@ -272,6 +272,7 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
       font-size: 0.7rem;
       color: #e03c34;
       z-index: 1;
+      opacity: inherit;
     }
   }
 
@@ -301,6 +302,8 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
       margin-bottom: 0;
       border-radius: $borderRadius 0 0 0;
     }
+
+    .h5p-sequence-actionlist,
     .h5p-sequence-actionlist div {
       margin-bottom: 0;
       border-radius: 0 $borderRadius 0 0;
