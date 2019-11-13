@@ -151,7 +151,7 @@
         "name": "typeYourReasonsForSuchAnswers",
         "type": "text",
         "label": "Placeholder for the text boxes",
-        "default": "Type your reasons for such answers"
+        "default": "Give a brief summary in your own words"
       },
       {
         "name": "resources",

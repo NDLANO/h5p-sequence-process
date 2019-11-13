@@ -52,7 +52,7 @@
         },
         {
           "label": "Midlertidig tekst for tekstfeltene",
-          "default": "Skriv en begrunnelse for dine svar"
+          "default": "Gi et kort sammendrag med egne ord"
         },
         {
           "label": "Tekst på \"Ressurs\"-knappen",
