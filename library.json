@@ -3,10 +3,10 @@
   "description": "Put elements in the right sequence with additional labels and reflection on why the specific order",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 16,
+  "patchVersion": 17,
   "runnable": 1,
   "hasIcon": 1,
-  "author": "Cerpus",
+  "author": "NDLA",
   "license": "MIT",
   "machineName": "H5P.SequenceProcess",
   "embedTypes": [
