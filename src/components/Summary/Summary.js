@@ -10,6 +10,8 @@ function Summary(props) {
         reset,
         exportValues,
         translate,
+        summaryHeader,
+        summaryInstruction,
     } = props;
 
     exportValues('summary', () => comment);
@@ -24,8 +26,11 @@ function Summary(props) {
                 id={"summary-header"}
                 htmlFor={'summary'}
             >
-                <h2>{translate('summary')}</h2>
+                <h2>{summaryHeader ? summaryHeader : translate('summary')}</h2>
             </label>
+            {summaryInstruction && (
+                <p>{summaryInstruction}</p>
+            )}
             <textarea
                 id={"summary"}
                 placeholder={translate('typeYourReasonsForSuchAnswers')}
@@ -41,6 +46,8 @@ Summary.propTypes = {
     reset: PropTypes.func,
     exportValues: PropTypes.func,
     translate: PropTypes.func,
+    summaryHeader: PropTypes.string,
+    summaryInstruction: PropTypes.string,
 };
 
 export default Summary;

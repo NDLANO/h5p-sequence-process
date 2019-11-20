@@ -385,7 +385,11 @@ export default class SequenceSurface extends React.Component {
             collectExportValues,
             registerReset,
             behaviour,
-            translate
+            translate,
+            params: {
+                summaryHeader,
+                summaryInstruction
+            }
         } = this.context;
 
         return (
@@ -406,6 +410,8 @@ export default class SequenceSurface extends React.Component {
                         reset={registerReset}
                         exportValues={collectExportValues}
                         translate={translate}
+                        summaryHeader={summaryHeader}
+                        summaryInstruction={summaryInstruction}
                     />
                 )}
             </div>
