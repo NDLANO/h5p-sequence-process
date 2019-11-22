@@ -31,6 +31,10 @@ export default class Export extends Component {
             userInput
         } = collectExportValues();
 
+        if( !Array.isArray(userInput.labels) ){
+            userInput.labels = [];
+        }
+
         const labelsStructured = userInput.labels.reduce((accumulated, current) => {
             accumulated[current.id] = current.label;
             return accumulated;
@@ -39,7 +43,7 @@ export default class Export extends Component {
         return Object.assign({}, translations, {
             mainTitle: header,
             description,
-            hasResources: resources.length > 0,
+            hasResources: Array.isArray(resources) && resources.length > 0,
             hasLabels: userInput.labels.length > 0,
             hasSummaryComment: summary && summary.length > 0,
             summaryComment: summary,
