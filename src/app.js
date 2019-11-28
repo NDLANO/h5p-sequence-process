@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import Main from "components/Main";
 import {SequenceProcessContext} from 'context/SequenceProcessContext';
+import {sanitizeParams} from "./utils";
 
 // Load library
 H5P = H5P || {};
@@ -33,8 +34,8 @@ H5P.SequenceProcess = (function () {
     } = extras;
 
     let container;
-    this.params = params;
-    this.behaviour = params.behaviour || {};
+    this.params = sanitizeParams(params);
+    this.behaviour = this.params.behaviour || {};
     this.resetStack = [];
     this.collectExportValuesStack = [];
     this.wrapper = null;
@@ -53,7 +54,7 @@ H5P.SequenceProcess = (function () {
       createDocument: "Create document",
       labelSummaryComment: "Summary comment",
       labelComment: "Comment",
-      noLabels: "Ingen etiketter",
+      noLabels: "No labels",
       labelLabels: "Labels",
       labelAvailableLabels: "Available labels",
       labelStatement: "Statement",
@@ -80,7 +81,7 @@ H5P.SequenceProcess = (function () {
       draggableItem: "Draggable item :statement",
       dropzone: "Dropzone :index",
       dropzoneWithValue: "Dropzone :index with value :statement",
-    }, params.l10n, params.resourceReport);
+    }, this.params.l10n, this.params.resourceReport, this.params.accessibility);
 
     const createElements = () => {
       const wrapper = document.createElement('div');
@@ -90,7 +91,7 @@ H5P.SequenceProcess = (function () {
       ReactDOM.render(
         <SequenceProcessContext.Provider value={this}>
           <Main
-              {...params}
+              {...this.params}
               id={contentId}
               language={language}
               collectExportValues={this.collectExportValues}

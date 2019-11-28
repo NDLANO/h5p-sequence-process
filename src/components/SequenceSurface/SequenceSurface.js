@@ -6,19 +6,7 @@ import Column from '../Column/Column';
 import StatementList from "../StatementList/StatementList";
 import AddStatement from "../AddStatement/AddStatement";
 import Summary from "../Summary/Summary";
-
-function StatementDataObject(initValues) {
-    this.id = null;
-    this.comment = null;
-    this.added = false;
-    this.statement = null;
-    this.isPlaceholder = false;
-    this.isUserAdded = false;
-    this.editMode = false;
-    this.touched = false;
-    this.selectedLabels = [];
-    return Object.assign(this, initValues);
-}
+import {StatementDataObject} from 'utils';
 
 export default class SequenceSurface extends React.Component {
 
