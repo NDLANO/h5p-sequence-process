@@ -46,7 +46,9 @@ function Main(props) {
                     className={"h5p-sequence-surface-info"}
                     ref={resourceContainer}
                 >
-                    <p className={'h5p-sequence-description'}>{description}</p>
+                    {description && (
+                        <p className={'h5p-sequence-description'}>{description}</p>
+                    )}
                 </div>
                 <SequenceSurface />
             </div>
