@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import Main from "components/Main";
 import {SequenceProcessContext} from 'context/SequenceProcessContext';
-import {sanitizeParams} from "./utils";
+import {sanitizeParams} from "./components/utils";
 
 // Load library
 H5P = H5P || {};
