@@ -55,8 +55,8 @@
       "label": "Localize",
       "fields": [
         {
-          "label": "Midlertidig tekst for tekstfeltene",
-          "default": "Gi et kort sammendrag med egne ord"
+          "label": "Midlertidig tekst for kommentar tekstfeltene",
+          "default": "Utdyp ditt valg"
         },
         {
           "label": "Tekst på \"Ressurs\"-knappen",
@@ -85,6 +85,10 @@
         {
           "label": "Spør brukeren om vedkommende vil fortsette",
           "default": "Er du sikker?"
+        },
+        {
+          "label": "Midlertidig tekst for sammendrag tekstfeltet",
+          "default": "Gi et kort sammendrag med egne ord"
         }
       ]
     },

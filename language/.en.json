@@ -55,8 +55,8 @@
       "label": "Localize",
       "fields": [
         {
-          "label": "Placeholder for the text boxes",
-          "default": "Give a brief summary in your own words"
+          "label": "Placeholder for the comment text boxes",
+          "default": "Elaborate on your decision"
         },
         {
           "label": "Label for \"Resources\"-button",
@@ -89,6 +89,10 @@
         {
           "label": "Ask the user if he/she wants to continue",
           "default": "Are you sure?"
+        },
+        {
+          "label": "Placeholder for the summary box",
+          "default": "Give a brief summary in your own words"
         }
       ]
     },
