@@ -46,12 +46,14 @@ function Reset() {
                                 <button
                                     onClick={confirmReset}
                                     className={"continue"}
+                                    type={"button"}
                                 >
                                     {translations.continue}
                                 </button>
                                 <button
                                     onClick={togglePopover}
                                     className={"cancel"}
+                                    type={"button"}
                                 >
                                     {translations.cancel}
                                 </button>
@@ -62,6 +64,7 @@ function Reset() {
                     <button
                         className={"h5p-sequence-button-restart"}
                         onClick={togglePopover}
+                        type={"button"}
                     >
                         <span
                             className={"h5p-ri hri-restart"}

@@ -33,6 +33,7 @@ function DeleteStatement(props) {
                 }
             }}
             className={"h5p-sequence-delete-button"}
+            type={"button"}
         >
             <span
                 className={"h5p-ri hri-times"}

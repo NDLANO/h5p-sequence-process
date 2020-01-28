@@ -127,6 +127,7 @@ export default class Export extends Component {
                 <button
                     className={"h5p-sequence-button-export pull-right"}
                     onClick={this.handleExport}
+                    type={"button"}
                 >
                     <span className={"h5p-ri hri-document"}/>
                     {translate("createDocument")}

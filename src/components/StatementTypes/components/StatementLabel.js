@@ -48,6 +48,7 @@ function StatementLabel(props) {
                                     }
                                 }}
                                 className={"close-button"}
+                                type={"button"}
                             >
                                 <div>
                                     <span

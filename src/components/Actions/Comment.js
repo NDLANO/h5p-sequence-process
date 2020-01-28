@@ -46,6 +46,7 @@ function Comment(props) {
             <button
                 onClick={handleToggle}
                 className={"h5p-sequence-action"}
+                type={"button"}
                 onKeyDown={event => {
                     if (event.keyCode === 13) {
                         handleToggle();
