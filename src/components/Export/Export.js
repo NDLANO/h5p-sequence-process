@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {SequenceProcessContext} from "../../context/SequenceProcessContext";
+import {escapeHTML} from "../utils";
 
 export default class Export extends Component {
     static contextType = SequenceProcessContext;
@@ -94,7 +95,7 @@ export default class Export extends Component {
 
     handleExport() {
         const {
-            translations,
+            translate,
         } = this.context;
 
         this.exportObject = this.getExportObject();
@@ -102,13 +103,13 @@ export default class Export extends Component {
         this.context.triggerXAPIScored(0, 0, 'completed');
 
         this.exportDocument = new H5P.ExportPage(
-            this.exportObject.mainTitle,
+            escapeHTML(this.exportObject.mainTitle),
             this.getExportPreview(),
-            true,
-            translations.submitText,
-            translations.submitConfirmedText,
-            translations.selectAll,
-            translations.export,
+            H5PIntegration.reportingIsEnabled || false,
+            escapeHTML(translate("submitText")),
+            escapeHTML(translate("submitConfirmedText")),
+            escapeHTML(translate("selectAll")),
+            escapeHTML(translate("export")),
             H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
             this.exportObject
         );
@@ -118,7 +119,7 @@ export default class Export extends Component {
 
     render() {
         const {
-            translations
+            translate
         } = this.context;
 
         return (
@@ -128,7 +129,7 @@ export default class Export extends Component {
                     onClick={this.handleExport}
                 >
                     <span className={"h5p-ri hri-document"}/>
-                    {translations.createDocument}
+                    {translate("createDocument")}
                 </button>
                 <div className={"export-container"} ref={el => this.exportContainer = el}/>
             </Fragment>
