@@ -4,6 +4,7 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import SequenceSurface from './SequenceSurface/SequenceSurface.js';
 import Footer from "./Footer/Footer";
+import ReactHtmlParser from "react-html-parser";
 
 function Main(props) {
 
@@ -47,7 +48,7 @@ function Main(props) {
                     ref={resourceContainer}
                 >
                     {description && (
-                        <p className={'h5p-sequence-description'}>{description}</p>
+                        <div className={'h5p-sequence-description'}>{ReactHtmlParser(description)}</div>
                     )}
                 </div>
                 <SequenceSurface />
