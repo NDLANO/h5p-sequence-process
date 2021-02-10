@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {SequenceProcessContext} from "../../context/SequenceProcessContext";
-import {escapeHTML} from "../utils";
+import {escapeHTML, stripHTML} from "../utils";
 
 export default class Export extends Component {
     static contextType = SequenceProcessContext;
@@ -43,7 +43,7 @@ export default class Export extends Component {
 
         return Object.assign({}, translations, {
             mainTitle: header,
-            description,
+            description: stripHTML(description),
             hasResources: Array.isArray(resources) && resources.length > 0,
             hasLabels: userInput.labels.length > 0,
             hasSummaryComment: summary && summary.length > 0,
@@ -52,6 +52,7 @@ export default class Export extends Component {
             resources: resources,
             sortedStatementList: userInput.sequencedStatements
                 .map(statement => userInput.statements[statement])
+                .filter(statement => statement.touched === true)
                 .map(statement => {
                     return {
                         labels: statement.selectedLabels.map(label => labelsStructured[label]),
