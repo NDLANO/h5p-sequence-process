@@ -11,8 +11,15 @@
     "label": "Task description",
     "importance": "low",
     "optional": true,
-    "widget": "textarea",
-    "lines": 3
+    "widget": "html",
+    "enterMode": "p",
+    "tags": [
+      "strong",
+      "em",
+      "u",
+      "ol",
+      "ul"
+    ]
   },
   {
     "name": "statementsList",
@@ -68,11 +75,18 @@
   {
     "name": "summaryInstruction",
     "type": "text",
-    "widget": "textarea",
-    "lines": 3,
+    "widget": "html",
     "label": "Summary instruction",
     "importance": "low",
-    "optional": true
+    "optional": true,
+    "enterMode": "p",
+    "tags": [
+      "strong",
+      "em",
+      "u",
+      "ol",
+      "ul"
+    ]
   },
   {
     "name": "resources",
