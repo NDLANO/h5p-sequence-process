@@ -76,9 +76,8 @@ export default class Export extends Component {
             '</table>' +
             '<h2>{{labelSummaryComment}}</h2>' +
             '<p>{{^hasSummaryComment}}{{labelNoSummaryComment}}{{/hasSummaryComment}}{{summaryComment}}</p>' +
-            '<h2>{{header}}</h2>' +
-            '{{^resources}}<p>{{labelNoResources}}</p>{{/resources}}' +
             '{{#hasResources}}' +
+            '<h2>{{header}}</h2>' +
             '<table>' +
             '<tr><th>{{headerTitle}}</th><th>{{headerIntro}}</th><th>{{headerUrl}}</th></tr>' +
             '{{#resources}}<tr><td>{{title}}</td><td>{{introduction}}</td><td>{{url}}</td></tr>{{/resources}}' +
