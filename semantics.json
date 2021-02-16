@@ -173,7 +173,7 @@
     "label": "Localize",
     "common": true,
     "fields": [
-        {
+      {
         "name": "typeYourReasonsForSuchAnswers",
         "type": "text",
         "label": "Placeholder for the comment text boxes",
