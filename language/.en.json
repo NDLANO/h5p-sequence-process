@@ -63,10 +63,6 @@
           "default": "Resources"
         },
         {
-          "label": "Label for \"Save\"-button",
-          "default": "Resources"
-        },
-        {
           "label": "Guides text for selecting tags",
           "default": "Select all labels connected to this item"
         },
@@ -93,6 +89,10 @@
         {
           "label": "Placeholder for the summary box",
           "default": "Give a brief summary in your own words"
+        },
+        {
+          "label": "Header in comment box",
+          "default": "Feedback"
         }
       ]
     },

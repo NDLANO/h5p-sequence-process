@@ -2,7 +2,7 @@
   "title": "Sequence",
   "description": "Put elements in the right sequence with additional labels and reflection on why the specific order",
   "majorVersion": 1,
-  "minorVersion": 1,
+  "minorVersion": 2,
   "patchVersion": 0,
   "runnable": 1,
   "hasIcon": 1,

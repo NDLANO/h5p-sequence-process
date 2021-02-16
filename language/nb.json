@@ -89,6 +89,10 @@
         {
           "label": "Midlertidig tekst for sammendrag tekstfeltet",
           "default": "Gi et kort sammendrag med egne ord"
+        },
+        {
+          "label": "Overskrift i kommentarboks",
+          "default": "Tilbakemelding"
         }
       ]
     },
