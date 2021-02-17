@@ -173,7 +173,7 @@
     "label": "Localize",
     "common": true,
     "fields": [
-        {
+      {
         "name": "typeYourReasonsForSuchAnswers",
         "type": "text",
         "label": "Placeholder for the comment text boxes",
@@ -226,6 +226,12 @@
         "type": "text",
         "label": "Placeholder for the summary box",
         "default": "Give a brief summary in your own words"
+      },
+      {
+        "name": "feedback",
+        "type": "text",
+        "label": "Header in comment box",
+        "default": "Feedback"
       }
     ]
   },

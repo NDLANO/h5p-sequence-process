@@ -8,30 +8,43 @@
     },
     {
       "label": "Påstander",
-      "entity": "statement",
-      "field": {
-        "label": "Påstand",
-        "description": "Påstand som brukeren skal ta stilling til"
-      }
+      "fields": [
+        {
+          "label": "Uttalelser",
+          "entity": "uttalelser",
+          "field": {
+            "label": "Statement"
+          }
+        }
+      ]
     },
     {
       "label": "Merkelapper",
-      "entity": "label",
-      "field": {
-        "label": "Merkelapp"
-      }
+      "fields": [
+        {
+          "label": "Merkelapper",
+          "entity": "merkelapp",
+          "field": {
+            "label": "Merkelapper"
+          }
+        }
+      ]
     },
     {
       "label": "Oppsummering",
       "default": "Oppsummering"
     },
     {
-      "label": "Instruksjoner til oppsummeringen",
-      "description": "Skriv noen ord om hva du ønsker skal være med i oppsummeringen"
+      "label": "Instruksjoner til oppsummeringen"
     },
     {
       "label": "Ressurser",
-      "description": "Valgfrie lenker til ressurser."
+      "fields": [
+        {
+          "label": "Ressurser",
+          "description": "Valgfrie lenker til ressurser."
+        }
+      ]
     },
     {
       "label": "Innstillinger",
@@ -48,6 +61,18 @@
         {
           "label": "Forhåndsutfyll påstandene",
           "description": "Når brukeren starter er påstandene ferdig plassert i rekkefølge"
+        },
+        {
+          "label": "Tilfeldig utsagn",
+          "description": "Vil randomisere de forhåndsutfylte uttalelsene"
+        },
+        {
+          "label": "Vis kommentarene under uttalelsen",
+          "description": "Hvis brukeren har gitt en kommentar, vises dette i utsagnslisten"
+        },
+        {
+          "label": "Tillat brukere å legge til sine egne uttalelser",
+          "description": "Lar brukeren legge til sine egne uttalelser"
         }
       ]
     },
@@ -89,6 +114,10 @@
         {
           "label": "Midlertidig tekst for sammendrag tekstfeltet",
           "default": "Gi et kort sammendrag med egne ord"
+        },
+        {
+          "label": "Overskrift i kommentarboks",
+          "default": "Tilbakemelding"
         }
       ]
     },
