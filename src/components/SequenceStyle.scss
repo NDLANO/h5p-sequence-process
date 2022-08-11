@@ -44,8 +44,8 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
 .h5p-sequence-button-export,
 .h5p-sequence-reset-modal .continue {
   @extend .h5p-sequence-button;
-  background-color: #1f1f1f;
-  border: 2px solid #404040;
+  background-color: #507AA4;
+  border: 2px solid #CCCCCC;
 
   &:hover {
     background-color: #363636;
@@ -122,7 +122,7 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
 }
 
 .h5p-sequence-header {
-  background-color: #2880d0;
+  background-color: #507AA4;
   display: flex;
   margin: 0;
   align-items: center;
@@ -680,7 +680,7 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
 }
 
 .h5p-sequence-footer {
-  background-color: #1f1f1f;
+  background-color: #507AA4;
   color: white;
   padding: em(20px);
   display: flex;
