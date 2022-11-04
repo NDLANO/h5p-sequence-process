@@ -35,7 +35,7 @@
       "default": "Summary"
     },
     {
-      "label": "Summary instructions"
+      "label": "Summary instruction"
     },
     {
       "label": "Resources",
@@ -81,14 +81,14 @@
       "fields": [
         {
           "label": "Placeholder for the comment text boxes",
-          "default": "Elaborate on your decision"
+          "default": "Elaborate on this reflection"
         },
         {
           "label": "Label for \"Resources\"-button",
           "default": "Resources"
         },
         {
-          "label": "Guides text for selecting tags",
+          "label": "Guiding text when selecting labels",
           "default": "Select all labels connected to this item"
         },
         {
@@ -169,7 +169,7 @@
           "default": "No resources"
         },
         {
-          "label": "Header for \"Summary comment\"",
+          "label": "Header for summary comment",
           "default": "Summary comment"
         },
         {
@@ -186,15 +186,15 @@
       "label": "Accessibility",
       "fields": [
         {
-          "label": "Add comment",
+          "label": "Used instead of 'Comment'-icon",
           "default": "Add comment"
         },
         {
-          "label": "Close",
+          "label": "Used instead of 'Close'-icon",
           "default": "Close"
         },
         {
-          "label": "Drag",
+          "label": "Used instead of 'Drag'-icon",
           "default": "Drag"
         },
         {
