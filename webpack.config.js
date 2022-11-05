@@ -35,6 +35,7 @@ const config = {
       },
       {
         test: /\.(s[ac]ss|css)$/,
+        include: path.resolve(__dirname, 'src'),
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
