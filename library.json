@@ -20,6 +20,11 @@
       "path": "dist/h5p-sequence-process.js"
     }
   ],
+  "preloadedCss": [
+    {
+      "path": "dist/h5p-sequence-process.css"
+    }
+  ],
   "preloadedDependencies": [
     {
       "machineName": "H5P.ResourceList",
