@@ -96,6 +96,10 @@
           "default": "Start på nytt"
         },
         {
+          "label": "Tekst på \"Lag alternativ\"-knappen",
+          "default": "Lag alternativ"
+        },
+        {
           "label": "Tekst på \"Ja\"-knappen",
           "default": "Yes"
         },

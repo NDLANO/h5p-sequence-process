@@ -96,6 +96,10 @@
           "default": "Restart"
         },
         {
+          "label": "Label for the \"Add alternative\"-button",
+          "default": "Add alternative"
+        },
+        {
           "label": "Label for the \"Yes\"-button",
           "default": "Yes"
         },

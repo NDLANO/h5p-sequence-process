@@ -198,6 +198,12 @@
         "default": "Restart"
       },
       {
+        "name": "add",
+        "type": "text",
+        "label": "Label for the \"Add alternative\"-button",
+        "default": "Add alternative"
+      },
+      {
         "name": "yes",
         "type": "text",
         "label": "Label for the \"Yes\"-button",
