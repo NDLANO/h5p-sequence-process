@@ -68,7 +68,6 @@ function Reset() {
                     >
                         <span
                             className={"h5p-ri hri-restart"}
-                            aria-hidden={"true"}
                         />
                         {translations.restart}
                     </button>

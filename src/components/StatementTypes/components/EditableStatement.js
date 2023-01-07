@@ -34,6 +34,14 @@ function EditableStatement(props) {
     const id = "es_" + props.idBase;
     const labelId = "label_" + id;
     const inputId = "input_" + id;
+
+  /*
+   * TODO: Clean this up. This feels like a very weird construct. Why can't
+   *       the `input` element be used on its own? Why the textbox wrapper that
+   *       adds an extra level while there already is an input field? Also, why
+   *       is ARIA labelling handled that way? Having `aria-hidden` here even
+   *       conditionally, feels wrong.
+   */
     return (
         <div
             role={"textbox"}
