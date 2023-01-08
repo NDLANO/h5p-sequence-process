@@ -166,7 +166,6 @@ function StatementList(props) {
                 return (
                     <div
                         className={"h5p-sequence-draggable-container"}
-                        aria-label={getAriaLabel()}
                     >
                         <div
                             className={classnames("h5p-sequence-draggable-element", {
