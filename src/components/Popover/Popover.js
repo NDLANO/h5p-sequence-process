@@ -37,7 +37,6 @@ const Popover = ({handleClose, show, children, popoverContent, classnames = [], 
                             >
                                     <span
                                         className={"h5p-ri hri-close"}
-                                        aria-hidden={true}
                                     />
                                 <span className="visible-hidden">{close}</span>
                             </button>

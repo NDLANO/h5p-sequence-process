@@ -34,6 +34,13 @@ function EditableStatement(props) {
     const id = "es_" + props.idBase;
     const labelId = "label_" + id;
     const inputId = "input_" + id;
+
+  /*
+   * TODO: Clean this up. This feels like a very weird construct. Why can't
+   *       the `input` element be used on its own? Why the textbox wrapper that
+   *       adds an extra level while there already is an input field? Also, why
+   *       is ARIA labelling handled that way?
+   */
     return (
         <div
             role={"textbox"}
@@ -58,12 +65,10 @@ function EditableStatement(props) {
                         onBlur={handleBlur}
                         onChange={debounce(() => props.onBlur(inputRef.current.value), 200)}
                         aria-label={"Edit statement " + props.statement}
-                        aria-hidden={!inEditMode}
                         id={inputId}
                     />
                 </label>
                 <p
-                    aria-hidden={inEditMode}
                     className={classnames("h5p-sequence-noneditable", {
                         "hidden": inEditMode === true,
                     })}

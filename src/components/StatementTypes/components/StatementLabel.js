@@ -29,7 +29,6 @@ function StatementLabel(props) {
                 <div>
                     <span
                         className="h5p-ri hri-label-full"
-                        aria-hidden={"true"}
                     />
                 </div>
                 <div>
@@ -53,7 +52,6 @@ function StatementLabel(props) {
                                 <div>
                                     <span
                                         className={"h5p-ri hri-times"}
-                                        aria-hidden={true}
                                     />
                                 </div>
                                 <span className="visible-hidden">{context.translate('close')}</span>

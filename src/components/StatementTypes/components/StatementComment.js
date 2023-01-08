@@ -30,7 +30,6 @@ function StatementComment(props) {
             <div>
                 <span
                     className="h5p-ri hri-comment-full"
-                    aria-hidden={"true"}
                 />
             </div>
             <div>

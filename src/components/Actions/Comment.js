@@ -58,7 +58,6 @@ function Comment(props) {
                         "hri-comment-empty": !props.comment || props.comment.length === 0,
                         "hri-comment-full": props.comment && props.comment.length > 0,
                     })}
-                    aria-hidden={"true"}
                 />
                 <span className="visible-hidden">{context.translations.addComment}</span>
             </button>

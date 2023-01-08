@@ -66,7 +66,6 @@ function Labels(props){
                         "hri-label-empty": !props.selectedLabelArray || props.selectedLabelArray.length === 0,
                         "hri-label-full": props.selectedLabelArray && props.selectedLabelArray.length > 0,
                     })}
-                    aria-hidden={"true"}
                 />
                 <span className="visible-hidden">{context.translations.addLabel}</span>
             </button>

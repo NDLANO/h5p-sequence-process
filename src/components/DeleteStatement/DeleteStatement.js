@@ -37,7 +37,6 @@ function DeleteStatement(props) {
         >
             <span
                 className={"h5p-ri hri-times"}
-                aria-hidden={true}
             />
             <span className="visible-hidden">{translate('close')}</span>
         </button>
