@@ -27,7 +27,7 @@ function Summary(props) {
                 id={"summary-header"}
                 htmlFor={'summary'}
             >
-                <h2>{summaryHeader ? summaryHeader : translate('summary')}</h2>
+                <div>{summaryHeader ? summaryHeader : translate('summary')}</div>
             </label>
             {summaryInstruction && (
                 <div>{ReactHtmlParser(summaryInstruction)}</div>

@@ -67,7 +67,7 @@ export default class Export extends Component {
         const documentExportTemplate =
             '<div class="export-preview">' +
             '<div class="page-header" role="heading" tabindex="-1">' +
-            ' <h1 class="page-title">{{mainTitle}}</h1>' +
+            ' <div class="page-title h1">{{mainTitle}}</div>' +
             '</div>' +
             '<div class="page-description">{{description}}</div>' +
             '<table>' +
@@ -75,17 +75,17 @@ export default class Export extends Component {
             '{{#sortedStatementList}}<tr><td>{{title}}</td><td>{{#labels}}<li>{{.}}</li>{{/labels}}</td><td>{{comment}}</td></tr>{{/sortedStatementList}}' +
             '</table>' +
             '{{#hasSummaryComment}}' +
-            '<h2>{{labelSummaryComment}}</h2>' +
+            '<div class="h2">{{labelSummaryComment}}</div>' +
             '<p>{{summaryComment}}</p>' +
             '{{/hasSummaryComment}}' +
             '{{#hasResources}}' +
-            '<h2>{{header}}</h2>' +
+            '<div class="h2">{{header}}</div>' +
             '<table>' +
             '<tr><th>{{headerTitle}}</th><th>{{headerIntro}}</th><th>{{headerUrl}}</th></tr>' +
             '{{#resources}}<tr><td>{{title}}</td><td>{{introduction}}</td><td>{{url}}</td></tr>{{/resources}}' +
             '</table>' +
             '{{/hasResources}}' +
-            '<h2>{{headerAvailableLabels}}</h2>' +
+            '<div class="h2">{{headerAvailableLabels}}</div>' +
             '{{^hasLabels}}<p>{{labelNoLabels}}</p>{{/hasLabels}}' +
             '{{#allLabels}}' +
             '<li>{{.}}</li>' +
