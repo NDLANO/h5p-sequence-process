@@ -1,0 +1,232 @@
+{
+  "semantics": [
+    {
+      "label": "Cabeceira"
+    },
+    {
+      "label": "Descrición da tarefa"
+    },
+    {
+      "label": "Declaracións",
+      "fields": [
+        {
+          "label": "Declaracións",
+          "entity": "declaración",
+          "field": {
+            "label": "Declaración"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Etiquetas",
+      "fields": [
+        {
+          "label": "Etiquetas",
+          "entity": "etiqueta",
+          "field": {
+            "label": "Etiqueta"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Resumo",
+      "default": "Resumo"
+    },
+    {
+      "label": "Instrucións do resumo"
+    },
+    {
+      "label": "Recursos",
+      "fields": [
+        {
+          "label": "Recursos",
+          "description": "Enlaces opcionais a recursos."
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "label": "Activar tentar de novo?",
+          "description": "Marca isto se queres que o usuario poida tentar de novo"
+        },
+        {
+          "label": "Amosar resumo",
+          "description": "Queres que o usuario forneza un resumo explicando as razóns para as súas respostas?"
+        },
+        {
+          "label": "Pre-encher os enunciados",
+          "description": "O usuario comeza coas declaracións xa en orde"
+        },
+        {
+          "label": "Cambiar as declaracións ao chou",
+          "description": "Moverá ao chou as declaracións fornecidas previamente"
+        },
+        {
+          "label": "Amosar os comentarios fornecidos debaixo da declaración",
+          "description": "Se o usuario forneceu un comentario, amosarase na lista de declaracións"
+        },
+        {
+          "label": "Permitir que os usuarios engadan as súas propias afirmacións",
+          "description": "Permitir ao usuario engadir as súas propias declaracións"
+        }
+      ],
+      "label": "Configuración do comportamento",
+      "description": "Estas opcións permitiranche controlar o comportamento."
+    },
+    {
+      "label": "Adaptación local",
+      "fields": [
+        {
+          "label": "Marcador de posición para as caixas de texto de comentarios",
+          "default": "Desenrola esta reflexión"
+        },
+        {
+          "label": "Etiqueta para o botón \"Recursos\"",
+          "default": "Recursos"
+        },
+        {
+          "label": "Texto de orientación ao seleccionar etiquetas",
+          "default": "Selecciona todas as etiquetas conectadas con este elemento"
+        },
+        {
+          "label": "Etiqueta para o botón \"reiniciar\"",
+          "default": "Reiniciar"
+        },
+        {
+          "label": "Etiqueta para o botón \"Engadir alternativa\"",
+          "default": "Engadir alternativa"
+        },
+        {
+          "label": "Etiqueta para o botón \"Si\"",
+          "default": "Si"
+        },
+        {
+          "label": "Etiqueta para o botón \"Non\"",
+          "default": "Non"
+        },
+        {
+          "label": "Informar ao usuario de que os datos perderanse se continúa",
+          "default": "Perderanse todos os teus cambios se continúas"
+        },
+        {
+          "label": "Pregúntalle ao usuario se quere continuar",
+          "default": "Estás seguro?"
+        },
+        {
+          "label": "Texto por defecto para a caixa do resumo",
+          "default": "Fai un breve resumo coas túas propias palabras"
+        },
+        {
+          "label": "Cabeceira na caixa de comentarios",
+          "default": "Retroalimentación"
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "label": "Etiqueta para o botón \"Crear documento\"",
+          "default": "Crear documento"
+        },
+        {
+          "label": "Etiqueta para o botón \"Exportar\"",
+          "default": "Exportar"
+        },
+        {
+          "label": "Etiqueta para o botón \"Seleccionar todo\"",
+          "default": "Seleccionar todo"
+        },
+        {
+          "label": "Cabeceira das declaracións na táboa de declaracións",
+          "default": "Declaracións"
+        },
+        {
+          "label": "Cabeceira das etiquetas na táboa de declaracións",
+          "default": "Etiquetas"
+        },
+        {
+          "label": "Cabeceira dos comentarios na táboa de declaracións",
+          "default": "Comentarios"
+        },
+        {
+          "label": "Cabeceira da táboa \"Recurso\"",
+          "default": "Recursos"
+        },
+        {
+          "label": "Título da cabeceira da táboa de recursos",
+          "default": "Título"
+        },
+        {
+          "label": "Encabezado de introdución na táboa de recursos",
+          "default": "Introdución"
+        },
+        {
+          "label": "Encabezado de Url na táboa de recursos",
+          "default": "URL"
+        },
+        {
+          "label": "Etiqueta cando non se atopan recursos",
+          "default": "Non hai recursos"
+        },
+        {
+          "label": "Cabeceira para \"Comentario de resumo\"",
+          "default": "Comentario do resumo"
+        },
+        {
+          "label": "Etiqueta cando non se forneceu ningún resumo",
+          "default": "Sen comentarios"
+        },
+        {
+          "label": "Cabeceira para a lista de etiquetas no informe",
+          "default": "Etiquetas dispoñibles"
+        }
+      ],
+      "label": "Informe de recursos"
+    },
+    {
+      "label": "Accesibilidade",
+      "fields": [
+        {
+          "label": "Empregado no canto da icona «Comentario»",
+          "default": "Engadir comentario"
+        },
+        {
+          "label": "Empregado no canto da icona «Pechar»",
+          "default": "Pechar"
+        },
+        {
+          "label": "Empregado no canto da icona «Arrastrar»",
+          "default": "Arrastrar"
+        },
+        {
+          "label": "Etiqueta para 'Zona de solta' para lectores de pantalla",
+          "description": "As variables dispoñibles son :index",
+          "default": "Área de solta #:index"
+        },
+        {
+          "label": "Etiqueta para 'Zona de solta' baleira para lectores de pantalla",
+          "description": "As variables dispoñibles son :index",
+          "default": "Área de solta baleira #:index"
+        },
+        {
+          "label": "Etiqueta para 'Elemento arrastrable' para lectores de pantalla",
+          "description": "As variables dispoñibles son :statement",
+          "default": "Elemento arrastrable: :statement"
+        },
+        {
+          "label": "Etiqueta para 'Zona de solta' para lectores de pantalla",
+          "description": "As variables dispoñibles son :index",
+          "default": "Área de solta #:index"
+        },
+        {
+          "label": "Etiqueta para 'Zona de solta con valor' para lectores de pantalla",
+          "description": "As variables dispoñibles son :statement e :index",
+          "default": "Área de solta #:index con valor: :statement"
+        }
+      ]
+    }
+  ]
+}
