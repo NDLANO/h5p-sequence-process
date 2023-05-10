@@ -1,29 +1,11 @@
-import "core-js";
-import "regenerator-runtime/runtime";
 import React from 'react';
-import ReactDOM from "react-dom";
-import Main from "components/Main";
+import ReactDOM from 'react-dom';
+import Main from 'components/Main';
 import {SequenceProcessContext} from 'context/SequenceProcessContext';
-import {breakpoints, getRatio, sanitizeParams} from "./components/utils";
+import {breakpoints, getRatio, sanitizeParams} from './components/utils';
 
 // Load library
-H5P = H5P || {};
 H5P.SequenceProcess = (function () {
-
-  const breakPoints = [
-    {
-      "className": "h5p-medium-tablet-size",
-      "shouldAdd": width => width >= 480 && width < 768
-    },
-    {
-      "className": "h5p-large-tablet-size",
-      "shouldAdd": width => width >= 768 && width < 1024
-    },
-    {
-      "className": "h5p-large-size",
-      "shouldAdd": width => width >= 1024
-    },
-  ];
 
   function Wrapper(params, contentId, extras = {}) {
     // Initialize event inheritance
@@ -46,43 +28,43 @@ H5P.SequenceProcess = (function () {
     this.currentRatio = null;
 
     this.translations = Object.assign({}, {
-      summary: "Summary",
-      typeYourReasonsForSuchAnswers: "Elaborate on your decision",
-      resources: "Resources",
-      save: "Save",
-      selectAllLabelsConnectedToThisItem: "Select all labels connected to this item",
-      restart: "Restart",
-      createDocument: "Create document",
-      labelSummaryComment: "Summary comment",
-      labelComment: "Comment",
-      noLabels: "No labels",
-      labelLabels: "Labels",
-      labelAvailableLabels: "Available labels",
-      labelStatement: "Statement",
-      labelNoComment: "No comment",
-      labelResources: "Resources",
-      labelNoLabels: "No labels",
-      selectAll: "Select all",
-      export: "Export",
-      add: "Add alternative",
-      ifYouContinueAllYourChangesWillBeLost: "All the changes will be lost. Are you sure you wish to continue?",
-      areYouSure: "Are you sure?",
-      close: "Close",
-      addComment: "Add comment",
-      addLabel: "Add label",
-      drag: "Drag",
-      feedback: "Feedback",
-      submitText: "Submit",
-      submitConfirmedText: "Saved!",
-      confirm: "Confirm",
-      continue: "Continue",
-      cancel: "Cancel",
-      droparea: "Droparea :num",
-      emptydroparea: "Empty droparea :index",
-      draggableItem: "Draggable item :statement",
-      dropzone: "Dropzone :index",
-      dropzoneWithValue: "Dropzone :index with value :statement",
-      giveABriefSummary: "Give a brief summary in your own words",
+      summary: 'Summary',
+      typeYourReasonsForSuchAnswers: 'Elaborate on your decision',
+      resources: 'Resources',
+      save: 'Save',
+      selectAllLabelsConnectedToThisItem: 'Select all labels connected to this item',
+      restart: 'Restart',
+      createDocument: 'Create document',
+      labelSummaryComment: 'Summary comment',
+      labelComment: 'Comment',
+      noLabels: 'No labels',
+      labelLabels: 'Labels',
+      labelAvailableLabels: 'Available labels',
+      labelStatement: 'Statement',
+      labelNoComment: 'No comment',
+      labelResources: 'Resources',
+      labelNoLabels: 'No labels',
+      selectAll: 'Select all',
+      export: 'Export',
+      add: 'Add alternative',
+      ifYouContinueAllYourChangesWillBeLost: 'All the changes will be lost. Are you sure you wish to continue?',
+      areYouSure: 'Are you sure?',
+      close: 'Close',
+      addComment: 'Add comment',
+      addLabel: 'Add label',
+      drag: 'Drag',
+      feedback: 'Feedback',
+      submitText: 'Submit',
+      submitConfirmedText: 'Saved!',
+      confirm: 'Confirm',
+      continue: 'Continue',
+      cancel: 'Cancel',
+      droparea: 'Droparea :num',
+      emptydroparea: 'Empty droparea :index',
+      draggableItem: 'Draggable item :statement',
+      dropzone: 'Dropzone :index',
+      dropzoneWithValue: 'Dropzone :index with value :statement',
+      giveABriefSummary: 'Give a brief summary in your own words',
     }, this.params.l10n, this.params.resourceReport, this.params.accessibility);
 
     const createElements = () => {
@@ -93,10 +75,10 @@ H5P.SequenceProcess = (function () {
       ReactDOM.render(
         <SequenceProcessContext.Provider value={this}>
           <Main
-              {...this.params}
-              id={contentId}
-              language={language}
-              collectExportValues={this.collectExportValues}
+            {...this.params}
+            id={contentId}
+            language={language}
+            collectExportValues={this.collectExportValues}
           />
         </SequenceProcessContext.Provider>,
         this.wrapper
@@ -104,18 +86,19 @@ H5P.SequenceProcess = (function () {
     };
 
     this.collectExportValues = (index, callback) => {
-      if( typeof index !== "undefined"){
+      if ( typeof index !== 'undefined') {
         this.collectExportValuesStack.push({key: index, callback: callback});
-      } else {
+      }
+      else {
         const exportValues = {};
         this.collectExportValuesStack.forEach(({key, callback}) => exportValues[key] = callback());
         return exportValues;
       }
     };
 
-    this.registerReset = callback => this.resetStack.push(callback);
+    this.registerReset = (callback) => this.resetStack.push(callback);
 
-    this.attach = $container => {
+    this.attach = ($container) => {
       if (!this.wrapper) {
         createElements();
       }
@@ -131,7 +114,7 @@ H5P.SequenceProcess = (function () {
     };
 
     this.reset = () => {
-      this.resetStack.forEach(callback => callback());
+      this.resetStack.forEach((callback) => callback());
     };
 
     /**
@@ -145,7 +128,7 @@ H5P.SequenceProcess = (function () {
         return;
       }
       this.activeBreakpoints = [];
-      breakpoints().forEach(item => {
+      breakpoints().forEach((item) => {
         if (item.shouldAdd(ratio)) {
           wrapper.classList.add(item.className);
           this.activeBreakpoints.push(item.className);
@@ -175,9 +158,9 @@ H5P.SequenceProcess = (function () {
       let translation = this.translations[key];
       if (vars !== undefined && vars !== null) {
         translation = Object
-            .keys(vars)
-            .map(key => translation.replace(key, vars[key]))
-            .toString();
+          .keys(vars)
+          .map((key) => translation.replace(key, vars[key]))
+          .toString();
       }
       return translation;
     };
