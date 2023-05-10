@@ -44,5 +44,6 @@
     "react-dom": "^16.14.0",
     "react-html-parser": "^2.0.2",
     "react-tiny-popover": "^3.4.5"
-  }
+  },
+  "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead"
 }

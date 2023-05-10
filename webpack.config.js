@@ -14,6 +14,7 @@ module.exports = {
     filename: '[name].js',
     clean: true
   },
+  target: ['browserslist'],
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css'
