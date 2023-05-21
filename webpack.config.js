@@ -1,17 +1,20 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const nodeEnv = process.env.NODE_ENV || 'development';
-const isDev = (nodeEnv !== 'production');
-const config = {
-  mode: nodeEnv,
+const mode = process.argv.includes('--mode=production') ?
+  'production' : 'development';
+
+module.exports = {
+  mode: mode === 'production',
   entry: {
     'h5p-sequence-process': path.join(__dirname, 'src', 'app.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
+    clean: true
   },
+  target: ['browserslist'],
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css'
@@ -43,10 +46,8 @@ const config = {
               publicPath: ''
             }
           },
-          { loader: "css-loader" },
-          {
-            loader: "sass-loader"
-          }
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
         ]
       },
       {
@@ -74,11 +75,6 @@ const config = {
         }
       }
     }
-  }
+  },
+  ...(mode !== 'production' && { devtool: 'eval-cheap-module-source-map' })
 };
-
-if (isDev) {
-  config.devtool = 'inline-source-map';
-}
-
-module.exports = config;

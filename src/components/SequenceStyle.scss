@@ -11,7 +11,7 @@ $browser-context : 16;
     $context: $context * 1px;
   }
 
-  @return $pixels / $context * 1em;
+  @return calc($pixels / $context * 1em);
 }
 
 $h5pColor1: #1f71e8;

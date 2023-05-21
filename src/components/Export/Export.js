@@ -1,70 +1,70 @@
 import React, {Component, Fragment} from 'react';
-import {SequenceProcessContext} from "../../context/SequenceProcessContext";
-import {escapeHTML, stripHTML} from "../utils";
+import {SequenceProcessContext} from '../../context/SequenceProcessContext';
+import {escapeHTML, stripHTML} from '../utils';
 
 export default class Export extends Component {
-    static contextType = SequenceProcessContext;
+  static contextType = SequenceProcessContext;
 
-    exportDocument = null;
-    exportContainer = null;
+  exportDocument = null;
+  exportContainer = null;
 
-    exportObject = null;
+  exportObject = null;
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.handleExport = this.handleExport.bind(this);
+    this.handleExport = this.handleExport.bind(this);
+  }
+
+  getExportObject() {
+    const {
+      params: {
+        header,
+        description
+      },
+      translations,
+      collectExportValues,
+    } = this.context;
+
+    const {
+      resources,
+      summary,
+      userInput
+    } = collectExportValues();
+
+    if ( !Array.isArray(userInput.labels) ) {
+      userInput.labels = [];
     }
 
-    getExportObject() {
-        const {
-            params: {
-                header,
-                description
-            },
-            translations,
-            collectExportValues,
-        } = this.context;
+    const labelsStructured = userInput.labels.reduce((accumulated, current) => {
+      accumulated[current.id] = current.label;
+      return accumulated;
+    }, {});
 
-        const {
-            resources,
-            summary,
-            userInput
-        } = collectExportValues();
+    return Object.assign({}, translations, {
+      mainTitle: header,
+      description: stripHTML(description),
+      hasResources: Array.isArray(resources) && resources.length > 0,
+      hasLabels: userInput.labels.length > 0,
+      hasSummaryComment: summary && summary.length > 0,
+      summaryComment: summary,
+      allLabels: userInput.labels.map((label) => label.label),
+      resources: resources,
+      sortedStatementList: userInput.sequencedStatements
+        .map((statement) => userInput.statements[statement])
+        .filter((statement) => statement.touched === true)
+        .map((statement) => {
+          return {
+            labels: statement.selectedLabels.map((label) => labelsStructured[label]),
+            comment: statement.comment || '',
+            title: statement.statement,
+          };
+        })
+    });
+  }
 
-        if( !Array.isArray(userInput.labels) ){
-            userInput.labels = [];
-        }
-
-        const labelsStructured = userInput.labels.reduce((accumulated, current) => {
-            accumulated[current.id] = current.label;
-            return accumulated;
-        }, {});
-
-        return Object.assign({}, translations, {
-            mainTitle: header,
-            description: stripHTML(description),
-            hasResources: Array.isArray(resources) && resources.length > 0,
-            hasLabels: userInput.labels.length > 0,
-            hasSummaryComment: summary && summary.length > 0,
-            summaryComment: summary,
-            allLabels: userInput.labels.map(label => label.label),
-            resources: resources,
-            sortedStatementList: userInput.sequencedStatements
-                .map(statement => userInput.statements[statement])
-                .filter(statement => statement.touched === true)
-                .map(statement => {
-                    return {
-                        labels: statement.selectedLabels.map(label => labelsStructured[label]),
-                        comment: statement.comment || "",
-                        title: statement.statement,
-                    }
-                })
-        });
-    }
-
-    getExportPreview() {
-        const documentExportTemplate =
+  getExportPreview() {
+    const documentExportTemplate =
             '<div class="export-preview">' +
             '<div class="page-header" role="heading" tabindex="-1">' +
             ' <div class="page-title h1">{{mainTitle}}</div>' +
@@ -92,50 +92,50 @@ export default class Export extends Component {
             '{{/allLabels}}' +
             '</div>';
 
-        return Mustache.render(documentExportTemplate, this.exportObject);
-    }
+    return Mustache.render(documentExportTemplate, this.exportObject);
+  }
 
-    handleExport() {
-        const {
-            translate,
-        } = this.context;
+  handleExport() {
+    const {
+      translate,
+    } = this.context;
 
-        this.exportObject = this.getExportObject();
+    this.exportObject = this.getExportObject();
 
-        this.context.triggerXAPIScored(0, 0, 'completed');
+    this.context.triggerXAPIScored(0, 0, 'completed');
 
-        this.exportDocument = new H5P.ExportPage(
-            escapeHTML(this.exportObject.mainTitle),
-            this.getExportPreview(),
-            H5PIntegration.reportingIsEnabled || false,
-            escapeHTML(translate("submitText")),
-            escapeHTML(translate("submitConfirmedText")),
-            escapeHTML(translate("selectAll")),
-            escapeHTML(translate("export")),
-            H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
-            this.exportObject
-        );
-        this.exportDocument.getElement().prependTo(this.exportContainer);
-        H5P.$window.on('resize', () => this.exportDocument.trigger('resize'));
-    }
+    this.exportDocument = new H5P.ExportPage(
+      escapeHTML(this.exportObject.mainTitle),
+      this.getExportPreview(),
+      H5PIntegration.reportingIsEnabled || false,
+      escapeHTML(translate('submitText')),
+      escapeHTML(translate('submitConfirmedText')),
+      escapeHTML(translate('selectAll')),
+      escapeHTML(translate('export')),
+      H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
+      this.exportObject
+    );
+    this.exportDocument.getElement().prependTo(this.exportContainer);
+    H5P.$window.on('resize', () => this.exportDocument.trigger('resize'));
+  }
 
-    render() {
-        const {
-            translate
-        } = this.context;
+  render() {
+    const {
+      translate
+    } = this.context;
 
-        return (
-            <Fragment>
-                <button
-                    className={"h5p-sequence-button-export pull-right"}
-                    onClick={this.handleExport}
-                    type={"button"}
-                >
-                    <span className={"h5p-ri hri-document"}/>
-                    {translate("createDocument")}
-                </button>
-                <div className={"export-container"} ref={el => this.exportContainer = el}/>
-            </Fragment>
-        )
-    }
+    return (
+      <Fragment>
+        <button
+          className={'h5p-sequence-button-export pull-right'}
+          onClick={this.handleExport}
+          type={'button'}
+        >
+          <span className={'h5p-ri hri-document'}/>
+          {translate('createDocument')}
+        </button>
+        <div className={'export-container'} ref={(el) => this.exportContainer = el}/>
+      </Fragment>
+    );
+  }
 }
