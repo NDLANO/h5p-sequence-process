@@ -19,7 +19,7 @@
       ]
     },
     {
-      "label": "Labels",
+      "label": "Pavadinimas",
       "fields": [
         {
           "label": "Labels",
@@ -31,11 +31,11 @@
       ]
     },
     {
-      "label": "Summary",
-      "default": "Summary"
+      "label": "Santrauka",
+      "default": "Santrauka"
     },
     {
-      "label": "Summary instruction"
+      "label": "Santraukos instrukcija"
     },
     {
       "label": "Resources",
@@ -52,11 +52,11 @@
       "fields": [
         {
           "label": "Enable retry?",
-          "description": "Tick off this if you want the user to be able to retry"
+          "description": "Pažymėkite, jei norite, kad naudotojas galėtų bandyti dar kartą"
         },
         {
-          "description": "Do you want the user to provide a summary explaining the reasons for his/her answers",
-          "label": "Show summary"
+          "description": "Ar norite, kad naudotojas pateiktų santrauką, paaiškindamas savo atsakymų priežastis",
+          "label": "Rodyti santrauką"
         },
         {
           "label": "Pre-populate the statements",
@@ -85,7 +85,7 @@
         },
         {
           "label": "Label for \"Resources\"-button",
-          "default": "Resources"
+          "default": "Ištekliai"
         },
         {
           "label": "Guiding text when selecting labels",
@@ -93,7 +93,7 @@
         },
         {
           "label": "Label for \"Restart\"-button",
-          "default": "Restart"
+          "default": "Perkrauti"
         },
         {
           "label": "Label for the \"Yes\"-button",
@@ -109,7 +109,7 @@
         },
         {
           "label": "Ask the user if he/she wants to continue",
-          "default": "Are you sure?"
+          "default": "Jei tęsite, visi pakeitimai bus prarasti"
         },
         {
           "label": "Placeholder for the summary box",
@@ -195,7 +195,7 @@
         },
         {
           "label": "Used instead of 'Close'-icon",
-          "default": "Close"
+          "default": "Uždaryti"
         },
         {
           "label": "Used instead of 'Drag'-icon",
