@@ -114,6 +114,14 @@
     "description": "These options will let you control the behaviour.",
     "fields": [
       {
+        "name": "prioritizeable",
+        "type": "boolean",
+        "label": "Prioritization",
+        "importance": "high",
+        "default": false,
+        "description": "Tick this off if you want the learner to prioritize the statements"
+      },
+      {
         "name": "enableRetry",
         "type": "boolean",
         "label": "Enable retry?",

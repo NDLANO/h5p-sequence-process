@@ -4,14 +4,17 @@ import PriorityNumber from './components/PriorityNumber.js';
 
 const Placeholder = ({
   index,
+  prioritizeable,
   children,
   isDraggingOver = false,
 }) => {
   return (
     <div>
-      <PriorityNumber
-        index={index}
-      />
+      {prioritizeable &&
+        <PriorityNumber
+          index={index}
+        />
+      }
       <div
         className={classnames('h5p-droparea', {
           'h5p-sequence-active-droppable': isDraggingOver
