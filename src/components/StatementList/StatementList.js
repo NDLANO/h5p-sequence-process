@@ -106,7 +106,6 @@ function StatementList(props) {
         );
       }
 
-      console.log('prioritizeable, sequenced element', prioritizeable);
       return (
         <Sequenced
           statement={statement}
@@ -126,7 +125,6 @@ function StatementList(props) {
       );
     }
     else if (draggableType === 'sequenced') {
-      console.log('prioritizeable, sequenced placeholder', prioritizeable);
       return (
         <Placeholder
           translate={translate}
