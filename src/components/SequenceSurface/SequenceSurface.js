@@ -170,6 +170,7 @@ export default class SequenceSurface extends React.Component {
         labelsList = [],
       },
       behaviour: {
+        prioritizeable = false,
         prepopulate: prepopulated = false,
         randomizeStatements = false,
         allowAddingOfStatements = false,
@@ -195,6 +196,7 @@ export default class SequenceSurface extends React.Component {
       if (statement !== null) {
         statementObject.statement = statement;
         statementObject.isPlaceholder = !prepopulated;
+        statementObject.prioritizeable = prioritizeable;
         statementObject.touched = prepopulated && index < numberOfStatements;
       }
       else {
@@ -320,6 +322,7 @@ export default class SequenceSurface extends React.Component {
                 draggableType="sequenced"
                 statement={statement}
                 index={index}
+                prioritizeable={statement.prioritizeable}
                 isSingleColumn={this.state.showOneColumn}
                 onStatementChange={this.handleOnStatementChange}
                 enableEditing={this.context.behaviour.allowAddingOfStatements}
