@@ -1,13 +1,32 @@
 import React, {Fragment} from 'react';
 import {SequenceProcessContext} from 'context/SequenceProcessContext';
-import {DragDropContext} from 'react-beautiful-dnd';
-import Column from '../Column/Column';
-import StatementList from '../StatementList/StatementList';
+import ActionsList from '../Actions/ActionsList';
+import Comment from '../Actions/Comment';
+import Labels from '../Actions/Labels';
+import SortableList from './SortableList';
+import SortableItem from './SortableItem';
 import AddStatement from '../AddStatement/AddStatement';
 import Summary from '../Summary/Summary';
+import Remaining from '../StatementTypes/Remaining';
 import {StatementDataObject} from 'components/utils';
+import {
+  DndContext,
+  DragOverlay,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+// Import custom sensors
+import { MouseSensor, KeyboardSensor } from './CustomSensors'; // Adjust the path as necessary
+import Sequenced from '../StatementTypes/Sequenced';
 
-export default class SequenceSurface extends React.Component {
+function SequenceSurfaceWithSensors(props) {
+  const mouseSensor = useSensor(MouseSensor);
+  const keyboardSensor = useSensor(KeyboardSensor);
+  const sensors = useSensors(mouseSensor, keyboardSensor);
+  return <SequenceSurface {...props} sensors={sensors} />;
+}
+
+class SequenceSurface extends React.Component {
 
   static contextType = SequenceProcessContext;
 
@@ -17,6 +36,10 @@ export default class SequenceSurface extends React.Component {
     remainingStatements: [],
     showOneColumn: false,
     labels: [],
+    draggableSourceId: null,
+    draggableSourceIndex: null,
+    activeId: null,
+    transition: false,
   };
 
   constructor(props) {
@@ -30,115 +53,162 @@ export default class SequenceSurface extends React.Component {
     this.handleOnStatementChange = this.handleOnStatementChange.bind(this);
     this.handleOnAddNewRemainingItem = this.handleOnAddNewRemainingItem.bind(this);
     this.handleOnAddNewSequencedItem = this.handleOnAddNewSequencedItem.bind(this);
+    this.handleOnDeleteStatement = this.handleOnDeleteStatement.bind(this);
   }
 
-  onDragStart(element) {
-    if (window.navigator.vibrate) {
-      window.navigator.vibrate(100);
+  handleDragStart = (event) => {
+    const { active } = event;
+    const activePrefix = active.id.split('-')[0];
+    this.setState({
+      activeId: active.id,
+      transition: activePrefix === 'sequenced' ? true : false,
+    });
+  };
+
+  
+  handleDragOver = (event) => {
+    const { active, over } = event;
+  
+    if (over) {
+      const overId = over.id;
+  
+      // Check if the item being dragged over is a "sequenced" item
+      if (overId.startsWith('sequenced-') && active.id.startsWith('remaining-')) {
+        // Optionally, set state or perform actions based on this information
+        this.setState({ draggedOverSequencedItemId: overId });
+      } 
+      else {
+        this.setState({ draggedOverSequencedItemId: null });
+      }
     }
-    this.setState({isCombineEnabled: element.source.droppableId !== 'processed'});
+  };
+
+  swapElements(array, index1, index2) {
+    let temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
   }
+  
+  handleDragEnd = (event) => {
+    const { active, over } = event;
+    setTimeout(() => {
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
+    }, 10);
+  
+  
+    if (over && active.id !== over.id) {
+      this.setState((prevState) => {
 
-  onDropUpdate(result) {
-    if (!result.destination || (result.source && result.source.droppableId === 'start')) {
-      return;
-    }
-
-    const {
-      statements
-    } = this.state;
-
-    const statementClone = JSON.parse(JSON.stringify(statements));
-    const destinationIndex = result.destination.index;
-    const sequencedStatements = Array.from(this.state.sequencedStatements);
-
-    const dragged = statementClone[sequencedStatements[result.source.index]];
-    const previousDraggedIndex = dragged.displayIndex;
-    dragged.displayIndex = destinationIndex + 1;
-    const draggedIndexDifference = dragged.displayIndex - previousDraggedIndex;
-    sequencedStatements
-      .map((statementId) => statementClone[statementId])
-      .map((statementClone, index) => {
-        if (statementClone.displayIndex === destinationIndex + 1 && index !== result.source.index) {
-          statementClone.displayIndex -= draggedIndexDifference;
+        // Check if it is a 'remaining' item that is dragged over another 'remaining' item
+        if (active.id.includes('remaining') && over.id.includes('remaining')) {
+          // Extract the numeric part of the ID by removing the prefix
+          const oldIndex = prevState.remainingStatements.indexOf(parseInt(active.id.replace('remaining-', '')));
+          const newIndex = prevState.remainingStatements.indexOf(parseInt(over.id.replace('remaining-', '')));
+    
+          if (oldIndex !== -1 && newIndex !== -1) {
+            let newRemainingStatements = [...prevState.remainingStatements];
+            const movedItem = newRemainingStatements.splice(oldIndex, 1)[0];
+            newRemainingStatements.splice(newIndex, 0, movedItem);
+    
+            return {
+              ...prevState,
+              remainingStatements: newRemainingStatements,
+              activeId: null,
+            };
+          }
         }
+
+        // Check if it is a 'sequenced' item that is dragged over another 'sequenced' item
+        if (active.id.includes('sequenced') && over.id.includes('sequenced')) {
+          // Extract the numeric part of the ID by removing the prefix
+          const oldIndex = prevState.sequencedStatements.indexOf(parseInt(active.id.replace('sequenced-', '')));
+          const newIndex = prevState.sequencedStatements.indexOf(parseInt(over.id.replace('sequenced-', '')));
+    
+          if (oldIndex !== -1 && newIndex !== -1) {
+            let newSequencedStatements = [...prevState.sequencedStatements];
+            const movedItem = newSequencedStatements.splice(oldIndex, 1)[0];
+            newSequencedStatements.splice(newIndex, 0, movedItem);
+    
+            return {
+              ...prevState,
+              sequencedStatements: newSequencedStatements,
+              activeId: null,
+            };
+          }
+        }
+  
+        return prevState;
       });
 
-    this.setState({
-      statements: statementClone,
+
+      const activePrefix = active.id.split('-')[0];
+      const overPrefix = over.id.split('-')[0];
+  
+      // Check if a 'remaining' item is dragged over a 'sequenced' item
+      if (activePrefix === 'remaining' && overPrefix === 'sequenced') {
+        // Here you can set state or trigger actions based on the collision
+        // Remove the dragged item from the 'remaining' list
+        this.setState((prevState) => {
+          const draggableId = parseInt(active.id.replace('remaining-', ''));
+          const droppableId = parseInt(over.id.replace('sequenced-', ''));
+          const dropIndex = prevState.sequencedStatements.indexOf(droppableId);
+
+          // TODO: ensure we can replace a placeholder with a dragged item
+          if (this.state.statements[droppableId].isPlaceholder === false) {
+            const newStatements = [...prevState.statements];
+            const newSequencedStatements = [...prevState.sequencedStatements];
+
+            // Set the dropzone to a placeholder 
+            newStatements[droppableId].isPlaceholder = true;
+
+            // Remove the dragged item from the 'remaining' list
+            const newRemainingStatements = prevState.remainingStatements.filter((id) => id !== draggableId);
+
+            // Add the replaced item to the 'remaining' list
+            const replacedItem = newSequencedStatements[dropIndex];
+            newRemainingStatements.push(replacedItem);
+
+            const indexOfElementToMove = newSequencedStatements.indexOf(draggableId);
+            this.swapElements(newSequencedStatements, indexOfElementToMove, dropIndex); 
+            newStatements[draggableId].isPlaceholder = false;
+
+            return {
+              ...prevState,
+              remainingStatements: newRemainingStatements,
+              sequencedStatements: newSequencedStatements,
+              statements: newStatements,
+            };
+          }
+
+          // Remove the dragged item from the 'remaining' list
+          const newRemainingStatements = prevState.remainingStatements.filter((id) => id !== draggableId);
+
+          // Set the dragged item to not be a placeholder
+          const draggedStatement = prevState.statements[draggableId];
+          draggedStatement.isPlaceholder = false;
+
+          const newSequencedStatements = [...prevState.sequencedStatements];
+          const indexOfElementToMove = newSequencedStatements.indexOf(draggableId);
+          this.swapElements(newSequencedStatements, indexOfElementToMove, dropIndex);
+
+          return {
+            ...prevState,
+            remainingStatements: newRemainingStatements,
+            sequencedStatements: newSequencedStatements,
+            showOneColumn: newRemainingStatements.length === 0,
+          };
+        });
+      }
+    }
+
+    this.setState({ 
+      activeId: null,
+      draggedOverSequencedItemId: null,
     });
-  }
+  };
 
-  onDropEnd(dragResult) {
-    let {
-      combine,
-      destination,
-      source,
-      draggableId
-    } = dragResult;
-
-    if (!combine && !destination) {
-      return;
-    }
-
-    if (destination !== null && destination.droppableId === source.droppableId && destination.index === source.index) {
-      return;
-    }
-    const sequencedStatements = Array.from(this.state.sequencedStatements);
-    const remainingStatements = Array.from(this.state.remainingStatements);
-    const newStatements = JSON.parse(JSON.stringify(this.state.statements));
-
-    if (source && destination && source.droppableId === destination.droppableId) {
-      draggableId = parseInt(draggableId.replace(/\w+-/, ''), 10);
-      sequencedStatements.splice(source.index, 1);
-      sequencedStatements.splice(destination.index, 0, draggableId);
-    }
-    else {
-      const statementId = remainingStatements[source.index];
-      const draggedStatement = newStatements[statementId];
-      const draggedIndex = sequencedStatements.indexOf(statementId);
-      let droppedIndex = null;
-      if (combine !== null) {
-        droppedIndex = sequencedStatements.indexOf(parseInt(combine.draggableId.replace('sequenced-', ''), 10));
-      }
-      else {
-        droppedIndex = destination.index < sequencedStatements.length ? destination.index : sequencedStatements.length - 1;
-      }
-
-      const droppedOnStatement = newStatements[sequencedStatements[droppedIndex]];
-      if (droppedIndex !== -1 && draggedIndex !== -1) {
-        [sequencedStatements[droppedIndex], sequencedStatements[draggedIndex]] = [sequencedStatements[draggedIndex], sequencedStatements[droppedIndex]];
-      }
-      else if (draggedIndex === -1) {
-        sequencedStatements.splice(droppedIndex, 1, statementId);
-      }
-
-      if ( droppedOnStatement.touched === true) {
-        remainingStatements.push(droppedOnStatement.id);
-        droppedOnStatement.touched = false;
-        droppedOnStatement.isPlaceholder = true;
-      }
-
-      if (remainingStatements.length > 0 && source.droppableId !== 'processed') {
-        remainingStatements.splice(source.index, 1);
-      }
-
-      draggedStatement.isPlaceholder = destination === 'processed';
-      draggedStatement.touched = true;
-    }
-
-    sequencedStatements.forEach((statementId, index) => {
-      newStatements[statementId].displayIndex = index + 1;
-    });
-
-    this.setState({
-      statements: newStatements,
-      sequencedStatements: sequencedStatements,
-      remainingStatements: remainingStatements,
-      showOneColumn: remainingStatements.length === 0,
-      canAddPrioritized: remainingStatements.length === 0 && this.context.behaviour.allowAddingOfStatements,
-    }, () => this.context.trigger('resize'));
-  }
 
   sendExportValues() {
     const {
@@ -221,13 +291,13 @@ export default class SequenceSurface extends React.Component {
     });
   }
 
-  handleOnStatementChange(statement) {
-    const statements = Array.from(this.state.statements);
-    statements[statement.id] = statement;
+  handleOnStatementChange = (statementId, updatedStatement) => {
+    const updatedStatements = {...this.state.statements};
+    updatedStatements[statementId] = updatedStatement; // Ensure that the statementId corresponds correctly to the keys in the statements object/array.
     this.setState({
-      statements
-    }, () => this.context.trigger('resize'));
-  }
+      statements: updatedStatements
+    }, () => this.context.trigger('resize')); // Triggering resize after state update is optional depending on your application's requirements
+  };
 
   addNewStatement() {
     const statements = Array.from(this.state.statements);
@@ -304,74 +374,44 @@ export default class SequenceSurface extends React.Component {
     }, () => this.context.trigger('resize'));
   }
 
-  handleSurface() {
+  renderSortableList = () => {
     return (
       <Fragment>
-        <Column
-          droppableId={'processed'}
-          combine={this.state.isCombineEnabled}
-          additionalClassName={'h5p-sequence-dropzone'}
-        >
-          {this.state.sequencedStatements
-            .map((statementId) => this.state.statements[statementId])
-            .map((statement, index) => (
-              <StatementList
-                key={'sequenced-' + statement.id}
-                draggableType="sequenced"
-                statement={statement}
-                index={index}
-                isSingleColumn={this.state.showOneColumn}
-                onStatementChange={this.handleOnStatementChange}
-                enableEditing={this.context.behaviour.allowAddingOfStatements}
-                enableCommentDisplay={this.context.behaviour.displayCommentsBelowStatement}
-                disableTransform={this.state.isCombineEnabled}
-                translate={this.context.translate}
-                labels={this.state.labels}
-                selectedLabels={statement.selectedLabels}
-                onStatementDelete={(id) => this.handleOnDeleteStatement('sequenced', id)}
-              />
-            ))
-          }
-          {this.state.canAddPrioritized === true && (
-            <AddStatement
-              onClick={this.handleOnAddNewSequencedItem}
-              translations={this.context.translations}
+        <div className='h5p-sequence-column h5p-sequence-dropzone'>
+          <SortableList 
+            items={this.state.sequencedStatements.map((statementId) => `sequenced-${statementId}`)}
+            statements={this.state.statements}
+            type={'sequenced'}
+            activeId={this.state.activeId}
+            draggingOver={this.state.draggedOverSequencedItemId}
+            allowTransition={this.state.transition === true}
+            isSingleColumn={this.state.showOneColumn}
+            labels={this.state.labels}
+            onStatementDelete={this.handleOnDeleteStatement}
+            onStatementChange={this.handleOnStatementChange}
+          /> 
+        </div>
+
+        {this.state.remainingStatements.length > 0 && !this.state.showOneColumn && (
+          <div className='h5p-sequence-column h5p-sequence-select-list'>
+            <SortableList 
+              items={this.state.remainingStatements.map((statementId) => `remaining-${statementId}`)}
+              statements={this.state.statements}
+              type={'remaining'}
+              activeId={this.state.activeId}
+              onStatementDelete={this.handleOnDeleteStatement}
             />
-          )}
-        </Column>
-        {this.state.remainingStatements.length > 0 && (
-          <Column
-            droppableId="start"
-            disableDrop={true}
-            columnType="remaining"
-            additionalClassName={'h5p-sequence-select-list'}
-          >
-            {this.state.remainingStatements
-              .map((statementId) => this.state.statements[statementId])
-              .map((statement, index) => (
-                <StatementList
-                  key={'remaining-' + statement.id}
-                  draggableType="remaining"
-                  statement={statement}
-                  index={index}
-                  onStatementChange={this.handleOnStatementChange}
-                  enableEditing={this.context.behaviour.allowAddingOfStatements}
-                  translate={this.context.translate}
-                  onStatementDelete={(id) => this.handleOnDeleteStatement('remaining', id)}
-                />
-              ))
-            }
             {this.context.behaviour && this.context.behaviour.allowAddingOfStatements === true && (
               <AddStatement
                 onClick={this.handleOnAddNewRemainingItem}
                 translations={this.context.translations}
               />
             )}
-          </Column>
+          </div>
         )}
       </Fragment>
     );
-  }
+  };
 
   render() {
     const {
@@ -385,29 +425,90 @@ export default class SequenceSurface extends React.Component {
       }
     } = this.context;
 
+    const activeId = this.state.activeId;
+
+    let actions = null; // Initialize actions as null
+
+    if (this.state.activeId) {
+      // Only create actions if activeId is defined
+      actions = (
+        <Fragment>
+          {this.state.labels.length > 0 && (
+            <ActionsList>
+              <Labels
+                labels={this.state.labels}
+                selectedLabelArray={this.state.statements[activeId]?.selectedLabels}
+                onLabelChange={(labelId) => this.handleLabelChange(activeId, labelId)}
+              />
+            </ActionsList>
+          )}
+          <ActionsList>
+            <Comment
+              onCommentChange={() => {}}
+              comment={this.state.statements[activeId]?.comment}
+              onClick={() => {}}
+              inputRef={this.inputRef} // Assuming you have a ref for focusing if needed
+            />
+          </ActionsList>
+        </Fragment>
+      );
+    }
+
     return (
-      <div>
-        <div
-          className="h5p-sequence-surface"
-        >
-          <DragDropContext
-            onDragEnd={this.onDropEnd}
-            onDragUpdate={this.onDropUpdate}
-            onDragStart={this.onDragStart}
+      <DndContext 
+        onDragEnd={this.handleDragEnd}
+        onDragStart={this.handleDragStart}
+        onDragOver={this.handleDragOver}
+        sensors={this.props.sensors}
+      >
+        <div>
+          <div
+            className="h5p-sequence-surface"
           >
-            {this.handleSurface()}
-          </DragDropContext>
+            {this.renderSortableList()}
+          </div>
+          {behaviour.provideSummary === true && (
+            <Summary
+              reset={registerReset}
+              exportValues={collectExportValues}
+              translate={translate}
+              summaryHeader={summaryHeader}
+              summaryInstruction={summaryInstruction}
+            />
+          )}
         </div>
-        {behaviour.provideSummary === true && (
-          <Summary
-            reset={registerReset}
-            exportValues={collectExportValues}
-            translate={translate}
-            summaryHeader={summaryHeader}
-            summaryInstruction={summaryInstruction}
-          />
-        )}
-      </div>
+        <DragOverlay>
+          {activeId ? (
+            <SortableItem id={activeId}>
+              <div className={'h5p-overlay-item'}>
+                {activeId && activeId.includes('sequenced') ? (
+                  <Sequenced
+                    statement={this.state.statements[activeId.replace(/(sequenced-)/, '')]}
+                    actions={actions}
+                    enableCommentDisplay={this.state.statements[activeId.replace(/(sequenced-)/, '')].comment !== null}
+                    inputRef={null}
+                    onCommentChange={() => {}}
+                    onLabelChange={() => {}}
+                    onStatementChange={() => {}}
+                    enableEditing={false}
+                    isDragging={true}
+                  />
+                ) : (
+                  <Remaining
+                    statement={this.state.statements[activeId.replace(/(remaining-)/, '')]}
+                    onStatementChange={() => {}}
+                    enableEditing={false}
+                    onStatementDelete={() => {}}
+                    isDragging={true}
+                  />
+                )}
+              </div>
+            </SortableItem>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
     );
   }
 }
+
+export default SequenceSurfaceWithSensors;

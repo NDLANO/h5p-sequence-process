@@ -40,7 +40,9 @@ function Remaining(props) {
         'h5p-sequence-active-draggable': isDragging
       })}
     >
-      <div className={'h5p-sequence-statement-remaining'}>
+      <div className={'h5p-sequence-statement-remaining'}
+        data-no-dnd='true'
+      >
         <DeleteStatement
           onClick={onStatementDelete}
         />

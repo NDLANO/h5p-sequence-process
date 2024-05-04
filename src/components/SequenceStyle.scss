@@ -176,6 +176,20 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
   border-radius: $borderRadius;
 }
 
+.h5p-overlay-item {
+  border: 2px solid #1a73d9;
+  
+  .h5p-sequence-active-draggable {
+    cursor: pointer;
+    box-shadow: 0 0 em(3px) em(2px) rgba(26,115,217,0.2);
+    border-color: #1a73d9;
+
+    .h5p-sequence-statement-remaining {
+      background-color: #edf4fd;
+    }
+  }
+}
+
 .h5p-droparea {
   @extend .h5p-sequence-statement-common;
   border: 2px dashed #d1d1d1;
@@ -203,9 +217,8 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
       }
     }
   }
-
-  .h5p-sequence-drag-active &:hover,
-  .h5p-sequence-drag-active .h5p-sequence-active-droppable {
+  
+  &.dragged {
     border-color: #1a73d9;
 
     .h5p-sequence-empty {
@@ -233,6 +246,8 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
   &:hover,
   &:active {
     .h5p-sequence-delete-button {
+      // position: absolute;
+      // z-index: 100;
       opacity: 1;
     }
   }

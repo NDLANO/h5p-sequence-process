@@ -8,6 +8,7 @@ function DragArrows() {
     <div className={'h5p-sequence-drag-element'}>
       <span
         className="h5p-ri hri-move"
+        data-no-dnd='true'
       />
       <span className={'visible-hidden'}>{context.translations.drag}</span>
     </div>

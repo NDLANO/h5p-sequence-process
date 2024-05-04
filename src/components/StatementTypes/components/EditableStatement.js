@@ -73,6 +73,7 @@ function EditableStatement(props) {
           className={classnames('h5p-sequence-noneditable', {
             'hidden': inEditMode === true,
           })}
+          data-no-dnd="true"
         >
           {props.statement}
         </p>

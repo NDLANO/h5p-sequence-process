@@ -17,6 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.24.3",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/preset-env": "^7.21.5",
@@ -36,14 +37,17 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/sortable": "^8.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "he": "^1.2.0",
-    "react": "^16.14.0",
+    "react": "^18.2.0",
     "react-beautiful-dnd": "^12.2.0",
-    "react-dom": "^16.14.0",
+    "react-dom": "^18.2.0",
     "react-html-parser": "^2.0.2",
-    "react-tiny-popover": "^3.4.5"
+    "react-tiny-popover": "^8.0.4"
   },
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead"
 }

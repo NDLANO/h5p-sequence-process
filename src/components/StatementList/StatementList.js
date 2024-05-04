@@ -1,6 +1,6 @@
 import React, {Fragment, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Draggable} from 'react-beautiful-dnd';
+import { useSortable } from '@dnd-kit/sortable';
 import classnames from 'classnames';
 import Remaining from '../StatementTypes/Remaining';
 import Sequenced from '../StatementTypes/Sequenced';
@@ -11,8 +11,14 @@ import Labels from '../Actions/Labels';
 
 function StatementList(props) {
   const inputRef = useRef();
-  const [showCommentContainer, toggleCommentContainer] = useState(false);
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+  } = useSortable({ id: props.id });
 
+  const [showCommentContainer, toggleCommentContainer] = useState(false);
+  
   function handleCommentClick() {
     if (props.enableCommentDisplay !== true) {
       return null;
@@ -127,46 +133,30 @@ function StatementList(props) {
           translate={translate}
           index={index}
         >
-          <div
-            className={'h5p-sequence-empty'}
-          />
+          <div className={'h5p-sequence-empty'} />
         </Placeholder>
       );
     }
   }
 
-  const {
-    index,
-    statement,
-    draggableType,
-  } = props;
-
   return (
-    <Draggable
-      draggableId={draggableType + '-' + statement.id}
-      index={index}
-      isDragDisabled={draggableType === 'sequenced' && statement.isPlaceholder}
-    >
-      {(provided, snapshot) => {
-        return (
-          <div
-            className={'h5p-sequence-draggable-container'}
-          >
-            <div
-              className={classnames('h5p-sequence-draggable-element', {
-                'h5p-sequence-no-transform': props.disableTransform,
-              })}
-              ref={provided.innerRef}
-              {...provided.dragHandleProps}
-              {...provided.draggableProps}
-            >
-              {handleStatementType(snapshot.isDragging)}
-            </div>
+    <div ref={setNodeRef} {...attributes} {...listeners} className={classnames('h5p-sequence-draggable-container', {
+      'h5p-sequence-no-transform': props.disableTransform,
+    })}>
+      <div className={'h5p-sequence-draggable-container'}>
+        <div 
+          className={classnames('h5p-sequence-draggable-element', {
+            'h5p-sequence-no-transform': props.disableTransform,
+          })} 
+        >
+          <div className={classnames('h5p-sequence-draggable-element', { 'h5p-sequence-no-transform': props.disableTransform })}>
+            {handleStatementType(false)} {/* Assuming 'false' for isDragging as an example */}
           </div>
-        );
-      }}
-    </Draggable>
+        </div>
+      </div>
+    </div>
   );
+
 }
 
 

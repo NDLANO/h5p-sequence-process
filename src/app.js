@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Main from 'components/Main';
-import {SequenceProcessContext} from 'context/SequenceProcessContext';
-import {breakpoints, getRatio, sanitizeParams} from './components/utils';
+import { SequenceProcessContext } from 'context/SequenceProcessContext';
+import { breakpoints, getRatio, sanitizeParams } from './components/utils';
 
 // Load library
 H5P.SequenceProcess = (function () {
@@ -72,7 +72,8 @@ H5P.SequenceProcess = (function () {
       wrapper.classList.add('h5p-sequence-wrapper');
       this.wrapper = wrapper;
 
-      ReactDOM.render(
+      const root = createRoot(this.wrapper); 
+      root.render(
         <SequenceProcessContext.Provider value={this}>
           <Main
             {...this.params}
@@ -80,8 +81,7 @@ H5P.SequenceProcess = (function () {
             language={language}
             collectExportValues={this.collectExportValues}
           />
-        </SequenceProcessContext.Provider>,
-        this.wrapper
+        </SequenceProcessContext.Provider>
       );
     };
 

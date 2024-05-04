@@ -9,7 +9,7 @@ const Placeholder = ({
     <div>
       <div
         className={classnames('h5p-droparea', {
-          'h5p-sequence-active-droppable': isDraggingOver
+          'dragged': isDraggingOver
         })}
       >
         {children}

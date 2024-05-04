@@ -29,14 +29,16 @@ const Sequenced = (props) => {
     <Placeholder
       index={index}
     >
-      <div>
+      <div className={classnames({
+        'h5p-sequence-active-draggable': isDragging
+      })}>
         <div
           className={classnames('h5p-sequence-statement', {
             'h5p-sequence-statement-extra': enableCommentDisplay || statement.selectedLabels.length > 0,
             'h5p-sequence-active-draggable': isDragging
           })}
         >
-          <div className={'h5p-sequence-statement-sequenced'}>
+          <div className={'h5p-sequence-statement-sequenced'} data-no-dnd='true'>
             <DeleteStatement
               onClick={onStatementDelete}
             />
