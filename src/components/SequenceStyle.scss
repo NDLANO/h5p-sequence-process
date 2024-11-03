@@ -177,12 +177,9 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
 }
 
 .h5p-overlay-item {
-  border: 2px solid #1a73d9;
-  
   .h5p-sequence-active-draggable {
     cursor: pointer;
     box-shadow: 0 0 em(3px) em(2px) rgba(26,115,217,0.2);
-    border-color: #1a73d9;
 
     .h5p-sequence-statement-remaining {
       background-color: #edf4fd;
@@ -208,7 +205,6 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
     &.h5p-sequence-active-draggable {
       cursor: pointer;
       box-shadow: 0 0 em(3px) em(2px) rgba(26,115,217,0.2);
-      border-color: #1a73d9;
 
       .h5p-sequence-statement-sequenced,
       .h5p-sequence-actionlist > div,
@@ -219,8 +215,6 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
   }
   
   &.dragged {
-    border-color: #1a73d9;
-
     .h5p-sequence-empty {
       background-color: #bbd1f0;
       background-size: cover;
@@ -261,7 +255,6 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
     &.h5p-sequence-active-draggable {
       cursor: pointer;
       box-shadow: 0 0 em(3px) em(2px) rgba(26,115,217,0.2);
-      border-color: #1a73d9;
       div:not(.h5p-sequence-actionlist) {
         background-color: #edf4fd;
       }

@@ -45,7 +45,7 @@ function EditableStatement(props) {
   return (
     <div
       role={'textbox'}
-      tabIndex={0}
+      tabIndex={-1}
       onClick={handleClick}
       className={'h5p-sequence-editable-container'}
       onKeyUp={handleKeyUp}

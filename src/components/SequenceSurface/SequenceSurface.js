@@ -8,7 +8,7 @@ import SortableItem from './SortableItem';
 import AddStatement from '../AddStatement/AddStatement';
 import Summary from '../Summary/Summary';
 import Remaining from '../StatementTypes/Remaining';
-import {StatementDataObject} from 'components/utils';
+import { StatementDataObject } from 'components/utils';
 import {
   DndContext,
   DragOverlay,
@@ -16,13 +16,17 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 // Import custom sensors
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { MouseSensor, KeyboardSensor } from './CustomSensors'; // Adjust the path as necessary
 import Sequenced from '../StatementTypes/Sequenced';
 
 function SequenceSurfaceWithSensors(props) {
   const mouseSensor = useSensor(MouseSensor);
-  const keyboardSensor = useSensor(KeyboardSensor);
+  const keyboardSensor = useSensor(KeyboardSensor, {
+    coordinateGetter: sortableKeyboardCoordinates,
+  });
   const sensors = useSensors(mouseSensor, keyboardSensor);
+
   return <SequenceSurface {...props} sensors={sensors} />;
 }
 
@@ -46,9 +50,9 @@ class SequenceSurface extends React.Component {
     super(props);
 
     this.init = this.init.bind(this);
-    this.onDropEnd = this.onDropEnd.bind(this);
-    this.onDragStart = this.onDragStart.bind(this);
-    this.onDropUpdate = this.onDropUpdate.bind(this);
+    this.handleDragEnd = this.handleDragEnd.bind(this); // Ensure this is bound correctly
+    this.handleDragStart = this.handleDragStart.bind(this);
+    this.handleDragOver = this.handleDragOver.bind(this);
     this.sendExportValues = this.sendExportValues.bind(this);
     this.handleOnStatementChange = this.handleOnStatementChange.bind(this);
     this.handleOnAddNewRemainingItem = this.handleOnAddNewRemainingItem.bind(this);
@@ -377,7 +381,7 @@ class SequenceSurface extends React.Component {
   renderSortableList = () => {
     return (
       <Fragment>
-        <div className='h5p-sequence-column h5p-sequence-dropzone'>
+        {/* <div className='h5p-sequence-column h5p-sequence-dropzone'>
           <SortableList 
             items={this.state.sequencedStatements.map((statementId) => `sequenced-${statementId}`)}
             statements={this.state.statements}
@@ -390,25 +394,11 @@ class SequenceSurface extends React.Component {
             onStatementDelete={this.handleOnDeleteStatement}
             onStatementChange={this.handleOnStatementChange}
           /> 
-        </div>
+        </div> */}
 
-        {this.state.remainingStatements.length > 0 && !this.state.showOneColumn && (
-          <div className='h5p-sequence-column h5p-sequence-select-list'>
-            <SortableList 
-              items={this.state.remainingStatements.map((statementId) => `remaining-${statementId}`)}
-              statements={this.state.statements}
-              type={'remaining'}
-              activeId={this.state.activeId}
-              onStatementDelete={this.handleOnDeleteStatement}
-            />
-            {this.context.behaviour && this.context.behaviour.allowAddingOfStatements === true && (
-              <AddStatement
-                onClick={this.handleOnAddNewRemainingItem}
-                translations={this.context.translations}
-              />
-            )}
-          </div>
-        )}
+        <SortableList 
+          params={this.context.params}
+        />
       </Fragment>
     );
   };
