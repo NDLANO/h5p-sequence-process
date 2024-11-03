@@ -10,53 +10,13 @@ import {
 } from '@dnd-kit/core';
 import {
   SortableContext,
-  useSortable,
   arrayMove,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import Comment from '../Actions/Comment';
 import SortableDropZone from './SortableDropzone';
+import SortableItem from './SortableItem';
 
-function SortableItem({ itemId }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id: itemId,
-  });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    position: 'relative',
-    zIndex: isDragging ? 2 : 1,
-    opacity: isDragging ? 0.5 : 1,
-    cursor: 'grab',
-  };
-
-  return (
-    <div className="h5p-sequence-draggable-container">
-      <div
-        ref={setNodeRef}
-        className="h5p-sequence-draggable-element"
-        style={style}
-        {...attributes}
-        {...listeners}
-        tabIndex={0}
-      >
-        <div className="h5p-sequence-statement">
-          <div className="h5p-sequence-statement-remaining">
-            <div className="h5p-sequence-drag-element">
-              <span className="h5p-ri hri-move" data-no-dnd="true" />
-            </div>
-            <p className="h5p-sequence-element">{itemId}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// DraggableOverlay now reuses SortableItem to match the appearance of Column 1 items
 function DraggableOverlay({ id }) {
   return <SortableItem itemId={id} />;
 }
@@ -65,20 +25,34 @@ function App({ params }) {
   console.log('params', params);
   const statements = params.statementsList; // it is always params.statementsList
   const labelsFromParams = params.labelsList;
+  const prepopulate = params.behaviour.prepopulate;
+  const randomize = params.behaviour.randomizeStatements;
+
+  console.log('prepopulate', prepopulate);
+
   const labels = labelsFromParams.map((label) => {
     return {
       id: H5P.createUUID(),
       label,
     };
   });
+
   
-  const [list1, setList1] = useState(statements || []);
+  const [list1, setList1] = useState(() => {
+    return prepopulate ? [] : (statements || []);
+  });
   const [column2Lists, setColumn2Lists] = useState(() => {
-    // Create dropzones based on the original statements length
     const statementsLength = statements?.length || 0;
+    
+    // If prepopulate and randomize are both true, create a shuffled copy of statements
+    let prepopulatedStatements = statements;
+    if (prepopulate && randomize) {
+      prepopulatedStatements = [...statements].sort(() => Math.random() - 0.5);
+    }
+
     return Array.from({ length: statementsLength }, (_, index) => ({
       id: `dropzone-${index + 1}`,
-      items: []
+      items: prepopulate ? [prepopulatedStatements[index]] : []
     }));
   });
   const [activeId, setActiveId] = useState(null);
