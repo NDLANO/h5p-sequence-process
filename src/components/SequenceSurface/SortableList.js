@@ -99,7 +99,12 @@ function DraggableSequenceList({ params, onUserInputChange }) {
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: customKeyboardCoordinates })
+    useSensor(KeyboardSensor, {
+      coordinateGetter: (event, args) => {
+        // Ensure column2Lists is available when the coordinate getter is called
+        return customKeyboardCoordinates(event, args, column2Lists);
+      }
+    })
   );
 
   const handleDragStart = (event) => {

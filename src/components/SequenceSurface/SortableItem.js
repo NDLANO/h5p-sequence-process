@@ -5,7 +5,7 @@ import DeleteStatement from '../DeleteStatement/DeleteStatement';
 import EditableStatement from '../StatementTypes/components/EditableStatement';
 import UnEditableStatement from '../StatementTypes/components/UnEditableStatement';
 
-function SortableItem({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = true, listId, allowDelete = false }) {
+function SortableItem({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, listId, allowDelete = false }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: itemId,
   });

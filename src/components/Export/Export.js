@@ -16,6 +16,13 @@ export default class Export extends Component {
     this.handleExport = this.handleExport.bind(this);
   }
 
+  componentDidMount() {
+    // Trigger resize after initial render
+    if (this.exportDocument?.trigger) {
+      this.exportDocument.trigger('resize');
+    }
+  }
+
   getExportObject() {
     const {
       params: {
@@ -104,7 +111,6 @@ export default class Export extends Component {
     } = this.context;
 
     this.exportObject = this.getExportObject();
-
     this.context.triggerXAPIScored(0, 0, 'completed');
 
     this.exportDocument = new H5P.ExportPage(
@@ -119,10 +125,10 @@ export default class Export extends Component {
       this.exportObject
     );
     this.exportDocument.getElement().prependTo(this.exportContainer);
-    H5P.$window.on('resize', () => this.exportDocument.trigger('resize'));
   }
 
   render() {
+    console.log('render');
     const {
       translate
     } = this.context;
