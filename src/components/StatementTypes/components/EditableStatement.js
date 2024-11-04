@@ -5,7 +5,7 @@ import {debounce} from '../../utils';
 
 function EditableStatement(props) {
 
-  const [inEditMode, toggleEditMode] = useState(props.inEditMode);
+  const [inEditMode, toggleEditMode] = useState(true);
 
   const inputRef = useRef();
 

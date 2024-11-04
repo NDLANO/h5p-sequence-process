@@ -16,6 +16,8 @@ function StatementLabel(props) {
     onLabelChange,
   } = props;
 
+  console.log('labels', labels);
+  console.log('selectedLabels', selectedLabels);
   if ( selectedLabels.length === 0) {
     return null;
   }
@@ -38,7 +40,7 @@ function StatementLabel(props) {
               key={label.id}
               className={'h5p-sequence-statement-label'}
             >
-              {label.label}
+              {label.content}
               <button
                 onClick={() => onLabelChange(label.id)}
                 onKeyUp={(event) => {

@@ -44,7 +44,7 @@ function Labels(props) {
                   'hri-checked': selectedLabelArray.indexOf(label.id) !== -1,
                   'hri-unchecked': selectedLabelArray.indexOf(label.id) === -1,
                 })} />
-                {label.label}
+                {label.content}
               </label>
             ))}
           </div>

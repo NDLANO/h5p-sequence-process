@@ -5,7 +5,6 @@ import Comment from '../Actions/Comment';
 import Labels from '../Actions/Labels';
 import SortableList from './SortableList';
 import SortableItem from './SortableItem';
-import AddStatement from '../AddStatement/AddStatement';
 import Summary from '../Summary/Summary';
 import Remaining from '../StatementTypes/Remaining';
 import { StatementDataObject } from 'components/utils';
@@ -17,17 +16,10 @@ import {
 } from '@dnd-kit/core';
 // Import custom sensors
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { MouseSensor, KeyboardSensor } from './CustomSensors'; // Adjust the path as necessary
 import Sequenced from '../StatementTypes/Sequenced';
 
 function SequenceSurfaceWithSensors(props) {
-  const mouseSensor = useSensor(MouseSensor);
-  const keyboardSensor = useSensor(KeyboardSensor, {
-    coordinateGetter: sortableKeyboardCoordinates,
-  });
-  const sensors = useSensors(mouseSensor, keyboardSensor);
-
-  return <SequenceSurface {...props} sensors={sensors} />;
+  return <SequenceSurface {...props}  />;
 }
 
 class SequenceSurface extends React.Component {
@@ -398,6 +390,7 @@ class SequenceSurface extends React.Component {
 
         <SortableList 
           params={this.context.params}
+          translations={this.context.translations}
         />
       </Fragment>
     );

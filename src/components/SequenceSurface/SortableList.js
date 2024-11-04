@@ -11,48 +11,68 @@ import {
 import {
   SortableContext,
   arrayMove,
-  sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import SortableDropZone from './SortableDropzone';
 import SortableItem from './SortableItem';
+import AddStatement from '../AddStatement/AddStatement';
+import { customKeyboardCoordinates } from './customKeyboardCoordinates';
+import DraggableOverlay from './DraggableOverlay';
 
-function DraggableOverlay({ id }) {
-  return <SortableItem itemId={id} />;
-}
-
-function App({ params }) {
-  console.log('params', params);
-  const statements = params.statementsList; // it is always params.statementsList
-  const labelsFromParams = params.labelsList;
+function App({ params, translations }) {
+  // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
+  const addStatementButton = params.behaviour.allowAddingOfStatements;
 
-  console.log('prepopulate', prepopulate);
+  // Content params
+  // statementsFromParams is an array of strings: ["statement 1", "statement 2", ...]
+  // labelsFromParams is an array of strings: ["label 1", "label 2", ...]
+  const statementsFromParams = params.statementsList;
+  const labelsFromParams = params.labelsList;
 
-  const labels = labelsFromParams.map((label) => {
-    return {
-      id: H5P.createUUID(),
-      label,
-    };
+  // Convert string statements into objects with IDs
+  const [statements, setStatements] = useState(() => {
+    return statementsFromParams.reduce((acc, statementText, index) => {
+      const id = H5P.createUUID();
+      acc[id] = {
+        id,
+        content: statementText
+      };
+      return acc;
+    }, {});
   });
 
+  // Add console.log to debug
+  console.log('labelsFromParams:', labelsFromParams);
   
+  const [labels, setLabels] = useState(() => {
+    return labelsFromParams.map(labelText => ({
+      id: H5P.createUUID(),
+      content: labelText
+    }));
+  });
+
+  // Add another console.log after state initialization
+  console.log('Current labels state:', labels);
+
+  // list1 and column2Lists store only the IDs
   const [list1, setList1] = useState(() => {
-    return prepopulate ? [] : (statements || []);
+    return prepopulate ? [] : Object.keys(statements);
   });
   const [column2Lists, setColumn2Lists] = useState(() => {
-    const statementsLength = statements?.length || 0;
+    const statementsLength = statementsFromParams?.length || 0;
     
-    // If prepopulate and randomize are both true, create a shuffled copy of statements
-    let prepopulatedStatements = statements;
+    let prepopulatedStatementIds = Object.keys(statements);
     if (prepopulate && randomize) {
-      prepopulatedStatements = [...statements].sort(() => Math.random() - 0.5);
+      prepopulatedStatementIds = [...prepopulatedStatementIds].sort(() => Math.random() - 0.5);
     }
 
+    const labelIds = Object.keys(labels);
     return Array.from({ length: statementsLength }, (_, index) => ({
       id: `dropzone-${index + 1}`,
-      items: prepopulate ? [prepopulatedStatements[index]] : []
+      items: prepopulate ? [prepopulatedStatementIds[index]] : [],
+      labelId: labelIds[index]
     }));
   });
   const [activeId, setActiveId] = useState(null);
@@ -60,7 +80,7 @@ function App({ params }) {
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(KeyboardSensor, { coordinateGetter: customKeyboardCoordinates })
   );
 
   const handleDragStart = (event) => {
@@ -75,6 +95,7 @@ function App({ params }) {
     if (!over) {
       setActiveId(null);
       setActiveContainer(null);
+      triggerResize();
       return;
     }
 
@@ -114,6 +135,7 @@ function App({ params }) {
 
     setActiveId(null);
     setActiveContainer(null);
+    triggerResize();
   };
 
   const findListContainingItem = (itemId) => {
@@ -123,6 +145,56 @@ function App({ params }) {
   };
 
   const isColumn2Container = (id) => column2Lists.some((list) => list.id === id);
+
+  const triggerResize = () => {
+    setTimeout(() => {
+      if (H5P && H5P.instances) {
+        H5P.instances.forEach(instance => {
+          if (instance.trigger) {
+            instance.trigger('resize');
+          }
+        });
+      }
+    }, 0);
+  };
+
+  const handleAddStatement = () => {
+    const newId = H5P.createUUID();
+    const newStatement = {
+      id: newId,
+      content: 'New Statement'
+    };
+    
+    setStatements(prev => ({
+      ...prev,
+      [newId]: newStatement
+    }));
+
+    setList1(prevList => [...prevList, newId]);
+    triggerResize();
+  };
+
+  const handleRemove = (id) => {
+    console.log('handleRemove', id);
+    setStatements(prev => {
+      const newStatements = { ...prev };
+      delete newStatements[id];
+      return newStatements;
+    });
+
+    setList1(prev => prev.filter(itemId => itemId !== id));
+    triggerResize();
+  };
+
+  const handleStatementChange = (id, newContent) => {
+    setStatements(prev => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        content: newContent
+      }
+    }));
+  };
 
   return (
     <DndContext
@@ -139,8 +211,9 @@ function App({ params }) {
                 key={list.id} 
                 id={list.id} 
                 items={list.items} 
-                isList1Empty={list1.length === 0} // Pass isList1Empty prop
+                isList1Empty={list1.length === 0}
                 labels={labels}
+                statements={statements}
               />
             ))}
           </SortableContext>
@@ -148,17 +221,37 @@ function App({ params }) {
       </div>
 
       {list1.length > 0 && (
-        <div className="h5p-sequence-column h5p-sequence-select-list">
-          <SortableContext items={list1} strategy={verticalListSortingStrategy}>
-            {list1.map((itemId) => (
-              <SortableItem key={itemId} itemId={itemId} />
-            ))}
-          </SortableContext>
+        <div className='h5p-sequence-select-list'>
+        <div className="h5p-sequence-column">
+          {list1.map((itemId) => (
+            <SortableItem 
+              key={itemId} 
+              itemId={itemId} 
+              statement={statements[itemId].content}
+              onStatementDelete={handleRemove}
+              onStatementChange={handleStatementChange}
+              enableEditing={addStatementButton}
+              listId='list1'
+              allowDelete={addStatementButton}
+            />
+          ))}
+          {addStatementButton && (
+            <AddStatement 
+              onClick={handleAddStatement} 
+            />
+          )}
+        </div>
         </div>
       )}
 
       <DragOverlay>
-        {activeId ? <DraggableOverlay id={activeId} /> : null}
+        {activeId ? (
+          <DraggableOverlay 
+            id={activeId} 
+            statements={statements} 
+            column2Lists={column2Lists}
+          />
+        ) : null}
       </DragOverlay>
     </DndContext>
   );

@@ -8,7 +8,7 @@ import Labels from '../Actions/Labels';
 import StatementLabel from '../StatementTypes/components/StatementLabel';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
-function SortableDropZone({ id, items, isList1Empty, comment, labels }) {
+function SortableDropZone({ id, items, isList1Empty, comment, labels, statements  }) {
   const inputRef = useRef(null);
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [activeLabelId, setActiveLabelId] = useState(null);
@@ -58,23 +58,28 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels }) {
       const currentLabels = prev[itemId] || [];
       let newLabels;
       
-      // If shouldRemove is true, remove the label
       if (shouldRemove) {
         newLabels = currentLabels.filter(id => id !== labelId);
-        onLabelChange(labelId); // Log the removed label
       } else {
-        // Otherwise toggle as before
         newLabels = currentLabels.includes(labelId)
           ? currentLabels.filter(id => id !== labelId)
           : [...currentLabels, labelId];
-        onLabelChange(labelId); // Log the toggled label
       }
       
+      // Trigger resize after state update
+      setTimeout(() => {
+        if (context?.trigger) {
+          context.trigger('resize');
+        }
+      }, 0);
+
       return {
         ...prev,
         [itemId]: newLabels
       };
     });
+    
+    onLabelChange(labelId);
   };
 
   return (
@@ -94,11 +99,13 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels }) {
                 <div className='h5p-sequence-drag-element'>
                   <span className="h5p-ri hri-move" data-no-dnd="true" />
                 </div>
-                <p className="h5p-sequence-element">{itemId}</p>
+                <p className="h5p-sequence-element">
+                  {statements[itemId]?.content || itemId}
+                </p>
               </div>
               {isList1Empty && (
                 <Fragment>
-                  {labels && labels.length > 0 && (
+                  {labels?.length > 0 && (
                     <ActionsList>
                       <Labels
                         labels={labels}

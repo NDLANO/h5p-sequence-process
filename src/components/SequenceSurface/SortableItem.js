@@ -1,8 +1,11 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import DeleteStatement from '../DeleteStatement/DeleteStatement';
+import EditableStatement from '../StatementTypes/components/EditableStatement';
+import UnEditableStatement from '../StatementTypes/components/UnEditableStatement';
 
-function SortableItem({ itemId }) {
+function SortableItem({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = true, listId, allowDelete = false }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: itemId,
   });
@@ -31,7 +34,20 @@ function SortableItem({ itemId }) {
             <div className="h5p-sequence-drag-element">
               <span className="h5p-ri hri-move" data-no-dnd="true" />
             </div>
-            <p className="h5p-sequence-element">{itemId}</p>
+            {/* Conditionally render the statement based on enableEditing */}
+            {enableEditing ? (
+              <EditableStatement
+                statement={statement}
+                onBlur={(newStatement) => onStatementChange(itemId, newStatement)}
+                idBase={itemId}
+              />
+            ) : (
+              <UnEditableStatement
+                statement={statement}
+              />
+            )}
+            {/* Only show delete button for list1 AND when adding statements is allowed */}
+            {allowDelete && <DeleteStatement onClick={() => onStatementDelete(itemId)} />}
           </div>
         </div>
       </div>
