@@ -6,6 +6,7 @@ import classnames from 'classnames';
 
 function Comment(props) {
   const context = useContext(SequenceProcessContext);
+  console.log('hi')
 
   function handleToggle() {
     if (props.onClick) {

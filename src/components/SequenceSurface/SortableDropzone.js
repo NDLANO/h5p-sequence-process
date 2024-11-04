@@ -67,6 +67,7 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels, statements
                         />
                       </ActionsList>
                     )}
+                    <ActionsList>
                     <Comment
                       onCommentChange={onCommentChange}
                       comment={comment}
@@ -74,6 +75,7 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels, statements
                       isOpen={activeCommentId === items[0]}
                       onClick={() => onCommentClick(items[0])}
                     />
+                    </ActionsList>
                   </Fragment>
                 )}
               </div>

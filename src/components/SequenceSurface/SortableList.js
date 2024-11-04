@@ -245,8 +245,16 @@ function DraggableSequenceList({ params, onUserInputChange }) {
   };
 
   const handleCommentChange = (itemId, newComment) => {
-    // Handle comment updates here
-    // This could involve updating a comments object or calling an API
+    setUserInput(prev => ({
+      ...prev,
+      statements: {
+        ...prev.statements,
+        [itemId]: {
+          ...prev.statements[itemId],
+          comment: newComment
+        }
+      }
+    }));
   };
 
   // Add useEffect to watch userInput changes
