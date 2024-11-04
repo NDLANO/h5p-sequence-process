@@ -16,8 +16,6 @@ function StatementLabel(props) {
     onLabelChange,
   } = props;
 
-  console.log('labels', labels);
-  console.log('selectedLabels', selectedLabels);
   if ( selectedLabels.length === 0) {
     return null;
   }

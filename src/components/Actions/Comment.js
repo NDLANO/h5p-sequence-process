@@ -1,25 +1,18 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {SequenceProcessContext} from '../../context/SequenceProcessContext';
 import Popover from '../Popover/Popover';
 import classnames from 'classnames';
 
 function Comment(props) {
-
-  const [comment, setComment] = useState(props.comment);
-
   const context = useContext(SequenceProcessContext);
 
   function handleToggle() {
-    if ( props.onClick ) {
+    if (props.onClick) {
       return props.onClick();
     }
-    if ( !props.isOpen ) {
-      setComment(props.comment || '');
+    if (!props.isOpen) {
       setTimeout(() => props.inputRef.current && props.inputRef.current.focus(), 0);
-    }
-    else {
-      props.onCommentChange(comment);
     }
   }
 
@@ -34,9 +27,9 @@ function Comment(props) {
         <textarea
           ref={props.inputRef}
           placeholder={context.translations.typeYourReasonsForSuchAnswers}
-          value={comment}
+          value={props.comment || ''}
           aria-label={context.translations.typeYourReasonsForSuchAnswers}
-          onChange={(event) => setComment(event.currentTarget.value)}
+          onChange={(event) => props.onCommentChange(event.currentTarget.value)}
           rows={3}
           onKeyDown={(event) => {
             event.stopPropagation();
@@ -56,8 +49,8 @@ function Comment(props) {
       >
         <span
           className={classnames('h5p-ri', {
-            'hri-comment-empty': !comment || comment.length === 0,
-            'hri-comment-full': comment && comment.length > 0,
+            'hri-comment-empty': !props.comment || props.comment.length === 0,
+            'hri-comment-full': props.comment && props.comment.length > 0,
           })}
         />
         <span className="visible-hidden">{context.translations.addComment}</span>

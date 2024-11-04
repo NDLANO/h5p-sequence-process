@@ -8,12 +8,9 @@ import Labels from '../Actions/Labels';
 import StatementLabel from '../StatementTypes/components/StatementLabel';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
-function SortableDropZone({ id, items, isList1Empty, comment, labels, statements  }) {
+function SortableDropZone({ id, items, isList1Empty, comment, labels, statements, onLabelSelect, selectedLabels, activeCommentId, onCommentClick, onCommentChange }) {
   const inputRef = useRef(null);
-  const [activeCommentId, setActiveCommentId] = useState(null);
   const [activeLabelId, setActiveLabelId] = useState(null);
-  const context = useContext(SequenceProcessContext);
-  const [selectedLabels, setSelectedLabels] = useState({});
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({
     id,
@@ -28,58 +25,8 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels, statements
     cursor: items.length > 0 ? 'grab' : 'default',
   };
 
-  const handleCommentClick = (itemId) => {
-    console.log('Current activeCommentId:', activeCommentId);
-    console.log('Item ID clicked:', itemId);
-    setActiveCommentId((prevId) => (prevId === itemId ? null : itemId));  // Toggle logic improved
-
-    // Attempt focusing on inputRef
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, 0);
-  };
-
   const handleLabelClick = (itemId) => {
     setActiveLabelId((prevId) => (prevId === itemId ? null : itemId));
-  };
-
-  const onCommentChange = (newComment) => {
-    console.log('Comment changed:', newComment);
-  };
-
-  const onLabelChange = (newLabels) => {
-    console.log('Labels changed:', newLabels);
-  };
-
-  const handleLabelChange = (itemId, labelId, shouldRemove = false) => {
-    setSelectedLabels(prev => {
-      const currentLabels = prev[itemId] || [];
-      let newLabels;
-      
-      if (shouldRemove) {
-        newLabels = currentLabels.filter(id => id !== labelId);
-      } else {
-        newLabels = currentLabels.includes(labelId)
-          ? currentLabels.filter(id => id !== labelId)
-          : [...currentLabels, labelId];
-      }
-      
-      // Trigger resize after state update
-      setTimeout(() => {
-        if (context?.trigger) {
-          context.trigger('resize');
-        }
-      }, 0);
-
-      return {
-        ...prev,
-        [itemId]: newLabels
-      };
-    });
-    
-    onLabelChange(labelId);
   };
 
   return (
@@ -93,49 +40,48 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels, statements
       <div className='h5p-droparea'>
         {items.length > 0 ? (
           items.map((itemId) => (
-            <>
-            <div className='h5p-sequence-statement' key={itemId}>
-              <div className='h5p-sequence-statement-sequenced'>
-                <div className='h5p-sequence-drag-element'>
-                  <span className="h5p-ri hri-move" data-no-dnd="true" />
+            <Fragment key={itemId}>
+              <div className='h5p-sequence-statement'>
+                <div className='h5p-sequence-statement-sequenced'>
+                  <div className='h5p-sequence-drag-element'>
+                    <span className="h5p-ri hri-move" data-no-dnd="true" />
+                  </div>
+                  <p className="h5p-sequence-element">
+                    {statements[itemId]?.content || itemId}
+                  </p>
                 </div>
-                <p className="h5p-sequence-element">
-                  {statements[itemId]?.content || itemId}
-                </p>
-              </div>
-              {isList1Empty && (
-                <Fragment>
-                  {labels?.length > 0 && (
-                    <ActionsList>
-                      <Labels
-                        labels={labels}
-                        selectedLabelArray={selectedLabels[itemId] || []}
-                        onLabelChange={(labelId) => handleLabelChange(itemId, labelId)}
-                        isOpen={activeLabelId === itemId}
-                        onClick={() => handleLabelClick(itemId)}
-                      />
-                    </ActionsList>
-                  )}
-                  <ActionsList>
+                {isList1Empty && (
+                  <Fragment>
+                    {labels?.length > 0 && (
+                      <ActionsList>
+                        <Labels
+                          labels={labels}
+                          selectedLabelArray={selectedLabels || []}
+                          onLabelChange={(labelId) => {
+                            if (items[0]) {  // Only call if there's an item in the dropzone
+                              onLabelSelect(items[0], labelId);
+                            }
+                          }}
+                          isOpen={activeLabelId === itemId}
+                          onClick={() => handleLabelClick(itemId)}
+                        />
+                      </ActionsList>
+                    )}
                     <Comment
                       onCommentChange={onCommentChange}
                       comment={comment}
                       inputRef={inputRef}
-                      isOpen={activeCommentId === itemId}
-                      onClick={() => handleCommentClick(itemId)}
+                      isOpen={activeCommentId === items[0]}
+                      onClick={() => onCommentClick(items[0])}
                     />
-                  </ActionsList>
-                </Fragment>
-              )}
-            </div>
-            <>
+                  </Fragment>
+                )}
+              </div>
               <StatementLabel
-                selectedLabels={selectedLabels[itemId] || []}
                 labels={labels}
-                onLabelChange={(labelId) => handleLabelChange(itemId, labelId, true)}
+                onLabelChange={(labelId) => onLabelSelect(itemId, labelId, true)}
               />
-            </>
-            </>
+            </Fragment>
           ))
         ) : (
           <div className='h5p-sequence-empty'></div>

@@ -11,7 +11,6 @@ function DraggableOverlay({ id, statements, column2Lists }) {
     }
   }
 
-  console.log('drag', 'id', id, 'statement', statement);
   return <SortableItem itemId={id} statement={statement} />;
 }
 

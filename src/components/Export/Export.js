@@ -32,6 +32,7 @@ export default class Export extends Component {
       userInput
     } = collectExportValues();
 
+
     if ( !Array.isArray(userInput.labels) ) {
       userInput.labels = [];
     }
@@ -40,6 +41,8 @@ export default class Export extends Component {
       accumulated[current.id] = current.label;
       return accumulated;
     }, {});
+
+    console.log('comments', userInput.statements);
 
     return Object.assign({}, translations, {
       mainTitle: header,

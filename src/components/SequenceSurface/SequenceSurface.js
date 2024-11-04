@@ -3,7 +3,7 @@ import {SequenceProcessContext} from 'context/SequenceProcessContext';
 import ActionsList from '../Actions/ActionsList';
 import Comment from '../Actions/Comment';
 import Labels from '../Actions/Labels';
-import SortableList from './SortableList';
+import DraggableSequenceList from './SortableList';
 import SortableItem from './SortableItem';
 import Summary from '../Summary/Summary';
 import Remaining from '../StatementTypes/Remaining';
@@ -373,27 +373,31 @@ class SequenceSurface extends React.Component {
   renderSortableList = () => {
     return (
       <Fragment>
+        {/* Comment out old implementation for now */}
         {/* <div className='h5p-sequence-column h5p-sequence-dropzone'>
-          <SortableList 
-            items={this.state.sequencedStatements.map((statementId) => `sequenced-${statementId}`)}
-            statements={this.state.statements}
-            type={'sequenced'}
-            activeId={this.state.activeId}
-            draggingOver={this.state.draggedOverSequencedItemId}
-            allowTransition={this.state.transition === true}
-            isSingleColumn={this.state.showOneColumn}
-            labels={this.state.labels}
-            onStatementDelete={this.handleOnDeleteStatement}
-            onStatementChange={this.handleOnStatementChange}
-          /> 
+          <SortableList {...props} />
         </div> */}
 
-        <SortableList 
+        {/* New implementation with new name */}
+        <DraggableSequenceList 
           params={this.context.params}
           translations={this.context.translations}
+          onUserInputChange={this.handleUserInputChange}
         />
       </Fragment>
     );
+  };
+
+  handleUserInputChange = (userInput) => {
+    this.setState({
+      statements: userInput.statements,
+      sequencedStatements: userInput.sequencedStatements,
+      labels: userInput.labels,
+    }, () => {
+      // After state is updated, trigger the export values collection
+      const exportValues = this.sendExportValues();
+      this.context.collectExportValues('userInput', () => exportValues);
+    });
   };
 
   render() {

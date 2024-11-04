@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -18,8 +18,9 @@ import SortableItem from './SortableItem';
 import AddStatement from '../AddStatement/AddStatement';
 import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
+import { createEmptyUserInput } from '../../models/UserInput';
 
-function App({ params, translations }) {
+function DraggableSequenceList({ params, onUserInputChange }) {
   // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
@@ -31,30 +32,48 @@ function App({ params, translations }) {
   const statementsFromParams = params.statementsList;
   const labelsFromParams = params.labelsList;
 
-  // Convert string statements into objects with IDs
-  const [statements, setStatements] = useState(() => {
-    return statementsFromParams.reduce((acc, statementText, index) => {
+  // Initialize userInput state
+  const [userInput, setUserInput] = useState(() => {
+    const input = createEmptyUserInput();
+    
+    // Initialize labels
+    input.labels = labelsFromParams.map(labelText => ({
+      id: H5P.createUUID(),
+      label: labelText
+    }));
+    
+    // Initialize statements
+    statementsFromParams.forEach((statementText) => {
       const id = H5P.createUUID();
+      input.sequencedStatements.push(id);
+      input.statements[id] = {
+        touched: true,
+        selectedLabels: [],
+        comment: '',
+        statement: statementText
+      };
+    });
+    
+    return input;
+  });
+
+  // Replace existing statements and labels state with derived state from userInput
+  const statements = useMemo(() => {
+    return Object.entries(userInput.statements).reduce((acc, [id, statement]) => {
       acc[id] = {
         id,
-        content: statementText
+        content: statement.statement
       };
       return acc;
     }, {});
-  });
+  }, [userInput.statements]);
 
-  // Add console.log to debug
-  console.log('labelsFromParams:', labelsFromParams);
-  
-  const [labels, setLabels] = useState(() => {
-    return labelsFromParams.map(labelText => ({
-      id: H5P.createUUID(),
-      content: labelText
+  const labels = useMemo(() => {
+    return userInput.labels.map(label => ({
+      id: label.id,
+      content: label.label
     }));
-  });
-
-  // Add another console.log after state initialization
-  console.log('Current labels state:', labels);
+  }, [userInput.labels]);
 
   // list1 and column2Lists store only the IDs
   const [list1, setList1] = useState(() => {
@@ -158,43 +177,98 @@ function App({ params, translations }) {
     }, 0);
   };
 
+  // Update handlers to modify userInput
   const handleAddStatement = () => {
     const newId = H5P.createUUID();
-    const newStatement = {
-      id: newId,
-      content: 'New Statement'
-    };
-    
-    setStatements(prev => ({
+    setUserInput(prev => ({
       ...prev,
-      [newId]: newStatement
+      sequencedStatements: [...prev.sequencedStatements, newId],
+      statements: {
+        ...prev.statements,
+        [newId]: {
+          touched: true,
+          selectedLabels: [],
+          comment: '',
+          statement: 'New Statement'
+        }
+      }
     }));
-
     setList1(prevList => [...prevList, newId]);
     triggerResize();
   };
 
   const handleRemove = (id) => {
-    console.log('handleRemove', id);
-    setStatements(prev => {
-      const newStatements = { ...prev };
-      delete newStatements[id];
-      return newStatements;
+    setUserInput(prev => {
+      const { [id]: removed, ...remainingStatements } = prev.statements;
+      return {
+        ...prev,
+        sequencedStatements: prev.sequencedStatements.filter(sid => sid !== id),
+        statements: remainingStatements
+      };
     });
-
     setList1(prev => prev.filter(itemId => itemId !== id));
     triggerResize();
   };
 
   const handleStatementChange = (id, newContent) => {
-    setStatements(prev => ({
+    setUserInput(prev => ({
       ...prev,
-      [id]: {
-        ...prev[id],
-        content: newContent
+      statements: {
+        ...prev.statements,
+        [id]: {
+          ...prev.statements[id],
+          statement: newContent
+        }
       }
     }));
   };
+
+  const handleLabelChange = (statementId, labelId) => {
+    setUserInput(prev => ({
+      ...prev,
+      statements: {
+        ...prev.statements,
+        [statementId]: {
+          ...prev.statements[statementId],
+          selectedLabels: prev.statements[statementId].selectedLabels.includes(labelId)
+            ? prev.statements[statementId].selectedLabels.filter(id => id !== labelId)
+            : [...prev.statements[statementId].selectedLabels, labelId]
+        }
+      }
+    }));
+  };
+
+  const [activeCommentId, setActiveCommentId] = useState(null);
+
+  const handleCommentClick = (itemId) => {
+    setActiveCommentId((prevId) => (prevId === itemId ? null : itemId));
+  };
+
+  const handleCommentChange = (itemId, newComment) => {
+    // Handle comment updates here
+    // This could involve updating a comments object or calling an API
+  };
+
+  // Add useEffect to watch userInput changes
+  useEffect(() => {
+    if (onUserInputChange) {
+      // Get the current sequence from column2Lists
+      const currentSequence = column2Lists.reduce((acc, list) => {
+        if (list.items[0]) {
+          acc.push(list.items[0]);
+        }
+        return acc;
+      }, []);
+
+      // Update sequencedStatements in userInput
+      const updatedUserInput = {
+        ...userInput,
+        sequencedStatements: currentSequence
+      };
+
+      onUserInputChange(updatedUserInput);
+    }
+  }, [userInput, column2Lists, onUserInputChange]);
 
   return (
     <DndContext
@@ -214,6 +288,12 @@ function App({ params, translations }) {
                 isList1Empty={list1.length === 0}
                 labels={labels}
                 statements={statements}
+                onLabelSelect={handleLabelChange}
+                selectedLabels={list.items[0] ? userInput.statements[list.items[0]].selectedLabels : []}
+                comment={list.items[0] ? userInput.statements[list.items[0]].comment : ''}
+                activeCommentId={activeCommentId}
+                onCommentClick={handleCommentClick}
+                onCommentChange={(newComment) => handleCommentChange(list.items[0], newComment)}
               />
             ))}
           </SortableContext>
@@ -257,4 +337,4 @@ function App({ params, translations }) {
   );
 }
 
-export default App;
+export default DraggableSequenceList;
