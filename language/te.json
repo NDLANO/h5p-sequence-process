@@ -1,25 +1,25 @@
 {
   "semantics": [
     {
-      "label": "Antraštė"
+      "label": "Header"
     },
     {
-      "label": "Užduoties aprašymas"
+      "label": "Task description"
     },
     {
-      "label": "Aprašymai",
+      "label": "Statements",
       "fields": [
         {
-          "label": "Aprašymai",
-          "entity": "aprašymas",
+          "label": "Statements",
+          "entity": "statement",
           "field": {
-            "label": "Aprašymas"
+            "label": "Statement"
           }
         }
       ]
     },
     {
-      "label": "Pavadinimas",
+      "label": "Labels",
       "fields": [
         {
           "label": "Labels",
@@ -31,11 +31,11 @@
       ]
     },
     {
-      "label": "Santrauka",
-      "default": "Santrauka"
+      "label": "Summary",
+      "default": "Summary"
     },
     {
-      "label": "Santraukos instrukcija"
+      "label": "Summary instruction"
     },
     {
       "label": "Resources",
@@ -47,20 +47,14 @@
       ]
     },
     {
-      "label": "Behavioural settings",
-      "description": "These options will let you control the behaviour.",
       "fields": [
         {
-          "label": "Prioritization",
-          "description": "Tick this off if you want the learner to prioritize the statements."
-        },
-        {
           "label": "Enable retry?",
-          "description": "Pažymėkite, jei norite, kad naudotojas galėtų bandyti dar kartą"
+          "description": "Tick off this if you want the user to be able to retry"
         },
         {
-          "description": "Ar norite, kad naudotojas pateiktų santrauką, paaiškindamas savo atsakymų priežastis",
-          "label": "Rodyti santrauką"
+          "description": "Do you want the user to provide a summary explaining the reasons for his/her answers",
+          "label": "Show summary"
         },
         {
           "label": "Pre-populate the statements",
@@ -78,7 +72,9 @@
           "label": "Allow users to add their own statements",
           "description": "Lets the user add their own statements"
         }
-      ]
+      ],
+      "label": "Behavioural settings",
+      "description": "These options will let you control the behaviour."
     },
     {
       "label": "Localize",
@@ -89,7 +85,7 @@
         },
         {
           "label": "Label for \"Resources\"-button",
-          "default": "Ištekliai"
+          "default": "Resources"
         },
         {
           "label": "Guiding text when selecting labels",
@@ -97,7 +93,11 @@
         },
         {
           "label": "Label for \"Restart\"-button",
-          "default": "Perkrauti"
+          "default": "Restart"
+        },
+        {
+          "label": "Label for the \"Add alternative\"-button",
+          "default": "Add alternative"
         },
         {
           "label": "Label for the \"Yes\"-button",
@@ -108,12 +108,12 @@
           "default": "No"
         },
         {
-          "label": "Inform the user that data will be lost if he/she continues",
-          "default": "If you continue all your changes will be lost"
+          "default": "If you continue all your changes will be lost",
+          "label": "Inform the user that data will be lost if he/she continues"
         },
         {
           "label": "Ask the user if he/she wants to continue",
-          "default": "Jei tęsite, visi pakeitimai bus prarasti"
+          "default": "Are you sure?"
         },
         {
           "label": "Placeholder for the summary box",
@@ -122,15 +122,10 @@
         {
           "label": "Header in comment box",
           "default": "Feedback"
-        },
-        {
-          "label": "Header in comment box",
-          "default": "Feedback"
         }
       ]
     },
     {
-      "label": "Resource report",
       "fields": [
         {
           "label": "Label for \"Create document\"-button",
@@ -149,8 +144,8 @@
           "default": "Statements"
         },
         {
-          "label": "Labels header in statement table",
-          "default": "Labels"
+          "default": "Labels",
+          "label": "Labels header in statement table"
         },
         {
           "label": "Comment header in statement table",
@@ -188,18 +183,18 @@
           "label": "Header for listing of labels in the report",
           "default": "Available labels"
         }
-      ]
+      ],
+      "label": "Resource report"
     },
     {
-      "label": "Accessibility",
       "fields": [
         {
-          "label": "Used instead of 'Comment'-icon",
-          "default": "Add comment"
+          "default": "Add comment",
+          "label": "Used instead of 'Comment'-icon"
         },
         {
           "label": "Used instead of 'Close'-icon",
-          "default": "Uždaryti"
+          "default": "Close"
         },
         {
           "label": "Used instead of 'Drag'-icon",
@@ -230,7 +225,8 @@
           "description": "Available variables are :index and :statement",
           "default": "Dropzone #:index with value: :statement"
         }
-      ]
+      ],
+      "label": "Accessibility"
     }
   ]
 }
