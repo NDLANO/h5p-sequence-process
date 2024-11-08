@@ -51,6 +51,10 @@
       "description": "Estas opciones te permitirán controlar el comportamiento.",
       "fields": [
         {
+          "label": "Prioritization",
+          "description": "Tick this off if you want the learner to prioritize the statements."
+        },
+        {
           "label": "¿Habilitar Intentar de nuevo?",
           "description": "Marca esto si quieres que el usuario pueda volver a intentarlo"
         },
@@ -77,6 +81,7 @@
       ]
     },
     {
+      "label": "Adaptación local",
       "fields": [
         {
           "label": "Marcador de posición para los cuadros de texto de comentarios",
@@ -91,8 +96,8 @@
           "default": "Seleccionar todas las etiquetas conectadas a este elemento"
         },
         {
-          "default": "Reiniciar",
-          "label": "Etiqueta para botón \"Reiniciar\""
+          "label": "Etiqueta para botón \"Reiniciar\"",
+          "default": "Reiniciar"
         },
         {
           "label": "Etiqueta para el botón \"Añadir alternativa\"",
@@ -122,10 +127,10 @@
           "label": "Encabezado en el cuadro de comentarios",
           "default": "Retroalimentación"
         }
-      ],
-      "label": "Adaptación local"
+      ]
     },
     {
+      "label": "Informe de recursos",
       "fields": [
         {
           "label": "Etiqueta para el botón \"Crear documento\"",
@@ -148,8 +153,8 @@
           "default": "Etiquetas"
         },
         {
-          "default": "Comentario",
-          "label": "Encabezado de comentario en la tabla de declaraciones"
+          "label": "Encabezado de comentario en la tabla de declaraciones",
+          "default": "Comentario"
         },
         {
           "label": "Encabezado sobre la tabla \"Recursos\"",
@@ -183,14 +188,14 @@
           "label": "Encabezado para la lista de etiquetas en el informe",
           "default": "Etiquetas disponibles"
         }
-      ],
-      "label": "Informe de recursos"
+      ]
     },
     {
+      "label": "Accesibilidad",
       "fields": [
         {
-          "default": "Añadir comentario",
-          "label": "Usado en lugar del icono 'Comentario'"
+          "label": "Usado en lugar del icono 'Comentario'",
+          "default": "Añadir comentario"
         },
         {
           "label": "Usado en lugar del icono 'Cerrar'",
@@ -225,8 +230,7 @@
           "description": "Las variables disponibles son :index y :statement",
           "default": "Área de colocación #:index con valor: :statement"
         }
-      ],
-      "label": "Accesibilidad"
+      ]
     }
   ]
 }
