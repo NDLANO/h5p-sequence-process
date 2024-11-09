@@ -6,7 +6,6 @@ import ActionsList from '../Actions/ActionsList';
 import Comment from '../Actions/Comment';
 import Labels from '../Actions/Labels';
 import StatementLabel from '../StatementTypes/components/StatementLabel';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
 function SortableDropZone({ id, items, isList1Empty, comment, labels, statements, onLabelSelect, selectedLabels, activeCommentId, onCommentClick, onCommentChange }) {
   const inputRef = useRef(null);
@@ -68,13 +67,13 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels, statements
                       </ActionsList>
                     )}
                     <ActionsList>
-                    <Comment
-                      onCommentChange={onCommentChange}
-                      comment={comment}
-                      inputRef={inputRef}
-                      isOpen={activeCommentId === items[0]}
-                      onClick={() => onCommentClick(items[0])}
-                    />
+                      <Comment
+                        onCommentChange={onCommentChange}
+                        comment={comment}
+                        inputRef={inputRef}
+                        isOpen={activeCommentId === items[0]}
+                        onClick={() => onCommentClick(items[0])}
+                      />
                     </ActionsList>
                   </Fragment>
                 )}

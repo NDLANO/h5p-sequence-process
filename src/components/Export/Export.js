@@ -1,6 +1,6 @@
-import React, {Component, Fragment} from 'react';
-import {SequenceProcessContext} from '../../context/SequenceProcessContext';
-import {escapeHTML, stripHTML} from '../utils';
+import React, { Component, Fragment } from 'react';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
+import { escapeHTML, stripHTML } from '../utils';
 
 export default class Export extends Component {
   static contextType = SequenceProcessContext;
@@ -40,7 +40,7 @@ export default class Export extends Component {
     } = collectExportValues();
 
 
-    if ( !Array.isArray(userInput.labels) ) {
+    if (!Array.isArray(userInput.labels)) {
       userInput.labels = [];
     }
 
@@ -48,8 +48,6 @@ export default class Export extends Component {
       accumulated[current.id] = current.label;
       return accumulated;
     }, {});
-
-    console.log('comments', userInput.statements);
 
     return Object.assign({}, translations, {
       mainTitle: header,
@@ -75,32 +73,32 @@ export default class Export extends Component {
 
   getExportPreview() {
     const documentExportTemplate =
-            '<div class="export-preview">' +
-            '<div class="page-header" role="heading" tabindex="-1">' +
-            ' <div class="page-title h1">{{mainTitle}}</div>' +
-            '</div>' +
-            '<div class="page-description">{{description}}</div>' +
-            '<table>' +
-            '<tr><th>{{headerStatement}}</th><th>{{headerLabels}}</th><th>{{headerComment}}</th></tr>' +
-            '{{#sortedStatementList}}<tr><td>{{title}}</td><td>{{#labels}}<li>{{.}}</li>{{/labels}}</td><td>{{comment}}</td></tr>{{/sortedStatementList}}' +
-            '</table>' +
-            '{{#hasSummaryComment}}' +
-            '<div class="h2">{{labelSummaryComment}}</div>' +
-            '<p>{{summaryComment}}</p>' +
-            '{{/hasSummaryComment}}' +
-            '{{#hasResources}}' +
-            '<div class="h2">{{header}}</div>' +
-            '<table>' +
-            '<tr><th>{{headerTitle}}</th><th>{{headerIntro}}</th><th>{{headerUrl}}</th></tr>' +
-            '{{#resources}}<tr><td>{{title}}</td><td>{{introduction}}</td><td>{{url}}</td></tr>{{/resources}}' +
-            '</table>' +
-            '{{/hasResources}}' +
-            '<div class="h2">{{headerAvailableLabels}}</div>' +
-            '{{^hasLabels}}<p>{{labelNoLabels}}</p>{{/hasLabels}}' +
-            '{{#allLabels}}' +
-            '<li>{{.}}</li>' +
-            '{{/allLabels}}' +
-            '</div>';
+      '<div class="export-preview">' +
+      '<div class="page-header" role="heading" tabindex="-1">' +
+      ' <div class="page-title h1">{{mainTitle}}</div>' +
+      '</div>' +
+      '<div class="page-description">{{description}}</div>' +
+      '<table>' +
+      '<tr><th>{{headerStatement}}</th><th>{{headerLabels}}</th><th>{{headerComment}}</th></tr>' +
+      '{{#sortedStatementList}}<tr><td>{{title}}</td><td>{{#labels}}<li>{{.}}</li>{{/labels}}</td><td>{{comment}}</td></tr>{{/sortedStatementList}}' +
+      '</table>' +
+      '{{#hasSummaryComment}}' +
+      '<div class="h2">{{labelSummaryComment}}</div>' +
+      '<p>{{summaryComment}}</p>' +
+      '{{/hasSummaryComment}}' +
+      '{{#hasResources}}' +
+      '<div class="h2">{{header}}</div>' +
+      '<table>' +
+      '<tr><th>{{headerTitle}}</th><th>{{headerIntro}}</th><th>{{headerUrl}}</th></tr>' +
+      '{{#resources}}<tr><td>{{title}}</td><td>{{introduction}}</td><td>{{url}}</td></tr>{{/resources}}' +
+      '</table>' +
+      '{{/hasResources}}' +
+      '<div class="h2">{{headerAvailableLabels}}</div>' +
+      '{{^hasLabels}}<p>{{labelNoLabels}}</p>{{/hasLabels}}' +
+      '{{#allLabels}}' +
+      '<li>{{.}}</li>' +
+      '{{/allLabels}}' +
+      '</div>';
 
     return Mustache.render(documentExportTemplate, this.exportObject);
   }
@@ -128,7 +126,6 @@ export default class Export extends Component {
   }
 
   render() {
-    console.log('render');
     const {
       translate
     } = this.context;
@@ -140,10 +137,10 @@ export default class Export extends Component {
           onClick={this.handleExport}
           type={'button'}
         >
-          <span className={'h5p-ri hri-document'}/>
+          <span className={'h5p-ri hri-document'} />
           {translate('createDocument')}
         </button>
-        <div className={'export-container'} ref={(el) => this.exportContainer = el}/>
+        <div className={'export-container'} ref={(el) => this.exportContainer = el} />
       </Fragment>
     );
   }

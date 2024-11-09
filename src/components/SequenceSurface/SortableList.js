@@ -19,6 +19,7 @@ import AddStatement from '../AddStatement/AddStatement';
 import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
+import { NoDndPointerSensor } from './NoDndPointerSensor';
 
 function DraggableSequenceList({ params, onUserInputChange }) {
   // Behaviour params
@@ -35,13 +36,13 @@ function DraggableSequenceList({ params, onUserInputChange }) {
   // Initialize userInput state
   const [userInput, setUserInput] = useState(() => {
     const input = createEmptyUserInput();
-    
+
     // Initialize labels
     input.labels = labelsFromParams.map(labelText => ({
       id: H5P.createUUID(),
       label: labelText
     }));
-    
+
     // Initialize statements
     statementsFromParams.forEach((statementText) => {
       const id = H5P.createUUID();
@@ -53,7 +54,7 @@ function DraggableSequenceList({ params, onUserInputChange }) {
         statement: statementText
       };
     });
-    
+
     return input;
   });
 
@@ -81,7 +82,7 @@ function DraggableSequenceList({ params, onUserInputChange }) {
   });
   const [column2Lists, setColumn2Lists] = useState(() => {
     const statementsLength = statementsFromParams?.length || 0;
-    
+
     let prepopulatedStatementIds = Object.keys(statements);
     if (prepopulate && randomize) {
       prepopulatedStatementIds = [...prepopulatedStatementIds].sort(() => Math.random() - 0.5);
@@ -137,7 +138,7 @@ function DraggableSequenceList({ params, onUserInputChange }) {
     // If dragging an item from list1 to a container in column2
     else if (activeList === 'list1' && isColumn2Container(overId)) {
       const item = active.id;
-      
+
       // Replace item in target drop zone if it's already occupied
       setColumn2Lists((lists) =>
         lists.map((list) => {
@@ -294,10 +295,10 @@ function DraggableSequenceList({ params, onUserInputChange }) {
         <div className="h5p-sequence-column">
           <SortableContext items={column2Lists.map(list => list.id)} strategy={verticalListSortingStrategy}>
             {column2Lists.map((list) => (
-              <SortableDropZone 
-                key={list.id} 
-                id={list.id} 
-                items={list.items} 
+              <SortableDropZone
+                key={list.id}
+                id={list.id}
+                items={list.items}
                 isList1Empty={list1.length === 0}
                 labels={labels}
                 statements={statements}
@@ -315,33 +316,33 @@ function DraggableSequenceList({ params, onUserInputChange }) {
 
       {list1.length > 0 && (
         <div className='h5p-sequence-select-list'>
-        <div className="h5p-sequence-column">
-          {list1.map((itemId) => (
-            <SortableItem 
-              key={itemId} 
-              itemId={itemId} 
-              statement={statements[itemId].content}
-              onStatementDelete={handleRemove}
-              onStatementChange={handleStatementChange}
-              enableEditing={addStatementButton}
-              listId='list1'
-              allowDelete={addStatementButton}
-            />
-          ))}
-          {addStatementButton && (
-            <AddStatement 
-              onClick={handleAddStatement} 
-            />
-          )}
-        </div>
+          <div className="h5p-sequence-column">
+            {list1.map((itemId) => (
+              <SortableItem
+                key={itemId}
+                itemId={itemId}
+                statement={statements[itemId].content}
+                onStatementDelete={handleRemove}
+                onStatementChange={handleStatementChange}
+                enableEditing={addStatementButton}
+                listId='list1'
+                allowDelete={addStatementButton}
+              />
+            ))}
+            {addStatementButton && (
+              <AddStatement
+                onClick={handleAddStatement}
+              />
+            )}
+          </div>
         </div>
       )}
 
       <DragOverlay>
         {activeId ? (
-          <DraggableOverlay 
-            id={activeId} 
-            statements={statements} 
+          <DraggableOverlay
+            id={activeId}
+            statements={statements}
             column2Lists={column2Lists}
           />
         ) : null}
