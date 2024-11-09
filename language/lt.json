@@ -51,6 +51,10 @@
       "description": "These options will let you control the behaviour.",
       "fields": [
         {
+          "label": "Prioritization",
+          "description": "Tick this off if you want the learner to prioritize the statements."
+        },
+        {
           "label": "Enable retry?",
           "description": "Pažymėkite, jei norite, kad naudotojas galėtų bandyti dar kartą"
         },
@@ -207,9 +211,9 @@
           "default": "Droparea #:index"
         },
         {
-          "default": "Empty droparea #:index",
           "label": "'Empty droparea' label for screenreaders",
-          "description": "Available variables are :index"
+          "description": "Available variables are :index",
+          "default": "Empty droparea #:index"
         },
         {
           "label": "'Draggable item' label for screenreaders",

@@ -60,6 +60,7 @@ function StatementList(props) {
   function handleStatementType(isDragging) {
     const {
       statement,
+      prioritizeable,
       draggableType,
       isSingleColumn,
       labels,
@@ -104,6 +105,7 @@ function StatementList(props) {
           </Fragment>
         );
       }
+
       return (
         <Sequenced
           statement={statement}
@@ -117,6 +119,7 @@ function StatementList(props) {
           enableEditing={enableEditing}
           isDragging={isDragging}
           index={index}
+          prioritizeable={prioritizeable}
           onStatementDelete={handleOnStatementDelete}
         />
       );
@@ -126,6 +129,7 @@ function StatementList(props) {
         <Placeholder
           translate={translate}
           index={index}
+          prioritizeable={prioritizeable}
         >
           <div
             className={'h5p-sequence-empty'}

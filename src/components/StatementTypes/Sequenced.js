@@ -22,12 +22,14 @@ const Sequenced = (props) => {
     enableEditing,
     isDragging = false,
     index,
+    prioritizeable,
     onStatementDelete,
   } = props;
 
   return (
     <Placeholder
       index={index}
+      prioritizeable={prioritizeable}
     >
       <div>
         <div

@@ -47,7 +47,13 @@
       ]
     },
     {
+      "label": "Configuración do comportamento",
+      "description": "Estas opcións permitiranche controlar o comportamento.",
       "fields": [
+        {
+          "label": "Prioritization",
+          "description": "Tick this off if you want the learner to prioritize the statements."
+        },
         {
           "label": "Activar tentar de novo?",
           "description": "Marca isto se queres que o usuario poida tentar de novo"
@@ -72,9 +78,7 @@
           "label": "Permitir que os usuarios engadan as súas propias afirmacións",
           "description": "Permitir ao usuario engadir as súas propias declaracións"
         }
-      ],
-      "label": "Configuración do comportamento",
-      "description": "Estas opcións permitiranche controlar o comportamento."
+      ]
     },
     {
       "label": "Adaptación local",
@@ -126,6 +130,7 @@
       ]
     },
     {
+      "label": "Informe de recursos",
       "fields": [
         {
           "label": "Etiqueta para o botón \"Crear documento\"",
@@ -183,8 +188,7 @@
           "label": "Cabeceira para a lista de etiquetas no informe",
           "default": "Etiquetas dispoñibles"
         }
-      ],
-      "label": "Informe de recursos"
+      ]
     },
     {
       "label": "Accesibilidade",
