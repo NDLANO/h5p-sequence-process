@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import {SequenceProcessContext} from 'context/SequenceProcessContext';
+import { SequenceProcessContext } from 'context/SequenceProcessContext';
 
 /**
  * @return {null}
@@ -20,7 +20,7 @@ function DeleteStatement(props) {
     onClick
   } = props;
 
-  if ( allowAddingOfStatements !== true) {
+  if (allowAddingOfStatements !== true) {
     return null;
   }
 
@@ -32,13 +32,20 @@ function DeleteStatement(props) {
           onClick();
         }
       }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          onClick();
+        }
+      }}
       className={'h5p-sequence-delete-button'}
+      tabIndex={0}
       type={'button'}
     >
       <span
         className={'h5p-ri hri-times'}
       />
-      <span className="visible-hidden">{translate('close')}</span>
+      <span className="h5p-sequence-delete-text">{translate('close')}</span>
     </button>
   );
 }

@@ -37,11 +37,13 @@ function DraggableSequenceList({ params, onUserInputChange }) {
   const [userInput, setUserInput] = useState(() => {
     const input = createEmptyUserInput();
 
-    // Initialize labels
-    input.labels = labelsFromParams.map(labelText => ({
-      id: H5P.createUUID(),
-      label: labelText
-    }));
+    // Initialize labels with better null checking
+    input.labels = Array.isArray(labelsFromParams)
+      ? labelsFromParams.map(labelText => ({
+        id: H5P.createUUID(),
+        label: labelText
+      }))
+      : [];
 
     // Initialize statements
     statementsFromParams.forEach((statementText) => {
