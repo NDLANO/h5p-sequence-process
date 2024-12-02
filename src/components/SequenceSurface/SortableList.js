@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -19,7 +19,6 @@ import AddStatement from '../AddStatement/AddStatement';
 import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
-import { NoDndPointerSensor } from './NoDndPointerSensor';
 
 function DraggableSequenceList({ params, onUserInputChange }) {
   // Behaviour params
@@ -28,8 +27,6 @@ function DraggableSequenceList({ params, onUserInputChange }) {
   const addStatementButton = params.behaviour.allowAddingOfStatements;
 
   // Content params
-  // statementsFromParams is an array of strings: ["statement 1", "statement 2", ...]
-  // labelsFromParams is an array of strings: ["label 1", "label 2", ...]
   const statementsFromParams = params.statementsList;
   const labelsFromParams = params.labelsList;
 

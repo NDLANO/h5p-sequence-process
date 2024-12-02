@@ -563,7 +563,7 @@ summary {
 }
 
 .h5p-sequence-action {
-  background-color: white;
+  background: red;
   border-color: transparent;
   padding: 0.5em;
   display: flex;
@@ -575,6 +575,10 @@ summary {
   &.h5p-sequence-action-active {
     background-color: black;
     color: white;
+  }
+
+  &:focus {
+    border: solid 2px #2196F3;
   }
 }
 

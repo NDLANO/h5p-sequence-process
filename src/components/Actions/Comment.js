@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 import Popover from '../Popover/Popover.js';
 import classnames from 'classnames';
-import './Comment.css';
 
 function Comment(props) {
   const [showPopover, setShowPopover] = useState(props.isOpen);
