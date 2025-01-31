@@ -5,9 +5,14 @@ import DeleteStatement from '../DeleteStatement/DeleteStatement';
 import EditableStatement from '../StatementTypes/components/EditableStatement';
 import UnEditableStatement from '../StatementTypes/components/UnEditableStatement';
 
-function SortableItem({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, listId, allowDelete = false }) {
+function SortableItem({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, allowDelete = false }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: itemId,
+    attributes: {
+      'aria-label': statement,
+      'aria-describedby': statement,
+      'aria-labelledby': 'hi',
+    }
   });
 
   const style = {
@@ -28,6 +33,9 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
         {...attributes}
         {...listeners}
         tabIndex={0}
+        aria-label={`${statement}`}
+        aria-describedby={`${statement}`}
+        aria-labelledby='hi'
       >
         <div className="h5p-sequence-statement">
           <div className="h5p-sequence-statement-remaining">

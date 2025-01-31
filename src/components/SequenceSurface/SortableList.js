@@ -20,7 +20,7 @@ import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
 
-function DraggableSequenceList({ params, onUserInputChange }) {
+function DraggableSequenceList({ params, onUserInputChange, collectExportValues }) {
   // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
@@ -29,6 +29,19 @@ function DraggableSequenceList({ params, onUserInputChange }) {
   // Content params
   const statementsFromParams = params.statementsList;
   const labelsFromParams = params.labelsList;
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: (event, args) => {
+        return customKeyboardCoordinates(event, args, dropzoneGroups);
+      }
+    })
+  );
+
+  // State
+  const [activeId, setActiveId] = useState(null);
+  const [activeCommentId, setActiveCommentId] = useState(null);
 
   // Initialize userInput state
   const [userInput, setUserInput] = useState(() => {
@@ -75,11 +88,11 @@ function DraggableSequenceList({ params, onUserInputChange }) {
     }));
   }, [userInput.labels]);
 
-  // list1 and column2Lists store only the IDs
-  const [list1, setList1] = useState(() => {
+  const [unassignedItemIds, setUnassignedItemIds] = useState(() => {
     return prepopulate ? [] : Object.keys(statements);
   });
-  const [column2Lists, setColumn2Lists] = useState(() => {
+
+  const [dropzoneGroups, setDropzoneGroups] = useState(() => {
     const statementsLength = statementsFromParams?.length || 0;
 
     let prepopulatedStatementIds = Object.keys(statements);
@@ -94,31 +107,17 @@ function DraggableSequenceList({ params, onUserInputChange }) {
       labelId: labelIds[index]
     }));
   });
-  const [activeId, setActiveId] = useState(null);
-  const [activeContainer, setActiveContainer] = useState(null);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: (event, args) => {
-        // Ensure column2Lists is available when the coordinate getter is called
-        return customKeyboardCoordinates(event, args, column2Lists);
-      }
-    })
-  );
 
   const handleDragStart = (event) => {
     const { active } = event;
+    console.log('active', active);
     setActiveId(active.id);
-    const draggedContainer = column2Lists.find(list => list.id === active.id);
-    if (draggedContainer) setActiveContainer(draggedContainer);
   };
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (!over) {
       setActiveId(null);
-      setActiveContainer(null);
       triggerResize();
       return;
     }
@@ -127,24 +126,24 @@ function DraggableSequenceList({ params, onUserInputChange }) {
     const overId = over.id;
 
     // If dragging a container to reorder among containers
-    if (isColumn2Container(active.id) && isColumn2Container(overId)) {
-      setColumn2Lists((prevLists) => {
+    if (isDropzoneGroup(active.id) && isDropzoneGroup(overId)) {
+      setDropzoneGroups((prevLists) => {
         const oldIndex = prevLists.findIndex((list) => list.id === active.id);
         const newIndex = prevLists.findIndex((list) => list.id === overId);
         return arrayMove(prevLists, oldIndex, newIndex);
       });
     }
-    // If dragging an item from list1 to a container in column2
-    else if (activeList === 'list1' && isColumn2Container(overId)) {
+    // If dragging an item from unassignedItemIds to a container in column2
+    else if (activeList === 'unassignedItemIds' && isDropzoneGroup(overId)) {
       const item = active.id;
 
       // Replace item in target drop zone if it's already occupied
-      setColumn2Lists((lists) =>
+      setDropzoneGroups((lists) =>
         lists.map((list) => {
           if (list.id === overId) {
             if (list.items.length > 0) {
-              // If target is occupied, move existing item back to list1
-              setList1((prevList1) => [...prevList1, list.items[0]]);
+              // If target is occupied, move existing item back to unassignedItemIds
+              setUnassignedItemIds((prevUnassignedItemIds) => [...prevUnassignedItemIds, list.items[0]]);
             }
             // Set the new item in the target drop zone
             return { ...list, items: [item] };
@@ -153,33 +152,12 @@ function DraggableSequenceList({ params, onUserInputChange }) {
         })
       );
 
-      // Remove the dragged item from list1
-      setList1((items) => items.filter((i) => i !== item));
+      // Remove the dragged item from unassignedItemIds
+      setUnassignedItemIds((items) => items.filter((i) => i !== item));
     }
 
     setActiveId(null);
-    setActiveContainer(null);
     triggerResize();
-  };
-
-  const findListContainingItem = (itemId) => {
-    if (list1.includes(itemId)) return 'list1';
-    const list = column2Lists.find((list) => list.items.includes(itemId));
-    return list ? list.id : null;
-  };
-
-  const isColumn2Container = (id) => column2Lists.some((list) => list.id === id);
-
-  const triggerResize = () => {
-    setTimeout(() => {
-      if (H5P && H5P.instances) {
-        H5P.instances.forEach(instance => {
-          if (instance.trigger) {
-            instance.trigger('resize');
-          }
-        });
-      }
-    }, 0);
   };
 
   // Update handlers to modify userInput
@@ -198,7 +176,7 @@ function DraggableSequenceList({ params, onUserInputChange }) {
         }
       }
     }));
-    setList1(prevList => [...prevList, newId]);
+    setUnassignedItemIds(prevList => [...prevList, newId]);
     triggerResize();
   };
 
@@ -211,7 +189,7 @@ function DraggableSequenceList({ params, onUserInputChange }) {
         statements: remainingStatements
       };
     });
-    setList1(prev => prev.filter(itemId => itemId !== id));
+    setUnassignedItemIds(prev => prev.filter(itemId => itemId !== id));
     triggerResize();
   };
 
@@ -243,8 +221,6 @@ function DraggableSequenceList({ params, onUserInputChange }) {
     }));
   };
 
-  const [activeCommentId, setActiveCommentId] = useState(null);
-
   const handleCommentClick = (itemId) => {
     setActiveCommentId((prevId) => (prevId === itemId ? null : itemId));
   };
@@ -265,8 +241,8 @@ function DraggableSequenceList({ params, onUserInputChange }) {
   // Add useEffect to watch userInput changes
   useEffect(() => {
     if (onUserInputChange) {
-      // Get the current sequence from column2Lists
-      const currentSequence = column2Lists.reduce((acc, list) => {
+      // Get the current sequence from dropzoneGroups
+      const currentSequence = dropzoneGroups.reduce((acc, list) => {
         if (list.items[0]) {
           acc.push(list.items[0]);
         }
@@ -281,7 +257,36 @@ function DraggableSequenceList({ params, onUserInputChange }) {
 
       onUserInputChange(updatedUserInput);
     }
-  }, [userInput, column2Lists, onUserInputChange]);
+  }, [userInput, dropzoneGroups, onUserInputChange]);
+
+
+  const isDropzoneGroup = (id) => dropzoneGroups.some((list) => list.id === id);
+
+  const findListContainingItem = (itemId) => {
+    if (unassignedItemIds.includes(itemId)) return 'unassignedItemIds';
+    const list = dropzoneGroups.find((list) => list.items.includes(itemId));
+    return list ? list.id : null;
+  };
+
+  const triggerResize = () => {
+    setTimeout(() => {
+      if (H5P && H5P.instances) {
+        H5P.instances.forEach(instance => {
+          if (instance.trigger) {
+            instance.trigger('resize');
+          }
+        });
+      }
+    }, 0);
+  };
+
+  const sendExportValues = () => {
+    return {
+      labels,
+      statements,
+      sequencedStatements,
+    };
+  };
 
   return (
     <DndContext
@@ -289,16 +294,20 @@ function DraggableSequenceList({ params, onUserInputChange }) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       collisionDetection={closestCenter}
+      accessibility={{
+        onDragStart: ({ active }) => `Picked up ${active.id}.`,
+        onDragOver: ({ over }) => `Moving over ${over.id}.`,
+      }}
     >
       <div className='h5p-sequence-dropzone'>
         <div className="h5p-sequence-column">
-          <SortableContext items={column2Lists.map(list => list.id)} strategy={verticalListSortingStrategy}>
-            {column2Lists.map((list) => (
+          <SortableContext items={dropzoneGroups.map(list => list.id)} strategy={verticalListSortingStrategy}>
+            {dropzoneGroups.map((list) => (
               <SortableDropZone
                 key={list.id}
                 id={list.id}
                 items={list.items}
-                isList1Empty={list1.length === 0}
+                isUnassignedEmpty={unassignedItemIds.length === 0}
                 labels={labels}
                 statements={statements}
                 onLabelSelect={handleLabelChange}
@@ -313,10 +322,10 @@ function DraggableSequenceList({ params, onUserInputChange }) {
         </div>
       </div>
 
-      {list1.length > 0 && (
+      {unassignedItemIds.length > 0 && (
         <div className='h5p-sequence-select-list'>
           <div className="h5p-sequence-column">
-            {list1.map((itemId) => (
+            {unassignedItemIds.map((itemId) => (
               <SortableItem
                 key={itemId}
                 itemId={itemId}
@@ -324,7 +333,7 @@ function DraggableSequenceList({ params, onUserInputChange }) {
                 onStatementDelete={handleRemove}
                 onStatementChange={handleStatementChange}
                 enableEditing={addStatementButton}
-                listId='list1'
+                listId='unassignedItemIds'
                 allowDelete={addStatementButton}
               />
             ))}
@@ -342,7 +351,7 @@ function DraggableSequenceList({ params, onUserInputChange }) {
           <DraggableOverlay
             id={activeId}
             statements={statements}
-            column2Lists={column2Lists}
+            dropzoneGroups={dropzoneGroups}
           />
         ) : null}
       </DragOverlay>

@@ -72,7 +72,7 @@ H5P.SequenceProcess = (function () {
       wrapper.classList.add('h5p-sequence-wrapper');
       this.wrapper = wrapper;
 
-      const root = createRoot(this.wrapper); 
+      const root = createRoot(this.wrapper);
       root.render(
         <SequenceProcessContext.Provider value={this}>
           <Main
@@ -86,12 +86,12 @@ H5P.SequenceProcess = (function () {
     };
 
     this.collectExportValues = (index, callback) => {
-      if ( typeof index !== 'undefined') {
-        this.collectExportValuesStack.push({key: index, callback: callback});
+      if (typeof index !== 'undefined') {
+        this.collectExportValuesStack.push({ key: index, callback: callback });
       }
       else {
         const exportValues = {};
-        this.collectExportValuesStack.forEach(({key, callback}) => exportValues[key] = callback());
+        this.collectExportValuesStack.forEach(({ key, callback }) => exportValues[key] = callback());
         return exportValues;
       }
     };
@@ -124,7 +124,7 @@ H5P.SequenceProcess = (function () {
      * @param ratio
      */
     this.addBreakPoints = (wrapper, ratio = getRatio(container)) => {
-      if ( ratio === this.currentRatio) {
+      if (ratio === this.currentRatio) {
         return;
       }
       this.activeBreakpoints = [];

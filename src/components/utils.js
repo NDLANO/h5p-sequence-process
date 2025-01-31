@@ -1,4 +1,4 @@
-import {escape, decode} from 'he';
+import { escape, decode } from 'he';
 
 export function StatementDataObject(initValues) {
   this.id = null;
@@ -146,7 +146,7 @@ export const breakpoints = () => {
  * @return {number}
  */
 export function getRatio(container) {
-  if ( !container) {
+  if (!container) {
     return;
   }
   const computedStyles = window.getComputedStyle(container);

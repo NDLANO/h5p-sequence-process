@@ -1,6 +1,6 @@
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 
-export const customKeyboardCoordinates = (event, args, column2Lists) => {
+export const customKeyboardCoordinates = (event, args, dropzoneGroups) => {
   const coordinates = sortableKeyboardCoordinates(event, args);
 
   const overElement = args.context.over?.id;
@@ -11,7 +11,7 @@ export const customKeyboardCoordinates = (event, args, column2Lists) => {
     return undefined;
   }
 
-  if (isOverDropzone && column2Lists[0]?.id === overElement && event.key === 'ArrowUp') {
+  if (isOverDropzone && dropzoneGroups[0]?.id === overElement && event.key === 'ArrowUp') {
     return undefined;
   }
   return coordinates;

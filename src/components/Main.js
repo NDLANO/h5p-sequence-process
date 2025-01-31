@@ -1,6 +1,6 @@
 import './SequenceStyle.scss';
 import 'fonts/H5PReflectionFont.scss';
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import SequenceSurface from './SequenceSurface/SequenceSurface.js';
 import Footer from './Footer/Footer';
@@ -21,7 +21,7 @@ function Main(props) {
 
   useEffect(() => {
     const filterResourceList = (element) => Object.keys(element).length !== 0 && element.constructor === Object;
-    if ( resourcesList.params.resourceList && resourcesList.params.resourceList.filter(filterResourceList).length > 0) {
+    if (resourcesList.params.resourceList && resourcesList.params.resourceList.filter(filterResourceList).length > 0) {
       const resourceList = new H5P.ResourceList(resourcesList.params, id, language);
       resourceList.attach(resourceContainer.current);
 
@@ -53,7 +53,7 @@ function Main(props) {
         </div>
         <SequenceSurface />
       </div>
-      <Footer/>
+      <Footer />
     </article>
   );
 }

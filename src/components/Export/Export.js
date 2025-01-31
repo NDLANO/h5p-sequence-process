@@ -39,6 +39,7 @@ export default class Export extends Component {
       userInput
     } = collectExportValues();
 
+    console.log('userInput EXPORT', userInput);
 
     if (!Array.isArray(userInput.labels)) {
       userInput.labels = [];

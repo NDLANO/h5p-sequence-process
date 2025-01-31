@@ -1,28 +1,31 @@
 // SortableDropZone.js
 import React, { useRef, useState, Fragment, useContext } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import ActionsList from '../Actions/ActionsList';
 import Comment from '../Actions/Comment';
 import Labels from '../Actions/Labels';
 import StatementLabel from '../StatementTypes/components/StatementLabel';
 
-function SortableDropZone({ id, items, isList1Empty, comment, labels, statements, onLabelSelect, selectedLabels, activeCommentId, onCommentClick, onCommentChange }) {
+function SortableDropZone({
+  id,
+  items,
+  isUnassignedEmpty,
+  comment,
+  labels,
+  statements,
+  onLabelSelect,
+  selectedLabels,
+  activeCommentId,
+  onCommentClick,
+  onCommentChange
+}) {
   const inputRef = useRef(null);
   const [activeLabelId, setActiveLabelId] = useState(null);
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({
+  const { attributes, listeners, setNodeRef } = useSortable({
     id,
     disabled: items.length === 0,
   });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    backgroundColor: isOver ? '#f0f0f0' : undefined,
-    opacity: isDragging ? 0 : 1,
-    cursor: items.length > 0 ? 'grab' : 'default',
-  };
 
   const handleLabelClick = (itemId) => {
     setActiveLabelId((prevId) => (prevId === itemId ? null : itemId));
@@ -31,7 +34,6 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels, statements
   return (
     <div
       ref={setNodeRef}
-      style={style}
       className='h5p-sequence-draggable-container'
       {...attributes}
       {...listeners}
@@ -49,7 +51,7 @@ function SortableDropZone({ id, items, isList1Empty, comment, labels, statements
                     {statements[itemId]?.content || itemId}
                   </p>
                 </div>
-                {isList1Empty && (
+                {isUnassignedEmpty && (
                   <Fragment>
                     {labels?.length > 0 && (
                       <ActionsList>
