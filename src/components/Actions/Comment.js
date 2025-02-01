@@ -44,40 +44,10 @@ function Comment(props) {
           value={props.comment || ''}
           aria-label={context.translations.typeYourReasonsForSuchAnswers}
           onChange={(event) => {
-            console.log('Textarea onChange:', {
-              value: event.currentTarget.value,
-              lastChar: event.currentTarget.value.slice(-1),
-              length: event.currentTarget.value.length
-            });
             props.onCommentChange(event.currentTarget.value);
           }}
-          onKeyPress={(event) => {
-            console.log('Textarea onKeyPress:', {
-              key: event.key,
-              keyCode: event.keyCode,
-              target: event.target.tagName,
-              value: event.target.value
-            });
-          }}
           onKeyDown={(event) => {
-            console.log('Textarea onKeyDown:', {
-              key: event.key,
-              keyCode: event.keyCode,
-              shiftKey: event.shiftKey,
-              target: event.target.tagName,
-              defaultPrevented: event.defaultPrevented,
-              value: event.target.value
-            });
-
             event.stopPropagation();
-          }}
-          onKeyUp={(event) => {
-            console.log('Textarea onKeyUp:', {
-              key: event.key,
-              keyCode: event.keyCode,
-              target: event.target.tagName,
-              value: event.target.value
-            });
           }}
           rows={3}
         />

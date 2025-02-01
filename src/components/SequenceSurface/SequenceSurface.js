@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SequenceProcessContext } from 'context/SequenceProcessContext';
-import DraggableSequenceList from './SortableList';
+import SortableList from './SortableList';
 import Summary from '../Summary/Summary';
 
 function SequenceSurface() {
@@ -20,7 +20,6 @@ function SequenceSurface() {
   useEffect(() => {
     // Register reset callback on mount
     registerReset(() => {
-      console.log('reset requested from context');
       // Incrementing resetTrigger will signal a reset event
       setResetTrigger(prev => prev + 1);
     });
@@ -30,7 +29,7 @@ function SequenceSurface() {
   return (
     <div>
       <div className="h5p-sequence-surface">
-        <DraggableSequenceList
+        <SortableList
           params={params}
           translations={translations}
           collectExportValues={collectExportValues}

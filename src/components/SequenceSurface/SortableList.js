@@ -20,7 +20,7 @@ import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
 
-function DraggableSequenceList({ params, onUserInputChange, collectExportValues }) {
+function SortableList({ params, onUserInputChange, collectExportValues }) {
   // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
@@ -58,7 +58,6 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
     // Initialize statements
     statementsFromParams.forEach((statementText) => {
       const id = H5P.createUUID();
-      input.sequencedStatements.push(id);
       input.statements[id] = {
         touched: true,
         selectedLabels: [],
@@ -84,7 +83,7 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
   const labels = useMemo(() => {
     return userInput.labels.map(label => ({
       id: label.id,
-      content: label.label
+      label: label.label
     }));
   }, [userInput.labels]);
 
@@ -108,9 +107,14 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
     }));
   });
 
+  useEffect(() => {
+    // Ensure unassignedItemIds stays in sync
+    const assignedItems = dropzoneGroups.flatMap(group => group.items);
+    setUnassignedItemIds(Object.keys(statements).filter(id => !assignedItems.includes(id)));
+  }, [dropzoneGroups, statements]);
+
   const handleDragStart = (event) => {
     const { active } = event;
-    console.log('active', active);
     setActiveId(active.id);
   };
 
@@ -132,7 +136,30 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
         const newIndex = prevLists.findIndex((list) => list.id === overId);
         return arrayMove(prevLists, oldIndex, newIndex);
       });
+
+      // Update the sequenced statements to match the new container order
+      setUserInput(prev => {
+        const currentSequence = dropzoneGroups.reduce((acc, list) => {
+          if (list.items[0]) {
+            acc.push(list.items[0]);
+          }
+          return acc;
+        }, []);
+
+        // Find the items being reordered
+        const oldIndex = dropzoneGroups.findIndex(list => list.id === active.id);
+        const newIndex = dropzoneGroups.findIndex(list => list.id === overId);
+
+        // Reorder the sequence to match the new container order
+        const newSequence = arrayMove([...currentSequence], oldIndex, newIndex);
+
+        return {
+          ...prev,
+          sequencedStatements: newSequence
+        };
+      });
     }
+
     // If dragging an item from unassignedItemIds to a container in column2
     else if (activeList === 'unassignedItemIds' && isDropzoneGroup(overId)) {
       const item = active.id;
@@ -154,6 +181,13 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
 
       // Remove the dragged item from unassignedItemIds
       setUnassignedItemIds((items) => items.filter((i) => i !== item));
+      setUserInput(prev => {
+        const filteredStatements = prev.sequencedStatements.filter(id => id !== item);
+        return {
+          ...prev,
+          sequencedStatements: [...filteredStatements, item]  // Acts like a stack
+        };
+      });
     }
 
     setActiveId(null);
@@ -259,6 +293,25 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
     }
   }, [userInput, dropzoneGroups, onUserInputChange]);
 
+  // New useEffect for collectExportValues
+  useEffect(() => {
+    if (collectExportValues) {
+      collectExportValues('userInput', () => {
+        return {
+          labels: labels,
+          statements: userInput.statements,
+          sequencedStatements: userInput.sequencedStatements,
+        };
+      });
+    }
+
+    return () => {
+      // Cleanup function (optional, depends on context handling)
+      if (collectExportValues) {
+        collectExportValues('userInput', () => { });
+      }
+    };
+  }, [collectExportValues, userInput]);
 
   const isDropzoneGroup = (id) => dropzoneGroups.some((list) => list.id === id);
 
@@ -278,14 +331,6 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
         });
       }
     }, 0);
-  };
-
-  const sendExportValues = () => {
-    return {
-      labels,
-      statements,
-      sequencedStatements,
-    };
   };
 
   return (
@@ -359,4 +404,4 @@ function DraggableSequenceList({ params, onUserInputChange, collectExportValues 
   );
 }
 
-export default DraggableSequenceList;
+export default SortableList;
