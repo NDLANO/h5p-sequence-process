@@ -1,11 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
-function AddStatement(props) {
-  const {
-    translations,
-    onClick
-  } = props;
+function AddStatement({ onClick }) {
+
+  const context = useContext(SequenceProcessContext);
+  const translations = context.translations;
 
   return (
     <div>
@@ -24,7 +25,6 @@ function AddStatement(props) {
 }
 
 AddStatement.propTypes = {
-  translations: PropTypes.object,
   onClick: PropTypes.func,
 };
 

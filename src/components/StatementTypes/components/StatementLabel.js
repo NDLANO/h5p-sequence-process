@@ -38,7 +38,7 @@ function StatementLabel(props) {
               key={label.id}
               className={'h5p-sequence-statement-label'}
             >
-              {label.label}
+              {label.content}
               <button
                 onClick={() => onLabelChange(label.id)}
                 onKeyUp={(event) => {

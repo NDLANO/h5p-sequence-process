@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 import Popover from '../Popover/Popover.js';
@@ -7,6 +7,7 @@ import classnames from 'classnames';
 function Labels(props) {
 
   const [showPopover, togglePopover] = useState(props.selectedLabelArray.length > 0);
+  const firstInputRef = useRef(null);
 
   const context = useContext(SequenceProcessContext);
 
@@ -20,6 +21,20 @@ function Labels(props) {
     onLabelChange,
   } = props;
 
+  function handleLabelKeyDown(event, labelId) {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      onLabelChange(labelId);
+    }
+  }
+
+  function handleCloseKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleToggle();
+    }
+  }
+
   return (
     <Popover
       handleClose={handleToggle}
@@ -27,18 +42,26 @@ function Labels(props) {
       classnames={context.activeBreakpoints}
       header={context.translations.selectAllLabelsConnectedToThisItem}
       close={context.translations.close}
+      onCloseKeyDown={handleCloseKeyDown}
       popoverContent={(
         <div className={'h5p-sequence-label-popover'}>
-          <div className={'h5p-sequence-label-list'}>
-            {labels.map((label) => (
+          <div className={'h5p-sequence-label-list'} role="group" aria-label={context.translations.selectAllLabelsConnectedToThisItem}>
+            {labels.map((label, index) => (
               <label
                 key={label.id}
+                className="h5p-sequence-label-item"
+                tabIndex="0"
+                role="checkbox"
+                aria-checked={selectedLabelArray.indexOf(label.id) !== -1}
+                onKeyDown={(e) => handleLabelKeyDown(e, label.id)}
               >
                 <input
+                  ref={index === 0 ? firstInputRef : null}
                   value={label.id}
                   type={'checkbox'}
                   checked={selectedLabelArray.indexOf(label.id) !== -1}
                   onChange={() => onLabelChange(label.id)}
+                  tabIndex="-1"
                 />
                 <span className={classnames('h5p-ri', {
                   'hri-checked': selectedLabelArray.indexOf(label.id) !== -1,
@@ -57,6 +80,7 @@ function Labels(props) {
         type={'button'}
         onKeyDown={(event) => {
           if (event.keyCode === 13) {
+            event.preventDefault();
             handleToggle();
           }
         }}

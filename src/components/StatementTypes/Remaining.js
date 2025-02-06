@@ -47,7 +47,7 @@ function Remaining(props) {
           onClick={onStatementDelete}
         />
         <DragArrows />
-        {displayStatement}
+        {/* {displayStatement} */}
       </div>
     </div>
   );
