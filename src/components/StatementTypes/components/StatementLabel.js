@@ -1,7 +1,7 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {SequenceProcessContext} from 'context/SequenceProcessContext';
+import { SequenceProcessContext } from 'context/SequenceProcessContext';
 
 /**
  * @return {null}
@@ -16,7 +16,7 @@ function StatementLabel(props) {
     onLabelChange,
   } = props;
 
-  if ( selectedLabels.length === 0) {
+  if (selectedLabels.length === 0) {
     return null;
   }
 
@@ -42,7 +42,7 @@ function StatementLabel(props) {
               <button
                 onClick={() => onLabelChange(label.id)}
                 onKeyUp={(event) => {
-                  if (event.keyCode && event.keyCode === 8) {
+                  if (event.key === 'Enter' || event.key === ' ') {
                     onLabelChange(label.id);
                   }
                 }}

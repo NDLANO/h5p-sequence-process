@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
-function AddStatement({ onClick }) {
+function AddStatement({ addStatement }) {
 
   const context = useContext(SequenceProcessContext);
   const translations = context.translations;
@@ -13,7 +13,13 @@ function AddStatement({ onClick }) {
       <button
         type={'button'}
         className={'h5p-sequence-add'}
-        onClick={onClick}
+        onClick={addStatement}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            addStatement();
+            event.preventDefault();
+          }
+        }}
       >
         <span>
           <span className={'h5p-ri hri-pencil'} />

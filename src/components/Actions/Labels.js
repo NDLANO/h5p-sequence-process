@@ -79,7 +79,7 @@ function Labels(props) {
         className={'h5p-sequence-action'}
         type={'button'}
         onKeyDown={(event) => {
-          if (event.keyCode === 13) {
+          if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             handleToggle();
           }

@@ -59,7 +59,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     statementsFromParams.forEach((statementText) => {
       const id = H5P.createUUID();
       input.statements[id] = {
-        touched: true,
+        touched: false,
         selectedLabels: [],
         comment: '',
         statement: statementText
@@ -120,6 +120,19 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
+
+    // Record that the statement has been toched 
+    setUserInput(prev => ({
+      ...prev,
+      statements: {
+        ...prev.statements,
+        [active.id]: {
+          ...prev.statements[active.id],
+          touched: true, // Mark as touched
+        }
+      }
+    }))
+
     if (!over) {
       setActiveId(null);
       triggerResize();
@@ -131,6 +144,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
 
     // If dragging a container to reorder among containers
     if (isDropzoneGroup(active.id) && isDropzoneGroup(overId)) {
+      console.log('reordering containers');
       setDropzoneGroups((prevLists) => {
         const oldIndex = prevLists.findIndex((list) => list.id === active.id);
         const newIndex = prevLists.findIndex((list) => list.id === overId);
@@ -171,6 +185,15 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
             if (list.items.length > 0) {
               // If target is occupied, move existing item back to unassignedItemIds
               setUnassignedItemIds((prevUnassignedItemIds) => [...prevUnassignedItemIds, list.items[0]]);
+
+              // Remove item from sequencedStatements
+              setUserInput(prev => {
+                const updatedUserInput = {
+                  ...prev,
+                  sequencedStatements: prev.sequencedStatements.filter(sid => sid !== list.items[0])
+                };
+                return updatedUserInput;
+              });
             }
             // Set the new item in the target drop zone
             return { ...list, items: [item] };
@@ -181,11 +204,11 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
 
       // Remove the dragged item from unassignedItemIds
       setUnassignedItemIds((items) => items.filter((i) => i !== item));
+
       setUserInput(prev => {
-        const filteredStatements = prev.sequencedStatements.filter(id => id !== item);
         return {
           ...prev,
-          sequencedStatements: [...filteredStatements, item]  // Acts like a stack
+          sequencedStatements: [...prev.sequencedStatements, item]
         };
       });
     }
@@ -199,11 +222,10 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     const newId = H5P.createUUID();
     setUserInput(prev => ({
       ...prev,
-      sequencedStatements: [...prev.sequencedStatements, newId],
       statements: {
         ...prev.statements,
         [newId]: {
-          touched: true,
+          touched: false,
           selectedLabels: [],
           comment: '',
           statement: 'New Statement'
@@ -293,7 +315,6 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     }
   }, [userInput, dropzoneGroups, onUserInputChange]);
 
-  // New useEffect for collectExportValues
   useEffect(() => {
     if (collectExportValues) {
       collectExportValues('userInput', () => {
@@ -384,7 +405,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
             ))}
             {addStatementButton && (
               <AddStatement
-                onClick={handleAddStatement}
+                addStatement={handleAddStatement}
               />
             )}
           </div>

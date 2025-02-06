@@ -90,7 +90,7 @@ const Popover = ({ handleClose, show, children, popoverContent, classnames = [],
                 type="button"
                 onClick={handleClose}
                 onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === 'Escape') {
+                  if (event.key === 'Enter' || event.key === 'Escape' || event.key === ' ') {
                     event.preventDefault();
                     event.stopPropagation();
                     handleClose();
