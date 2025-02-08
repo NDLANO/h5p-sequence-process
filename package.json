@@ -41,13 +41,11 @@
     "@dnd-kit/modifiers": "^7.0.0",
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "he": "^1.2.0",
     "react": "^18.2.0",
-    "react-beautiful-dnd": "^12.2.0",
     "react-dom": "^18.2.0",
-    "react-html-parser": "^2.0.2",
+    "html-react-parser": "^5.2.2",
     "react-tiny-popover": "^8.0.4"
   },
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead"

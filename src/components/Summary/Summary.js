@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 
 function Summary(props) {
 
@@ -30,7 +30,7 @@ function Summary(props) {
         <div>{summaryHeader ? summaryHeader : translate('summary')}</div>
       </label>
       {summaryInstruction && (
-        <div>{ReactHtmlParser(summaryInstruction)}</div>
+        <div>{parse(summaryInstruction)}</div>
       )}
       <textarea
         id={'summary'}
