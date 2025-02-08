@@ -43,9 +43,9 @@
     "@dnd-kit/utilities": "^3.2.2",
     "classnames": "^2.5.1",
     "he": "^1.2.0",
+    "html-react-parser": "^5.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "html-react-parser": "^5.2.2",
     "react-tiny-popover": "^8.1.6"
   },
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead"

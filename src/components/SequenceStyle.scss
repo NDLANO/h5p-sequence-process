@@ -1,13 +1,14 @@
+@use "sass:math";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 $browser-context : 16;
 
 @function em($pixels, $context: $browser-context) {
-  @if (unitless($pixels)) {
+  @if (math.is-unitless($pixels)) {
     $pixels: $pixels * 1px;
   }
 
-  @if (unitless($context)) {
+  @if (math.is-unitless($context)) {
     $context: $context * 1px;
   }
 
