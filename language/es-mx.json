@@ -25,7 +25,7 @@
           "label": "Etiquetas",
           "entity": "etiqueta",
           "field": {
-            "label": "Label"
+            "label": "Etiqueta"
           }
         }
       ]
@@ -60,7 +60,7 @@
         },
         {
           "label": "Mostrar resumen",
-          "description": "¿Quiere que el usuario proporcione un resumen que explique las razones para su respuesta?"
+          "description": "Quiere que el usuario proporcione un resumen que explique las razones para su respuesta"
         },
         {
           "label": "Rellenar previamente las declaraciones",
@@ -113,14 +113,14 @@
         },
         {
           "label": "Informar al usuario que se perderán sus datos si continúa",
-          "default": "Si continúas, se perderán todos tus cambios"
+          "default": "Si continúa, se perderán todos los cambios"
         },
         {
           "label": "Preguntar al usuario si quiere continuar",
-          "default": "¿Estás seguro?"
+          "default": "¿Está seguro?"
         },
         {
-          "label": "Texto por defecto para la caja de resumen",
+          "label": "Remplazable para la caja de resumen",
           "default": "Haz un breve resumen en tus propias palabras"
         },
         {
@@ -185,7 +185,7 @@
           "default": "Sin comentarios"
         },
         {
-          "label": "Encabezado para la lista de etiquetas en el informe",
+          "label": "Encabezado para la lista de etiquetas en el reporte",
           "default": "Etiquetas disponibles"
         }
       ]
@@ -217,7 +217,7 @@
         },
         {
           "label": "Etiqueta \"Elemento arrastrable\" para lectores de pantalla",
-          "description": "Las variables disponibles son: declaración",
+          "description": "Las variables disponibles son :statement",
           "default": "Elemento arrastrable: :statement"
         },
         {
