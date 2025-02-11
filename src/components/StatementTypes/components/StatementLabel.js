@@ -6,15 +6,13 @@ import { SequenceProcessContext } from 'context/SequenceProcessContext';
 /**
  * @return {null}
  */
-function StatementLabel(props) {
+function StatementLabel({
+  labels = [],
+  selectedLabels = [],
+  onLabelChange,
+}) {
 
   const context = useContext(SequenceProcessContext);
-
-  const {
-    labels,
-    selectedLabels,
-    onLabelChange,
-  } = props;
 
   if (selectedLabels.length === 0) {
     return null;
@@ -67,11 +65,6 @@ StatementLabel.propTypes = {
   labels: PropTypes.array,
   selectedLabels: PropTypes.array,
   onLabelChange: PropTypes.func,
-};
-
-StatementLabel.defaultProps = {
-  labels: [],
-  selectedLabels: [],
 };
 
 export default StatementLabel;

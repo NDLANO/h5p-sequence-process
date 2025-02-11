@@ -4,9 +4,14 @@ import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 import Popover from '../Popover/Popover.js';
 import classnames from 'classnames';
 
-function Comment(props) {
-  const [showPopover, setShowPopover] = useState(props.isOpen);
-  const inputRef = useRef(null);
+function Comment({
+  onCommentChange,
+  comment = '',
+  onClick,
+  inputRef,
+  isOpen = false
+}) {
+  const [showPopover, setShowPopover] = useState(isOpen);
   const context = useContext(SequenceProcessContext);
 
   function handleToggle(event) {
@@ -41,10 +46,10 @@ function Comment(props) {
         <textarea
           ref={inputRef}
           placeholder={context.translations.typeYourReasonsForSuchAnswers}
-          value={props.comment || ''}
+          value={comment}
           aria-label={context.translations.typeYourReasonsForSuchAnswers}
           onChange={(event) => {
-            props.onCommentChange(event.currentTarget.value);
+            onCommentChange(event.currentTarget.value);
           }}
           onKeyDown={(event) => {
             event.stopPropagation();
@@ -69,8 +74,8 @@ function Comment(props) {
       >
         <span
           className={classnames('h5p-ri', {
-            'hri-comment-empty': !props.comment || props.comment.length === 0,
-            'hri-comment-full': props.comment && props.comment.length > 0,
+            'hri-comment-empty': !comment || comment.length === 0,
+            'hri-comment-full': comment && comment.length > 0,
           })}
         />
         <span className="visible-hidden">{context.translations.addComment}</span>
@@ -85,10 +90,6 @@ Comment.propTypes = {
   onClick: PropTypes.func,
   inputRef: PropTypes.object,
   isOpen: PropTypes.bool,
-};
-
-Comment.defaultProps = {
-  isOpen: false,
 };
 
 export default Comment;

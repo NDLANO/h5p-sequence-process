@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '../../utils';
 
-function EditableStatement(props) {
+function EditableStatement({ statement, onBlur, idBase = false }) {
   const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
 
   const handleClick = () => {
     toggleEditMode(true);
-    inputRef.current.value = props.statement;
+    inputRef.current.value = statement;
     setTimeout(() => {
       inputRef.current.focus();
       inputRef.current.setSelectionRange(0, inputRef.current.value.length);
@@ -45,7 +45,7 @@ function EditableStatement(props) {
     }
   };
 
-  const id = 'es_' + props.idBase;
+  const id = 'es_' + idBase;
   const labelId = 'label_' + id;
   const inputId = 'input_' + id;
 
@@ -60,7 +60,7 @@ function EditableStatement(props) {
     >
       <div>
         <label
-          title={props.statement}
+          title={statement}
           htmlFor={inputId}
           id={labelId}
         >
@@ -71,10 +71,10 @@ function EditableStatement(props) {
               hidden: !inEditMode,
             })}
             ref={inputRef}
-            defaultValue={props.statement}
+            defaultValue={statement}
             onBlur={handleBlur}
-            onChange={debounce(() => props.onBlur(inputRef.current.value), 200)}
-            aria-label={'Edit statement ' + props.statement}
+            onChange={debounce(() => onBlur(inputRef.current.value), 200)}
+            aria-label={'Edit statement ' + statement}
             id={inputId}
             tabIndex={inEditMode ? 0 : -1}
             onKeyDown={handleInputKeyDown}
@@ -86,7 +86,7 @@ function EditableStatement(props) {
           })}
           data-no-dnd="true"
         >
-          {props.statement}
+          {statement}
         </p>
       </div>
     </div>
@@ -100,10 +100,6 @@ EditableStatement.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-};
-
-EditableStatement.defaultProps = {
-  inEditMode: false,
 };
 
 export default EditableStatement;

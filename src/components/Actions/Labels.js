@@ -4,9 +4,9 @@ import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 import Popover from '../Popover/Popover.js';
 import classnames from 'classnames';
 
-function Labels(props) {
+function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
 
-  const [showPopover, togglePopover] = useState(props.selectedLabelArray.length > 0);
+  const [showPopover, togglePopover] = useState(selectedLabelArray.length > 0);
   const firstInputRef = useRef(null);
 
   const context = useContext(SequenceProcessContext);
@@ -14,12 +14,6 @@ function Labels(props) {
   function handleToggle() {
     togglePopover(!showPopover);
   }
-
-  const {
-    labels,
-    selectedLabelArray,
-    onLabelChange,
-  } = props;
 
   function handleLabelKeyDown(event, labelId) {
     if (event.key === ' ' || event.key === 'Enter') {
@@ -87,8 +81,8 @@ function Labels(props) {
       >
         <span
           className={classnames('h5p-ri', {
-            'hri-label-empty': !props.selectedLabelArray || props.selectedLabelArray.length === 0,
-            'hri-label-full': props.selectedLabelArray && props.selectedLabelArray.length > 0,
+            'hri-label-empty': !selectedLabelArray || selectedLabelArray.length === 0,
+            'hri-label-full': selectedLabelArray && selectedLabelArray.length > 0,
           })}
         />
         <span className="visible-hidden">{context.translations.addLabel}</span>
@@ -101,11 +95,6 @@ Labels.propTypes = {
   labels: PropTypes.array,
   onLabelChange: PropTypes.func,
   selectedLabelArray: PropTypes.array,
-};
-
-Labels.defaultProps = {
-  labels: [],
-  selectedLabelArray: [],
 };
 
 export default Labels;

@@ -52,7 +52,6 @@ export default class Export extends Component {
       resources: resources,
       sortedStatementList: userInput.sequencedStatements
         .map((statement) => userInput.statements[statement])
-        .filter((statement) => statement.touched === true)
         .map((statement) => {
           return {
             labels: statement.selectedLabels.map((label) => labelsStructured[label]),
