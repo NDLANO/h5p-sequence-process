@@ -25,8 +25,6 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
   const addStatementButton = params.behaviour.allowAddingOfStatements;
-  const prioritizeable = params.behaviour.prioritizeable;
-  console.log('hi')
 
   // Content params
   const statementsFromParams = params.statementsList;
@@ -123,18 +121,6 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
-    // Record that the statement has been toched 
-    setUserInput(prev => ({
-      ...prev,
-      statements: {
-        ...prev.statements,
-        [active.id]: {
-          ...prev.statements[active.id],
-          touched: true, // Mark as touched
-        }
-      }
-    }))
-
     if (!over) {
       setActiveId(null);
       triggerResize();
@@ -146,7 +132,6 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
 
     // If dragging a container to reorder among containers
     if (isDropzoneGroup(active.id) && isDropzoneGroup(overId)) {
-      console.log('reordering containers');
       setDropzoneGroups((prevLists) => {
         const oldIndex = prevLists.findIndex((list) => list.id === active.id);
         const newIndex = prevLists.findIndex((list) => list.id === overId);
@@ -372,8 +357,8 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
           <SortableContext items={dropzoneGroups.map(list => list.id)} strategy={verticalListSortingStrategy}>
             {dropzoneGroups.map((list, index) => (
               <SortableDropZone
-                index={index}
                 key={list.id}
+                index={index}
                 id={list.id}
                 items={list.items}
                 isUnassignedEmpty={unassignedItemIds.length === 0}
