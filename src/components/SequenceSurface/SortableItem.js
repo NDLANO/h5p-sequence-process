@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { SequenceProcessContext } from 'context/SequenceProcessContext';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import DeleteStatement from '../DeleteStatement/DeleteStatement';
@@ -14,6 +15,8 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
       'aria-labelledby': 'hi',
     }
   });
+
+  const context = useContext(SequenceProcessContext);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -41,6 +44,7 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
           <div className="h5p-sequence-statement-remaining">
             <div className="h5p-sequence-drag-element">
               <span className="h5p-ri hri-move" data-no-dnd="true" />
+              <span className={'visible-hidden'}>{context.translations.drag}</span>
             </div>
             {/* Conditionally render the statement based on enableEditing */}
             {enableEditing ? (

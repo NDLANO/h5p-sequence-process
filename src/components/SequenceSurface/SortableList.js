@@ -25,6 +25,8 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
   const addStatementButton = params.behaviour.allowAddingOfStatements;
+  const prioritizeable = params.behaviour.prioritizeable;
+  console.log('hi')
 
   // Content params
   const statementsFromParams = params.statementsList;
@@ -368,8 +370,9 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
       <div className='h5p-sequence-dropzone'>
         <div className="h5p-sequence-column">
           <SortableContext items={dropzoneGroups.map(list => list.id)} strategy={verticalListSortingStrategy}>
-            {dropzoneGroups.map((list) => (
+            {dropzoneGroups.map((list, index) => (
               <SortableDropZone
+                index={index}
                 key={list.id}
                 id={list.id}
                 items={list.items}
