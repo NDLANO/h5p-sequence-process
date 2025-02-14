@@ -224,19 +224,6 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     triggerResize();
   };
 
-  // const handleRemove = (id) => {
-  //   setUserInput((prev) => {
-  //     const { statements: { [id]: _, ...remainingStatements } } = prev;
-  //     return {
-  //       ...prev,
-  //       sequencedStatements: prev.sequencedStatements.filter((sid) => sid !== id),
-  //       statements: remainingStatements
-  //     };
-  //   });
-  //   setUnassignedItemIds((prev) => prev.filter((itemId) => itemId !== id));
-  //   triggerResize();
-  // };
-
   const handleRemove = (id) => {
     setUserInput((prev) => {
       const remainingStatements = { ...prev.statements };
