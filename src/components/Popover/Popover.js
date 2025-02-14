@@ -71,6 +71,7 @@ const Popover = ({
           arrowSize={10}
           className="popover-arrow-container"
         >
+          {/* Ingoring eslint rules here because we need to ensure that the popover traps focus */}
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
           <div
             className="h5p-sequence-popover-container"
