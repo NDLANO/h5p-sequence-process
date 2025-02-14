@@ -11,7 +11,6 @@ const Popover = ({
   header,
   close,
   align = 'end',
-  onCloseKeyDown = () => { }
 }) => {
   const classnamesRef = useRef([...classnames, 'h5p-sequence-popover']);
   const popoverRef = useRef(null);
@@ -36,14 +35,14 @@ const Popover = ({
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
-    // Handle Tab key for focus trapping
     if (event.key === 'Tab') {
       if (event.shiftKey) {
         if (document.activeElement === firstElement) {
           event.preventDefault();
           lastElement.focus();
         }
-      } else {
+      }
+      else {
         if (document.activeElement === lastElement) {
           event.preventDefault();
           firstElement.focus();
@@ -51,7 +50,6 @@ const Popover = ({
       }
     }
 
-    // Handle Escape key to close the popover
     if (event.key === 'Escape') {
       handleClose();
     }
@@ -73,6 +71,7 @@ const Popover = ({
           arrowSize={10}
           className="popover-arrow-container"
         >
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
           <div
             className="h5p-sequence-popover-container"
             role="dialog"
@@ -84,13 +83,6 @@ const Popover = ({
               <div
                 role="heading"
                 aria-level="2"
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    handleClose();
-                  }
-                }}
               >
                 {header}
               </div>
@@ -112,10 +104,9 @@ const Popover = ({
                 <span className="visible-hidden">{close}</span>
               </button>
             </div>
-            <div className="h5p-sequence-popover-content">
-              {popoverContent}
-            </div>
+            <div className="h5p-sequence-popover-content">{popoverContent}</div>
           </div>
+          {/* eslint-enable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         </ArrowContainer>
       )}
       containerClassName={classnamesRef.current.join(' ')}
@@ -135,7 +126,6 @@ Popover.propTypes = {
   header: PropTypes.string,
   close: PropTypes.string,
   align: PropTypes.oneOf(['start', 'center', 'end']),
-  onCloseKeyDown: PropTypes.func,
 };
 
 export default Popover;

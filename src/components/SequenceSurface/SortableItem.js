@@ -30,6 +30,7 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
   return (
     <div className="h5p-sequence-draggable-container">
       <div
+        role="button"
         ref={setNodeRef}
         className="h5p-sequence-draggable-element"
         style={style}
@@ -38,7 +39,6 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
         tabIndex={0}
         aria-label={`${statement}`}
         aria-describedby={`${statement}`}
-        aria-labelledby='hi'
       >
         <div className="h5p-sequence-statement">
           <div className="h5p-sequence-statement-remaining">

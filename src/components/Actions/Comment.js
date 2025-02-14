@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 import Popover from '../Popover/Popover.js';
@@ -7,7 +7,6 @@ import classnames from 'classnames';
 function Comment({
   onCommentChange,
   comment = '',
-  onClick,
   inputRef,
   isOpen = false
 }) {

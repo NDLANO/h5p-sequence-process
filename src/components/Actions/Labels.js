@@ -41,7 +41,7 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
         <div className={'h5p-sequence-label-popover'}>
           <div className={'h5p-sequence-label-list'} role="group" aria-label={context.translations.selectAllLabelsConnectedToThisItem}>
             {labels.map((label, index) => (
-              <label
+              <div
                 key={label.id}
                 className="h5p-sequence-label-item"
                 tabIndex="0"
@@ -62,7 +62,7 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
                   'hri-unchecked': selectedLabelArray.indexOf(label.id) === -1,
                 })} />
                 {label.label}
-              </label>
+              </div>
             ))}
           </div>
         </div>

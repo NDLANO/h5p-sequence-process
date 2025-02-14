@@ -30,15 +30,6 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   const statementsFromParams = params.statementsList;
   const labelsFromParams = params.labelsList;
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: (event, args) => {
-        return customKeyboardCoordinates(event, args, dropzoneGroups);
-      }
-    })
-  );
-
   // State
   const [activeId, setActiveId] = useState(null);
   const [activeCommentId, setActiveCommentId] = useState(null);
@@ -49,7 +40,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
 
     // Initialize labels with better null checking
     input.labels = Array.isArray(labelsFromParams)
-      ? labelsFromParams.map(labelText => ({
+      ? labelsFromParams.map((labelText) => ({
         id: H5P.createUUID(),
         label: labelText
       }))
@@ -81,15 +72,11 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   }, [userInput.statements]);
 
   const labels = useMemo(() => {
-    return userInput.labels.map(label => ({
+    return userInput.labels.map((label) => ({
       id: label.id,
       label: label.label
     }));
   }, [userInput.labels]);
-
-  const [unassignedItemIds, setUnassignedItemIds] = useState(() => {
-    return prepopulate ? [] : Object.keys(statements);
-  });
 
   const [dropzoneGroups, setDropzoneGroups] = useState(() => {
     const statementsLength = statementsFromParams?.length || 0;
@@ -107,12 +94,41 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     }));
   });
 
-  useEffect(() => {
-    // Ensure unassignedItemIds stays in sync
-    const assignedItems = dropzoneGroups.flatMap(group => group.items);
-    setUnassignedItemIds(Object.keys(statements).filter(id => !assignedItems.includes(id)));
-  }, [dropzoneGroups, statements]);
+  const [unassignedItemIds, setUnassignedItemIds] = useState(() => {
+    return prepopulate ? [] : Object.keys(statements);
+  });
 
+  // Helper functions
+  const isDropzoneGroup = (id) => dropzoneGroups.some((list) => list.id === id);
+
+  const findListContainingItem = (itemId) => {
+    if (unassignedItemIds.includes(itemId)) return 'unassignedItemIds';
+    const list = dropzoneGroups.find((list) => list.items.includes(itemId));
+    return list ? list.id : null;
+  };
+
+  const triggerResize = () => {
+    setTimeout(() => {
+      if (H5P && H5P.instances) {
+        H5P.instances.forEach((instance) => {
+          if (instance.trigger) {
+            instance.trigger('resize');
+          }
+        });
+      }
+    }, 0);
+  };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: (event, args) => {
+        return customKeyboardCoordinates(event, args, dropzoneGroups);
+      }
+    })
+  );
+
+  // Event handlers
   const handleDragStart = (event) => {
     const { active } = event;
     setActiveId(active.id);
@@ -139,7 +155,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
       });
 
       // Update the sequenced statements to match the new container order
-      setUserInput(prev => {
+      setUserInput((prev) => {
         const currentSequence = dropzoneGroups.reduce((acc, list) => {
           if (list.items[0]) {
             acc.push(list.items[0]);
@@ -147,11 +163,8 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
           return acc;
         }, []);
 
-        // Find the items being reordered
-        const oldIndex = dropzoneGroups.findIndex(list => list.id === active.id);
-        const newIndex = dropzoneGroups.findIndex(list => list.id === overId);
-
-        // Reorder the sequence to match the new container order
+        const oldIndex = dropzoneGroups.findIndex((list) => list.id === active.id);
+        const newIndex = dropzoneGroups.findIndex((list) => list.id === overId);
         const newSequence = arrayMove([...currentSequence], oldIndex, newIndex);
 
         return {
@@ -160,54 +173,42 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
         };
       });
     }
-
     // If dragging an item from unassignedItemIds to a container in column2
     else if (activeList === 'unassignedItemIds' && isDropzoneGroup(overId)) {
       const item = active.id;
 
-      // Replace item in target drop zone if it's already occupied
       setDropzoneGroups((lists) =>
         lists.map((list) => {
           if (list.id === overId) {
             if (list.items.length > 0) {
-              // If target is occupied, move existing item back to unassignedItemIds
               setUnassignedItemIds((prevUnassignedItemIds) => [...prevUnassignedItemIds, list.items[0]]);
 
-              // Remove item from sequencedStatements
-              setUserInput(prev => {
-                const updatedUserInput = {
-                  ...prev,
-                  sequencedStatements: prev.sequencedStatements.filter(sid => sid !== list.items[0])
-                };
-                return updatedUserInput;
-              });
+              setUserInput((prev) => ({
+                ...prev,
+                sequencedStatements: prev.sequencedStatements.filter((sid) => sid !== list.items[0])
+              }));
             }
-            // Set the new item in the target drop zone
             return { ...list, items: [item] };
           }
           return list;
         })
       );
 
-      // Remove the dragged item from unassignedItemIds
       setUnassignedItemIds((items) => items.filter((i) => i !== item));
 
-      setUserInput(prev => {
-        return {
-          ...prev,
-          sequencedStatements: [...prev.sequencedStatements, item]
-        };
-      });
+      setUserInput((prev) => ({
+        ...prev,
+        sequencedStatements: [...prev.sequencedStatements, item]
+      }));
     }
 
     setActiveId(null);
     triggerResize();
   };
 
-  // Update handlers to modify userInput
   const handleAddStatement = () => {
     const newId = H5P.createUUID();
-    setUserInput(prev => ({
+    setUserInput((prev) => ({
       ...prev,
       statements: {
         ...prev.statements,
@@ -219,25 +220,41 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
         }
       }
     }));
-    setUnassignedItemIds(prevList => [...prevList, newId]);
+    setUnassignedItemIds((prevList) => [...prevList, newId]);
     triggerResize();
   };
 
+  // const handleRemove = (id) => {
+  //   setUserInput((prev) => {
+  //     const { statements: { [id]: _, ...remainingStatements } } = prev;
+  //     return {
+  //       ...prev,
+  //       sequencedStatements: prev.sequencedStatements.filter((sid) => sid !== id),
+  //       statements: remainingStatements
+  //     };
+  //   });
+  //   setUnassignedItemIds((prev) => prev.filter((itemId) => itemId !== id));
+  //   triggerResize();
+  // };
+
   const handleRemove = (id) => {
-    setUserInput(prev => {
-      const { [id]: removed, ...remainingStatements } = prev.statements;
+    setUserInput((prev) => {
+      const remainingStatements = { ...prev.statements };
+      delete remainingStatements[id]; // Instead of using destructuring with an unused variable
+
       return {
         ...prev,
-        sequencedStatements: prev.sequencedStatements.filter(sid => sid !== id),
+        sequencedStatements: prev.sequencedStatements.filter((sid) => sid !== id),
         statements: remainingStatements
       };
     });
-    setUnassignedItemIds(prev => prev.filter(itemId => itemId !== id));
+
+    setUnassignedItemIds((prev) => prev.filter((itemId) => itemId !== id));
     triggerResize();
   };
 
   const handleStatementChange = (id, newContent) => {
-    setUserInput(prev => ({
+    setUserInput((prev) => ({
       ...prev,
       statements: {
         ...prev.statements,
@@ -250,14 +267,14 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   };
 
   const handleLabelChange = (statementId, labelId) => {
-    setUserInput(prev => ({
+    setUserInput((prev) => ({
       ...prev,
       statements: {
         ...prev.statements,
         [statementId]: {
           ...prev.statements[statementId],
           selectedLabels: prev.statements[statementId].selectedLabels.includes(labelId)
-            ? prev.statements[statementId].selectedLabels.filter(id => id !== labelId)
+            ? prev.statements[statementId].selectedLabels.filter((id) => id !== labelId)
             : [...prev.statements[statementId].selectedLabels, labelId]
         }
       }
@@ -269,7 +286,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   };
 
   const handleCommentChange = (itemId, newComment) => {
-    setUserInput(prev => ({
+    setUserInput((prev) => ({
       ...prev,
       statements: {
         ...prev.statements,
@@ -281,10 +298,14 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     }));
   };
 
-  // Add useEffect to watch userInput changes
+  // Effects
+  useEffect(() => {
+    const assignedItems = dropzoneGroups.flatMap((group) => group.items);
+    setUnassignedItemIds(Object.keys(statements).filter((id) => !assignedItems.includes(id)));
+  }, [dropzoneGroups, statements]);
+
   useEffect(() => {
     if (onUserInputChange) {
-      // Get the current sequence from dropzoneGroups
       const currentSequence = dropzoneGroups.reduce((acc, list) => {
         if (list.items[0]) {
           acc.push(list.items[0]);
@@ -292,7 +313,6 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
         return acc;
       }, []);
 
-      // Update sequencedStatements in userInput
       const updatedUserInput = {
         ...userInput,
         sequencedStatements: currentSequence
@@ -304,42 +324,19 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
 
   useEffect(() => {
     if (collectExportValues) {
-      collectExportValues('userInput', () => {
-        return {
-          labels: labels,
-          statements: userInput.statements,
-          sequencedStatements: userInput.sequencedStatements,
-        };
-      });
+      collectExportValues('userInput', () => ({
+        labels: labels,
+        statements: userInput.statements,
+        sequencedStatements: userInput.sequencedStatements,
+      }));
     }
 
     return () => {
-      // Cleanup function (optional, depends on context handling)
       if (collectExportValues) {
-        collectExportValues('userInput', () => { });
+        collectExportValues('userInput', () => ({}));
       }
     };
-  }, [collectExportValues, userInput]);
-
-  const isDropzoneGroup = (id) => dropzoneGroups.some((list) => list.id === id);
-
-  const findListContainingItem = (itemId) => {
-    if (unassignedItemIds.includes(itemId)) return 'unassignedItemIds';
-    const list = dropzoneGroups.find((list) => list.items.includes(itemId));
-    return list ? list.id : null;
-  };
-
-  const triggerResize = () => {
-    setTimeout(() => {
-      if (H5P && H5P.instances) {
-        H5P.instances.forEach(instance => {
-          if (instance.trigger) {
-            instance.trigger('resize');
-          }
-        });
-      }
-    }, 0);
-  };
+  }, [collectExportValues, userInput, labels]);
 
   return (
     <DndContext
@@ -354,7 +351,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     >
       <div className='h5p-sequence-dropzone'>
         <div className="h5p-sequence-column">
-          <SortableContext items={dropzoneGroups.map(list => list.id)} strategy={verticalListSortingStrategy}>
+          <SortableContext items={dropzoneGroups.map((list) => list.id)} strategy={verticalListSortingStrategy}>
             {dropzoneGroups.map((list, index) => (
               <SortableDropZone
                 key={list.id}

@@ -19,32 +19,30 @@
  * @property {Object.<string, Statement>} statements - Object mapping statement IDs to Statement objects
  */
 
-// Example structure that can be used as a template
 export const createEmptyUserInput = () => ({
-    labels: [],
-    sequencedStatements: [],
-    statements: {}
-  });
-  
-  // Example with data
-  export const exampleUserInput = {
-    labels: [
-      { id: '1', label: 'Important' },
-      { id: '2', label: 'Follow-up' }
-    ],
-    sequencedStatements: ['stmt1', 'stmt2'],
-    statements: {
-      'stmt1': {
-        touched: true,
-        selectedLabels: ['1'],
-        comment: 'First comment',
-        statement: 'First statement'
-      },
-      'stmt2': {
-        touched: true,
-        selectedLabels: ['1', '2'],
-        comment: 'Second comment',
-        statement: 'Second statement'
-      }
+  labels: [],
+  sequencedStatements: [],
+  statements: {}
+});
+
+export const exampleUserInput = {
+  labels: [
+    { id: '1', label: 'Important' },
+    { id: '2', label: 'Follow-up' }
+  ],
+  sequencedStatements: ['stmt1', 'stmt2'],
+  statements: {
+    'stmt1': {
+      touched: true,
+      selectedLabels: ['1'],
+      comment: 'First comment',
+      statement: 'First statement'
+    },
+    'stmt2': {
+      touched: true,
+      selectedLabels: ['1', '2'],
+      comment: 'Second comment',
+      statement: 'Second statement'
     }
-  }; 
+  }
+}; 

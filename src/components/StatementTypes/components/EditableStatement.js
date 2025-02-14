@@ -30,7 +30,8 @@ function EditableStatement({ statement, onBlur, idBase = false }) {
           inputRef.current.dispatchEvent(enterEvent);
         }, 50);
       }
-    } else if ((event.key === ' ' || event.key === 'Spacebar') && !inEditMode) {
+    }
+    else if ((event.key === ' ' || event.key === 'Spacebar') && !inEditMode) {
       event.preventDefault();
       handleClick();
     }
@@ -40,7 +41,8 @@ function EditableStatement({ statement, onBlur, idBase = false }) {
     if (event.key === ' ' || event.key === 'Spacebar') {
       // Only stop propagation, don't prevent default
       event.stopPropagation();
-    } else if (event.key === 'Escape') {
+    }
+    else if (event.key === 'Escape') {
       handleBlur();
     }
   };

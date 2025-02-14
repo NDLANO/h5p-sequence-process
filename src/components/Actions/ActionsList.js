@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ActionsList = (
-  {children}
+  { children }
 ) => {
   return (
     <div className={'h5p-sequence-actionlist'}>

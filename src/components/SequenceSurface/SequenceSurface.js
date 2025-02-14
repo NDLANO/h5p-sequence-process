@@ -21,7 +21,7 @@ function SequenceSurface() {
     // Register reset callback on mount
     registerReset(() => {
       // Incrementing resetTrigger will signal a reset event
-      setResetTrigger(prev => prev + 1);
+      setResetTrigger((prev) => prev + 1);
     });
     // Empty dependency array ensures this runs only once when the component mounts
   }, [registerReset]);

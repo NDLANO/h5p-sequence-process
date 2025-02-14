@@ -7,25 +7,25 @@ import PropTypes from 'prop-types';
  * @returns {object} JSX element.
  */
 const PriorityNumber = (props) => {
-    const {
-        index
-    } = props;
+  const {
+    index
+  } = props;
 
-    return (
-        <div
-            className={'h5p-order-priority-number h5p-order-priority-number-' + (index + 1)}
-        >
-            <div
-                className='h5p-order-priority-number-circle'
-            >
-                {index + 1}
-            </div>
-        </div>
-    );
+  return (
+    <div
+      className={'h5p-order-priority-number h5p-order-priority-number-' + (index + 1)}
+    >
+      <div
+        className='h5p-order-priority-number-circle'
+      >
+        {index + 1}
+      </div>
+    </div>
+  );
 };
 
 PriorityNumber.propTypes = {
-    index: PropTypes.number,
+  index: PropTypes.number,
 };
 
 export default PriorityNumber;
