@@ -1,18 +1,25 @@
 import React from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
-function AddStatement(props) {
-  const {
-    translations,
-    onClick
-  } = props;
+function AddStatement({ addStatement }) {
+
+  const context = useContext(SequenceProcessContext);
+  const translations = context.translations;
 
   return (
     <div>
       <button
         type={'button'}
         className={'h5p-sequence-add'}
-        onClick={onClick}
+        onClick={addStatement}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            addStatement();
+            event.preventDefault();
+          }
+        }}
       >
         <span>
           <span className={'h5p-ri hri-pencil'} />
@@ -24,7 +31,6 @@ function AddStatement(props) {
 }
 
 AddStatement.propTypes = {
-  translations: PropTypes.object,
   onClick: PropTypes.func,
 };
 

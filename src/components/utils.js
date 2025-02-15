@@ -1,17 +1,4 @@
-import {escape, decode} from 'he';
-
-export function StatementDataObject(initValues) {
-  this.id = null;
-  this.comment = null;
-  this.added = false;
-  this.statement = null;
-  this.isPlaceholder = false;
-  this.isUserAdded = false;
-  this.editMode = false;
-  this.touched = false;
-  this.selectedLabels = [];
-  return Object.assign(this, initValues);
-}
+import { escape, decode } from 'he';
 
 export function debounce(func, wait, immediate) {
   let timeout;
@@ -146,7 +133,7 @@ export const breakpoints = () => {
  * @return {number}
  */
 export function getRatio(container) {
-  if ( !container) {
+  if (!container) {
     return;
   }
   const computedStyles = window.getComputedStyle(container);

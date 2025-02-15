@@ -1,22 +1,20 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {SequenceProcessContext} from 'context/SequenceProcessContext';
+import { SequenceProcessContext } from 'context/SequenceProcessContext';
 
 /**
  * @return {null}
  */
-function StatementLabel(props) {
+function StatementLabel({
+  labels = [],
+  selectedLabels = [],
+  onLabelChange,
+}) {
 
   const context = useContext(SequenceProcessContext);
 
-  const {
-    labels,
-    selectedLabels,
-    onLabelChange,
-  } = props;
-
-  if ( selectedLabels.length === 0) {
+  if (selectedLabels.length === 0) {
     return null;
   }
 
@@ -38,11 +36,11 @@ function StatementLabel(props) {
               key={label.id}
               className={'h5p-sequence-statement-label'}
             >
-              {label.label}
+              {label.content}
               <button
                 onClick={() => onLabelChange(label.id)}
                 onKeyUp={(event) => {
-                  if (event.keyCode && event.keyCode === 8) {
+                  if (event.key === 'Enter' || event.key === ' ') {
                     onLabelChange(label.id);
                   }
                 }}
@@ -67,11 +65,6 @@ StatementLabel.propTypes = {
   labels: PropTypes.array,
   selectedLabels: PropTypes.array,
   onLabelChange: PropTypes.func,
-};
-
-StatementLabel.defaultProps = {
-  labels: [],
-  selectedLabels: [],
 };
 
 export default StatementLabel;

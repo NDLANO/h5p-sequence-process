@@ -1,28 +1,36 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {SequenceProcessContext} from '../../context/SequenceProcessContext';
-import Popover from '../Popover/Popover';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
+import Popover from '../Popover/Popover.js';
 import classnames from 'classnames';
 
-function Comment(props) {
-
-  const [showPopover, togglePopover] = useState(false);
-  const [comment, setComment] = useState(props.comment);
-
+function Comment({
+  onCommentChange,
+  comment = '',
+  inputRef,
+  isOpen = false
+}) {
+  const [showPopover, setShowPopover] = useState(isOpen);
   const context = useContext(SequenceProcessContext);
 
-  function handleToggle() {
-    if ( props.onClick ) {
-      return props.onClick();
+  function handleToggle(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
     }
-    if ( !showPopover) {
-      setComment(props.comment || '');
-      setTimeout(() => props.inputRef.current && props.inputRef.current.focus(), 0);
+
+    setShowPopover(!showPopover);
+    if (!showPopover) {
+      setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
     }
-    else {
-      props.onCommentChange(comment);
+  }
+
+  function handleCloseKeyDown(event) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      handleToggle(event);
     }
-    togglePopover(!showPopover);
   }
 
   return (
@@ -32,32 +40,41 @@ function Comment(props) {
       classnames={context.activeBreakpoints}
       header={context.translations.feedback}
       close={context.translations.close}
+      onCloseKeyDown={handleCloseKeyDown}
       popoverContent={(
         <textarea
-          ref={props.inputRef}
+          ref={inputRef}
           placeholder={context.translations.typeYourReasonsForSuchAnswers}
           value={comment}
           aria-label={context.translations.typeYourReasonsForSuchAnswers}
-          onChange={(event) => setComment(event.currentTarget.value)}
+          onChange={(event) => {
+            onCommentChange(event.currentTarget.value);
+          }}
+          onKeyDown={(event) => {
+            event.stopPropagation();
+          }}
           rows={3}
         />
       )}
-
     >
       <button
         onClick={handleToggle}
         className={'h5p-sequence-action'}
         type={'button'}
+        aria-expanded={showPopover}
+        aria-haspopup="dialog"
         onKeyDown={(event) => {
-          if (event.keyCode === 13) {
-            handleToggle();
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            event.stopPropagation();
+            handleToggle(event);
           }
         }}
       >
         <span
           className={classnames('h5p-ri', {
-            'hri-comment-empty': !props.comment || props.comment.length === 0,
-            'hri-comment-full': props.comment && props.comment.length > 0,
+            'hri-comment-empty': !comment || comment.length === 0,
+            'hri-comment-full': comment && comment.length > 0,
           })}
         />
         <span className="visible-hidden">{context.translations.addComment}</span>
@@ -67,10 +84,11 @@ function Comment(props) {
 }
 
 Comment.propTypes = {
-  onCommentChange: PropTypes.func,
+  onCommentChange: PropTypes.func.isRequired,
   comment: PropTypes.string,
   onClick: PropTypes.func,
   inputRef: PropTypes.object,
+  isOpen: PropTypes.bool,
 };
 
 export default Comment;

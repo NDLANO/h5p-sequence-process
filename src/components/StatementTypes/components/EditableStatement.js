@@ -1,80 +1,94 @@
-import React, {useState, useRef} from 'react';
-import PropsTypes from 'prop-types';
+import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {debounce} from '../../utils';
+import { debounce } from '../../utils';
 
-function EditableStatement(props) {
-
-  const [inEditMode, toggleEditMode] = useState(props.inEditMode);
-
+function EditableStatement({ statement, onBlur, idBase = false }) {
+  const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
 
   const handleClick = () => {
-    if (inEditMode === false) {
-      toggleEditMode(true);
-      inputRef.current.value = props.statement;
-      setTimeout(() => inputRef.current.focus(), 0);
-    }
+    toggleEditMode(true);
+    inputRef.current.value = statement;
+    setTimeout(() => {
+      inputRef.current.focus();
+      inputRef.current.setSelectionRange(0, inputRef.current.value.length);
+    }, 0);
   };
 
   const handleBlur = () => {
     toggleEditMode(false);
   };
 
-  const handleKeyUp = (event) => {
-    if (event.keyCode === 13) {
-      if ( inEditMode ) {
-        handleBlur();
-      }
-      else {
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (!inEditMode) {
         handleClick();
+        setTimeout(() => {
+          const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
+          inputRef.current.dispatchEvent(enterEvent);
+        }, 50);
       }
+    }
+    else if ((event.key === ' ' || event.key === 'Spacebar') && !inEditMode) {
+      event.preventDefault();
+      handleClick();
     }
   };
 
-  const id = 'es_' + props.idBase;
+  const handleInputKeyDown = (event) => {
+    if (event.key === ' ' || event.key === 'Spacebar') {
+      // Only stop propagation, don't prevent default
+      event.stopPropagation();
+    }
+    else if (event.key === 'Escape') {
+      handleBlur();
+    }
+  };
+
+  const id = 'es_' + idBase;
   const labelId = 'label_' + id;
   const inputId = 'input_' + id;
 
-  /*
-   * TODO: Clean this up. This feels like a very weird construct. Why can't
-   *       the `input` element be used on its own? Why the textbox wrapper that
-   *       adds an extra level while there already is an input field? Also, why
-   *       is ARIA labelling handled that way?
-   */
   return (
     <div
-      role={'textbox'}
-      tabIndex={0}
+      role="textbox"
+      tabIndex={inEditMode ? -1 : 0}
       onClick={handleClick}
-      className={'h5p-sequence-editable-container'}
-      onKeyUp={handleKeyUp}
+      className="h5p-sequence-editable-container"
+      onKeyDown={handleKeyDown}
       aria-labelledby={labelId}
     >
       <div>
         <label
-          title={props.statement}
+          title={statement}
           htmlFor={inputId}
           id={labelId}
         >
-          <span className={'visible-hidden'}>Statement</span>
+          <span className="visible-hidden">Statement</span>
           <input
+            type="text"
             className={classnames('h5p-sequence-editable', {
-              'hidden': inEditMode === false,
+              hidden: !inEditMode,
             })}
             ref={inputRef}
+            defaultValue={statement}
             onBlur={handleBlur}
-            onChange={debounce(() => props.onBlur(inputRef.current.value), 200)}
-            aria-label={'Edit statement ' + props.statement}
+            onChange={debounce(() => onBlur(inputRef.current.value), 200)}
+            aria-label={'Edit statement ' + statement}
             id={inputId}
+            tabIndex={inEditMode ? 0 : -1}
+            onKeyDown={handleInputKeyDown}
           />
         </label>
         <p
           className={classnames('h5p-sequence-noneditable', {
-            'hidden': inEditMode === true,
+            hidden: inEditMode,
           })}
+          data-no-dnd="true"
         >
-          {props.statement}
+          {statement}
         </p>
       </div>
     </div>
@@ -82,17 +96,12 @@ function EditableStatement(props) {
 }
 
 EditableStatement.propTypes = {
-  statement: PropsTypes.string,
-  inEditMode: PropsTypes.bool,
-  onBlur: PropsTypes.func,
-  idBase: PropsTypes.oneOfType([
-    PropsTypes.string,
-    PropsTypes.number,
+  statement: PropTypes.string,
+  onBlur: PropTypes.func,
+  idBase: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-};
-
-EditableStatement.defaultProps = {
-  inEditMode: false,
 };
 
 export default EditableStatement;
