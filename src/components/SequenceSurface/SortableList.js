@@ -20,7 +20,7 @@ import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
 
-function SortableList({ params, onUserInputChange, collectExportValues }) {
+function SortableList({ params, onUserInputChange, collectExportValues, translate }) {
   // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
@@ -220,7 +220,7 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
           touched: false,
           selectedLabels: [],
           comment: '',
-          statement: 'New Statement' // TODO: Make translatable
+          statement: translate('newStatement')
         }
       }
     }));

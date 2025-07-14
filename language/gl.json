@@ -126,6 +126,10 @@
         {
           "label": "Cabeceira na caixa de comentarios",
           "default": "Retroalimentación"
+        },
+        {
+          "label": "Default text for new statement",
+          "default": "New statement"
         }
       ]
     },

@@ -31,7 +31,7 @@ function SequenceSurface() {
       <div className="h5p-sequence-surface">
         <SortableList
           params={params}
-          translations={translations}
+          translate={translate}
           collectExportValues={collectExportValues}
           resetTrigger={resetTrigger}
         />

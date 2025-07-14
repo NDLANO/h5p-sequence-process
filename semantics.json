@@ -246,6 +246,12 @@
         "type": "text",
         "label": "Header in comment box",
         "default": "Feedback"
+      },
+      {
+        "name": "newStatement",
+        "type": "text",
+        "label": "Default text for new statement",
+        "default": "New statement"
       }
     ]
   },
