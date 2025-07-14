@@ -57,10 +57,6 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
                   onChange={() => onLabelChange(label.id)}
                   tabIndex="-1"
                 />
-                <span className={classnames('h5p-ri', {
-                  'hri-checked': selectedLabelArray.indexOf(label.id) !== -1,
-                  'hri-unchecked': selectedLabelArray.indexOf(label.id) === -1,
-                })} />
                 {label.label}
               </div>
             ))}
