@@ -9,7 +9,6 @@ function SequenceSurface() {
     collectExportValues,
     behaviour,
     translate,
-    translations,
     params,
   } = useContext(SequenceProcessContext);
 
