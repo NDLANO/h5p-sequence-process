@@ -59,7 +59,7 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   language: PropTypes.string,
   header: PropTypes.string,
   description: PropTypes.string,
