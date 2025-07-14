@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -33,6 +33,10 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   // State
   const [activeId, setActiveId] = useState(null);
   const [activeCommentId, setActiveCommentId] = useState(null);
+  const [autoEditStatementId, setAutoEditStatementId] = useState(null);
+
+  // Create refs for SortableItems
+  const itemRefs = useRef({});
 
   // Initialize userInput state
   const [userInput, setUserInput] = useState(() => {
@@ -216,11 +220,12 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
           touched: false,
           selectedLabels: [],
           comment: '',
-          statement: 'New Statement'
+          statement: 'New Statement' // TODO: Make translatable
         }
       }
     }));
     setUnassignedItemIds((prevList) => [...prevList, newId]);
+    setAutoEditStatementId(newId);
     triggerResize();
   };
 
@@ -325,6 +330,16 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     };
   }, [collectExportValues, userInput, labels]);
 
+  useEffect(() => {
+    if (autoEditStatementId && itemRefs.current[autoEditStatementId]) {
+      // Small delay to ensure the component is fully rendered
+      setTimeout(() => {
+        itemRefs.current[autoEditStatementId]?.enterEditMode();
+        setAutoEditStatementId(null);
+      }, 100);
+    }
+  }, [autoEditStatementId, unassignedItemIds]);
+
   return (
     <DndContext
       sensors={sensors}
@@ -366,6 +381,14 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
             {unassignedItemIds.map((itemId) => (
               <SortableItem
                 key={itemId}
+                ref={(ref) => {
+                  if (ref) {
+                    itemRefs.current[itemId] = ref;
+                  }
+                  else {
+                    delete itemRefs.current[itemId];
+                  }
+                }}
                 itemId={itemId}
                 statement={statements[itemId].content}
                 onStatementDelete={handleRemove}
