@@ -61,6 +61,7 @@ const Popover = ({
       positions={['top', 'bottom']}
       padding={10}
       onClickOutside={handleClose} // TODO: This is unreliable!
+      clickOutsideCapture={true}
       align={align}
       content={({ position, childRect, popoverRect }) => (
         <ArrowContainer
