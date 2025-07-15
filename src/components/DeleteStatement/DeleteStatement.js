@@ -12,8 +12,7 @@ function DeleteStatement(props) {
   const {
     behaviour: {
       allowAddingOfStatements = false,
-    },
-    translate
+    }
   } = context;
 
   const {
@@ -45,7 +44,7 @@ function DeleteStatement(props) {
       <span
         className={'h5p-ri hri-times'}
       />
-      <span className="h5p-sequence-delete-text">{translate('close')}</span>
+      <span className="h5p-sequence-delete-text">{context.translate('close')}</span>
     </button>
   );
 }

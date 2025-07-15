@@ -11,8 +11,8 @@ function Reset() {
     behaviour: {
       enableRetry = false
     },
+    translate,
     reset,
-    translations
   } = sequenceProcessContext;
 
   function togglePopover() {
@@ -30,9 +30,9 @@ function Reset() {
         <Popover
           handleClose={togglePopover}
           show={showPopover}
-          classnames={sequenceProcessContext.activeBreakpoints}
-          close={translations.close}
-          header={translations.restart}
+          classnames={translate('activeBreakpoints')}
+          close={translate('close')}
+          header={translate('restart')}
           align={'start'}
           popoverContent={(
             <div
@@ -40,7 +40,7 @@ function Reset() {
               className={'h5p-sequence-reset-modal'}
             >
               <div>
-                {translations.ifYouContinueAllYourChangesWillBeLost}
+                {translate('ifYouContinueAllYourChangesWillBeLost')}
               </div>
               <div>
                 <button
@@ -48,14 +48,14 @@ function Reset() {
                   className={'continue'}
                   type={'button'}
                 >
-                  {translations.continue}
+                  {translate('continue')}
                 </button>
                 <button
                   onClick={togglePopover}
                   className={'cancel'}
                   type={'button'}
                 >
-                  {translations.cancel}
+                  {translate('cancel')}
                 </button>
               </div>
             </div>
@@ -69,7 +69,7 @@ function Reset() {
             <span
               className={'h5p-ri hri-restart'}
             />
-            {translations.restart}
+            {translate('restart')}
           </button>
         </Popover>
       )}

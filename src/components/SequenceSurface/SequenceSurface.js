@@ -8,7 +8,6 @@ function SequenceSurface() {
     registerReset,
     collectExportValues,
     behaviour,
-    translate,
     params,
   } = useContext(SequenceProcessContext);
 
@@ -17,7 +16,6 @@ function SequenceSurface() {
       <div className="h5p-sequence-surface">
         <SortableList
           params={params}
-          translate={translate}
           collectExportValues={collectExportValues}
           reset={registerReset}
         />
@@ -26,7 +24,6 @@ function SequenceSurface() {
         <Summary
           reset={registerReset}
           exportValues={collectExportValues}
-          translate={translate}
           summaryHeader={params.summaryHeader}
           summaryInstruction={params.summaryInstruction}
         />

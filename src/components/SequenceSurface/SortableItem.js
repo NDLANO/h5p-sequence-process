@@ -51,7 +51,7 @@ const SortableItem = forwardRef(({ itemId, statement, onStatementDelete, onState
           <div className="h5p-sequence-statement-remaining">
             <div className="h5p-sequence-drag-element">
               <span className="h5p-ri hri-move" data-no-dnd="true" />
-              <span className={'visible-hidden'}>{context.translations.drag}</span>
+              <span className={'visible-hidden'}>{context.translate('drag')}</span>
             </div>
             {/* Conditionally render the statement based on enableEditing */}
             {enableEditing ? (

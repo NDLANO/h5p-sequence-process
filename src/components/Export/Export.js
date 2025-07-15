@@ -95,10 +95,6 @@ export default class Export extends Component {
   }
 
   handleExport() {
-    const {
-      translate,
-    } = this.context;
-
     this.exportObject = this.getExportObject();
 
     this.context.triggerXAPIScored(0, 0, 'completed');
@@ -107,10 +103,10 @@ export default class Export extends Component {
       escapeHTML(this.exportObject.mainTitle),
       this.getExportPreview(),
       H5PIntegration.reportingIsEnabled || false,
-      escapeHTML(translate('submitText')),
-      escapeHTML(translate('submitConfirmedText')),
-      escapeHTML(translate('selectAll')),
-      escapeHTML(translate('export')),
+      escapeHTML(this.context.translate('submitText')),
+      escapeHTML(this.context.translate('submitConfirmedText')),
+      escapeHTML(this.context.translate('selectAll')),
+      escapeHTML(this.context.translate('export')),
       H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
       this.exportObject
     );
@@ -119,10 +115,6 @@ export default class Export extends Component {
   }
 
   render() {
-    const {
-      translate
-    } = this.context;
-
     return (
       <Fragment>
         <button
@@ -131,7 +123,7 @@ export default class Export extends Component {
           type={'button'}
         >
           <span className={'h5p-ri hri-document'} />
-          {translate('createDocument')}
+          {this.context.translate('createDocument')}
         </button>
         <div className={'export-container'} ref={(el) => this.exportContainer = el} />
       </Fragment>

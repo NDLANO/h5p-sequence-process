@@ -6,7 +6,6 @@ import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 function AddStatement({ addStatement }) {
 
   const context = useContext(SequenceProcessContext);
-  const translations = context.translations;
 
   return (
     <div>
@@ -23,7 +22,7 @@ function AddStatement({ addStatement }) {
       >
         <span>
           <span className={'h5p-ri hri-pencil'} />
-          <span>{translations.add}</span>
+          <span>{context.translate('add')}</span>
         </span>
       </button>
     </div>

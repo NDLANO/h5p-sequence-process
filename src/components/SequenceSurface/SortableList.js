@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useContext } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -19,8 +19,11 @@ import AddStatement from '../AddStatement/AddStatement';
 import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
-function SortableList({ params, onUserInputChange, collectExportValues, translate, reset }) {
+function SortableList({ params, onUserInputChange, collectExportValues, reset }) {
+  const context = useContext(SequenceProcessContext);
+
   // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
@@ -220,7 +223,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, translat
           touched: false,
           selectedLabels: [],
           comment: '',
-          statement: translate('newStatement')
+          statement: context.translate('newStatement')
         }
       }
     }));
