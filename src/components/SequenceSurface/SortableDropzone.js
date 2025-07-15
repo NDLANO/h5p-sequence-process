@@ -34,6 +34,8 @@ function SortableDropZone({
     setActiveLabelId((prevId) => (prevId === itemId ? null : itemId));
   };
 
+  const isPrioritizeable = context.behaviour?.prioritizeable || false;
+
   return (
     <div
       ref={setNodeRef}
@@ -41,9 +43,11 @@ function SortableDropZone({
       {...attributes}
       {...listeners}
     >
-      <PriorityNumber
-        index={index}
-      />
+      {isPrioritizeable && (
+        <PriorityNumber
+          index={index}
+        />
+      )}
       <div className='h5p-droparea'>
         {items.length > 0 ? (
           items.map((itemId) => (
