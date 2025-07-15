@@ -20,7 +20,7 @@ import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
 
-function SortableList({ params, onUserInputChange, collectExportValues, translate }) {
+function SortableList({ params, onUserInputChange, collectExportValues, translate, reset }) {
   // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
@@ -290,6 +290,47 @@ function SortableList({ params, onUserInputChange, collectExportValues, translat
     }));
   };
 
+  // Helper function to create initial statements
+  const createInitialStatements = () => {
+    const statements = {};
+    statementsFromParams.forEach((statementText) => {
+      const id = H5P.createUUID();
+      statements[id] = {
+        touched: false,
+        selectedLabels: [],
+        comment: '',
+        statement: statementText
+      };
+    });
+    return statements;
+  };
+
+  // Helper function to create initial labels
+  const createInitialLabels = () => {
+    return Array.isArray(labelsFromParams) ?
+      labelsFromParams.map((labelText) => ({
+        id: H5P.createUUID(),
+        label: labelText
+      })) :
+      [];
+  };
+
+  // Helper function to create initial dropzone groups
+  const createInitialDropzoneGroups = (statementIds, labelIds) => {
+    const statementsLength = statementsFromParams?.length || 0;
+    let prepopulatedStatementIds = [...statementIds];
+
+    if (prepopulate && randomize) {
+      prepopulatedStatementIds = prepopulatedStatementIds.sort(() => Math.random() - 0.5);
+    }
+
+    return Array.from({ length: statementsLength }, (_, index) => ({
+      id: `dropzone-${index + 1}`,
+      items: prepopulate ? [prepopulatedStatementIds[index]] : [],
+      labelId: labelIds[index]
+    }));
+  };
+
   // Effects
   useEffect(() => {
     const assignedItems = dropzoneGroups.flatMap((group) => group.items);
@@ -339,6 +380,34 @@ function SortableList({ params, onUserInputChange, collectExportValues, translat
       }, 100);
     }
   }, [autoEditStatementId, unassignedItemIds]);
+
+  reset(() => {
+    // Reset userInput to initial state
+    const initialUserInput = createEmptyUserInput();
+    initialUserInput.labels = createInitialLabels();
+    initialUserInput.statements = createInitialStatements();
+
+    setUserInput(initialUserInput);
+
+    // Reset dropzone groups to initial state
+    const statementIds = Object.keys(initialUserInput.statements);
+    const labelIds = Object.keys(initialUserInput.labels);
+    const initialDropzoneGroups = createInitialDropzoneGroups(statementIds, labelIds);
+
+    setDropzoneGroups(initialDropzoneGroups);
+
+    // Reset unassigned items
+    setUnassignedItemIds(prepopulate ? [] : statementIds);
+
+    // Reset UI state
+    setActiveId(null);
+    setActiveCommentId(null);
+    setAutoEditStatementId(null);
+
+    // Clear refs and trigger resize
+    itemRefs.current = {};
+    triggerResize();
+  });
 
   return (
     <DndContext
