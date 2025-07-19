@@ -40,8 +40,8 @@ function StatementComment({
           value={comment || ''}
           onChange={handleOnChange}
           onBlur={handleOnChange}
-          placeholder={context.translations.typeYourReasonsForSuchAnswers}
-          aria-label={context.translations.typeYourReasonsForSuchAnswers}
+          placeholder={context.translate('typeYourReasonsForSuchAnswers')}
+          aria-label={context.translate('typeYourReasonsForSuchAnswers')}
         />
       </div>
     </div>

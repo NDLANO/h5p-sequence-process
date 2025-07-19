@@ -34,6 +34,8 @@ function SortableDropZone({
     setActiveLabelId((prevId) => (prevId === itemId ? null : itemId));
   };
 
+  const isPrioritizeable = context.behaviour?.prioritizeable || false;
+
   return (
     <div
       ref={setNodeRef}
@@ -41,9 +43,11 @@ function SortableDropZone({
       {...attributes}
       {...listeners}
     >
-      <PriorityNumber
-        index={index}
-      />
+      {isPrioritizeable && (
+        <PriorityNumber
+          index={index}
+        />
+      )}
       <div className='h5p-droparea'>
         {items.length > 0 ? (
           items.map((itemId) => (
@@ -52,7 +56,7 @@ function SortableDropZone({
                 <div className='h5p-sequence-statement-sequenced'>
                   <div className='h5p-sequence-drag-element'>
                     <span className="h5p-ri hri-move" data-no-dnd="true" />
-                    <span className={'visible-hidden'}>{context.translations.drag}</span>
+                    <span className={'visible-hidden'}>{context.translate('drag')}</span>
                   </div>
                   <p className="h5p-sequence-element">
                     {statements[itemId]?.content || itemId}

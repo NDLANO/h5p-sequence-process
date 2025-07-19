@@ -23,14 +23,6 @@
     content: "\e90f";
   }
 
-  &.hri-checked::before {
-    content: "\e901";
-  }
-
-  &.hri-unchecked::before {
-    content: "\e902";
-  }
-
   &.hri-arrow-left::before {
     content: "\e903";
   }

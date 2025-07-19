@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useContext } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -19,8 +19,11 @@ import AddStatement from '../AddStatement/AddStatement';
 import { customKeyboardCoordinates } from './customKeyboardCoordinates';
 import DraggableOverlay from './DraggableOverlay';
 import { createEmptyUserInput } from '../../models/UserInput';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
-function SortableList({ params, onUserInputChange, collectExportValues }) {
+function SortableList({ params, onUserInputChange, collectExportValues, reset }) {
+  const context = useContext(SequenceProcessContext);
+
   // Behaviour params
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
@@ -33,6 +36,10 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
   // State
   const [activeId, setActiveId] = useState(null);
   const [activeCommentId, setActiveCommentId] = useState(null);
+  const [autoEditStatementId, setAutoEditStatementId] = useState(null);
+
+  // Create refs for SortableItems
+  const itemRefs = useRef({});
 
   // Initialize userInput state
   const [userInput, setUserInput] = useState(() => {
@@ -216,11 +223,12 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
           touched: false,
           selectedLabels: [],
           comment: '',
-          statement: 'New Statement'
+          statement: context.translate('newStatement')
         }
       }
     }));
     setUnassignedItemIds((prevList) => [...prevList, newId]);
+    setAutoEditStatementId(newId);
     triggerResize();
   };
 
@@ -285,6 +293,47 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
     }));
   };
 
+  // Helper function to create initial statements
+  const createInitialStatements = () => {
+    const statements = {};
+    statementsFromParams.forEach((statementText) => {
+      const id = H5P.createUUID();
+      statements[id] = {
+        touched: false,
+        selectedLabels: [],
+        comment: '',
+        statement: statementText
+      };
+    });
+    return statements;
+  };
+
+  // Helper function to create initial labels
+  const createInitialLabels = () => {
+    return Array.isArray(labelsFromParams) ?
+      labelsFromParams.map((labelText) => ({
+        id: H5P.createUUID(),
+        label: labelText
+      })) :
+      [];
+  };
+
+  // Helper function to create initial dropzone groups
+  const createInitialDropzoneGroups = (statementIds, labelIds) => {
+    const statementsLength = statementsFromParams?.length || 0;
+    let prepopulatedStatementIds = [...statementIds];
+
+    if (prepopulate && randomize) {
+      prepopulatedStatementIds = prepopulatedStatementIds.sort(() => Math.random() - 0.5);
+    }
+
+    return Array.from({ length: statementsLength }, (_, index) => ({
+      id: `dropzone-${index + 1}`,
+      items: prepopulate ? [prepopulatedStatementIds[index]] : [],
+      labelId: labelIds[index]
+    }));
+  };
+
   // Effects
   useEffect(() => {
     const assignedItems = dropzoneGroups.flatMap((group) => group.items);
@@ -324,6 +373,44 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
       }
     };
   }, [collectExportValues, userInput, labels]);
+
+  useEffect(() => {
+    if (autoEditStatementId && itemRefs.current[autoEditStatementId]) {
+      // Small delay to ensure the component is fully rendered
+      setTimeout(() => {
+        itemRefs.current[autoEditStatementId]?.enterEditMode();
+        setAutoEditStatementId(null);
+      }, 100);
+    }
+  }, [autoEditStatementId, unassignedItemIds]);
+
+  reset(() => {
+    // Reset userInput to initial state
+    const initialUserInput = createEmptyUserInput();
+    initialUserInput.labels = createInitialLabels();
+    initialUserInput.statements = createInitialStatements();
+
+    setUserInput(initialUserInput);
+
+    // Reset dropzone groups to initial state
+    const statementIds = Object.keys(initialUserInput.statements);
+    const labelIds = Object.keys(initialUserInput.labels);
+    const initialDropzoneGroups = createInitialDropzoneGroups(statementIds, labelIds);
+
+    setDropzoneGroups(initialDropzoneGroups);
+
+    // Reset unassigned items
+    setUnassignedItemIds(prepopulate ? [] : statementIds);
+
+    // Reset UI state
+    setActiveId(null);
+    setActiveCommentId(null);
+    setAutoEditStatementId(null);
+
+    // Clear refs and trigger resize
+    itemRefs.current = {};
+    triggerResize();
+  });
 
   return (
     <DndContext
@@ -366,6 +453,14 @@ function SortableList({ params, onUserInputChange, collectExportValues }) {
             {unassignedItemIds.map((itemId) => (
               <SortableItem
                 key={itemId}
+                ref={(ref) => {
+                  if (ref) {
+                    itemRefs.current[itemId] = ref;
+                  }
+                  else {
+                    delete itemRefs.current[itemId];
+                  }
+                }}
                 itemId={itemId}
                 statement={statements[itemId].content}
                 onStatementDelete={handleRemove}

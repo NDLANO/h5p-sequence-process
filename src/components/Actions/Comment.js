@@ -38,15 +38,15 @@ function Comment({
       handleClose={handleToggle}
       show={showPopover}
       classnames={context.activeBreakpoints}
-      header={context.translations.feedback}
-      close={context.translations.close}
+      header={context.translate('feedback')}
+      close={context.translate('close')}
       onCloseKeyDown={handleCloseKeyDown}
       popoverContent={(
         <textarea
           ref={inputRef}
-          placeholder={context.translations.typeYourReasonsForSuchAnswers}
+          placeholder={context.translate('typeYourReasonsForSuchAnswers')}
           value={comment}
-          aria-label={context.translations.typeYourReasonsForSuchAnswers}
+          aria-label={context.translate('typeYourReasonsForSuchAnswers')}
           onChange={(event) => {
             onCommentChange(event.currentTarget.value);
           }}
@@ -77,7 +77,7 @@ function Comment({
             'hri-comment-full': comment && comment.length > 0,
           })}
         />
-        <span className="visible-hidden">{context.translations.addComment}</span>
+        <span className="visible-hidden">{context.translate('addComment')}</span>
       </button>
     </Popover>
   );

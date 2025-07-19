@@ -126,6 +126,10 @@
         {
           "label": "Overskrift i kommentarboks",
           "default": "Tilbakemelding"
+        },
+        {
+          "label": "Default text for new statement",
+          "default": "New statement"
         }
       ]
     },

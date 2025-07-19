@@ -126,6 +126,10 @@
         {
           "label": "კომენტარების ველში არსებული სათაური",
           "default": "უკუკავშირი"
+        },
+        {
+          "label": "Default text for new statement",
+          "default": "New statement"
         }
       ]
     },

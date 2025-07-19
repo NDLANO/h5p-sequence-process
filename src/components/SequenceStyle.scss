@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "sass:math";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
@@ -294,7 +295,7 @@ summary {
       opacity: 1;
 
       .h5p-sequence-delete-text {
-        position: static;
+        position: absolute;
         width: auto;
         height: auto;
         overflow: visible;
@@ -929,11 +930,11 @@ summary {
 }
 
 .h5p-order-priority-number-2 .h5p-order-priority-number-circle {
-  background-color: lighten($h5pNumberBaseColor, 25%);
+  background-color: color.adjust($h5pNumberBaseColor, $lightness: 25%, $space: hsl);
   color: #1d5482;
 }
 
 .h5p-order-priority-number-3 .h5p-order-priority-number-circle {
-  background-color: lighten($h5pNumberBaseColor, 40%);
+  background-color: color.adjust($h5pNumberBaseColor, $lightness: 40%, $space: hsl);
   color: #1d5482;
 }

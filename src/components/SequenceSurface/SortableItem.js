@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useImperativeHandle, forwardRef } from 'react';
 import { SequenceProcessContext } from 'context/SequenceProcessContext';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -6,7 +6,7 @@ import DeleteStatement from '../DeleteStatement/DeleteStatement';
 import EditableStatement from '../StatementTypes/components/EditableStatement';
 import UnEditableStatement from '../StatementTypes/components/UnEditableStatement';
 
-function SortableItem({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, allowDelete = false }) {
+const SortableItem = forwardRef(({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, allowDelete = false }, ref) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: itemId,
     attributes: {
@@ -17,6 +17,13 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
   });
 
   const context = useContext(SequenceProcessContext);
+  const editableStatementRef = useRef();
+
+  useImperativeHandle(ref, () => ({
+    enterEditMode: () => {
+      editableStatementRef.current?.enterEditMode();
+    }
+  }));
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -44,11 +51,12 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
           <div className="h5p-sequence-statement-remaining">
             <div className="h5p-sequence-drag-element">
               <span className="h5p-ri hri-move" data-no-dnd="true" />
-              <span className={'visible-hidden'}>{context.translations.drag}</span>
+              <span className={'visible-hidden'}>{context.translate('drag')}</span>
             </div>
             {/* Conditionally render the statement based on enableEditing */}
             {enableEditing ? (
               <EditableStatement
+                ref={editableStatementRef}
                 statement={statement}
                 onBlur={(newStatement) => onStatementChange(itemId, newStatement)}
                 idBase={itemId}
@@ -65,6 +73,8 @@ function SortableItem({ itemId, statement, onStatementDelete, onStatementChange,
       </div>
     </div>
   );
-}
+});
+
+SortableItem.displayName = 'SortableItem';
 
 export default SortableItem;

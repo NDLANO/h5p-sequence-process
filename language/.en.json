@@ -126,6 +126,10 @@
         {
           "label": "Header in comment box",
           "default": "Feedback"
+        },
+        {
+          "label": "Default text for new statement",
+          "default": "New statement"
         }
       ]
     },

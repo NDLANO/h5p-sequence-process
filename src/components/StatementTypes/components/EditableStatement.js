@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '../../utils';
 
-function EditableStatement({ statement, onBlur, idBase = false }) {
+const EditableStatement = forwardRef(({ statement, onBlur, idBase = false }, ref) => {
   const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
 
@@ -15,6 +15,13 @@ function EditableStatement({ statement, onBlur, idBase = false }) {
       inputRef.current.setSelectionRange(0, inputRef.current.value.length);
     }, 0);
   };
+
+  useImperativeHandle(ref, () => ({
+    enterEditMode: () => {
+      handleClick();
+    },
+    inputRef: inputRef
+  }));
 
   const handleBlur = () => {
     toggleEditMode(false);
@@ -93,7 +100,9 @@ function EditableStatement({ statement, onBlur, idBase = false }) {
       </div>
     </div>
   );
-}
+});
+
+EditableStatement.displayName = 'EditableStatement';
 
 EditableStatement.propTypes = {
   statement: PropTypes.string,

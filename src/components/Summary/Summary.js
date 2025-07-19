@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import parse from 'html-react-parser';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext';
 
 function Summary(props) {
+  const context = useContext(SequenceProcessContext);
 
   const [comment, setComment] = useState('');
 
   const {
     reset,
     exportValues,
-    translate,
     summaryHeader,
     summaryInstruction,
   } = props;
@@ -27,17 +28,17 @@ function Summary(props) {
         id={'summary-header'}
         htmlFor={'summary'}
       >
-        <div>{summaryHeader ? summaryHeader : translate('summary')}</div>
+        <div>{summaryHeader ? summaryHeader : context.translate('summary')}</div>
       </label>
       {summaryInstruction && (
         <div>{parse(summaryInstruction)}</div>
       )}
       <textarea
         id={'summary'}
-        placeholder={translate('giveABriefSummary')}
+        placeholder={context.translate('giveABriefSummary')}
         value={comment}
         onChange={(event) => setComment(event.target.value)}
-        aria-label={translate('giveABriefSummary')}
+        aria-label={context.translate('giveABriefSummary')}
       />
     </div>
   );
@@ -46,7 +47,6 @@ function Summary(props) {
 Summary.propTypes = {
   reset: PropTypes.func,
   exportValues: PropTypes.func,
-  translate: PropTypes.func,
   summaryHeader: PropTypes.string,
   summaryInstruction: PropTypes.string,
 };

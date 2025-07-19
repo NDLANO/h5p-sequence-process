@@ -34,12 +34,12 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
       handleClose={handleToggle}
       show={showPopover}
       classnames={context.activeBreakpoints}
-      header={context.translations.selectAllLabelsConnectedToThisItem}
-      close={context.translations.close}
+      header={context.translate('selectAllLabelsConnectedToThisItem')}
+      close={context.translate('close')}
       onCloseKeyDown={handleCloseKeyDown}
       popoverContent={(
         <div className={'h5p-sequence-label-popover'}>
-          <div className={'h5p-sequence-label-list'} role="group" aria-label={context.translations.selectAllLabelsConnectedToThisItem}>
+          <div className={'h5p-sequence-label-list'} role="group" aria-label={context.translate('selectAllLabelsConnectedToThisItem')}>
             {labels.map((label, index) => (
               <div
                 key={label.id}
@@ -57,10 +57,6 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
                   onChange={() => onLabelChange(label.id)}
                   tabIndex="-1"
                 />
-                <span className={classnames('h5p-ri', {
-                  'hri-checked': selectedLabelArray.indexOf(label.id) !== -1,
-                  'hri-unchecked': selectedLabelArray.indexOf(label.id) === -1,
-                })} />
                 {label.label}
               </div>
             ))}
@@ -85,7 +81,7 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
             'hri-label-full': selectedLabelArray && selectedLabelArray.length > 0,
           })}
         />
-        <span className="visible-hidden">{context.translations.addLabel}</span>
+        <span className="visible-hidden">{context.translate('addLabel')}</span>
       </button>
     </Popover>
   );
