@@ -71,10 +71,6 @@
           "description": "Moverá ao chou as declaracións fornecidas previamente"
         },
         {
-          "label": "Amosar os comentarios fornecidos debaixo da declaración",
-          "description": "Se o usuario forneceu un comentario, amosarase na lista de declaracións"
-        },
-        {
           "label": "Permitir que os usuarios engadan as súas propias afirmacións",
           "description": "Permitir ao usuario engadir as súas propias declaracións"
         }
