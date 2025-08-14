@@ -19,7 +19,7 @@ H5PUpgrades['H5P.SequenceProcess'] = (() => {
         if (parameters?.behaviour) {
           delete parameters.behaviour.displayCommentsBelowStatement;
 
-          parameters.mode = (parameters.behaviour.prioritizeable) ? 'Priority' : 'Sequence';
+          parameters.mode = (parameters.behaviour.prioritizeable) ? 'priority' : 'sequence';
           delete parameters.behaviour.prioritizeable;
         }
 
