@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Mode",
+      "description": "Choose the mode of the activity. \"Sequence\" means to merely order the statements, while \"Priority\" also means to express an order of precedence among the statements.",
+      "options": [
+        {
+          "label": "Sequence"
+        },
+        {
+          "label": "Priority"
+        }
+      ]
+    },
+    {
       "label": "სათაური"
     },
     {
@@ -50,10 +62,6 @@
       "label": "ქცევის პარამეტრები",
       "description": "ეს პარამეტრები საშუალებას მოგცემთ გააკონტროლოთ ქცევა.",
       "fields": [
-        {
-          "label": "Prioritization",
-          "description": "Tick this off if you want the learner to prioritize the statements."
-        },
         {
           "label": "დავუშვათ თავიდან ცდა?",
           "description": "მონიშნეთ ეს, თუ გსურთ, რომ მომხმარებელმა შეძლოს ხელახლა ცდა"

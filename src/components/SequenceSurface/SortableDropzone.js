@@ -34,7 +34,7 @@ function SortableDropZone({
     setActiveLabelId((prevId) => (prevId === itemId ? null : itemId));
   };
 
-  const isPrioritizeable = context.behaviour?.prioritizeable || false;
+  const isPrioritizeable = context.params.mode === 'priority';
 
   return (
     <div
