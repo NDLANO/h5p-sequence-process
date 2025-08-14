@@ -159,13 +159,6 @@
         }
       },
       {
-        "name": "displayCommentsBelowStatement",
-        "type": "boolean",
-        "label": "Display the provided comments below the statement",
-        "description": "If the user has provided a comment, this is shown in the statements list",
-        "default": true
-      },
-      {
         "name": "allowAddingOfStatements",
         "type": "boolean",
         "label": "Allow users to add their own statements",

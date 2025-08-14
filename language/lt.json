@@ -59,8 +59,8 @@
           "description": "Pažymėkite, jei norite, kad naudotojas galėtų bandyti dar kartą"
         },
         {
-          "description": "Ar norite, kad naudotojas pateiktų santrauką, paaiškindamas savo atsakymų priežastis",
-          "label": "Rodyti santrauką"
+          "label": "Rodyti santrauką",
+          "description": "Ar norite, kad naudotojas pateiktų santrauką, paaiškindamas savo atsakymų priežastis"
         },
         {
           "label": "Pre-populate the statements",
@@ -69,10 +69,6 @@
         {
           "label": "Randomize the statements",
           "description": "Will randomize the pre-populated statements"
-        },
-        {
-          "label": "Display the provided comments below the statement",
-          "description": "If the user has provided a comment, this is shown in the statements list"
         },
         {
           "label": "Allow users to add their own statements",

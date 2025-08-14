@@ -71,10 +71,6 @@
           "description": "Vil randomisere de forhåndsutfylte uttalelsene"
         },
         {
-          "label": "Vis kommentarene under uttalelsen",
-          "description": "Hvis brukeren har gitt en kommentar, vises dette i utsagnslisten"
-        },
-        {
           "label": "Tillat brukere å legge til sine egne uttalelser",
           "description": "Lar brukeren legge til sine egne uttalelser"
         }

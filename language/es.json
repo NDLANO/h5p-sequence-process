@@ -71,10 +71,6 @@
           "description": "Ordenará aleatoriamente las declaraciones proporcionadas previamente"
         },
         {
-          "label": "Mostrar los comentarios proporcionados debajo de la declaración",
-          "description": "Si el usuario ha proporcionado un comentario, se muestra en la lista de declaraciones"
-        },
-        {
           "label": "Permitir a los usuarios agregar sus propias declaraciones",
           "description": "Permite que el usuario añada sus propias declaraciones"
         }
