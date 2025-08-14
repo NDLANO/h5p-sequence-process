@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Mode",
+      "description": "Choose the mode of the activity. \"Sequence\" means to merely order the statements, while \"Priority\" also means to express an order of precedence among the statements.",
+      "options": [
+        {
+          "label": "Sequence"
+        },
+        {
+          "label": "Priority"
+        }
+      ]
+    },
+    {
       "label": "Antraštė"
     },
     {
@@ -50,10 +62,6 @@
       "label": "Behavioural settings",
       "description": "These options will let you control the behaviour.",
       "fields": [
-        {
-          "label": "Prioritization",
-          "description": "Tick this off if you want the learner to prioritize the statements."
-        },
         {
           "label": "Enable retry?",
           "description": "Pažymėkite, jei norite, kad naudotojas galėtų bandyti dar kartą"

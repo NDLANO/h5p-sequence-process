@@ -1,6 +1,18 @@
 {
   "semantics": [
     {
+      "label": "Mode",
+      "description": "Choose the mode of the activity. \"Sequence\" means to merely order the statements, while \"Priority\" also means to express an order of precedence among the statements.",
+      "options": [
+        {
+          "label": "Sequence"
+        },
+        {
+          "label": "Priority"
+        }
+      ]
+    },
+    {
       "label": "Encabezado"
     },
     {
@@ -50,10 +62,6 @@
       "label": "Configuración del comportamiento",
       "description": "Estas opciones te permitirán controlar el comportamiento.",
       "fields": [
-        {
-          "label": "Prioritization",
-          "description": "Tick this off if you want the learner to prioritize the statements."
-        },
         {
           "label": "¿Habilitar Intentar de nuevo?",
           "description": "Marca esto si quieres que el usuario pueda volver a intentarlo"

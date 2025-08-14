@@ -8,6 +8,7 @@ H5PUpgrades['H5P.SequenceProcess'] = (() => {
     1: {
       /**
        * Asynchronous content upgrade hook.
+       * Introduces the mode parameter.
        * Removes old parameter.
        * @param {object} parameters Content parameters.
        * @param {function} finished Callback when finished.
@@ -17,6 +18,9 @@ H5PUpgrades['H5P.SequenceProcess'] = (() => {
 
         if (parameters?.behaviour) {
           delete parameters.behaviour.displayCommentsBelowStatement;
+
+          parameters.mode = (parameters.behaviour.prioritizeable) ? 'Priority' : 'Sequence';
+          delete parameters.behaviour.prioritizeable;
         }
 
         finished(null, parameters, extras);
