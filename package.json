@@ -1,6 +1,6 @@
 {
   "name": "h5p-sequence-process",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Sequence content and reflect on why",
   "main": "index.js",
   "scripts": {
