@@ -15,7 +15,8 @@
         "label": "Priority"
       }
     ],
-    "default": "sequence"
+    "default": "sequence",
+    "widget": "selectButtons"
   },
   {
     "name": "header",
