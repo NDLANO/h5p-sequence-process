@@ -27,11 +27,6 @@
   ],
   "preloadedDependencies": [
     {
-      "machineName": "H5P.ResourceList",
-      "majorVersion": 1,
-      "minorVersion": 0
-    },
-    {
       "machineName": "MustacheJS",
       "majorVersion": 1,
       "minorVersion": 0
