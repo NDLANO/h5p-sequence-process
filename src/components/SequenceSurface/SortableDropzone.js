@@ -1,12 +1,13 @@
 // SortableDropZone.js
 import React, { useRef, useState, Fragment, useContext } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
-import ActionsList from '../Actions/ActionsList';
-import Comment from '../Actions/Comment';
-import Labels from '../Actions/Labels';
-import StatementLabel from '../StatementTypes/components/StatementLabel';
-import PriorityNumber from '../StatementTypes/components/PriorityNumber';
-import { SequenceProcessContext } from 'context/SequenceProcessContext';
+import PropTypes from 'prop-types';
+import ActionsList from '../Actions/ActionsList.js';
+import Comment from '../Actions/Comment.js';
+import Labels from '../Actions/Labels.js';
+import StatementLabel from '../StatementTypes/components/StatementLabel.js';
+import PriorityNumber from '../StatementTypes/components/PriorityNumber.js';
+import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
 
 function SortableDropZone({
   index,
@@ -104,5 +105,20 @@ function SortableDropZone({
     </div>
   );
 }
+
+SortableDropZone.propTypes = {
+  index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired,
+  isUnassignedEmpty: PropTypes.bool,
+  comment: PropTypes.string,
+  labels: PropTypes.array,
+  statements: PropTypes.object.isRequired,
+  onLabelSelect: PropTypes.func.isRequired,
+  selectedLabels: PropTypes.array,
+  activeCommentId: PropTypes.string,
+  onCommentClick: PropTypes.func.isRequired,
+  onCommentChange: PropTypes.func.isRequired,
+};
 
 export default SortableDropZone;

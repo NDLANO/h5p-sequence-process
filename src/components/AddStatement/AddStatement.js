@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
 
 function AddStatement({ addStatement }) {
 
@@ -30,7 +30,7 @@ function AddStatement({ addStatement }) {
 }
 
 AddStatement.propTypes = {
-  onClick: PropTypes.func,
+  addStatement: PropTypes.func,
 };
 
 export default AddStatement;

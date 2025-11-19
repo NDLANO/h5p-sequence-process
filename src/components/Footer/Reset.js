@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useState } from 'react';
-import Popover from '../Popover/Popover';
-import { SequenceProcessContext } from 'context/SequenceProcessContext';
+import Popover from '../Popover/Popover.js';
+import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
 
 function Reset() {
 

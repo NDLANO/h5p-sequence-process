@@ -13,13 +13,14 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import SortableDropZone from './SortableDropzone';
-import SortableItem from './SortableItem';
-import AddStatement from '../AddStatement/AddStatement';
-import { customKeyboardCoordinates } from './customKeyboardCoordinates';
-import DraggableOverlay from './DraggableOverlay';
-import { createEmptyUserInput } from '../../models/UserInput';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext';
+import SortableDropZone from './SortableDropzone.js';
+import SortableItem from './SortableItem.js';
+import AddStatement from '../AddStatement/AddStatement.js';
+import { customKeyboardCoordinates } from './customKeyboardCoordinates.js';
+import DraggableOverlay from './DraggableOverlay.js';
+import { createEmptyUserInput } from '../../models/UserInput.js';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
+import PropTypes from 'prop-types';
 
 function SortableList({ params, onUserInputChange, collectExportValues, reset }) {
   const context = useContext(SequenceProcessContext);
@@ -491,5 +492,12 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     </DndContext>
   );
 }
+
+SortableList.propTypes = {
+  params: PropTypes.object.isRequired,
+  onUserInputChange: PropTypes.func,
+  collectExportValues: PropTypes.func,
+  reset: PropTypes.func.isRequired,
+};
 
 export default SortableList;

@@ -1,12 +1,16 @@
 import React, { useContext, useRef, useImperativeHandle, forwardRef } from 'react';
-import { SequenceProcessContext } from 'context/SequenceProcessContext';
+import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import DeleteStatement from '../DeleteStatement/DeleteStatement';
-import EditableStatement from '../StatementTypes/components/EditableStatement';
-import UnEditableStatement from '../StatementTypes/components/UnEditableStatement';
+import PropTypes from 'prop-types';
+import DeleteStatement from '../DeleteStatement/DeleteStatement.js';
+import EditableStatement from '../StatementTypes/components/EditableStatement.js';
+import UnEditableStatement from '../StatementTypes/components/UnEditableStatement.js';
 
-const SortableItem = forwardRef(({ itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, allowDelete = false }, ref) => {
+const SortableItem = forwardRef((
+  { itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, allowDelete = false },
+  ref
+) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: itemId,
     attributes: {
@@ -76,5 +80,19 @@ const SortableItem = forwardRef(({ itemId, statement, onStatementDelete, onState
 });
 
 SortableItem.displayName = 'SortableItem';
+
+SortableItem.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  statement: PropTypes.string.isRequired,
+  onStatementDelete: PropTypes.func.isRequired,
+  onStatementChange: PropTypes.func.isRequired,
+  enableEditing: PropTypes.bool,
+  allowDelete: PropTypes.bool,
+};
+
+SortableItem.defaultProps = {
+  enableEditing: false,
+  allowDelete: false,
+};
 
 export default SortableItem;

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
 import Popover from '../Popover/Popover.js';
 import classnames from 'classnames';
 
@@ -39,7 +39,11 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
       onCloseKeyDown={handleCloseKeyDown}
       popoverContent={(
         <div className={'h5p-sequence-label-popover'}>
-          <div className={'h5p-sequence-label-list'} role="group" aria-label={context.translate('selectAllLabelsConnectedToThisItem')}>
+          <div
+            className={'h5p-sequence-label-list'}
+            role="group"
+            aria-label={context.translate('selectAllLabelsConnectedToThisItem')}
+          >
             {labels.map((label, index) => (
               <div
                 key={label.id}

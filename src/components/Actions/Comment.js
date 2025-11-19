@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
 import Popover from '../Popover/Popover.js';
 import classnames from 'classnames';
 

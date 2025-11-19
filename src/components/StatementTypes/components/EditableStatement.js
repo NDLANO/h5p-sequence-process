@@ -1,7 +1,7 @@
 import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { debounce } from '../../utils';
+import { debounce } from '../../utils.js';
 
 const EditableStatement = forwardRef(({ statement, onBlur, idBase = false }, ref) => {
   const [inEditMode, toggleEditMode] = useState(false);
