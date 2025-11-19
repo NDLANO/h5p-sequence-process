@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { SequenceProcessContext } from 'context/SequenceProcessContext';
-import SortableList from './SortableList';
-import Summary from '../Summary/Summary';
+import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
+import SortableList from './SortableList.js';
+import Summary from '../Summary/Summary.js';
 
 function SequenceSurface() {
   const {

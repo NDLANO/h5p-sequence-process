@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Main from 'components/Main';
-import { SequenceProcessContext } from 'context/SequenceProcessContext';
-import { breakpoints, getRatio, sanitizeParams } from './components/utils';
+import Main from './components/Main.js';
+import { SequenceProcessContext } from './context/SequenceProcessContext.js';
+import { breakpoints, getRatio, sanitizeParams } from './components/utils.js';
 
 // Load library
 H5P.SequenceProcess = (function () {

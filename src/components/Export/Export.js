@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext';
-import { escapeHTML, stripHTML } from '../utils';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
+import { escapeHTML, stripHTML } from '../utils.js';
 
 export default class Export extends Component {
   static contextType = SequenceProcessContext;
@@ -71,7 +71,11 @@ export default class Export extends Component {
       '<div class="page-description">{{description}}</div>' +
       '<table>' +
       '<tr><th>{{headerStatement}}</th><th>{{headerLabels}}</th><th>{{headerComment}}</th></tr>' +
-      '{{#sortedStatementList}}<tr><td>{{title}}</td><td>{{#labels}}<li>{{.}}</li>{{/labels}}</td><td>{{comment}}</td></tr>{{/sortedStatementList}}' +
+      '{{#sortedStatementList}}<tr>' +
+      '<td>{{title}}</td>' +
+      '<td>{{#labels}}<li>{{.}}</li>{{/labels}}</td>' +
+      '<td>{{comment}}</td>' +
+      '</tr>{{/sortedStatementList}}' +
       '</table>' +
       '{{#hasSummaryComment}}' +
       '<div class="h2">{{labelSummaryComment}}</div>' +
