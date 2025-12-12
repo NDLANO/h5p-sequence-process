@@ -1,0 +1,41 @@
+.h5p-sequence-column {
+  &.stacked-mode {
+    position: relative;
+
+    .h5p-sequence-draggable-container {
+      position: relative;
+
+      .h5p-sequence-draggable-element {
+        position: absolute;
+        top: 0.5rem;
+        transform: var(--transform);
+        transition: var(--transition);
+        width: 100%;
+        z-index: var(--zIndex);
+
+        &:not(:first-child) {
+          left: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .h5p-sequence-draggable-container {
+    display: flex;
+    align-items: stretch;
+    margin: 0.8rem auto;
+    position: relative;
+
+    .h5p-sequence-draggable-element,
+    .h5p-sequence-draggable-element > div {
+      flex-grow: 1;
+      display: flex;
+    }
+
+    &.dragging {
+      .h5p-sequence-draggable-element {
+        visibility: hidden;
+      }
+    }
+  }
+}

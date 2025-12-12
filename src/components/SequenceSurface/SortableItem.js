@@ -7,8 +7,20 @@ import DeleteStatement from '../DeleteStatement/DeleteStatement.js';
 import EditableStatement from '../StatementTypes/components/EditableStatement.js';
 import UnEditableStatement from '../StatementTypes/components/UnEditableStatement.js';
 
+import './SortableItem.css';
+
 const SortableItem = forwardRef((
-  { itemId, statement, onStatementDelete, onStatementChange, enableEditing = false, allowDelete = false },
+  {
+    itemId,
+    statement,
+    onStatementDelete,
+    onStatementChange,
+    enableEditing = false,
+    allowDelete = false,
+    stackedMode = false,
+    stackIndex = 0,
+    totalItems = 1,
+  },
   ref
 ) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -30,16 +42,13 @@ const SortableItem = forwardRef((
   }));
 
   const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    position: 'relative',
-    zIndex: isDragging ? 2 : 1,
-    opacity: isDragging ? 0.5 : 1,
-    cursor: 'grab',
+    '--transform': CSS.Transform.toString(transform),
+    '--transition': transition,
+    '--zIndex': (stackedMode ? totalItems - stackIndex : 1),
   };
 
   return (
-    <div className="h5p-sequence-draggable-container">
+    <div className={`h5p-sequence-draggable-container ${isDragging ? 'dragging' : ''}`} >
       <div
         role="button"
         ref={setNodeRef}
@@ -88,11 +97,17 @@ SortableItem.propTypes = {
   onStatementChange: PropTypes.func.isRequired,
   enableEditing: PropTypes.bool,
   allowDelete: PropTypes.bool,
+  stackedMode: PropTypes.bool,
+  stackIndex: PropTypes.number,
+  totalItems: PropTypes.number
 };
 
 SortableItem.defaultProps = {
   enableEditing: false,
   allowDelete: false,
+  stackedMode: false,
+  stackIndex: 0,
+  totalItems: 1
 };
 
 export default SortableItem;

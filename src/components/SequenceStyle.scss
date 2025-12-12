@@ -670,19 +670,6 @@ summary {
   color: #535c69;
 }
 
-.h5p-sequence-draggable-container {
-  display: flex;
-  align-items: stretch;
-  margin: 0.8rem auto;
-  position: relative;
-}
-
-.h5p-sequence-draggable-element,
-.h5p-sequence-draggable-element>div {
-  flex-grow: 1;
-  display: flex;
-}
-
 .h5p-sequence-add {
   border: 1px solid #dbe2e8;
   border-radius: $borderRadius;

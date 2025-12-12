@@ -38,6 +38,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   const [activeId, setActiveId] = useState(null);
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [autoEditStatementId, setAutoEditStatementId] = useState(null);
+  const [stackedMode, setStackedMode] = useState(params.behaviour.useStackedView);
 
   // Create refs for SortableItems
   const itemRefs = useRef({});
@@ -208,6 +209,18 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
         ...prev,
         sequencedStatements: [...prev.sequencedStatements, item]
       }));
+    }
+    else if (isDropzoneGroup(active.id)) {
+      // Not commissioned yet: Dragging back to unassigned items list from dropzoneGroups
+    }
+    else {
+      // Put dropped element at the bottom of unassigned items
+      setUnassignedItemIds((items) => {
+        const oldIndex = items.indexOf(active.id);
+        const newIndex = items.indexOf(over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+
     }
 
     setActiveId(null);
@@ -450,8 +463,8 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
       {unassignedItemIds.length > 0 && (
         <div className='h5p-sequence-select-list'>
-          <div className="h5p-sequence-column">
-            {unassignedItemIds.map((itemId) => (
+          <div className={`h5p-sequence-column ${stackedMode ? 'stacked-mode' : ''}`}>
+            {unassignedItemIds.map((itemId, index) => (
               <SortableItem
                 key={itemId}
                 ref={(ref) => {
@@ -469,6 +482,9 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 enableEditing={addStatementButton}
                 listId='unassignedItemIds'
                 allowDelete={addStatementButton}
+                stackedMode={stackedMode}
+                stackIndex={index}
+                totalItems={unassignedItemIds.length}
               />
             ))}
             {addStatementButton && (
@@ -476,19 +492,18 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 addStatement={handleAddStatement}
               />
             )}
+            <DragOverlay>
+              {activeId ? (
+                <DraggableOverlay
+                  id={activeId}
+                  statements={statements}
+                  dropzoneGroups={dropzoneGroups}
+                />
+              ) : null}
+            </DragOverlay>
           </div>
         </div>
       )}
-
-      <DragOverlay>
-        {activeId ? (
-          <DraggableOverlay
-            id={activeId}
-            statements={statements}
-            dropzoneGroups={dropzoneGroups}
-          />
-        ) : null}
-      </DragOverlay>
     </DndContext>
   );
 }
