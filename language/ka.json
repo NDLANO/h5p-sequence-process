@@ -81,6 +81,10 @@
         {
           "label": "მიეცით საშუალება მომხმარებლებს დაამატონ საკუთარი განცხადებები",
           "description": "საშუალებას აძლევს მომხმარებელს დაამატოს საკუთარი განცხადებები"
+        },
+        {
+          "label": "Use stacked view",
+          "description": "If checked, statements will be presented in a stacked view."
         }
       ]
     },

@@ -81,6 +81,10 @@
         {
           "label": "Permitir que os usuarios engadan as súas propias afirmacións",
           "description": "Permitir ao usuario engadir as súas propias declaracións"
+        },
+        {
+          "label": "Use stacked view",
+          "description": "If checked, statements will be presented in a stacked view."
         }
       ]
     },
