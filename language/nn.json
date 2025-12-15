@@ -241,6 +241,10 @@
           "label": "'Droppsone med verdi' etikett for skjermleser",
           "description": "Tilgjengelige variabler er :index og :statement",
           "default": "Droppsone #:index med verdi: :statement"
+        },
+        {
+          "label": "List of unassigned statements label for screenreaders",
+          "default": "Unassigned statements"
         }
       ]
     }

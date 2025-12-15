@@ -241,6 +241,10 @@
           "label": "'Dropzone with value' label for screenreaders",
           "description": "Available variables are :index and :statement",
           "default": "Dropzone #:index with value: :statement"
+        },
+        {
+          "label": "List of unassigned statements label for screenreaders",
+          "default": "Unassigned statements"
         }
       ]
     }

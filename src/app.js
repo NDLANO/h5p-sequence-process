@@ -64,6 +64,7 @@ H5P.SequenceProcess = (function () {
       draggableItem: 'Draggable item :statement',
       dropzone: 'Dropzone :index',
       dropzoneWithValue: 'Dropzone :index with value :statement',
+      unassignedStatementsList: 'Unassigned statements',
       giveABriefSummary: 'Give a brief summary in your own words',
       newStatement: 'New statement',
     }, this.params.l10n, this.params.resourceReport, this.params.accessibility);

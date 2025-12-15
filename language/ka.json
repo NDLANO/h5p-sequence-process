@@ -241,6 +241,10 @@
           "label": "\"ცვლადიანი განთავსების არეალის\" წარწერა ტექსტის წამკითხველებისთვის",
           "description": "ხელმისაწვდომი ცვლადებია :index და :statement",
           "default": "განთავსების არეალი #:index მნიშვნელობით: :statement"
+        },
+        {
+          "label": "List of unassigned statements label for screenreaders",
+          "default": "Unassigned statements"
         }
       ]
     }

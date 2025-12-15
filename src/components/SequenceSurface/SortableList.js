@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef, useContext } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useContext, useCallback } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -22,6 +22,8 @@ import { createEmptyUserInput } from '../../models/UserInput.js';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
 import PropTypes from 'prop-types';
 
+import './SortableList.css';
+
 function SortableList({ params, onUserInputChange, collectExportValues, reset }) {
   const context = useContext(SequenceProcessContext);
 
@@ -39,6 +41,9 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [autoEditStatementId, setAutoEditStatementId] = useState(null);
   const [stackedMode, setStackedMode] = useState(params.behaviour.useStackedView);
+  const [tabIndex, setTabIndex] = useState(0);
+  const [currentTabIndexElements, setCurrentTabIndexElements] = useState(0);
+  const [currentElementsAriaDescendant, setCurrentElementsAriaDescendant] = useState(null);
 
   // Create refs for SortableItems
   const itemRefs = useRef({});
@@ -275,6 +280,10 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }));
   };
 
+  const handleElemntReceivedFocus = (itemId) => {
+    setCurrentElementsAriaDescendant(itemId);
+  };
+
   const handleLabelChange = (statementId, labelId) => {
     setUserInput((prev) => ({
       ...prev,
@@ -306,6 +315,63 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       }
     }));
   };
+
+  /**
+   * Focus the item at the given index in the unassigned items list
+   * @param {number} index Index of the item to focus
+   * @returns {boolean} True if the item was focused, false if index was out of bounds
+   */
+  const focusItemAt = useCallback((index) => {
+    if (index < 0 || index >= unassignedItemIds.length) {
+      return false;
+    }
+
+    const id = unassignedItemIds[index];
+    itemRefs.current[id]?.focus?.();
+
+    return true;
+  }, [unassignedItemIds]);
+
+  /**
+   * Handle keyboard navigation within the unassigned items list
+   * @param {KeyboardEvent} event Keyboard event
+   */
+  const handleKeyDown = useCallback((event) => {
+    const { key } = event;
+
+    const length = unassignedItemIds.length;
+    if (length === 0) {
+      return;
+    }
+
+    let nextIndex = currentTabIndexElements;
+
+    switch (key) {
+      case 'ArrowDown':
+        nextIndex = Math.min(currentTabIndexElements + 1, length - 1);
+        break;
+      case 'ArrowUp':
+        nextIndex = Math.max(currentTabIndexElements - 1, 0);
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = length - 1;
+        break;
+      default:
+        return; // Unhandled key
+    }
+
+    if (nextIndex === currentTabIndexElements) {
+      event.preventDefault();
+      return;
+    }
+
+    setCurrentTabIndexElements(nextIndex);
+    focusItemAt(nextIndex);
+    event.preventDefault();
+  }, [currentTabIndexElements, unassignedItemIds.length, focusItemAt]);
 
   // Helper function to create initial statements
   const createInitialStatements = () => {
@@ -353,6 +419,16 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     const assignedItems = dropzoneGroups.flatMap((group) => group.items);
     setUnassignedItemIds(Object.keys(statements).filter((id) => !assignedItems.includes(id)));
   }, [dropzoneGroups, statements]);
+
+  // Keep currentTabIndexElements within bounds when the list size changes
+  useEffect(() => {
+    setCurrentTabIndexElements((idx) => {
+      if (unassignedItemIds.length === 0) {
+        return 0;
+      }
+      return Math.min(Math.max(idx, 0), unassignedItemIds.length - 1);
+    });
+  }, [unassignedItemIds]);
 
   useEffect(() => {
     if (onUserInputChange) {
@@ -463,7 +539,25 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
       {unassignedItemIds.length > 0 && (
         <div className='h5p-sequence-select-list'>
-          <div className={`h5p-sequence-column ${stackedMode ? 'stacked-mode' : ''}`}>
+          <ul
+            className={`h5p-sequence-column ${stackedMode ? 'stacked-mode' : ''}`}
+            onKeyDown={handleKeyDown}
+            role={'listbox'}
+            tabIndex={tabIndex}
+            aria-label={context.translate('unassignedStatementsList')}
+            aria-activedescendant={currentElementsAriaDescendant}
+            onFocus={(event) => {
+              if (event.target !== event.currentTarget) {
+                return;
+              }
+
+              focusItemAt(currentTabIndexElements);
+              setTabIndex(-1);
+            }}
+            onBlur={() => {
+              setTabIndex(0);
+            }}
+          >
             {unassignedItemIds.map((itemId, index) => (
               <SortableItem
                 key={itemId}
@@ -485,6 +579,8 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 stackedMode={stackedMode}
                 stackIndex={index}
                 totalItems={unassignedItemIds.length}
+                isTabbable={currentTabIndexElements === index}
+                onReceivedFocus={handleElemntReceivedFocus}
               />
             ))}
             {addStatementButton && (
@@ -501,7 +597,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 />
               ) : null}
             </DragOverlay>
-          </div>
+          </ul>
         </div>
       )}
     </DndContext>

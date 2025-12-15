@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useImperativeHandle, forwardRef } from 'react';
+import React, { useContext, useRef, useImperativeHandle, forwardRef, useCallback, useState } from 'react';
 import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -20,6 +20,8 @@ const SortableItem = forwardRef((
     stackedMode = false,
     stackIndex = 0,
     totalItems = 1,
+    isTabbable = false,
+    onReceivedFocus = () => {},
   },
   ref
 ) => {
@@ -28,16 +30,22 @@ const SortableItem = forwardRef((
     attributes: {
       'aria-label': statement,
       'aria-describedby': statement,
-      'aria-labelledby': 'hi',
+      'aria-labelledby': 'hi', // TODO: What's this supposed to be?
     }
   });
 
+  const [selectedState, setSelectedState] = useState(false);
+
   const context = useContext(SequenceProcessContext);
   const editableStatementRef = useRef();
+  const draggableElementRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
     enterEditMode: () => {
       editableStatementRef.current?.enterEditMode();
+    },
+    focus: () => {
+      draggableElementRef.current?.focus();
     }
   }));
 
@@ -47,18 +55,30 @@ const SortableItem = forwardRef((
     '--zIndex': (stackedMode ? totalItems - stackIndex : 1),
   };
 
+  const handleFocus = useCallback(() => {
+    setSelectedState(true);
+    onReceivedFocus(itemId);
+  }, [itemId, onReceivedFocus]);
+
   return (
     <div className={`h5p-sequence-draggable-container ${isDragging ? 'dragging' : ''}`} >
-      <div
-        role="button"
-        ref={setNodeRef}
+      <li
+        id={itemId}
+        role="option"
+        ref={(node) => {
+          setNodeRef(node);
+          draggableElementRef.current = node;
+        }}
         className="h5p-sequence-draggable-element"
         style={style}
         {...attributes}
         {...listeners}
-        tabIndex={0}
+        tabIndex={isTabbable ? 0 : -1}
         aria-label={`${statement}`}
         aria-describedby={`${statement}`}
+        aria-selected={selectedState}
+        onFocus={handleFocus}
+        onBlur={() => setSelectedState(false)}
       >
         <div className="h5p-sequence-statement">
           <div className="h5p-sequence-statement-remaining">
@@ -83,7 +103,7 @@ const SortableItem = forwardRef((
             {allowDelete && <DeleteStatement onClick={() => onStatementDelete(itemId)} />}
           </div>
         </div>
-      </div>
+      </li>
     </div>
   );
 });
@@ -99,7 +119,9 @@ SortableItem.propTypes = {
   allowDelete: PropTypes.bool,
   stackedMode: PropTypes.bool,
   stackIndex: PropTypes.number,
-  totalItems: PropTypes.number
+  totalItems: PropTypes.number,
+  isTabbable: PropTypes.bool,
+  onReceivedFocus: PropTypes.func,
 };
 
 SortableItem.defaultProps = {
@@ -107,7 +129,9 @@ SortableItem.defaultProps = {
   allowDelete: false,
   stackedMode: false,
   stackIndex: 0,
-  totalItems: 1
+  totalItems: 1,
+  isTabbable: false,
+  onReceivedFocus: () => {},
 };
 
 export default SortableItem;

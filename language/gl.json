@@ -241,6 +241,10 @@
           "label": "Etiqueta para 'Zona de solta con valor' para lectores de pantalla",
           "description": "As variables dispoñibles son :statement e :index",
           "default": "Área de solta #:index con valor: :statement"
+        },
+        {
+          "label": "List of unassigned statements label for screenreaders",
+          "default": "Unassigned statements"
         }
       ]
     }
