@@ -27,12 +27,7 @@ const SortableItem = forwardRef((
   ref
 ) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-    id: itemId,
-    attributes: {
-      'aria-label': statement,
-      'aria-describedby': statement,
-      'aria-labelledby': 'hi', // TODO: What's this supposed to be?
-    }
+    id: itemId
   });
 
   const [selectedState, setSelectedState] = useState(false);

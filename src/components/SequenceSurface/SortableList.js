@@ -108,7 +108,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
     const labelIds = Object.keys(labels);
     return Array.from({ length: statementsLength }, (_, index) => ({
-      id: `${H5P.createUUID()}-dropzone-${index + 1}`, // TODO: Does this make sense?
+      id: `${H5P.createUUID()}-dropzone-${index + 1}`,
       items: prepopulate ? [prepopulatedStatementIds[index]] : [],
       labelId: labelIds[index]
     }));
