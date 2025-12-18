@@ -274,11 +274,16 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
           return items;
         }
 
-        if (stackedMode && oldIndex === newIndex && oldIndex === 0) {
-          newIndex = items.length - 1;
+        if (stackedMode) {
+          if (oldIndex === newIndex && oldIndex === 0) {
+            newIndex = items.length - 1;
 
-          if (items.length > 1) {
-            pendingFocusIdRef.current = items[1];
+            if (items.length > 1) {
+              pendingFocusIdRef.current = items[1];
+            }
+          }
+          else {
+            return items;
           }
         }
 
