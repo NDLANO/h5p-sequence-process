@@ -1,5 +1,5 @@
 // SortableDropZone.js
-import React, { useRef, useState, Fragment, useContext } from 'react';
+import React, { forwardRef, useRef, useState, Fragment, useContext, useCallback, useImperativeHandle } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import PropTypes from 'prop-types';
 import ActionsList from '../Actions/ActionsList.js';
@@ -9,20 +9,25 @@ import StatementLabel from '../StatementTypes/components/StatementLabel.js';
 import PriorityNumber from '../StatementTypes/components/PriorityNumber.js';
 import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
 
-function SortableDropZone({
-  index,
-  id,
-  items,
-  isUnassignedEmpty,
-  comment,
-  labels,
-  statements,
-  onLabelSelect,
-  selectedLabels,
-  activeCommentId,
-  onCommentClick,
-  onCommentChange
-}) {
+const SortableDropZone = forwardRef((
+  {
+    index,
+    id,
+    items,
+    isUnassignedEmpty,
+    comment,
+    labels,
+    statements,
+    onLabelSelect,
+    selectedLabels,
+    activeCommentId,
+    onCommentClick,
+    onCommentChange,
+    isTabbable = false,
+    onReceivedFocus = () => {},
+  },
+  ref
+) => {
   const inputRef = useRef(null);
   const [activeLabelId, setActiveLabelId] = useState(null);
   const context = useContext(SequenceProcessContext);
@@ -30,19 +35,41 @@ function SortableDropZone({
     id,
     disabled: items.length === 0,
   });
+  const dropzoneElementRef = useRef(null);
 
-  const handleLabelClick = (itemId) => {
-    setActiveLabelId((prevId) => (prevId === itemId ? null : itemId));
-  };
-
+  const [selectedState, setSelectedState] = useState(false);
   const isPrioritizeable = context.params.mode === 'priority';
 
+  const handleLabelClick = (id) => {
+    setActiveLabelId((prevId) => (prevId === id ? null : id));
+  };
+
+  const handleFocus = useCallback(() => {
+    setSelectedState(true);
+    onReceivedFocus(id);
+  }, [id, onReceivedFocus]);
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      dropzoneElementRef.current?.focus();
+    }
+  }));
+
   return (
-    <div
-      ref={setNodeRef}
+    <li
+      ref={(node) => {
+        setNodeRef(node);
+        dropzoneElementRef.current = node;
+      }}
       className='h5p-sequence-draggable-container'
+      id={id}
       {...attributes}
       {...listeners}
+      tabIndex={isTabbable ? 0 : -1}
+      aria-selected={selectedState} // Does this make sense?
+      onFocus={handleFocus}
+      onBlur={() => setSelectedState(false)}
+      role='option'
     >
       {isPrioritizeable && (
         <PriorityNumber
@@ -102,9 +129,11 @@ function SortableDropZone({
           <div className='h5p-sequence-empty'></div>
         )}
       </div>
-    </div>
+    </li>
   );
-}
+});
+
+SortableDropZone.displayName = 'SortableDropZone';
 
 SortableDropZone.propTypes = {
   index: PropTypes.number.isRequired,
@@ -119,6 +148,8 @@ SortableDropZone.propTypes = {
   activeCommentId: PropTypes.string,
   onCommentClick: PropTypes.func.isRequired,
   onCommentChange: PropTypes.func.isRequired,
+  isTabbable: PropTypes.bool,
+  onReceivedFocus: PropTypes.func,
 };
 
 export default SortableDropZone;

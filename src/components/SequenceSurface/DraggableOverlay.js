@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import SortableItem from './SortableItem.js';
 import PropTypes from 'prop-types';
 
-function DraggableOverlay({ id, statements, dropzoneGroups }) {
+export default function DraggableOverlay({ id, statements, dropzoneGroups }) {
+  const sortableRef = useRef(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (sortableRef.current && typeof sortableRef.current.focus === 'function') {
+        sortableRef.current.focus();
+      }
+    }, 0);
+
+    return () => {
+      clearTimeout(t);
+    };
+  }, [id]);
+
   let statement = statements[id]?.content;
 
   if (!statement) {
@@ -12,7 +26,7 @@ function DraggableOverlay({ id, statements, dropzoneGroups }) {
     }
   }
 
-  return <SortableItem itemId={id} statement={statement} />;
+  return <SortableItem ref={sortableRef} itemId={id} statement={statement} />;
 }
 
 DraggableOverlay.propTypes = {
@@ -20,5 +34,3 @@ DraggableOverlay.propTypes = {
   statements: PropTypes.object.isRequired,
   dropzoneGroups: PropTypes.array.isRequired,
 };
-
-export default DraggableOverlay;

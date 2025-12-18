@@ -41,12 +41,18 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [autoEditStatementId, setAutoEditStatementId] = useState(null);
   const [stackedMode, setStackedMode] = useState(params.behaviour.useStackedView);
-  const [tabIndex, setTabIndex] = useState(0);
+
+  const [tabIndexDropzonesList, setTabIndexDropzonesList] = useState(0);
+  const [currentTabIndexDropzones, setCurrentTabIndexDropzones] = useState(0);
+  const [currentDropzonesAriaDescendant, setCurrentDropzonesAriaDescendant] = useState(null);
+
+  const [tabIndexElementsList, setTabIndexElementsList] = useState(0);
   const [currentTabIndexElements, setCurrentTabIndexElements] = useState(0);
   const [currentElementsAriaDescendant, setCurrentElementsAriaDescendant] = useState(null);
 
   // Create refs for SortableItems
   const itemRefs = useRef({});
+  const dropzoneRefs = useRef({});
 
   // Initialize userInput state
   const [userInput, setUserInput] = useState(() => {
@@ -102,7 +108,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
     const labelIds = Object.keys(labels);
     return Array.from({ length: statementsLength }, (_, index) => ({
-      id: `dropzone-${index + 1}`,
+      id: `${H5P.createUUID()}-dropzone-${index + 1}`, // TODO: Does this make sense?
       items: prepopulate ? [prepopulatedStatementIds[index]] : [],
       labelId: labelIds[index]
     }));
@@ -214,6 +220,8 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
         ...prev,
         sequencedStatements: [...prev.sequencedStatements, item]
       }));
+
+      dropzoneRefs.current[overId]?.focus();
     }
     else if (isDropzoneGroup(active.id)) {
       // Not commissioned yet: Dragging back to unassigned items list from dropzoneGroups
@@ -280,7 +288,11 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }));
   };
 
-  const handleElemntReceivedFocus = (itemId) => {
+  const handleDropzonesItemReceivedFocus = (itemId) => {
+    setCurrentDropzonesAriaDescendant(itemId);
+  };
+
+  const handleElementReceivedFocus = (itemId) => {
     setCurrentElementsAriaDescendant(itemId);
   };
 
@@ -321,7 +333,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
    * @param {number} index Index of the item to focus
    * @returns {boolean} True if the item was focused, false if index was out of bounds
    */
-  const focusItemAt = useCallback((index) => {
+  const focusElementsItemAt = useCallback((index) => {
     if (index < 0 || index >= unassignedItemIds.length) {
       return false;
     }
@@ -333,10 +345,39 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   }, [unassignedItemIds]);
 
   /**
+   * Focus the item at the given index in the unassigned items list
+   * @param {number} index Index of the item to focus
+   * @returns {boolean} True if the item was focused, false if index was out of bounds
+   */
+  const focusDropzonesItemAt = useCallback((index) => {
+    if (index < 0 || index >= dropzoneGroups.length) {
+      return false;
+    }
+
+    const id = dropzoneGroups[index].id;
+    dropzoneRefs.current[id]?.focus?.();
+
+    return true;
+  }, [dropzoneGroups]);
+
+  /**
+   * Check if an element is being dragged
+   * @param {HTMLElement} element Element to check
+   * @returns {boolean} True if the element is being dragged, false otherwise
+   */
+  const isDragging = useCallback((element) => {
+    return element.closest('.h5p-sequence-drag-overlay') !== null;
+  });
+
+  /**
    * Handle keyboard navigation within the unassigned items list
    * @param {KeyboardEvent} event Keyboard event
    */
-  const handleKeyDown = useCallback((event) => {
+  const handleKeyDownElements = useCallback((event) => {
+    if (isDragging(event.target)) {
+      return; // Let DnDkit handle the event
+    }
+
     const { key } = event;
 
     const length = unassignedItemIds.length;
@@ -369,9 +410,50 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }
 
     setCurrentTabIndexElements(nextIndex);
-    focusItemAt(nextIndex);
+    focusElementsItemAt(nextIndex);
     event.preventDefault();
-  }, [currentTabIndexElements, unassignedItemIds.length, focusItemAt]);
+  }, [currentTabIndexElements, unassignedItemIds.length, focusElementsItemAt]);
+
+  /**
+   * Handle keyboard navigation within the dropzones list
+   * @param {KeyboardEvent} event Keyboard event
+   */
+  const handleKeyDownDropzones = useCallback((event) => {
+    const { key } = event;
+
+    const length = dropzoneGroups.length;
+    if (length === 0) {
+      return;
+    }
+
+    let nextIndex = currentTabIndexDropzones;
+
+    switch (key) {
+      case 'ArrowDown':
+        nextIndex = Math.min(currentTabIndexDropzones + 1, length - 1);
+        break;
+      case 'ArrowUp':
+        nextIndex = Math.max(currentTabIndexDropzones - 1, 0);
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = length - 1;
+        break;
+      default:
+        return; // Unhandled key
+    }
+
+    if (nextIndex === currentTabIndexDropzones) {
+      event.preventDefault();
+      return;
+    }
+
+    setCurrentTabIndexDropzones(nextIndex);
+    focusDropzonesItemAt(nextIndex);
+    event.preventDefault();
+  }, [currentTabIndexDropzones, dropzoneGroups.length, focusDropzonesItemAt]);
 
   // Helper function to create initial statements
   const createInitialStatements = () => {
@@ -408,7 +490,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }
 
     return Array.from({ length: statementsLength }, (_, index) => ({
-      id: `dropzone-${index + 1}`,
+      id: `${H5P.createUUID()}-dropzone-${index + 1}`,
       items: prepopulate ? [prepopulatedStatementIds[index]] : [],
       labelId: labelIds[index]
     }));
@@ -498,6 +580,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     setAutoEditStatementId(null);
 
     // Clear refs and trigger resize
+    dropzoneRefs.current = {};
     itemRefs.current = {};
     triggerResize();
   });
@@ -514,7 +597,29 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       }}
     >
       <div className='h5p-sequence-dropzone'>
-        <div className="h5p-sequence-column">
+        <ul
+          className="h5p-sequence-column"
+          tabIndex={tabIndexDropzonesList}
+          role={'listbox'}
+          aria-label={context.translate('dropzonesList')}
+          aria-activedescendant={currentDropzonesAriaDescendant}
+          onKeyDown={handleKeyDownDropzones}
+          onFocus={(event) => {
+            const focusOnChild = (
+              event.target !== event.currentTarget &&
+              event.target.closest('.h5p-sequence-column') === event.currentTarget
+            );
+
+            if (!focusOnChild) {
+              focusDropzonesItemAt(currentTabIndexDropzones);
+            }
+
+            setTabIndexDropzonesList(-1);
+          }}
+          onBlur={() => {
+            setTabIndexDropzonesList(0);
+          }}
+        >
           <SortableContext items={dropzoneGroups.map((list) => list.id)} strategy={verticalListSortingStrategy}>
             {dropzoneGroups.map((list, index) => (
               <SortableDropZone
@@ -531,31 +636,45 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 activeCommentId={activeCommentId}
                 onCommentClick={handleCommentClick}
                 onCommentChange={(newComment) => handleCommentChange(list.items[0], newComment)}
+                isTabbable={currentTabIndexDropzones === index}
+                onReceivedFocus={handleDropzonesItemReceivedFocus}
+                ref={(ref) => {
+                  if (ref) {
+                    dropzoneRefs.current[list.id] = ref;
+                  }
+                  else {
+                    delete dropzoneRefs.current[list.id];
+                  }
+                }}
               />
             ))}
           </SortableContext>
-        </div>
+        </ul>
       </div>
 
       {unassignedItemIds.length > 0 && (
         <div className='h5p-sequence-select-list'>
           <ul
             className={`h5p-sequence-column ${stackedMode ? 'stacked-mode' : ''}`}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyDownElements}
             role={'listbox'}
-            tabIndex={tabIndex}
+            tabIndex={tabIndexElementsList}
             aria-label={context.translate('unassignedStatementsList')}
             aria-activedescendant={currentElementsAriaDescendant}
             onFocus={(event) => {
-              if (event.target !== event.currentTarget) {
-                return;
+              const focusOnChild = (
+                event.target !== event.currentTarget &&
+                event.target.closest('.h5p-sequence-column') === event.currentTarget
+              );
+
+              if (!focusOnChild) {
+                focusElementsItemAt(currentTabIndexElements);
               }
 
-              focusItemAt(currentTabIndexElements);
-              setTabIndex(-1);
+              setTabIndexElementsList(-1);
             }}
             onBlur={() => {
-              setTabIndex(0);
+              setTabIndexElementsList(0);
             }}
           >
             {unassignedItemIds.map((itemId, index) => (
@@ -580,7 +699,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 stackIndex={index}
                 totalItems={unassignedItemIds.length}
                 isTabbable={currentTabIndexElements === index}
-                onReceivedFocus={handleElemntReceivedFocus}
+                onReceivedFocus={handleElementReceivedFocus}
               />
             ))}
             {addStatementButton && (
@@ -588,7 +707,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 addStatement={handleAddStatement}
               />
             )}
-            <DragOverlay>
+            <DragOverlay className="h5p-sequence-drag-overlay">
               {activeId ? (
                 <DraggableOverlay
                   id={activeId}

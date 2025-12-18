@@ -21,4 +21,10 @@
       }
     }
   }
+
+  .h5p-sequence-drag-overlay .h5p-sequence-draggable-element:focus {
+    outline-color: auto;
+    outline-style: auto;
+    outline-width: 1px;
+  }
 }

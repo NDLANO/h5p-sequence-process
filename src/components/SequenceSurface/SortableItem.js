@@ -60,6 +60,10 @@ const SortableItem = forwardRef((
     onReceivedFocus(itemId);
   }, [itemId, onReceivedFocus]);
 
+  const handleBlur = useCallback(() => {
+    setSelectedState(false);
+  }, []);
+
   return (
     <div className={`h5p-sequence-draggable-container ${isDragging ? 'dragging' : ''}`} >
       <li
@@ -78,7 +82,7 @@ const SortableItem = forwardRef((
         aria-describedby={`${statement}`}
         aria-selected={selectedState}
         onFocus={handleFocus}
-        onBlur={() => setSelectedState(false)}
+        onBlur={handleBlur}
       >
         <div className="h5p-sequence-statement">
           <div className="h5p-sequence-statement-remaining">
