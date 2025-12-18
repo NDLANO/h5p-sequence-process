@@ -25,6 +25,7 @@ const SortableDropZone = forwardRef((
     onCommentChange,
     isTabbable = false,
     onReceivedFocus = () => {},
+    isDragged = false,
   },
   ref
 ) => {
@@ -61,11 +62,11 @@ const SortableDropZone = forwardRef((
         setNodeRef(node);
         dropzoneElementRef.current = node;
       }}
-      className='h5p-sequence-draggable-container'
+      className={`h5p-sequence-draggable-container${isDragged ? ' dragging' : ''}`}
       id={id}
       {...attributes}
       {...listeners}
-      tabIndex={isTabbable ? 0 : -1}
+      tabIndex={isTabbable ? '0' : '-1'}
       aria-selected={selectedState} // Does this make sense?
       onFocus={handleFocus}
       onBlur={() => setSelectedState(false)}
@@ -77,7 +78,7 @@ const SortableDropZone = forwardRef((
         />
       )}
       <div className='h5p-droparea'>
-        {items.length > 0 ? (
+        {(items.length > 0 && !isDragged) ? (
           items.map((itemId) => (
             <Fragment key={itemId}>
               <div className='h5p-sequence-statement'>
@@ -150,6 +151,7 @@ SortableDropZone.propTypes = {
   onCommentChange: PropTypes.func.isRequired,
   isTabbable: PropTypes.bool,
   onReceivedFocus: PropTypes.func,
+  isDragged: PropTypes.bool,
 };
 
 export default SortableDropZone;

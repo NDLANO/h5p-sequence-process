@@ -22,10 +22,11 @@ const SortableItem = forwardRef((
     totalItems = 1,
     isTabbable = false,
     onReceivedFocus = () => {},
+    isDragged = false,
   },
   ref
 ) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id: itemId,
     attributes: {
       'aria-label': statement,
@@ -65,7 +66,7 @@ const SortableItem = forwardRef((
   }, []);
 
   return (
-    <div className={`h5p-sequence-draggable-container ${isDragging ? 'dragging' : ''}`} >
+    <div className={`h5p-sequence-draggable-container ${isDragged ? 'dragging' : ''}`} >
       <li
         id={itemId}
         role="option"
@@ -126,6 +127,7 @@ SortableItem.propTypes = {
   totalItems: PropTypes.number,
   isTabbable: PropTypes.bool,
   onReceivedFocus: PropTypes.func,
+  isDragged: PropTypes.bool,
 };
 
 SortableItem.defaultProps = {
@@ -136,6 +138,7 @@ SortableItem.defaultProps = {
   totalItems: 1,
   isTabbable: false,
   onReceivedFocus: () => {},
+  isDragged: false,
 };
 
 export default SortableItem;

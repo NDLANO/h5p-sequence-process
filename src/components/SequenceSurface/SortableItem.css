@@ -15,4 +15,10 @@
       visibility: hidden;
     }
   }
+
+  &:focus {
+    outline-color: auto;
+    outline-style: auto;
+    outline-width: 1px;
+  }
 }

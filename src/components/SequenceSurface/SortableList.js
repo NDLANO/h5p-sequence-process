@@ -192,6 +192,8 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
           sequencedStatements: newSequence
         };
       });
+
+      dropzoneRefs.current[overId]?.focus();
     }
     // If dragging an item from unassignedItemIds to a container in column2
     else if (activeList === 'unassignedItemIds' && isDropzoneGroup(overId)) {
@@ -638,6 +640,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 onCommentChange={(newComment) => handleCommentChange(list.items[0], newComment)}
                 isTabbable={currentTabIndexDropzones === index}
                 onReceivedFocus={handleDropzonesItemReceivedFocus}
+                isDragged={activeId === list.id}
                 ref={(ref) => {
                   if (ref) {
                     dropzoneRefs.current[list.id] = ref;
@@ -700,6 +703,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 totalItems={unassignedItemIds.length}
                 isTabbable={currentTabIndexElements === index}
                 onReceivedFocus={handleElementReceivedFocus}
+                isDragged={ activeId === itemId }
               />
             ))}
             {addStatementButton && (
