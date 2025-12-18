@@ -21,6 +21,7 @@ import DraggableOverlay from './DraggableOverlay.js';
 import { createEmptyUserInput } from '../../models/UserInput.js';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
 import PropTypes from 'prop-types';
+import { isUsingMouse } from '../../services/h5p-util.js';
 
 import './SortableList.css';
 
@@ -274,7 +275,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
           return items;
         }
 
-        if (stackedMode) {
+        if (stackedMode && !isUsingMouse()) {
           if (oldIndex === newIndex && oldIndex === 0) {
             newIndex = items.length - 1;
 
