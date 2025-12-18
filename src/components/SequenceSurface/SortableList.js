@@ -53,6 +53,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   // Create refs for SortableItems
   const itemRefs = useRef({});
   const dropzoneRefs = useRef({});
+  const pendingFocusIdRef = useRef(null);
 
   // Initialize userInput state
   const [userInput, setUserInput] = useState(() => {
@@ -117,6 +118,41 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   const [unassignedItemIds, setUnassignedItemIds] = useState(() => {
     return prepopulate ? [] : Object.keys(statements);
   });
+
+  /**
+   * Focus the item at the given index in the unassigned items list
+   * @param {number} index Index of the item to focus
+   * @returns {boolean} True if the item was focused, false if index was out of bounds
+   */
+  const focusElementsItemAt = useCallback((index) => {
+    if (index < 0 || index >= unassignedItemIds.length) {
+      return false;
+    }
+
+    const id = unassignedItemIds[index];
+    itemRefs.current[id]?.focus?.();
+
+    return true;
+  }, [unassignedItemIds]);
+
+  /**
+   * Focus the element item by its ID.
+   * @param {string} id ID of the item to focus
+   */
+  const focusElementsItemById = useCallback((id) => {
+    itemRefs.current[id]?.focus?.();
+  }, []);
+
+  useEffect(() => {
+    if (pendingFocusIdRef.current !== null) {
+      const idToFocus = pendingFocusIdRef.current;
+      pendingFocusIdRef.current = null;
+
+      requestAnimationFrame(() => {
+        focusElementsItemById(idToFocus);
+      });
+    }
+  }, [unassignedItemIds, focusElementsItemById]);
 
   // Helper functions
   const isDropzoneGroup = (id) => dropzoneGroups.some((list) => list.id === id);
@@ -232,10 +268,26 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       // Put dropped element at the bottom of unassigned items
       setUnassignedItemIds((items) => {
         const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
+        let newIndex = items.indexOf(over.id);
+
+        if (oldIndex === -1 || newIndex === -1) {
+          return items;
+        }
+
+        if (stackedMode && oldIndex === newIndex && oldIndex === 0) {
+          newIndex = items.length - 1;
+
+          if (items.length > 1) {
+            pendingFocusIdRef.current = items[1];
+          }
+        }
+
+        if (oldIndex === newIndex) {
+          return items;
+        }
+
         return arrayMove(items, oldIndex, newIndex);
       });
-
     }
 
     setActiveId(null);
@@ -329,22 +381,6 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       }
     }));
   };
-
-  /**
-   * Focus the item at the given index in the unassigned items list
-   * @param {number} index Index of the item to focus
-   * @returns {boolean} True if the item was focused, false if index was out of bounds
-   */
-  const focusElementsItemAt = useCallback((index) => {
-    if (index < 0 || index >= unassignedItemIds.length) {
-      return false;
-    }
-
-    const id = unassignedItemIds[index];
-    itemRefs.current[id]?.focus?.();
-
-    return true;
-  }, [unassignedItemIds]);
 
   /**
    * Focus the item at the given index in the unassigned items list
