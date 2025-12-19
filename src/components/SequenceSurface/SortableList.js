@@ -22,8 +22,9 @@ import { createEmptyUserInput } from '../../models/UserInput.js';
 import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
 import PropTypes from 'prop-types';
 import { isUsingMouse } from '../../services/h5p-util.js';
-
 import './SortableList.css';
+
+const STACKED_ITEM_OFFSET_PX = 12; // pixels (=0.8rem from CSS)
 
 function SortableList({ params, onUserInputChange, collectExportValues, reset }) {
   const context = useContext(SequenceProcessContext);
@@ -544,6 +545,20 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     return totalHeight;
   };
 
+  /**
+   * Compute the height of the stacked list based on the first item's height and the number of items.
+   * @returns {number} Height of the stacked list in pixels.
+   */
+  const computeStackedListHeight = () => {
+    if (unassignedItemIds.length === 0) {
+      return 0;
+    }
+
+    const firstItemId = unassignedItemIds[0];
+    const firstItemHeight = itemRefs.current[firstItemId]?.getElementHeight() || 0;
+    return firstItemHeight + (unassignedItemIds.length - 1) * STACKED_ITEM_OFFSET_PX;
+  };
+
   // Helper function to create initial dropzone groups
   const createInitialDropzoneGroups = (statementIds, labelIds) => {
     const statementsLength = statementsFromParams?.length || 0;
@@ -721,6 +736,9 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
         <div className='h5p-sequence-select-list'>
           <ul
             className={`h5p-sequence-column ${stackedMode ? 'stacked-mode' : ''}`}
+            style={stackedMode ? {
+              height: computeStackedListHeight() + 'px'
+            } : {}}
             onKeyDown={handleKeyDownElements}
             role={'listbox'}
             tabIndex={tabIndexElementsList}
@@ -782,7 +800,6 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
           {addStatementButton && (
             <AddStatement
               addStatement={handleAddStatement}
-              top={stackedMode ? `-${getSumHeightOfPreviousSiblings(unassignedItemIds.length - 1)}` : 'auto'}
             />
           )}
         </div>

@@ -5,14 +5,13 @@ import { SequenceProcessContext } from '../../context/SequenceProcessContext.js'
 
 import './AddStatement.css';
 
-function AddStatement({ addStatement, top }) {
+function AddStatement({ addStatement }) {
 
   const context = useContext(SequenceProcessContext);
 
   return (
     <div
       className="h5p-sequence-add-statement-container"
-      style={{ '--top': top ? `${top}px` : 'auto' }}
     >
       <button
         type={'button'}
@@ -36,7 +35,6 @@ function AddStatement({ addStatement, top }) {
 
 AddStatement.propTypes = {
   addStatement: PropTypes.func,
-  top: PropTypes.number,
 };
 
 export default AddStatement;
