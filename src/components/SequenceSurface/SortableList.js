@@ -277,7 +277,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
         }
 
         if (stackedMode && !isUsingMouse()) {
-          if (oldIndex === newIndex && oldIndex === 0) {
+          if (oldIndex === 0) {
             newIndex = items.length - 1;
 
             if (items.length > 1) {
