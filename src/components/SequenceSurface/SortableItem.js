@@ -23,6 +23,7 @@ const SortableItem = forwardRef((
     isTabbable = false,
     onReceivedFocus = () => {},
     isDragged = false,
+    heightOfPreviousSiblings,
   },
   ref
 ) => {
@@ -42,6 +43,9 @@ const SortableItem = forwardRef((
     },
     focus: () => {
       draggableElementRef.current?.focus();
+    },
+    getElementHeight: () => {
+      return draggableElementRef.current?.offsetHeight || 0;
     }
   }));
 
@@ -61,7 +65,10 @@ const SortableItem = forwardRef((
   }, []);
 
   return (
-    <div className={`h5p-sequence-draggable-container ${isDragged ? 'dragging' : ''}`} >
+    <div
+      className={`h5p-sequence-draggable-container ${isDragged ? 'dragging' : ''}`}
+      style={{ '--top': stackedMode ? `-${heightOfPreviousSiblings}px` : 'auto' }}
+    >
       <li
         id={itemId}
         role="option"
@@ -124,6 +131,7 @@ SortableItem.propTypes = {
   isTabbable: PropTypes.bool,
   onReceivedFocus: PropTypes.func,
   isDragged: PropTypes.bool,
+  heightOfPreviousSiblings: PropTypes.number,
 };
 
 SortableItem.defaultProps = {

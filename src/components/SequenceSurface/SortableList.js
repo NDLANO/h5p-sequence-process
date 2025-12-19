@@ -524,6 +524,26 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       [];
   };
 
+  /**
+   * Get the sum height of all previous siblings in the unassigned items list.
+   * @param {number} index Index of the current item.
+   * @returns {number} Sum height of previous siblings as pixels.
+   */
+  const getSumHeightOfPreviousSiblings = (index) => {
+    if (index === 0) {
+      return 0;
+    }
+
+    let totalHeight = 0;
+    for (let i = 0; i < index; i++) {
+      const siblingId = unassignedItemIds[i];
+      const siblingItemRef = itemRefs.current[siblingId];
+      totalHeight += siblingItemRef?.getElementHeight() || 0;
+    }
+
+    return totalHeight;
+  };
+
   // Helper function to create initial dropzone groups
   const createInitialDropzoneGroups = (statementIds, labelIds) => {
     const statementsLength = statementsFromParams?.length || 0;
@@ -746,13 +766,9 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 isTabbable={currentTabIndexElements === index}
                 onReceivedFocus={handleElementReceivedFocus}
                 isDragged={ activeId === itemId }
+                heightOfPreviousSiblings={getSumHeightOfPreviousSiblings(index)}
               />
             ))}
-            {addStatementButton && (
-              <AddStatement
-                addStatement={handleAddStatement}
-              />
-            )}
             <DragOverlay className="h5p-sequence-drag-overlay">
               {activeId ? (
                 <DraggableOverlay
@@ -763,6 +779,12 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
               ) : null}
             </DragOverlay>
           </ul>
+          {addStatementButton && (
+            <AddStatement
+              addStatement={handleAddStatement}
+              top={stackedMode ? `-${getSumHeightOfPreviousSiblings(unassignedItemIds.length - 1)}` : 'auto'}
+            />
+          )}
         </div>
       )}
     </DndContext>
