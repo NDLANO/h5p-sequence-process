@@ -91,6 +91,7 @@ const SortableItem = forwardRef((
               <EditableStatement
                 ref={editableStatementRef}
                 statement={statement}
+                isTabbable={isTabbable}
                 onBlur={(newStatement) => onStatementChange(itemId, newStatement)}
                 idBase={itemId}
               />
@@ -100,7 +101,7 @@ const SortableItem = forwardRef((
               />
             )}
             {/* Only show delete button for list1 AND when adding statements is allowed */}
-            {allowDelete && <DeleteStatement onClick={() => onStatementDelete(itemId)} />}
+            {allowDelete && <DeleteStatement isTabbable={isTabbable} onClick={() => onStatementDelete(itemId)} />}
           </div>
         </div>
       </li>

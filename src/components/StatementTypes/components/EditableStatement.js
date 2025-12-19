@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '../../utils.js';
 
-const EditableStatement = forwardRef(({ statement, onBlur, idBase = false }, ref) => {
+const EditableStatement = forwardRef(({
+  statement,
+  onBlur,
+  idBase = false,
+  isTabbable = false,
+}, ref) => {
   const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
 
@@ -61,7 +66,7 @@ const EditableStatement = forwardRef(({ statement, onBlur, idBase = false }, ref
   return (
     <div
       role="textbox"
-      tabIndex={inEditMode ? -1 : 0}
+      tabIndex={isTabbable && !inEditMode ? '0' : '-1'}
       onClick={handleClick}
       className="h5p-sequence-editable-container"
       onKeyDown={handleKeyDown}
@@ -85,7 +90,7 @@ const EditableStatement = forwardRef(({ statement, onBlur, idBase = false }, ref
             onChange={debounce(() => onBlur(inputRef.current.value), 200)}
             aria-label={'Edit statement ' + statement}
             id={inputId}
-            tabIndex={inEditMode ? 0 : -1}
+            tabIndex={isTabbable && inEditMode ? '0' : '-1'}
             onKeyDown={handleInputKeyDown}
           />
         </label>
@@ -111,6 +116,7 @@ EditableStatement.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  isTabbable: PropTypes.bool,
 };
 
 export default EditableStatement;

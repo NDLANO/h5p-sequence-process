@@ -16,6 +16,7 @@ function DeleteStatement(props) {
   } = context;
 
   const {
+    isTabbable = false,
     onClick
   } = props;
 
@@ -38,7 +39,7 @@ function DeleteStatement(props) {
         }
       }}
       className={'h5p-sequence-delete-button'}
-      tabIndex={0}
+      tabIndex={isTabbable ? '0' : '-1'}
       type={'button'}
     >
       <span
@@ -50,6 +51,7 @@ function DeleteStatement(props) {
 }
 
 DeleteStatement.propTypes = {
+  isTabbable: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
