@@ -335,6 +335,8 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       });
 
       dropzoneRefs.current[overId]?.focus();
+
+      setCurrentTabIndexDropzones(getIndexOfDropzone(getDropzoneById(overId)));
     }
     // If dragging an item from unassignedItemIds to a container in column2
     else if (activeList === 'unassignedItemIds' && isDropzoneGroup(overId)) {
@@ -365,6 +367,8 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       }));
 
       dropzoneRefs.current[overId]?.focus();
+
+      setCurrentTabIndexDropzones(getIndexOfDropzone(getDropzoneById(overId)));
     }
     else if (isDropzoneGroup(active.id)) {
       // Not commissioned yet: Dragging back to unassigned items list from dropzoneGroups
