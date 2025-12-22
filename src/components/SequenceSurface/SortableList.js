@@ -309,6 +309,8 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
     // If dragging a container to reorder among containers
     if (isDropzoneGroup(active.id) && isDropzoneGroup(overId)) {
+      console.log('needs fixing');
+
       setDropzoneGroups((prevLists) => {
         const oldIndex = prevLists.findIndex((list) => list.id === active.id);
         const newIndex = prevLists.findIndex((list) => list.id === overId);
@@ -680,8 +682,16 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
   // Effects
   useEffect(() => {
-    const assignedItems = dropzoneGroups.flatMap((group) => group.items);
-    setUnassignedItemIds(Object.keys(statements).filter((id) => !assignedItems.includes(id)));
+    const assignedItems = new Set(dropzoneGroups.flatMap((group) => group.items));
+
+    setUnassignedItemIds((prev) => {
+      const kept = prev.filter((id) => !assignedItems.has(id));
+      const missing = Object.keys(statements).filter(
+        (id) => !assignedItems.has(id) && !kept.includes(id)
+      );
+
+      return [...kept, ...missing];
+    });
   }, [dropzoneGroups, statements]);
 
   // Keep currentTabIndexElements within bounds when the list size changes
