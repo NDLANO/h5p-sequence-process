@@ -218,6 +218,45 @@
           "default": "Arrastrar"
         },
         {
+          "label": "Dropzones list label for screenreaders",
+          "default": "Dropzones"
+        },
+        {
+          "label": "Dropzones list description for screenreaders",
+          "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available."
+        },
+        {
+          "label": "'Dropzone' label for screenreaders",
+          "default": "Dropzone"
+        },
+        {
+          "label": "'Statement' label for screenreaders",
+          "default": "Statement"
+        },
+        {
+          "label": "Message read by screenreaders when dragging starts",
+          "description": "@draggable is a placeholder and will be replaced with the respective value.",
+          "default": "Started dragging @draggable"
+        },
+        {
+          "label": "Message read by screenreaders when dragging a statement over a target",
+          "description": "@target is a placeholder and will be replaced with the respective value.",
+          "default": "Moving over @target"
+        },
+        {
+          "label": "Message read by screenreaders when dragging ends",
+          "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
+          "default": "Dropped @draggable on @target"
+        },
+        {
+          "label": "Message read by screenreaders when dragging is cancelled",
+          "default": "Dragging cancelled"
+        },
+        {
+          "label": "Label for unknown elements for screenreaders",
+          "default": "Unknown element"
+        },
+        {
           "label": "Etiqueta de 'Área de colocación' para lectores de pantalla",
           "description": "Las variables disponibles son :index",
           "default": "Área de colocación #:index"
@@ -231,16 +270,6 @@
           "label": "Etiqueta \"Elemento arrastrable\" para lectores de pantalla",
           "description": "Las variables disponibles son :statement",
           "default": "Elemento arrastrable: :statement"
-        },
-        {
-          "label": "Etiqueta de 'Área de colocación' para lectores de pantalla",
-          "description": "Las variables disponibles son :index",
-          "default": "Área de colocación #:index"
-        },
-        {
-          "label": "Etiqueta de 'Área de colocación con valor' para lectores de pantalla",
-          "description": "Las variables disponibles son :index y :statement",
-          "default": "Área de colocación #:index con valor: :statement"
         },
         {
           "label": "List of unassigned statements label for screenreaders",

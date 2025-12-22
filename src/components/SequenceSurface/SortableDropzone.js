@@ -67,10 +67,11 @@ const SortableDropZone = forwardRef((
       {...attributes}
       {...listeners}
       tabIndex={isTabbable ? '0' : '-1'}
-      aria-selected={selectedState} // Does this make sense?
+      aria-describedby={`${id}-description`}
       onFocus={handleFocus}
       onBlur={() => setSelectedState(false)}
-      role='option'
+      role='listitem'
+      aria-label={context.translate('dropzone')}
     >
       {isPrioritizeable && (
         <PriorityNumber

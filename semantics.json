@@ -385,6 +385,63 @@
         "default": "Drag"
       },
       {
+        "name": "dropzonesList",
+        "type": "text",
+        "label": "Dropzones list label for screenreaders",
+        "default": "Dropzones"
+      },
+      {
+        "name": "dropzonesListDescription",
+        "type": "text",
+        "label": "Dropzones list description for screenreaders",
+        "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available."
+      },
+      {
+        "name": "dropzone",
+        "type": "text",
+        "label": "'Dropzone' label for screenreaders",
+        "default": "Dropzone"
+      },
+      {
+        "name": "statement",
+        "type": "text",
+        "label": "'Statement' label for screenreaders",
+        "default": "Statement"
+      },
+      {
+        "name": "dragStartMessage",
+        "type": "text",
+        "label": "Message read by screenreaders when dragging starts",
+        "description": "@draggable is a placeholder and will be replaced with the respective value.",
+        "default": "Started dragging @draggable"
+      },
+      {
+        "name": "dragOverMessage",
+        "type": "text",
+        "label": "Message read by screenreaders when dragging a statement over a target",
+        "description": "@target is a placeholder and will be replaced with the respective value.",
+        "default": "Moving over @target"
+      },
+      {
+        "name": "dragEndMessage",
+        "type": "text",
+        "label": "Message read by screenreaders when dragging ends",
+        "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
+        "default": "Dropped @draggable on @target"
+      },
+      {
+        "name": "dragCancelMessage",
+        "type": "text",
+        "label": "Message read by screenreaders when dragging is cancelled",
+        "default": "Dragging cancelled"
+      },
+      {
+        "name": "unknownElement",
+        "type": "text",
+        "label": "Label for unknown elements for screenreaders",
+        "default": "Unknown element"
+      },
+      {
         "name": "droparea",
         "type": "text",
         "label": "'Droparea' label for screenreaders",
@@ -404,20 +461,6 @@
         "label": "'Draggable item' label for screenreaders",
         "description": "Available variables are :statement",
         "default": "Draggable item: :statement"
-      },
-      {
-        "name": "dropzone",
-        "type": "text",
-        "label": "'Dropzone' label for screenreaders",
-        "description": "Available variables are :index",
-        "default": "Dropzone #:index"
-      },
-      {
-        "name": "dropzoneWithValue",
-        "type": "text",
-        "label": "'Dropzone with value' label for screenreaders",
-        "description": "Available variables are :index and :statement",
-        "default": "Dropzone #:index with value: :statement"
       },
       {
         "name": "unassignedStatementsList",

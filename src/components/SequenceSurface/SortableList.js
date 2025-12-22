@@ -122,6 +122,90 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   });
 
   /**
+   * Get a human readable identifier for a statement.
+   * @param {string} id Id of the statement.
+   * @return {string} Human readable identifier.
+   */
+  const getStatementIdentifier = (id) => {
+    return `${context.translate('statement')} ${statements[id]?.content || ''}`;
+  };
+
+  /**
+   * Get dropzone by its Id.
+   * @param {string} id Id of the dropzone.
+   * @returns {object|null} Dropzone object, or null if not found.
+   */
+  const getDropzoneById = (id) => {
+    return dropzoneGroups.find((dz) => dz.id === id);
+  };
+
+  /**
+   * Get index of a dropzone.
+   * @param {object} dropzone Dropzone object.
+   * @returns {number} Index of the dropzone.
+   */
+  const getIndexOfDropzone = (dropzone) => {
+    return dropzoneGroups.findIndex((dz) => dz.id === dropzone.id);
+  };
+
+  /**
+   * Get a human readable identifier for a dropzone (or statement if contained in dropzone).
+   * @param {string} id Id of the dropzone.
+   * @return {string|null} Human readable identifier, or null if not found.
+   */
+  const getDropzoneIdentifier = (id) => {
+    const dropzone = getDropzoneById(id);
+    if (!dropzone) {
+      return null;
+    }
+
+    if (dropzone.items.length) {
+      return getStatementIdentifier(dropzone.items[0]);
+    }
+
+    const dropzoneIndex = getIndexOfDropzone(dropzone);
+    if (typeof dropzoneIndex !== 'number' || dropzoneIndex < 0) {
+      return null;
+    }
+
+    return `${context.translate('dropzone')} ${dropzoneIndex + 1}`;
+  };
+
+  /**
+   * Get a human readable identifier for an element (statement or dropzone).
+   * @param {string} id Id of the element.
+   * @returns {string} Human readable identifier.
+   */
+  const getElementIdentifier = (id) => {
+    let elementIdentifier = getDropzoneIdentifier(id);
+    if (elementIdentifier) {
+      return elementIdentifier;
+    }
+
+    elementIdentifier = getStatementIdentifier(id);
+    if (elementIdentifier) {
+      return elementIdentifier;
+    }
+
+    return context.translate('unknownElement');
+  };
+
+  /**
+   * Build drag and drop messages for screenreaders.
+   * @param {string} messageTemplate Message template with placeholders.
+   * @param {string} overId Id of target element.
+   * @param {string} activeId ID of dragged element.
+   * @returns {string} Formatted message for screenreaders.
+   */
+  const buildDragMessage = (messageTemplate, overId, activeId) => {
+    let message = messageTemplate;
+    message = message.replace('@draggable', getElementIdentifier(activeId));
+    message = message.replace('@target', getElementIdentifier(overId));
+
+    return message;
+  };
+
+  /**
    * Focus the item at the given index in the unassigned items list
    * @param {number} index Index of the item to focus
    * @returns {boolean} True if the item was focused, false if index was out of bounds
@@ -190,6 +274,11 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   const handleDragStart = (event) => {
     const { active } = event;
     setActiveId(active.id);
+  };
+
+  const handleDragCancel = (event) => {
+    setActiveId(null);
+    triggerResize();
   };
 
   const handleDragEnd = (event) => {
@@ -664,24 +753,37 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     triggerResize();
   });
 
+  const descriptionIdSegment = 'description';
+  const dropzonesListId = `${H5P.createUUID()}-dropzones-list`;
+  const dropzonesListDescriptionId = `${dropzonesListId}-${descriptionIdSegment}`;
+
   return (
     <DndContext
       sensors={sensors}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
+      onDragCancel={(handleDragCancel)}
       collisionDetection={closestCenter}
       accessibility={{
-        onDragStart: ({ active }) => `Picked up ${active.id}.`,
-        onDragOver: ({ over }) => `Moving over ${over.id}.`,
+        announcements: {
+          onDragStart: ({ active }) => buildDragMessage(context.translate('dragStartMessage'), null, active.id),
+          onDragOver: ({ active, over }) => buildDragMessage(context.translate('dragOverMessage'), over.id, active.id),
+          onDragEnd: ({ active, over }) => buildDragMessage(context.translate('dragEndMessage'), over.id, active.id),
+          onDragCancel: ({ active }) => buildDragMessage(context.translate('dragCancelMessage'), null, active.id)
+        },
       }}
     >
-      <div className='h5p-sequence-dropzone'>
+      <div className='h5p-sequence-dropzones-list'>
+        <div id={dropzonesListDescriptionId} className={'h5p-sequence-dropzones-list-description'}>
+          {context.translate('dropzonesListDescription')}
+        </div>
         <ul
           className="h5p-sequence-column"
           tabIndex={tabIndexDropzonesList}
-          role={'listbox'}
+          role={'list'}
           aria-label={context.translate('dropzonesList')}
           aria-activedescendant={currentDropzonesAriaDescendant}
+          aria-describedby={dropzonesListDescriptionId}
           onKeyDown={handleKeyDownDropzones}
           onFocus={(event) => {
             const focusOnChild = (

@@ -184,9 +184,17 @@ summary {
   overflow: hidden;
 }
 
-.h5p-sequence-dropzone {
+.h5p-sequence-dropzones-list {
   @extend .h5p-sequence-columns;
   border-radius: $borderRadius;
+
+  .h5p-sequence-dropzones-list-description {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+  }
 }
 
 .h5p-overlay-item {
