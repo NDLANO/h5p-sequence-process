@@ -64,6 +64,8 @@ H5P.SequenceProcess = (function () {
       dropzonesListDescription: 'Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available.',
       dropzone: 'Dropzone',
       statement: 'Statement',
+      dropzoneWithContent: 'Dropzone with @content',
+      unknownElement: 'Unknown element',
       dragStartMessage: 'Started dragging @draggable',
       dragOverMessage: 'Moving over @target',
       dragEndMessage: 'Dropped @draggable on @target',

@@ -409,6 +409,13 @@
         "default": "Statement"
       },
       {
+        "name": "dropzoneWithContent",
+        "type": "text",
+        "label": "'Dropzone with content' label for screenreaders",
+        "description": "@content is a placeholder and will be replaced with the respective value.",
+        "default": "Dropzone with @content"
+      },
+      {
         "name": "dragStartMessage",
         "type": "text",
         "label": "Message read by screenreaders when dragging starts",

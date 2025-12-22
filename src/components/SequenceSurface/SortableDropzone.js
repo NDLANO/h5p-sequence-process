@@ -26,6 +26,7 @@ const SortableDropZone = forwardRef((
     isTabbable = false,
     onReceivedFocus = () => {},
     isDragged = false,
+    getElementIdentifier = () => '',
   },
   ref
 ) => {
@@ -56,6 +57,10 @@ const SortableDropZone = forwardRef((
     }
   }));
 
+  const ariaLabel = (items.length) === 0 ?
+    context.translate('dropzone') :
+    context.translate('dropzoneWithContent').replace('@content', getElementIdentifier(items[0]));
+
   return (
     <li
       ref={(node) => {
@@ -71,7 +76,7 @@ const SortableDropZone = forwardRef((
       onFocus={handleFocus}
       onBlur={() => setSelectedState(false)}
       role='listitem'
-      aria-label={context.translate('dropzone')}
+      aria-label={ariaLabel}
     >
       {isPrioritizeable && (
         <PriorityNumber
@@ -153,6 +158,7 @@ SortableDropZone.propTypes = {
   isTabbable: PropTypes.bool,
   onReceivedFocus: PropTypes.func,
   isDragged: PropTypes.bool,
+  getElementIdentifier: PropTypes.func.isRequired,
 };
 
 export default SortableDropZone;

@@ -159,10 +159,6 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       return null;
     }
 
-    if (dropzone.items.length) {
-      return getStatementIdentifier(dropzone.items[0]);
-    }
-
     const dropzoneIndex = getIndexOfDropzone(dropzone);
     if (typeof dropzoneIndex !== 'number' || dropzoneIndex < 0) {
       return null;
@@ -172,11 +168,25 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   };
 
   /**
+   * Get the id of a statement contained in a dropzone.
+   * @param {string} dropzoneId Id of the dropzone.
+   * @returns {string|null} Id of the statement, or null if not found.
+   */
+  const getStatementIdFromDropzoneId = (dropzoneId) => {
+    const dropzone = getDropzoneById(dropzoneId);
+    if (!dropzone || dropzone.items.length === 0) {
+      return null;
+    }
+
+    return dropzone.items[0];
+  };
+
+  /**
    * Get a human readable identifier for an element (statement or dropzone).
    * @param {string} id Id of the element.
    * @returns {string} Human readable identifier.
    */
-  const getElementIdentifier = (id) => {
+  const getElementIdentifier = useCallback((id) => {
     let elementIdentifier = getDropzoneIdentifier(id);
     if (elementIdentifier) {
       return elementIdentifier;
@@ -188,7 +198,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }
 
     return context.translate('unknownElement');
-  };
+  }, [context, getDropzoneIdentifier, getStatementIdentifier]);
 
   /**
    * Build drag and drop messages for screenreaders.
@@ -197,10 +207,14 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
    * @param {string} activeId ID of dragged element.
    * @returns {string} Formatted message for screenreaders.
    */
-  const buildDragMessage = (messageTemplate, overId, activeId) => {
+  const buildDragMessage = (messageTemplate, elementOverId, elementActiveId) => {
     let message = messageTemplate;
-    message = message.replace('@draggable', getElementIdentifier(activeId));
-    message = message.replace('@target', getElementIdentifier(overId));
+    if (elementActiveId) {
+      elementActiveId = getStatementIdFromDropzoneId(elementActiveId) || elementActiveId;
+    }
+
+    message = message.replace('@draggable', getElementIdentifier(elementActiveId));
+    message = message.replace('@target', getElementIdentifier(elementOverId));
 
     return message;
   };
@@ -803,6 +817,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
         >
           <SortableContext items={dropzoneGroups.map((list) => list.id)} strategy={verticalListSortingStrategy}>
             {dropzoneGroups.map((list, index) => (
+              // TODO: Why would the Dropzones be sortable? Weird implementation choice.
               <SortableDropZone
                 key={list.id}
                 index={index}
@@ -828,6 +843,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                     delete dropzoneRefs.current[list.id];
                   }
                 }}
+                getElementIdentifier={getElementIdentifier}
               />
             ))}
           </SortableContext>

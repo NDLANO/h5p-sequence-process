@@ -234,6 +234,11 @@
           "default": "Statement"
         },
         {
+          "label": "'Dropzone with content' label for screenreaders",
+          "description": "@content is a placeholder and will be replaced with the respective value.",
+          "default": "Dropzone with @content"
+        },
+        {
           "label": "Message read by screenreaders when dragging starts",
           "description": "@draggable is a placeholder and will be replaced with the respective value.",
           "default": "Started dragging @draggable"
