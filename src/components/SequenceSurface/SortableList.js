@@ -309,8 +309,6 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
     // If dragging a container to reorder among containers
     if (isDropzoneGroup(active.id) && isDropzoneGroup(overId)) {
-      console.log('needs fixing');
-
       setDropzoneGroups((prevLists) => {
         const oldIndex = prevLists.findIndex((list) => list.id === active.id);
         const newIndex = prevLists.findIndex((list) => list.id === overId);
