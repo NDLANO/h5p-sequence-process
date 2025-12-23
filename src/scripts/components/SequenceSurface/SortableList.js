@@ -263,18 +263,6 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     return list ? list.id : null;
   };
 
-  const triggerResize = () => {
-    setTimeout(() => {
-      if (H5P && H5P.instances) {
-        H5P.instances.forEach((instance) => {
-          if (instance.trigger) {
-            instance.trigger('resize');
-          }
-        });
-      }
-    }, 0);
-  };
-
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, {
@@ -292,7 +280,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
   const handleDragCancel = (event) => {
     setActiveId(null);
-    triggerResize();
+    context.trigger('resize');
   };
 
   const handleDragEnd = (event) => {
@@ -300,7 +288,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
     if (!over) {
       setActiveId(null);
-      triggerResize();
+      context.trigger('resize');
       return;
     }
 
@@ -405,7 +393,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }
 
     setActiveId(null);
-    triggerResize();
+    context.trigger('resize');
   };
 
   const handleAddStatement = () => {
@@ -424,7 +412,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }));
     setUnassignedItemIds((prevList) => [...prevList, newId]);
     setAutoEditStatementId(newId);
-    triggerResize();
+    context.trigger('resize');
   };
 
   const handleRemove = (id) => {
@@ -440,7 +428,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     });
 
     setUnassignedItemIds((prev) => prev.filter((itemId) => itemId !== id));
-    triggerResize();
+    context.trigger('resize');
   };
 
   const handleStatementChange = (id, newContent) => {
@@ -776,7 +764,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     // Clear refs and trigger resize
     dropzoneRefs.current = {};
     itemRefs.current = {};
-    triggerResize();
+    context.trigger('resize');
   });
 
   const descriptionIdSegment = 'description';
