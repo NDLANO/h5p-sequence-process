@@ -41,11 +41,11 @@ function DeleteStatement(props) {
       className={'h5p-sequence-delete-button'}
       tabIndex={isTabbable ? '0' : '-1'}
       type={'button'}
+      aria-label={context.translate('close')}
     >
       <span
         className={'h5p-ri hri-times'}
       />
-      <span className="h5p-sequence-delete-text">{context.translate('close')}</span>
     </button>
   );
 }

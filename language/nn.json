@@ -199,6 +199,10 @@
         {
           "label": "Overskrift før utlisting av \"Tilgjengelige etiketter\"",
           "default": "Tilgjengelige etiketter"
+        },
+        {
+          "label": "Default label for new statement",
+          "default": "New statement"
         }
       ]
     },
@@ -214,16 +218,24 @@
           "default": "Lukk"
         },
         {
-          "label": "Brukt istedenfor 'Dra' ikonet",
-          "default": "Dra"
-        },
-        {
           "label": "Dropzones list label for screenreaders",
           "default": "Dropzones"
         },
         {
           "label": "Dropzones list description for screenreaders",
-          "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available."
+          "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+        },
+        {
+          "label": "Statements list description for screenreaders",
+          "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+        },
+        {
+          "label": "Statements list description for screenreaders when adding own statements is allowed",
+          "default": "Use the tab key to jump to editing or deletion of the statement."
+        },
+        {
+          "label": "'Sortable item' roledescription for screenreaders",
+          "default": "Sortable item"
         },
         {
           "label": "'Dropzone' label for screenreaders",
@@ -260,21 +272,6 @@
         {
           "label": "Label for unknown elements for screenreaders",
           "default": "Unknown element"
-        },
-        {
-          "label": "'Slippområde' etikett for skjermleser",
-          "description": "Tilgjengelige variabler er :index",
-          "default": "Slippområde #:index"
-        },
-        {
-          "label": "'Empty droparea' etikett for skjermleser",
-          "description": "Tilgjengelige variabler er :index",
-          "default": "Tomt slippområde #:index"
-        },
-        {
-          "label": "'Flyttbar element' etikett for skjermleser",
-          "description": "Tilgjengelige variabler er :statement",
-          "default": "Flyttbar element: :statement"
         },
         {
           "label": "List of unassigned statements label for screenreaders",

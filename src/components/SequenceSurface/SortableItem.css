@@ -4,15 +4,11 @@
   margin: 0.8rem auto;
   position: relative;
 
-  .h5p-sequence-draggable-element,
-  .h5p-sequence-draggable-element > div {
+  .h5p-sequence-draggable-element {
     flex-grow: 1;
-    display: flex;
-  }
 
-  &.dragging {
-    .h5p-sequence-draggable-element {
-      visibility: hidden;
+    .h5p-sequence-statement {
+      display: flex;
     }
   }
 

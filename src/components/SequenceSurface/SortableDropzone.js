@@ -91,7 +91,6 @@ const SortableDropZone = forwardRef((
                 <div className='h5p-sequence-statement-sequenced'>
                   <div className='h5p-sequence-drag-element'>
                     <span className="h5p-ri hri-move" data-no-dnd="true" />
-                    <span className={'visible-hidden'}>{context.translate('drag')}</span>
                   </div>
                   <p className="h5p-sequence-element">
                     {statements[itemId]?.content || itemId}

@@ -782,6 +782,15 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   const descriptionIdSegment = 'description';
   const dropzonesListId = `${H5P.createUUID()}-dropzones-list`;
   const dropzonesListDescriptionId = `${dropzonesListId}-${descriptionIdSegment}`;
+  const statementsListId = `${H5P.createUUID()}-statements-list`;
+  const statementsListDescriptionId = `${statementsListId}-${descriptionIdSegment}`;
+
+  let dropzonesListDescription = context.translate('dropzonesListDescription');
+  let statementsListDescription = context.translate('statementsListDescription');
+  if (addStatementButton) {
+    dropzonesListDescription = `${dropzonesListDescription} ${context.translate('listsDescriptionEditable')}`;
+    statementsListDescription = `${statementsListDescription} ${context.translate('listsDescriptionEditable')}`;
+  }
 
   return (
     <DndContext
@@ -801,7 +810,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     >
       <div className='h5p-sequence-dropzones-list'>
         <div id={dropzonesListDescriptionId} className={'h5p-sequence-dropzones-list-description'}>
-          {context.translate('dropzonesListDescription')}
+          {dropzonesListDescription}
         </div>
         <ul
           className="h5p-sequence-column"
@@ -864,16 +873,20 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
 
       {unassignedItemIds.length > 0 && (
         <div className='h5p-sequence-select-list'>
+          <div id={statementsListDescriptionId} className={'h5p-sequence-statements-list-description'}>
+            {statementsListDescription}
+          </div>
           <ul
             className={`h5p-sequence-column ${stackedMode ? 'stacked-mode' : ''}`}
             style={stackedMode ? {
               height: computeStackedListHeight() + 'px'
             } : {}}
             onKeyDown={handleKeyDownElements}
-            role={'listbox'}
+            role={'list'}
             tabIndex={tabIndexElementsList}
             aria-label={context.translate('unassignedStatementsList')}
             aria-activedescendant={currentElementsAriaDescendant}
+            aria-describedby={statementsListDescriptionId}
             onFocus={(event) => {
               const focusOnChild = (
                 event.target !== event.currentTarget &&

@@ -6,17 +6,10 @@
 
     .h5p-sequence-draggable-container {
       top: var(--top);
-
-      .h5p-sequence-draggable-element {
-        transform: var(--transform);
-        transition: var(--transition);
-        width: 100%;
-        z-index: var(--zIndex);
-
-        &:not(:first-child) {
-          left: 0.5rem;
-        }
-      }
+      transform: var(--transform);
+      transition: var(--transition);
+      width: 100%;
+      z-index: var(--zIndex);
     }
   }
 

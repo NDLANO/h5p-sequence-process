@@ -261,8 +261,6 @@ summary {
   &:hover,
   &:active {
     .h5p-sequence-delete-button {
-      // position: absolute;
-      // z-index: 100;
       opacity: 1;
     }
   }
@@ -290,27 +288,6 @@ summary {
     opacity: 0;
     cursor: pointer;
 
-    .h5p-sequence-delete-text {
-      position: absolute;
-      left: -10000px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-
-    &:focus {
-      opacity: 1;
-
-      .h5p-sequence-delete-text {
-        position: absolute;
-        width: auto;
-        height: auto;
-        overflow: visible;
-        margin-left: 5px;
-        color: #e03c34;
-      }
-    }
-
     .h5p-ri {
       border: 2px solid #e03c34;
       border-radius: 50%;
@@ -328,6 +305,10 @@ summary {
       color: #e03c34;
       z-index: 1;
       opacity: inherit;
+    }
+
+    &:focus {
+      opacity: 1;
     }
   }
 
@@ -544,6 +525,14 @@ summary {
 .h5p-sequence-select-list {
   @extend .h5p-sequence-columns;
   border: 0;
+
+  .h5p-sequence-statements-list-description {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+  }
 }
 
 .h5p-sequence-summary {

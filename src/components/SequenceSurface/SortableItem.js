@@ -52,6 +52,7 @@ const SortableItem = forwardRef((
   const style = {
     '--transform': CSS.Transform.toString(transform),
     '--transition': transition,
+    '--top': stackedMode ? `-${heightOfPreviousSiblings}px` : 'auto',
     '--zIndex': (stackedMode ? totalItems - stackIndex : 1),
   };
 
@@ -65,33 +66,30 @@ const SortableItem = forwardRef((
   }, []);
 
   return (
-    <div
-      className={`h5p-sequence-draggable-container ${isDragged ? 'dragging' : ''}`}
-      style={{ '--top': stackedMode ? `-${heightOfPreviousSiblings}px` : 'auto' }}
+    <li
+      {...attributes}
+      {...listeners}
+      className={`h5p-sequence-draggable-container${isDragged ? ' dragging' : ''}`}
+      style={style}
+      role='listitem'
+      id={itemId}
+      ref={(node) => {
+        setNodeRef(node);
+        draggableElementRef.current = node;
+      }}
+      aria-label={`${statement}`}
+      aria-describedby={`${statement}`}
+      aria-selected={selectedState}
+      aria-roledescription={context.translate('sortableItem')}
+      tabIndex={isTabbable ? 0 : -1}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
     >
-      <li
-        id={itemId}
-        role="option"
-        ref={(node) => {
-          setNodeRef(node);
-          draggableElementRef.current = node;
-        }}
-        className="h5p-sequence-draggable-element"
-        style={style}
-        {...attributes}
-        {...listeners}
-        tabIndex={isTabbable ? 0 : -1}
-        aria-label={`${statement}`}
-        aria-describedby={`${statement}`}
-        aria-selected={selectedState}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      >
+      <div className="h5p-sequence-draggable-element">
         <div className="h5p-sequence-statement">
           <div className="h5p-sequence-statement-remaining">
             <div className="h5p-sequence-drag-element">
               <span className="h5p-ri hri-move" data-no-dnd="true" />
-              <span className={'visible-hidden'}>{context.translate('drag')}</span>
             </div>
             {/* Conditionally render the statement based on enableEditing */}
             {enableEditing ? (
@@ -111,8 +109,8 @@ const SortableItem = forwardRef((
             {allowDelete && <DeleteStatement isTabbable={isTabbable} onClick={() => onStatementDelete(itemId)} />}
           </div>
         </div>
-      </li>
-    </div>
+      </div>
+    </li>
   );
 });
 

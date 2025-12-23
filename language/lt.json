@@ -199,6 +199,10 @@
         {
           "label": "Header for listing of labels in the report",
           "default": "Available labels"
+        },
+        {
+          "label": "Default label for new statement",
+          "default": "New statement"
         }
       ]
     },
@@ -214,16 +218,24 @@
           "default": "Uždaryti"
         },
         {
-          "label": "Used instead of 'Drag'-icon",
-          "default": "Drag"
-        },
-        {
           "label": "Dropzones list label for screenreaders",
           "default": "Dropzones"
         },
         {
           "label": "Dropzones list description for screenreaders",
-          "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available."
+          "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+        },
+        {
+          "label": "Statements list description for screenreaders",
+          "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+        },
+        {
+          "label": "Statements list description for screenreaders when adding own statements is allowed",
+          "default": "Use the tab key to jump to editing or deletion of the statement."
+        },
+        {
+          "label": "'Sortable item' roledescription for screenreaders",
+          "default": "Sortable item"
         },
         {
           "label": "'Dropzone' label for screenreaders",
@@ -260,21 +272,6 @@
         {
           "label": "Label for unknown elements for screenreaders",
           "default": "Unknown element"
-        },
-        {
-          "label": "'Droparea' label for screenreaders",
-          "description": "Available variables are :index",
-          "default": "Droparea #:index"
-        },
-        {
-          "label": "'Empty droparea' label for screenreaders",
-          "description": "Available variables are :index",
-          "default": "Empty droparea #:index"
-        },
-        {
-          "label": "'Draggable item' label for screenreaders",
-          "description": "Available variables are :statement",
-          "default": "Draggable item: :statement"
         },
         {
           "label": "List of unassigned statements label for screenreaders",

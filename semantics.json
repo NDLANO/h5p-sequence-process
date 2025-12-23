@@ -356,6 +356,12 @@
         "type": "text",
         "label": "Header for listing of labels in the report",
         "default": "Available labels"
+      },
+      {
+        "name": "newStatement",
+        "type": "text",
+        "label": "Default label for new statement",
+        "default": "New statement"
       }
     ]
   },
@@ -379,12 +385,6 @@
         "default": "Close"
       },
       {
-        "name": "drag",
-        "type": "text",
-        "label": "Used instead of 'Drag'-icon",
-        "default": "Drag"
-      },
-      {
         "name": "dropzonesList",
         "type": "text",
         "label": "Dropzones list label for screenreaders",
@@ -394,7 +394,25 @@
         "name": "dropzonesListDescription",
         "type": "text",
         "label": "Dropzones list description for screenreaders",
-        "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available."
+        "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+      },
+      {
+        "name": "statementsListDescription",
+        "type": "text",
+        "label": "Statements list description for screenreaders",
+        "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+      },
+      {
+        "name": "listsDescriptionEditable",
+        "type": "text",
+        "label": "Statements list description for screenreaders when adding own statements is allowed",
+        "default": "Use the tab key to jump to editing or deletion of the statement."
+      },
+      {
+        "name": "sortableItem",
+        "type": "text",
+        "label": "'Sortable item' roledescription for screenreaders",
+        "default": "Sortable item"
       },
       {
         "name": "dropzone",
@@ -447,27 +465,6 @@
         "type": "text",
         "label": "Label for unknown elements for screenreaders",
         "default": "Unknown element"
-      },
-      {
-        "name": "droparea",
-        "type": "text",
-        "label": "'Droparea' label for screenreaders",
-        "description": "Available variables are :index",
-        "default": "Droparea #:index"
-      },
-      {
-        "name": "emptydroparea",
-        "type": "text",
-        "label": "'Empty droparea' label for screenreaders",
-        "description": "Available variables are :index",
-        "default": "Empty droparea #:index"
-      },
-      {
-        "name": "draggableItem",
-        "type": "text",
-        "label": "'Draggable item' label for screenreaders",
-        "description": "Available variables are :statement",
-        "default": "Draggable item: :statement"
       },
       {
         "name": "unassignedStatementsList",

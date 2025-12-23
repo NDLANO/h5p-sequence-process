@@ -13,7 +13,10 @@ function SequenceSurface() {
 
   return (
     <div>
-      <div className="h5p-sequence-surface">
+      <div
+        className="h5p-sequence-surface"
+        role="application" // Required to bring NDVA into focus mode, otherwise keyboard navigation does not work
+      >
         <SortableList
           params={params}
           collectExportValues={collectExportValues}
