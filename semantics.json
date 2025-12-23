@@ -356,12 +356,6 @@
         "type": "text",
         "label": "Header for listing of labels in the report",
         "default": "Available labels"
-      },
-      {
-        "name": "newStatement",
-        "type": "text",
-        "label": "Default label for new statement",
-        "default": "New statement"
       }
     ]
   },

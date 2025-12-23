@@ -199,10 +199,6 @@
         {
           "label": "ანგარიშში წარწერების ჩამონათვალის სათაური",
           "default": "ხელმისაწვდომი წარწერები"
-        },
-        {
-          "label": "Default label for new statement",
-          "default": "New statement"
         }
       ]
     },

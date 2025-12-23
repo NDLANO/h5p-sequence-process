@@ -199,10 +199,6 @@
         {
           "label": "Encabezado para la lista de etiquetas en el reporte",
           "default": "Etiquetas disponibles"
-        },
-        {
-          "label": "Default label for new statement",
-          "default": "New statement"
         }
       ]
     },

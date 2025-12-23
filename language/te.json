@@ -199,10 +199,6 @@
         {
           "label": "Header for listing of labels in the report",
           "default": "Available labels"
-        },
-        {
-          "label": "Default label for new statement",
-          "default": "New statement"
         }
       ]
     },

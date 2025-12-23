@@ -199,10 +199,6 @@
         {
           "label": "Cabeceira para a lista de etiquetas no informe",
           "default": "Etiquetas dispoñibles"
-        },
-        {
-          "label": "Default label for new statement",
-          "default": "New statement"
         }
       ]
     },
