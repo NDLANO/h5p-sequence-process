@@ -2,22 +2,23 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Main from '@components/Main.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
-import { breakpoints, getRatio, sanitizeParams } from '@services/utils.js';
+import { sanitizeParams } from '@services/utils.js';
 import { getSemanticsDefaults } from '@services/h5p-util.js';
 
 export default class SequenceProcess extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
     super();
 
+    this.params = sanitizeParams(params);
+    this.contentId = contentId;
+
     this.language = extras.metadata?.defaultLanguage || 'en';
 
-    let container;
-    this.params = sanitizeParams(params);
+    this.container;
     this.behaviour = this.params.behaviour || {};
     this.resetStack = [];
     this.collectExportValuesStack = [];
     this.wrapper = null;
-    this.id = contentId;
     this.activityStartTime = new Date();
     this.activeBreakpoints = [];
     this.currentRatio = null;
@@ -32,7 +33,30 @@ export default class SequenceProcess extends H5P.EventDispatcher {
       ...(this.params.resourceReport || {})
     };
 
-    const createElements = () => {
+    // Required because these functions are uses without context
+    this.getRect = this.getRect.bind(this);
+    this.registerReset = this.registerReset.bind(this);
+    this.collectExportValues = this.collectExportValues.bind(this);
+    this.translate = this.translate.bind(this);
+  }
+
+  collectExportValues(index, callback) {
+    if (typeof index !== 'undefined') {
+      this.collectExportValuesStack.push({ key: index, callback: callback });
+    }
+    else {
+      const exportValues = {};
+      this.collectExportValuesStack.forEach(({ key, callback }) => exportValues[key] = callback());
+      return exportValues;
+    }
+  }
+
+  registerReset(callback) {
+    this.resetStack.push(callback);
+  }
+
+  attach($container) {
+    if (!this.wrapper) {
       const wrapper = document.createElement('div');
       wrapper.classList.add('h5p-sequence-wrapper');
       this.wrapper = wrapper;
@@ -42,96 +66,45 @@ export default class SequenceProcess extends H5P.EventDispatcher {
         <SequenceProcessContext.Provider value={this}>
           <Main
             {...this.params}
-            id={contentId}
+            id={this.contentId}
             language={this.language}
             collectExportValues={this.collectExportValues}
           />
         </SequenceProcessContext.Provider>
       );
-    };
+    }
 
-    this.collectExportValues = (index, callback) => {
-      if (typeof index !== 'undefined') {
-        this.collectExportValuesStack.push({ key: index, callback: callback });
-      }
-      else {
-        const exportValues = {};
-        this.collectExportValuesStack.forEach(({ key, callback }) => exportValues[key] = callback());
-        return exportValues;
-      }
-    };
+    // Append elements to DOM
+    this.container = $container[0];
+    this.container.appendChild(this.wrapper);
+    this.container.classList.add('h5p-sequence-process');
+  }
 
-    this.registerReset = (callback) => this.resetStack.push(callback);
+  getRect() {
+    return this.wrapper.getBoundingClientRect();
+  }
 
-    this.attach = ($container) => {
-      if (!this.wrapper) {
-        createElements();
-      }
+  reset() {
+    this.resetStack.forEach((callback) => callback());
+  }
 
-      // Append elements to DOM
-      $container[0].appendChild(this.wrapper);
-      $container[0].classList.add('h5p-sequence-process');
-      container = $container[0];
-    };
+  /**
+   * Help fetch the correct translations.
+   * @param {string} key Key of the translation.
+   * @param {object} vars Variables to replace in the translation.
+   * @returns {string} The translated string.
+   */
+  translate(key, vars) {
+    const template = this.translations?.[key] ?? key;
+    if (!vars || typeof vars !== 'object') {
+      return template;
+    }
 
-    this.getRect = () => {
-      return this.wrapper.getBoundingClientRect();
-    };
+    let text = template;
+    for (const [placeholder, value] of Object.entries(vars)) {
+      text = text.split(placeholder).join(value ?? '');
+    }
 
-    this.reset = () => {
-      this.resetStack.forEach((callback) => callback());
-    };
-
-    /**
-     * Set css classes based on ratio available to the container
-     *
-     * @param wrapper
-     * @param ratio
-     */
-    this.addBreakPoints = (wrapper, ratio = getRatio(container)) => {
-      if (ratio === this.currentRatio) {
-        return;
-      }
-      this.activeBreakpoints = [];
-      breakpoints().forEach((item) => {
-        if (item.shouldAdd(ratio)) {
-          wrapper.classList.add(item.className);
-          this.activeBreakpoints.push(item.className);
-        }
-        else {
-          wrapper.classList.remove(item.className);
-        }
-      });
-      this.currentRatio = ratio;
-    };
-
-    this.resize = () => {
-      if (!this.wrapper) {
-        return;
-      }
-      this.addBreakPoints(this.wrapper);
-    };
-
-    /**
-     * Help fetch the correct translations.
-     *
-     * @params key
-     * @params vars
-     * @return {string}
-     */
-    this.translate = (key, vars) => {
-      let translation = this.translations[key];
-      if (vars !== undefined && vars !== null) {
-        translation = Object
-          .keys(vars)
-          .map((key) => translation.replace(key, vars[key]))
-          .toString();
-      }
-      return translation;
-    };
-
-    this.getRect = this.getRect.bind(this);
-    this.resize = this.resize.bind(this);
-    this.on('resize', this.resize);
+    return text;
   }
 }
