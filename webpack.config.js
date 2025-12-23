@@ -26,6 +26,10 @@ export default {
     })
   ],
   resolve: {
+    alias: {
+      '@root': path.resolve(__dirname, './'),
+      '@services': path.resolve(__dirname, './src/services'),
+    },
     modules: [
       path.resolve('./src'),
       path.resolve('./node_modules')

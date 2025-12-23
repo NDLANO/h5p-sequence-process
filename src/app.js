@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import Main from './components/Main.js';
 import { SequenceProcessContext } from './context/SequenceProcessContext.js';
 import { breakpoints, getRatio, sanitizeParams } from './components/utils.js';
+import { getSemanticsDefaults } from '@services/h5p-util.js';
 
 // Load library
 H5P.SequenceProcess = (function () {
@@ -11,9 +12,7 @@ H5P.SequenceProcess = (function () {
     // Initialize event inheritance
     H5P.EventDispatcher.call(this);
 
-    const {
-      language = 'en'
-    } = extras;
+    this.language = extras.metadata?.defaultLanguage || 'en';
 
     let container;
     this.params = sanitizeParams(params);
@@ -22,59 +21,19 @@ H5P.SequenceProcess = (function () {
     this.collectExportValuesStack = [];
     this.wrapper = null;
     this.id = contentId;
-    this.language = language;
     this.activityStartTime = new Date();
     this.activeBreakpoints = [];
     this.currentRatio = null;
 
-    this.translations = Object.assign({}, {
-      summary: 'Summary',
-      typeYourReasonsForSuchAnswers: 'Elaborate on your decision',
-      resources: 'Resources',
-      save: 'Save',
-      selectAllLabelsConnectedToThisItem: 'Select all labels connected to this item',
-      restart: 'Restart',
-      createDocument: 'Create document',
-      labelSummaryComment: 'Summary comment',
-      labelComment: 'Comment',
-      noLabels: 'No labels',
-      labelLabels: 'Labels',
-      labelAvailableLabels: 'Available labels',
-      labelStatement: 'Statement',
-      labelNoComment: 'No comment',
-      labelResources: 'Resources',
-      labelNoLabels: 'No labels',
-      selectAll: 'Select all',
-      export: 'Export',
-      add: 'Add alternative',
-      ifYouContinueAllYourChangesWillBeLost: 'All the changes will be lost. Are you sure you wish to continue?',
-      areYouSure: 'Are you sure?',
-      close: 'Close',
-      addComment: 'Add comment',
-      addLabel: 'Add label',
-      feedback: 'Feedback',
-      submitText: 'Submit',
-      submitConfirmedText: 'Saved!',
-      confirm: 'Confirm',
-      continue: 'Continue',
-      cancel: 'Cancel',
-      dropzonesList: 'Dropzones',
-      // eslint-disable-next-line @stylistic/js/max-len
-      dropzonesListDescription: 'Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up.',
-      // eslint-disable-next-line @stylistic/js/max-len
-      statementsListDescription: 'Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up.',
-      listsDescriptionEditable: 'Use the tab key to jump to editing or deletion of the statement.',
-      dropzone: 'Dropzone',
-      statement: 'Statement',
-      dropzoneWithContent: 'Dropzone with @content',
-      unknownElement: 'Unknown element',
-      dragStartMessage: 'Started dragging @draggable',
-      dragOverMessage: 'Moving over @target',
-      dragEndMessage: 'Dropped @draggable on @target',
-      unassignedStatementsList: 'Unassigned statements',
-      giveABriefSummary: 'Give a brief summary in your own words',
-      newStatement: 'New statement',
-    }, this.params.l10n, this.params.resourceReport, this.params.accessibility);
+    const semanticsDefaults = getSemanticsDefaults();
+    this.translations = {
+      ...(semanticsDefaults.accessibility || {}),
+      ...(semanticsDefaults.l10n || {}),
+      ...(semanticsDefaults.resourceReport || {}),
+      ...(this.params.accessibility || {}),
+      ...(this.params.l10n || {}),
+      ...(this.params.resourceReport || {})
+    };
 
     const createElements = () => {
       const wrapper = document.createElement('div');
@@ -87,7 +46,7 @@ H5P.SequenceProcess = (function () {
           <Main
             {...this.params}
             id={contentId}
-            language={language}
+            language={this.language}
             collectExportValues={this.collectExportValues}
           />
         </SequenceProcessContext.Provider>
