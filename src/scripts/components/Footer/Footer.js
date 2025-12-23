@@ -1,5 +1,5 @@
 import React from 'react';
-import Export from '../Export/Export.js';
+import Export from '@components/Export/Export.js';
 import Reset from './Reset.js';
 
 function Footer() {

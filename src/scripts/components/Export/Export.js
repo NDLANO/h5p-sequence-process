@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
-import { escapeHTML, stripHTML } from '../utils.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import { escapeHTML, stripHTML } from '@services/utils.js';
 
 export default class Export extends Component {
   static contextType = SequenceProcessContext;

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import parse from 'html-react-parser';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 function Summary(props) {
   const context = useContext(SequenceProcessContext);

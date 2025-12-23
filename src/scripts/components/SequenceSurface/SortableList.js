@@ -15,13 +15,13 @@ import {
 } from '@dnd-kit/sortable';
 import SortableDropZone from './SortableDropzone.js';
 import SortableItem from './SortableItem.js';
-import AddStatement from '../AddStatement/AddStatement.js';
+import AddStatement from '@components/AddStatement/AddStatement.js';
 import { customKeyboardCoordinates } from './customKeyboardCoordinates.js';
 import DraggableOverlay from './DraggableOverlay.js';
-import { createEmptyUserInput } from '../../models/UserInput.js';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
+import { createEmptyUserInput } from '@models/UserInput.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import PropTypes from 'prop-types';
-import { isUsingMouse } from '../../services/h5p-util.js';
+import { isUsingMouse } from '@services/h5p-util.js';
 import './SortableList.css';
 
 const STACKED_ITEM_OFFSET_PX = 12; // pixels (=0.8rem from CSS)

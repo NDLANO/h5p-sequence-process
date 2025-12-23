@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 /**
  * @return {null}

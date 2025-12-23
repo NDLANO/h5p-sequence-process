@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
-import Popover from '../Popover/Popover.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import Popover from '@components/Popover/Popover.js';
 import classnames from 'classnames';
 
 function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {

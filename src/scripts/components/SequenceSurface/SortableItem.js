@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useImperativeHandle, forwardRef, useCallback, useState } from 'react';
-import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
+import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import PropTypes from 'prop-types';
-import DeleteStatement from '../DeleteStatement/DeleteStatement.js';
-import EditableStatement from '../StatementTypes/components/EditableStatement.js';
-import UnEditableStatement from '../StatementTypes/components/UnEditableStatement.js';
+import DeleteStatement from '@components/DeleteStatement/DeleteStatement.js';
+import EditableStatement from '@components/StatementTypes/components/EditableStatement.js';
+import UnEditableStatement from '@components/StatementTypes/components/UnEditableStatement.js';
 
 import './SortableItem.css';
 

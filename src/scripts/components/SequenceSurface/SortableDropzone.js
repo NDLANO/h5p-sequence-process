@@ -2,12 +2,12 @@
 import React, { forwardRef, useRef, useState, Fragment, useContext, useCallback, useImperativeHandle } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import PropTypes from 'prop-types';
-import ActionsList from '../Actions/ActionsList.js';
-import Comment from '../Actions/Comment.js';
-import Labels from '../Actions/Labels.js';
-import StatementLabel from '../StatementTypes/components/StatementLabel.js';
-import PriorityNumber from '../StatementTypes/components/PriorityNumber.js';
-import { SequenceProcessContext } from './../../context/SequenceProcessContext.js';
+import ActionsList from '@components/Actions/ActionsList.js';
+import Comment from '@components/Actions/Comment.js';
+import Labels from '@components/Actions/Labels.js';
+import StatementLabel from '@components/StatementTypes/components/StatementLabel.js';
+import PriorityNumber from '@components/StatementTypes/components/PriorityNumber.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 const SortableDropZone = forwardRef((
   {

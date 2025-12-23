@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { SequenceProcessContext } from '../../context/SequenceProcessContext.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 import './AddStatement.css';
 

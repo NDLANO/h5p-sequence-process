@@ -1,16 +1,13 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Main from './components/Main.js';
-import { SequenceProcessContext } from './context/SequenceProcessContext.js';
-import { breakpoints, getRatio, sanitizeParams } from './components/utils.js';
+import Main from '@components/Main.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import { breakpoints, getRatio, sanitizeParams } from '@services/utils.js';
 import { getSemanticsDefaults } from '@services/h5p-util.js';
 
-// Load library
-H5P.SequenceProcess = (function () {
-
-  function Wrapper(params, contentId, extras = {}) {
-    // Initialize event inheritance
-    H5P.EventDispatcher.call(this);
+export default class SequenceProcess extends H5P.EventDispatcher {
+  constructor(params, contentId, extras = {}) {
+    super();
 
     this.language = extras.metadata?.defaultLanguage || 'en';
 
@@ -137,9 +134,4 @@ H5P.SequenceProcess = (function () {
     this.resize = this.resize.bind(this);
     this.on('resize', this.resize);
   }
-
-  // Inherit prototype properties
-  Wrapper.prototype = Object.create(H5P.EventDispatcher.prototype);
-  Wrapper.prototype.constructor = Wrapper;
-  return Wrapper;
-})();
+}

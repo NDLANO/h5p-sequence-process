@@ -12,7 +12,7 @@ const mode = process.argv.includes('--mode=production') ?
 export default {
   mode: mode,
   entry: {
-    'h5p-sequence-process': path.join(__dirname, 'src', 'app.js')
+    'h5p-sequence-process': path.join(__dirname, 'src', 'entries/dist.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -27,8 +27,12 @@ export default {
   ],
   resolve: {
     alias: {
-      '@root': path.resolve(__dirname, './'),
-      '@services': path.resolve(__dirname, './src/services'),
+      '@components': path.resolve(__dirname, 'src/scripts/components'),
+      '@context': path.resolve(__dirname, 'src/scripts/context'),
+      '@models': path.resolve(__dirname, 'src/scripts/models'),
+      '@root': path.resolve(__dirname, '.'),
+      '@scripts': path.resolve(__dirname, 'src/scripts'),
+      '@services': path.resolve(__dirname, 'src/scripts/services'),
     },
     modules: [
       path.resolve('./src'),

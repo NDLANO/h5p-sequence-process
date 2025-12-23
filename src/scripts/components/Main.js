@@ -2,8 +2,8 @@ import './SequenceStyle.scss';
 import 'fonts/H5PReflectionFont.scss';
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import SequenceSurface from './SequenceSurface/SequenceSurface.js';
-import Footer from './Footer/Footer.js';
+import SequenceSurface from '@components/SequenceSurface/SequenceSurface.js';
+import Footer from '@components/Footer/Footer.js';
 import parse from 'html-react-parser';
 
 function Main(props) {
