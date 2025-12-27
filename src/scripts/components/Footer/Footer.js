@@ -2,6 +2,8 @@ import React from 'react';
 import Export from '@components/Export/Export.js';
 import Reset from './Reset.js';
 
+import './Footer.css';
+
 function Footer() {
   return (
     <section className={'h5p-sequence-footer'}>

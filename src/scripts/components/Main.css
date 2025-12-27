@@ -1,0 +1,26 @@
+.h5p-sequence-header {
+  align-items: center;
+  background-color: #507AA4;
+  color: #ffffff;
+  display: flex;
+  font-size: 1.25rem;
+  padding: 1.3125rem;
+}
+
+.h5p-sequence-surface-main {
+  margin: 1.5rem;
+
+  .h5p-sequence-surface-info {
+    align-items: flex-start;
+    display: flex;
+
+    .h5p-sequence-description {
+      flex-grow: 5;
+      margin: 0 0.625rem 0.625rem 0;
+    }
+
+    .h5p-resource-list-wrapper {
+      margin-left: auto;
+    }
+  }
+}

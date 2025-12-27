@@ -1,90 +1,25 @@
-@use "sass:color";
-@use "sass:math";
-
-$browser-context : 16;
-
-@function em($pixels, $context: $browser-context) {
-  @if (math.is-unitless($pixels)) {
-    $pixels: $pixels * 1px;
-  }
-
-  @if (math.is-unitless($context)) {
-    $context: $context * 1px;
-  }
-
-  @return calc($pixels / $context * 1em);
-}
-
-$h5pColor1: #1f71e8;
-$h5pNumberBaseColor: #2880d0;
-$borderRadius: em(5px);
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-main,
-menu,
-nav,
-section,
-summary {
-  display: block;
-}
-
-.h5p-sequence {
-  font-family: "Open Sans", sans-serif;
-}
-
 .h5p-sequence-process {
-  container-type: inline-size;
-  container-name: h5p-sequence-process;
-}
+  --h5p-color-1: #1f71e8;
+  --h5p-number-base-color: #2880d0;
+  --border-radius: 5px;
 
-.h5p-sequence-surface-main {
-  @extend .h5p-sequence;
-  margin: 1.5rem;
+  container-name: h5p-sequence-process;
+  container-type: inline-size;
+  font-family: "Open Sans", sans-serif;
+  position: relative;
 }
 
 .h5p-sequence-button {
-  @extend .h5p-sequence;
   border: 0;
   border-radius: 90px;
-  color: white;
+  color: #ffffff;
+  cursor: pointer;
   padding: 0.7rem 1rem;
   font-weight: bold;
 }
 
-.h5p-sequence-button-restart,
-.h5p-sequence-button-export,
-.h5p-sequence-reset-modal .continue {
-  @extend .h5p-sequence-button;
-  background-color: #507AA4;
-  border: 2px solid #CCCCCC;
-
-  &:hover {
-    background-color: #363636;
-    color: inherit;
-  }
-
-  &:focus {
-    color: inherit;
-  }
-
-  &:active {
-    background-color: #000000;
-    color: inherit;
-  }
-}
-
-.h5p-sequence-surface {
-  clear: both;
-}
-
+/* TODO: Don't set this globally */
 .h5p-sequence-wrapper {
-
   textarea,
   input,
   button {
@@ -92,59 +27,12 @@ summary {
   }
 }
 
-.h5p-sequence-header {
-  background-color: #507AA4;
-  display: flex;
-  margin: 0;
-  align-items: center;
-  padding: em(21px);
-  color: white;
-  font-weight: normal;
-  font-size: em(20px);
-}
-
-#resources-button {
-  margin-left: auto;
-}
-
-.h5p-sequence-surface-info {
-  display: flex;
-  align-items: flex-start;
-
-  .h5p-resource-list-wrapper {
-    margin-left: auto;
-  }
-}
-
-.h5p-sequence-resources-btn {
-  @extend .h5p-sequence-button;
-  background-color: transparent;
-  border: 1px solid $h5pColor1;
-  color: $h5pColor1;
-  float: right;
-}
-
-.h5p-sequence-process {
-  position: relative;
-}
-
-.h5p-sequence-columns {
-  padding: em(6px);
+.h5p-sequence-dropzones-list {
+  padding: 0.375rem;
   flex: 1;
   border: 1px solid #dbdbdb;
-  margin: em(10px) 0;
-}
-
-.h5p-sequence-statement-common {
-  padding: 0.25rem;
-  display: flex;
-  flex-grow: 1;
-  overflow: hidden;
-}
-
-.h5p-sequence-dropzones-list {
-  @extend .h5p-sequence-columns;
-  border-radius: $borderRadius;
+  margin: 0.625rem 0;
+  border-radius: var(--border-radius);
 
   .h5p-sequence-dropzones-list-description {
     height: 0;
@@ -155,35 +43,27 @@ summary {
   }
 }
 
-.h5p-overlay-item {
-  .h5p-sequence-active-draggable {
-    cursor: pointer;
-    box-shadow: 0 0 em(3px) em(2px) rgba(26, 115, 217, 0.2);
-
-    .h5p-sequence-statement-remaining {
-      background-color: #edf4fd;
-    }
-  }
-}
-
 .h5p-droparea {
-  @extend .h5p-sequence-statement-common;
+  padding: 0.25rem;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
   border: 2px dashed #d1d1d1;
   background-color: white;
-  min-height: em(64px);
+  min-height: 4rem;
   flex-flow: column;
   padding: 0.25rem;
 
   &>div:not(.h5p-sequence-empty) {
     border: 2px solid #dbe2e8;
-    border-radius: $borderRadius;
+    border-radius: var(--border-radius);
     background-color: white;
 
     &:hover,
     &:active,
     &.h5p-sequence-active-draggable {
       cursor: pointer;
-      box-shadow: 0 0 em(3px) em(2px) rgba(26, 115, 217, 0.2);
+      box-shadow: 0 0 3px 2px rgba(26, 115, 217, 0.2);
 
       .h5p-sequence-statement-sequenced,
       .h5p-sequence-actionlist>div,
@@ -197,7 +77,7 @@ summary {
     .h5p-sequence-empty {
       background-color: #bbd1f0;
       background-size: cover;
-      box-shadow: inset 0 0 em(5px) em(1px) rgba(39, 75, 143, 0.28);
+      box-shadow: inset 0 0 5px 1px rgba(39, 75, 143, 0.28);
     }
   }
 
@@ -205,14 +85,17 @@ summary {
     flex: auto;
     background-color: #e6e6e6;
     background-size: cover;
-    box-shadow: inset 0 0 em(5px) em(1px) rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.1);
   }
 }
 
 .h5p-sequence-statement {
-  @extend .h5p-sequence-statement-common;
+  padding: 0.25rem;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
   background-color: #ffffff;
-  min-height: em(60px);
+  min-height: 3.75rem;
   font-weight: bold;
   padding: 0;
 
@@ -224,49 +107,18 @@ summary {
   }
 
   .h5p-sequence-select-list & {
-    box-shadow: em(3px) em(3px) em(4px) 0 rgba(3, 3, 3, 0.2);
+    box-shadow: 3px 3px 4px 0 rgba(3, 3, 3, 0.2);
     border: 2px solid #dbe2e8;
 
     &:hover,
     &:active,
     &.h5p-sequence-active-draggable {
       cursor: pointer;
-      box-shadow: 0 0 em(3px) em(2px) rgba(26, 115, 217, 0.2);
+      box-shadow: 0 0 3px 2px rgba(26, 115, 217, 0.2);
 
       div:not(.h5p-sequence-actionlist) {
         background-color: #edf4fd;
       }
-    }
-  }
-
-  .h5p-sequence-delete-button {
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    opacity: 0;
-    cursor: pointer;
-
-    .h5p-ri {
-      border: 2px solid #e03c34;
-      border-radius: 50%;
-      position: absolute;
-      top: em(-12px);
-      right: em(-12px);
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      background-color: white;
-      height: em(30px);
-      width: em(30px);
-      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-      font-size: 0.7rem;
-      color: #e03c34;
-      z-index: 1;
-      opacity: inherit;
-    }
-
-    &:focus {
-      opacity: 1;
     }
   }
 
@@ -282,7 +134,7 @@ summary {
   }
 
   .h5p-sequence-statement-remaining {
-    border-radius: $borderRadius;
+    border-radius: var(--border-radius);
     width: 100%;
     padding: 0.25rem 0;
     margin: 0.25rem;
@@ -294,20 +146,20 @@ summary {
 
     .h5p-sequence-statement-sequenced {
       margin-bottom: 0;
-      border-radius: $borderRadius 0 0 0;
+      border-radius: var(--border-radius) 0 0 0;
     }
 
     .h5p-sequence-actionlist,
     .h5p-sequence-actionlist div {
       margin-bottom: 0;
-      border-radius: 0 $borderRadius 0 0;
+      border-radius: 0 var(--border-radius) 0 0;
     }
   }
 
   &>div {
     display: flex;
     align-items: stretch;
-    min-height: em(44px);
+    min-height: 2.75rem;
     flex: auto;
   }
 
@@ -317,7 +169,7 @@ summary {
   }
 
   .h5p-sequence-actionlist {
-    border-left: em(2px) solid #dbe2e8;
+    border-left: 0.125rem solid #dbe2e8;
 
     &>div {
       display: flex;
@@ -348,16 +200,16 @@ summary {
     margin-top: 0.25rem;
     margin-left: 0.25rem;
     margin-bottom: 0.25rem;
-    border-top-left-radius: $borderRadius;
-    border-bottom-left-radius: $borderRadius;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
   }
 
   &> :last-child {
     margin-top: 0.25rem;
     margin-right: 0.25rem;
     margin-bottom: 0.25rem;
-    border-top-right-radius: $borderRadius;
-    border-bottom-right-radius: $borderRadius;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
     overflow: hidden;
 
     .h5p-sequence-actionlist-spacer {
@@ -368,7 +220,10 @@ summary {
 
 .h5p-sequence-statement-labels,
 .h5p-sequence-statement-comment {
-  @extend .h5p-sequence-statement-common;
+  padding: 0.25rem;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
   padding: 0;
   margin-top: 0.5rem;
   align-items: flex-start;
@@ -415,8 +270,8 @@ summary {
 
   &>div {
     margin: 0 0.25rem 0.25rem 0.25rem;
-    border-bottom-left-radius: $borderRadius;
-    border-bottom-right-radius: $borderRadius;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
     overflow: hidden;
     background-color: #f6f8f9;
   }
@@ -446,7 +301,7 @@ summary {
 .h5p-sequence-statement-label {
   padding: 0.125rem 0.7rem 0.125rem 0.5rem;
   margin: 0.25rem 0.55rem;
-  border-radius: $borderRadius;
+  border-radius: var(--border-radius);
   background-color: black;
   color: white;
   align-self: flex-start;
@@ -463,11 +318,11 @@ summary {
     color: white;
     border-radius: 50%;
     position: absolute;
-    top: em(-7px);
-    right: em(-10px);
-    width: em(14px);
+    top: -0.4375rem;
+    right: -0.625rem;
+    width: 0.875rem;
     display: flex;
-    height: em(14px);
+    height: 0.875rem;
     justify-content: center;
 
     &:hover {
@@ -481,7 +336,10 @@ summary {
 }
 
 .h5p-sequence-select-list {
-  @extend .h5p-sequence-columns;
+  padding: 0.375rem;
+  flex: 1;
+  border: 1px solid #dbdbdb;
+  margin: 0.625rem 0;
   border: 0;
 
   .h5p-sequence-statements-list-description {
@@ -491,31 +349,6 @@ summary {
     visibility: hidden;
     width: 0;
   }
-}
-
-.h5p-sequence-summary {
-  #summary-header {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-  }
-
-  display: flex;
-  flex-flow: column;
-
-  textarea {
-    padding: 1rem;
-    min-height: em(80px);
-  }
-}
-
-.h5p-sequence-description {
-  flex-grow: 5;
-  margin: 0 0.625rem 0.625rem 0;
 }
 
 .h5p-sequence-action {
@@ -538,89 +371,14 @@ summary {
   }
 }
 
-.h5p-sequence-popover {
-  @extend .h5p-sequence;
-  z-index: 1;
-  width: 95vw;
-  overflow: visible !important;
-
-  button {
-    @extend .h5p-sequence-button;
-  }
-}
-
-.h5p-sequence-popover-container {
-  border-radius: em(4px);
-  background-color: #ffffff;
-  background-size: cover;
-  box-shadow: em(5px) em(10px) em(22px) rgba(0, 0, 0, 0.4);
-  max-width: 95vw;
-
-  .h5p-sequence-popover-header {
-    padding: em(14px);
-    border-bottom: em(1px) solid #dbe2e8;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-  }
-
-  .h5p-sequence-popover-content {
-    display: flex;
-  }
-
-  .close-button {
-    background: white;
-    color: black;
-    margin-left: auto;
-    padding: 0;
-    font-size: 180%;
-  }
-
-  textarea {
-    font: inherit;
-    width: 100%;
-    margin: em(14px);
-    border-radius: em(4px);
-    padding: em(5px);
-  }
-}
-
-
-.h5p-sequence-label-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.h5p-sequence-label-popover {
-  padding: 1rem;
-
-  label {
-    min-width: 6em;
-    margin: 0.25rem 0.3rem;
-    position: relative;
-    cursor: pointer;
-    padding-right: 1rem;
-
-    input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .h5p-ri {
-      margin-right: 0.5625rem;
-    }
-  }
-}
-
 
 .h5p-sequence-drag-element {
-  border-right: em(1px) solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: em(13px);
-  padding: 0 em(10px);
+  margin-right: 0.8125rem;
+  padding: 0 0.625rem;
   color: #535c69;
 }
 
@@ -640,24 +398,6 @@ summary {
     flex: auto;
     font-size: inherit;
     width: 100%;
-  }
-}
-
-.h5p-sequence-footer {
-  background-color: #507AA4;
-  color: white;
-  padding: em(20px);
-  display: flex;
-  flex-direction: column;
-
-  &>button {
-    background-color: transparent;
-    margin: em(5px);
-    font-weight: bold;
-  }
-
-  .h5p-ri {
-    margin-right: em(7px);
   }
 }
 
@@ -728,7 +468,7 @@ summary {
   }
 
   li {
-    margin-left: em(5px);
+    margin-left: 0.3125rem;
   }
 }
 
@@ -736,57 +476,17 @@ summary {
   display: none !important;
 }
 
-.h5p-sequence-reset-modal {
-  background-color: white;
-  padding: 1rem;
-  max-width: 85vw;
-  display: inline-flex;
-  flex-flow: column;
-
-  div {
-    padding: 0.8rem;
-  }
-
-  button {
-    font-weight: 600;
-    font-size: inherit;
-  }
-
-  .continue {
-    @extend .h5p-sequence-button;
-    color: #fff;
-    background-color: #1f1f1f;
-    margin-right: 1rem;
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: #fff;
-    }
-
-    &:focus {
-      background-color: #000000;
-    }
-  }
-
-  .cancel {
-    border: 0;
-    background-color: transparent;
-    color: #2071e3;
-  }
-}
-
 .h5p-sequence-no-transform {
   transform: none !important;
 }
 
 .visible-hidden {
-  clip: rect(em(1px), em(1px), em(1px), 1px);
-  height: em(1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
   overflow: hidden;
   position: absolute;
   white-space: nowrap;
-  width: em(1px);
+  width: 1px;
 }
 
 .visible-hidden:focus {
@@ -821,26 +521,21 @@ summary {
 }
 
 .h5p-order-priority-number-1 .h5p-order-priority-number-circle {
-  background-color: $h5pNumberBaseColor;
+  background-color: var(--h5p-number-base-color);
   color: #ffffff;
 }
 
 .h5p-order-priority-number-2 .h5p-order-priority-number-circle {
-  background-color: color.adjust($h5pNumberBaseColor, $lightness: 25%, $space: hsl);
-  color: #1d5482;
+  background-color: hsl(210, 62%, 57%);
+  color: #ffffff;
 }
 
 .h5p-order-priority-number-3 .h5p-order-priority-number-circle {
-  background-color: color.adjust($h5pNumberBaseColor, $lightness: 40%, $space: hsl);
+  background-color: hsl(210, 62%, 72%);
   color: #1d5482;
 }
 
-// Not small
 @container h5p-sequence-process (width >= 480px) {
-  .h5p-sequence-footer {
-    flex-direction: row;
-  }
-
   .h5p-sequence-statement-labels,
   .h5p-sequence-statement-comment {
     display: flex;
@@ -865,7 +560,8 @@ summary {
     margin-left: 0.75rem;
   }
 
-  .h5p-sequence-columns {
+  h5p-sequence-dropzones-list,
+  h5p-sequence-select-list {
     padding: 1rem;
   }
 
@@ -876,11 +572,6 @@ summary {
       border-left: 0.08em solid #e6e6e6;
       flex: 3;
     }
-  }
-
-  .h5p-sequence-wrapper.h5p-sequence-popover {
-    width: 100%;
-    max-width: em(500px);
   }
 
   .h5p-sequence-statement-container div {

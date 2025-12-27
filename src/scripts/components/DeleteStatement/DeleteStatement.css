@@ -1,0 +1,30 @@
+  .h5p-sequence-delete-button {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    opacity: 0;
+    cursor: pointer;
+
+    .h5p-ri {
+      border: 2px solid #e03c34;
+      border-radius: 50%;
+      position: absolute;
+      top: -0.75rem;
+      right: -0.75rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      height: 1.875rem;
+      width: 1.875rem;
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+      font-size: 0.7rem;
+      color: #e03c34;
+      z-index: 1;
+      opacity: inherit;
+    }
+
+    &:focus {
+      opacity: 1;
+    }
+  }

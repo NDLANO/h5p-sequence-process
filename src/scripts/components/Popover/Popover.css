@@ -1,0 +1,80 @@
+.h5p-sequence-popover {
+  width: 95%;
+  z-index: 1;
+}
+
+.h5p-sequence-popover-container {
+  background-color: #ffffff;
+  background-size: cover;
+  border-radius: 4px;
+  box-shadow: 5px 10px 22px rgba(0, 0, 0, 0.4);
+
+  .h5p-sequence-popover-header {
+    align-items: center;
+    border-bottom: 1px solid #dbe2e8;
+    display: flex;
+    padding: 0.875rem;
+    font-weight: bold;
+  }
+
+  .h5p-sequence-popover-content {
+    padding: 0.875rem;
+
+    & textarea {
+      box-sizing: border-box;
+      font: inherit;
+      width: 100%;
+    }
+
+    .h5p-sequence-label-popover {
+      .h5p-sequence-label-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        .h5p-sequence-label-item {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .h5p-sequence-reset-modal {
+      background-color: #ffffff;
+      display: flex;
+      flex-flow: column;
+      gap: 1rem;
+      max-width: 85%;
+
+      .h5p-sequence-reset-modal-buttons {
+        display: flex;
+        gap: 1rem;
+
+        button {
+          cursor: pointer;
+          font-weight: 600;
+          font-size: inherit;
+
+          &.continue {
+            background-color: #1f1f1f;
+            color: #fff;
+          }
+
+          &.cancel {
+            background-color: transparent;
+            border: 0;
+            color: #2071e3;
+          }
+        }
+      }
+    }
+  }
+
+  .close-button {
+    background: white;
+    color: black;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0;
+    font-size: 180%;
+  }
+}

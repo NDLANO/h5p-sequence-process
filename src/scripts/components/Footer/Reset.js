@@ -2,6 +2,8 @@ import React, { Fragment, useContext, useState } from 'react';
 import Popover from '@components/Popover/Popover.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
+import './Reset.css';
+
 function Reset() {
 
   const [showPopover, setPopover] = useState(false);
@@ -30,7 +32,6 @@ function Reset() {
         <Popover
           handleClose={togglePopover}
           show={showPopover}
-          classnames={translate('activeBreakpoints')}
           close={translate('close')}
           header={translate('restart')}
           align={'start'}
@@ -42,10 +43,10 @@ function Reset() {
               <div>
                 {translate('ifYouContinueAllYourChangesWillBeLost')}
               </div>
-              <div>
+              <div className={'h5p-sequence-reset-modal-buttons'}>
                 <button
                   onClick={confirmReset}
-                  className={'continue'}
+                  className={'h5p-sequence-button continue'}
                   type={'button'}
                 >
                   {translate('continue')}
@@ -62,7 +63,7 @@ function Reset() {
           )}
         >
           <button
-            className={'h5p-sequence-button-restart'}
+            className={'h5p-sequence-button h5p-sequence-button-restart'}
             onClick={togglePopover}
             type={'button'}
           >

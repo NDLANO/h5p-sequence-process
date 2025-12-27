@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import './DeleteStatement.css';
 
 /**
  * @return {null}

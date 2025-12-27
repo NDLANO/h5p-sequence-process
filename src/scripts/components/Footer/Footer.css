@@ -1,0 +1,43 @@
+.h5p-sequence-footer {
+  background-color: #507AA4;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+
+  .h5p-sequence-button {
+    background-color: transparent;
+    font-weight: bold;
+    margin: 0.3125rem;
+  }
+
+  .h5p-sequence-button-restart,
+  .h5p-sequence-button-export {
+    background-color: #507AA4;
+    border: 2px solid #CCCCCC;
+
+    &:hover {
+      background-color: #363636;
+      color: inherit;
+    }
+
+    &:focus {
+      color: inherit;
+    }
+
+    &:active {
+      background-color: #000000;
+      color: inherit;
+    }
+  }
+
+  .h5p-ri {
+    margin-right: 0.4375rem;
+  }
+}
+
+@container h5p-sequence-process (width >= 480px) {
+  .h5p-sequence-footer {
+    flex-direction: row;
+  }
+}

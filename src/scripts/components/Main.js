@@ -1,14 +1,23 @@
 import './SequenceStyle.scss';
 import 'fonts/H5PReflectionFont.scss';
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import SequenceSurface from '@components/SequenceSurface/SequenceSurface.js';
+import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import Summary from '@components/Summary/Summary.js';
 import Footer from '@components/Footer/Footer.js';
 import parse from 'html-react-parser';
+import './Main.css';
 
 function Main(props) {
 
   const resourceContainer = useRef();
+
+  const {
+    registerReset,
+    behaviour,
+    params,
+  } = useContext(SequenceProcessContext);
 
   const {
     id,
@@ -52,6 +61,14 @@ function Main(props) {
           )}
         </div>
         <SequenceSurface />
+        {behaviour.provideSummary === true && (
+          <Summary
+            reset={registerReset}
+            exportValues={collectExportValues}
+            summaryHeader={params.summaryHeader}
+            summaryInstruction={params.summaryInstruction}
+          />
+        )}
       </div>
       <Footer />
     </article>

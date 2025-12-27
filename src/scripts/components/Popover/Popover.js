@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Popover as TinyPopover, ArrowContainer } from 'react-tiny-popover';
 import PropTypes from 'prop-types';
+import './Popover.css';
 
 const Popover = ({
   handleClose,
@@ -88,7 +89,7 @@ const Popover = ({
               </div>
               <button
                 ref={closeButtonRef}
-                className="close-button"
+                className="h5p-sequence-button close-button"
                 type="button"
                 onClick={handleClose}
                 onKeyDown={(event) => {

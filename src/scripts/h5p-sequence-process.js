@@ -5,6 +5,11 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import { sanitizeParams } from '@services/utils.js';
 import { getSemanticsDefaults } from '@services/h5p-util.js';
 
+// TODO: Fix focus of textarea in comment popover
+// TODO: Fix export
+// TODO: Remove custom font and use FontAwesome
+// TODO: Fix pre-populated sorting
+
 export default class SequenceProcess extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
     super();

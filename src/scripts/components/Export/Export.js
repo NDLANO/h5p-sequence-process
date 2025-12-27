@@ -122,7 +122,7 @@ export default class Export extends Component {
     return (
       <Fragment>
         <button
-          className={'h5p-sequence-button-export pull-right'}
+          className={'h5p-sequence-button h5p-sequence-button-export pull-right'}
           onClick={this.handleExport}
           type={'button'}
         >

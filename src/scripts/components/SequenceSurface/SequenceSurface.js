@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import SortableList from './SortableList.js';
-import Summary from '../Summary/Summary.js';
+import './SequenceSurface.css';
 
 function SequenceSurface() {
   const {
     registerReset,
     collectExportValues,
-    behaviour,
     params,
   } = useContext(SequenceProcessContext);
 
@@ -23,14 +22,6 @@ function SequenceSurface() {
           reset={registerReset}
         />
       </div>
-      {behaviour.provideSummary === true && (
-        <Summary
-          reset={registerReset}
-          exportValues={collectExportValues}
-          summaryHeader={params.summaryHeader}
-          summaryInstruction={params.summaryInstruction}
-        />
-      )}
     </div>
   );
 }
