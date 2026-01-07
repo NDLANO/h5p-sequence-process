@@ -814,7 +814,9 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
               event.target.closest('.h5p-sequence-column') === event.currentTarget
             );
 
-            if (!focusOnChild) {
+            const focusOnPopopver = event.target.closest('.h5p-sequence-popover') !== null;
+
+            if (!focusOnChild && !focusOnPopopver) {
               focusDropzonesItemAt(currentTabIndexDropzones);
             }
 
