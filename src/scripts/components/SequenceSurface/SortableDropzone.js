@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import ActionsList from '@components/Actions/ActionsList.js';
 import Comment from '@components/Actions/Comment.js';
 import Labels from '@components/Actions/Labels.js';
-import StatementLabel from '@components/StatementTypes/components/StatementLabel.js';
 import PriorityNumber from '@components/StatementTypes/components/PriorityNumber.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
@@ -89,9 +88,7 @@ const SortableDropZone = forwardRef((
             <Fragment key={itemId}>
               <div className='h5p-sequence-statement'>
                 <div className='h5p-sequence-statement-sequenced'>
-                  <div className='h5p-sequence-drag-element'>
-                    <span className="h5p-ri hri-move" data-no-dnd="true" />
-                  </div>
+                  <div className='h5p-sequence-drag-element'></div>
                   <p className="h5p-sequence-element">
                     {statements[itemId]?.content || itemId}
                   </p>
@@ -125,10 +122,6 @@ const SortableDropZone = forwardRef((
                   </Fragment>
                 )}
               </div>
-              <StatementLabel
-                labels={labels}
-                onLabelChange={(labelId) => onLabelSelect(itemId, labelId, true)}
-              />
             </Fragment>
           ))
         ) : (

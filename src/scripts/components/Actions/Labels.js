@@ -68,7 +68,10 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
     >
       <button
         onClick={handleToggle}
-        className={'h5p-sequence-action'}
+        className={classnames('h5p-sequence-action label', {
+          'empty': !selectedLabelArray || selectedLabelArray.length === 0,
+          'full': selectedLabelArray && selectedLabelArray.length > 0,
+        })}
         type={'button'}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
@@ -76,14 +79,8 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
             handleToggle();
           }
         }}
+        aria-label={context.translate('addLabel')}
       >
-        <span
-          className={classnames('h5p-ri', {
-            'hri-label-empty': !selectedLabelArray || selectedLabelArray.length === 0,
-            'hri-label-full': selectedLabelArray && selectedLabelArray.length > 0,
-          })}
-        />
-        <span className="visible-hidden">{context.translate('addLabel')}</span>
       </button>
     </Popover>
   );

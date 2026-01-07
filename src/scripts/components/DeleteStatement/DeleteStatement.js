@@ -44,9 +44,6 @@ function DeleteStatement(props) {
       type={'button'}
       aria-label={context.translate('close')}
     >
-      <span
-        className={'h5p-ri hri-times'}
-      />
     </button>
   );
 }

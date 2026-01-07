@@ -7,9 +7,7 @@ const ActionsList = (
 ) => {
   return (
     <div className={'h5p-sequence-actionlist'}>
-      <div className={'h5p-sequence-actionlist-spacer'}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 };

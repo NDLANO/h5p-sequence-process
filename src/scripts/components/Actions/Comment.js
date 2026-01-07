@@ -61,9 +61,13 @@ function Comment({
     >
       <button
         onClick={handleToggle}
-        className={'h5p-sequence-action'}
+        className={classnames('h5p-sequence-action comment', {
+          'empty': !comment || comment.length === 0,
+          'full': comment && comment.length > 0,
+        })}
         type={'button'}
         aria-expanded={showPopover}
+        aria-label={context.translate('addComment')}
         aria-haspopup="dialog"
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
@@ -73,13 +77,6 @@ function Comment({
           }
         }}
       >
-        <span
-          className={classnames('h5p-ri', {
-            'hri-comment-empty': !comment || comment.length === 0,
-            'hri-comment-full': comment && comment.length > 0,
-          })}
-        />
-        <span className="visible-hidden">{context.translate('addComment')}</span>
       </button>
     </Popover>
   );

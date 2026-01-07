@@ -210,6 +210,10 @@
           "default": "Legg til kommentar"
         },
         {
+          "label": "Used instead of 'Label'-icon",
+          "default": "Add label"
+        },
+        {
           "label": "Brukt istedenfor 'Lukk' ikonet",
           "default": "Lukk"
         },

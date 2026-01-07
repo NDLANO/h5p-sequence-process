@@ -88,9 +88,7 @@ const SortableItem = forwardRef((
       <div className="h5p-sequence-draggable-element">
         <div className="h5p-sequence-statement">
           <div className="h5p-sequence-statement-remaining">
-            <div className="h5p-sequence-drag-element">
-              <span className="h5p-ri hri-move" data-no-dnd="true" />
-            </div>
+            <div className="h5p-sequence-drag-element"></div>
             {/* Conditionally render the statement based on enableEditing */}
             {enableEditing ? (
               <EditableStatement

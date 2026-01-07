@@ -210,6 +210,10 @@
           "default": "Añadir comentario"
         },
         {
+          "label": "Used instead of 'Label'-icon",
+          "default": "Add label"
+        },
+        {
           "label": "Usado en lugar del icono 'Cerrar'",
           "default": "Cerrar"
         },

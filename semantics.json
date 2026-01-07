@@ -373,6 +373,12 @@
         "default": "Add comment"
       },
       {
+        "name": "addLabel",
+        "type": "text",
+        "label": "Used instead of 'Label'-icon",
+        "default": "Add label"
+      },
+      {
         "name": "close",
         "type": "text",
         "label": "Used instead of 'Close'-icon",

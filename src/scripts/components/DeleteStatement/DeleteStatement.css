@@ -1,30 +1,32 @@
   .h5p-sequence-delete-button {
-    border: 0;
-    padding: 0;
-    background-color: transparent;
-    opacity: 0;
+    background-color: #ffffff;
+    border: 2px solid #e03c34;
+    border-radius: 50%;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    color: #e03c34;
     cursor: pointer;
-
-    .h5p-ri {
-      border: 2px solid #e03c34;
-      border-radius: 50%;
-      position: absolute;
-      top: -0.75rem;
-      right: -0.75rem;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      background-color: white;
-      height: 1.875rem;
-      width: 1.875rem;
-      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-      font-size: 0.7rem;
-      color: #e03c34;
-      z-index: 1;
-      opacity: inherit;
-    }
+    height: 1.875rem;
+    padding: 0;
+    opacity: 0;
+    position: absolute;
+    right: -0.75rem;
+    top: -0.75rem;
+    width: 1.875rem;
 
     &:focus {
       opacity: 1;
+    }
+
+    &:hover {
+      background-color: #f6f8f9;
+    }
+
+    &::before {
+      content: "\f00d";
+      font-family: "H5PFontAwesome4", sans-serif;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   }

@@ -101,8 +101,6 @@ const Popover = ({
                 }}
                 aria-label={close}
               >
-                <span className="h5p-ri hri-close" />
-                <span className="visible-hidden">{close}</span>
               </button>
             </div>
             <div className="h5p-sequence-popover-content">{popoverContent}</div>

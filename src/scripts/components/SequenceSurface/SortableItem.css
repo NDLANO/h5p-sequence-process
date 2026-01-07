@@ -8,6 +8,7 @@
     flex-grow: 1;
 
     .h5p-sequence-statement {
+      background-color: #f6f8f9;
       display: flex;
     }
   }

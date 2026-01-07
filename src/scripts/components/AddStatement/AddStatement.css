@@ -4,37 +4,28 @@
   position: relative;
 
   .h5p-sequence-add {
+    background-color: rgba(219, 226, 232, 0.25);
     border: 1px solid #dbe2e8;
     border-radius: 5px;
+    color: #363636;
     display: inline-block;
+    font-weight: bold;
     text-align: center;
-    padding: 3px;
-    background-color: #ffffff;
+    padding: 5px 10px;
 
     &:hover {
-      span {
-        background-color: #ffffff;
-      }
+      background-color: #ffffff;
     }
 
     &:active {
-      span {
-        background-color: #ebf0ff;
-      }
+      background-color: #ebf0ff;
     }
 
-    &>span {
-      display: flex;
-      border-radius: 5px;
-      background-color: rgba(219, 226, 232, 0.25);
-      color: #363636;
-      font-weight: bold;
-      font-size: 1em;
-      padding: 5px 10px;
-    }
-
-    .h5p-ri {
-      margin-right: 9px;
+    &::before {
+      content: "\f067";
+      font-family: "H5PFontAwesome4", sans-serif;
+      font-weight: normal;
+      margin-right: 0.5rem;
     }
   }
 }

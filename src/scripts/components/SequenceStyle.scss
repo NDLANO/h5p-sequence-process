@@ -55,10 +55,6 @@
   padding: 0.25rem;
 
   &>div:not(.h5p-sequence-empty) {
-    border: 2px solid #dbe2e8;
-    border-radius: var(--border-radius);
-    background-color: white;
-
     &:hover,
     &:active,
     &.h5p-sequence-active-draggable {
@@ -89,15 +85,21 @@
   }
 }
 
+.h5p-sequence-draggable-container:focus-within {
+  .h5p-sequence-statement .h5p-sequence-delete-button {
+    opacity: 1;
+  }
+}
+
 .h5p-sequence-statement {
-  padding: 0.25rem;
+  background-color: #f6f8f9;
+  border: 2px solid #dbe2e8;
+  border-radius: var(--border-radius);
   display: flex;
   flex-grow: 1;
   overflow: hidden;
-  background-color: #ffffff;
   min-height: 3.75rem;
   font-weight: bold;
-  padding: 0;
 
   &:hover,
   &:active {
@@ -130,15 +132,11 @@
   .h5p-sequence-statement-sequenced {
     width: 100%;
     padding: 0.25rem 0;
-    background-color: #f6f8f9;
   }
 
   .h5p-sequence-statement-remaining {
     border-radius: var(--border-radius);
     width: 100%;
-    padding: 0.25rem 0;
-    margin: 0.25rem;
-    background-color: #f6f8f9;
   }
 
   &.h5p-sequence-statement-extra {
@@ -166,21 +164,19 @@
   & .h5p-sequence-element {
     display: flex;
     align-items: center;
+    padding: 0.8125rem;
   }
 
   .h5p-sequence-actionlist {
     border-left: 0.125rem solid #dbe2e8;
 
-    &>div {
-      display: flex;
-      margin: 0.25rem 0;
-      background-color: #f6f8f9;
-      position: relative;
-    }
-
-    button {
+    button.h5p-sequence-action {
       background-color: transparent;
-      color: #424242;
+      border: 0;
+      height: 100%;
+      padding: 0;
+      position: relative;
+      width: 3rem;
 
       &:hover {
         background-color: #ffffff;
@@ -189,80 +185,33 @@
       &:active {
         background-color: #dbe2e8;
       }
+
+      &::before {
+        content: "\f02b";
+        font-family: "H5PFontAwesome4", sans-serif;
+        font-size: 1.25rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      &.empty::before {
+        color: #cccccc;
+      }
+
+      &.full::before {
+        color: #535c69;
+      }
+
+      &.label::before {
+        content: "\f02b";
+      }
+
+      &.comment::before {
+        content: "\f075";
+      }
     }
-
-    .h5p-ri {
-      font-size: 150%;
-    }
-  }
-
-  &> :first-child {
-    margin-top: 0.25rem;
-    margin-left: 0.25rem;
-    margin-bottom: 0.25rem;
-    border-top-left-radius: var(--border-radius);
-    border-bottom-left-radius: var(--border-radius);
-  }
-
-  &> :last-child {
-    margin-top: 0.25rem;
-    margin-right: 0.25rem;
-    margin-bottom: 0.25rem;
-    border-top-right-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
-    overflow: hidden;
-
-    .h5p-sequence-actionlist-spacer {
-      margin: 0;
-    }
-  }
-}
-
-.h5p-sequence-statement-labels,
-.h5p-sequence-statement-comment {
-  padding: 0.25rem;
-  display: flex;
-  flex-grow: 1;
-  overflow: hidden;
-  padding: 0;
-  margin-top: 0.5rem;
-  align-items: flex-start;
-
-  &> :first-child {
-    margin-top: 0.125rem;
-  }
-
-  &> :last-child {
-    flex-grow: 99;
-    flex-wrap: wrap;
-    padding: 0.2rem 0.6rem;
-  }
-
-  div {
-    flex: auto;
-    display: flex;
-    align-items: center;
-  }
-
-  textarea {
-    background-color: transparent;
-    resize: none;
-    border: 0;
-    width: 100%;
-    word-wrap: break-word;
-    padding: 0.2em 0.6em;
-    overflow-y: hidden;
-    font-size: inherit;
-    height: auto;
-
-    &:focus {
-      background-color: #ffffff;
-    }
-  }
-
-  .h5p-ri {
-    font-size: 150%;
-    padding: 0 0.5rem;
   }
 }
 
@@ -276,63 +225,6 @@
     background-color: #f6f8f9;
   }
 
-}
-
-.h5p-sequence-statement-labels {
-  flex: 2;
-  overflow: visible;
-
-  .h5p-ri {
-    align-self: center;
-  }
-
-  &>div {
-    margin: 0;
-    display: flex;
-  }
-
-  &>.fa {
-    color: black;
-    font-size: 1.2em;
-    background-color: transparent;
-  }
-}
-
-.h5p-sequence-statement-label {
-  padding: 0.125rem 0.7rem 0.125rem 0.5rem;
-  margin: 0.25rem 0.55rem;
-  border-radius: var(--border-radius);
-  background-color: black;
-  color: white;
-  align-self: flex-start;
-  position: relative;
-
-  button {
-    border: 0;
-    padding: 0;
-  }
-
-  div {
-    background-color: black;
-    border: 3px solid white;
-    color: white;
-    border-radius: 50%;
-    position: absolute;
-    top: -0.4375rem;
-    right: -0.625rem;
-    width: 0.875rem;
-    display: flex;
-    height: 0.875rem;
-    justify-content: center;
-
-    &:hover {
-      background-color: black;
-    }
-  }
-
-  .h5p-ri {
-    font-size: 0.5em;
-  }
 }
 
 .h5p-sequence-select-list {
@@ -352,7 +244,6 @@
 }
 
 .h5p-sequence-action {
-  background: red;
   border-color: transparent;
   padding: 0.5em;
   display: flex;
@@ -371,15 +262,23 @@
   }
 }
 
-
 .h5p-sequence-drag-element {
+  align-items: center;
   border-right: 1px solid #e6e6e6;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-right: 0.8125rem;
-  padding: 0 0.625rem;
-  color: #535c69;
+  position: relative;
+  width: 2.25rem;
+
+  &::before {
+    color: #535c69;
+    content: "\f047";
+    font-family: "H5PFontAwesome4", sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .h5p-sequence-editable-container {
@@ -400,11 +299,6 @@
     width: 100%;
   }
 }
-
-.h5p-ri {
-  font-weight: normal;
-}
-
 
 .joubel-create-document {
   top: 0;
@@ -536,11 +430,6 @@
 }
 
 @container h5p-sequence-process (width >= 480px) {
-  .h5p-sequence-statement-labels,
-  .h5p-sequence-statement-comment {
-    display: flex;
-  }
-
   .h5p-sequence-surface {
     display: flex;
     flex-flow: row;
@@ -563,15 +452,6 @@
   h5p-sequence-dropzones-list,
   h5p-sequence-select-list {
     padding: 1rem;
-  }
-
-  .h5p-sequence-statement-labels {
-    flex: 2;
-
-    &:not(.hidden)+.h5p-sequence-statement-comment {
-      border-left: 0.08em solid #e6e6e6;
-      flex: 3;
-    }
   }
 
   .h5p-sequence-statement-container div {

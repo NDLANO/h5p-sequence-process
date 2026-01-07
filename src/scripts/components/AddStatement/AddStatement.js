@@ -24,10 +24,7 @@ function AddStatement({ addStatement }) {
           }
         }}
       >
-        <span>
-          <span className={'h5p-ri hri-pencil'} />
-          <span>{context.translate('add')}</span>
-        </span>
+        {context.translate('add')}
       </button>
     </div>
   );

@@ -17,14 +17,14 @@ function Reset() {
     reset,
   } = sequenceProcessContext;
 
-  function togglePopover() {
+  const togglePopover = () => {
     setPopover(!showPopover);
-  }
+  };
 
-  function confirmReset() {
+  const confirmReset = () => {
     reset();
     togglePopover();
-  }
+  };
 
   return (
     <Fragment>
@@ -67,9 +67,6 @@ function Reset() {
             onClick={togglePopover}
             type={'button'}
           >
-            <span
-              className={'h5p-ri hri-restart'}
-            />
             {translate('restart')}
           </button>
         </Popover>

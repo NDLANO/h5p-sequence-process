@@ -126,7 +126,6 @@ export default class Export extends Component {
           onClick={this.handleExport}
           type={'button'}
         >
-          <span className={'h5p-ri hri-document'} />
           {this.context.translate('createDocument')}
         </button>
         <div className={'export-container'} ref={(el) => this.exportContainer = el} />
