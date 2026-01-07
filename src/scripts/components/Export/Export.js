@@ -111,7 +111,7 @@ export default class Export extends Component {
       escapeHTML(this.context.translate('submitConfirmedText')),
       escapeHTML(this.context.translate('selectAll')),
       escapeHTML(this.context.translate('export')),
-      H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
+      'exportTemplate.docx',
       this.exportObject
     );
     this.exportDocument.getElement().prependTo(this.exportContainer);
