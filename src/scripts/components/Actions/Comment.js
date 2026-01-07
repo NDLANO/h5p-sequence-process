@@ -51,7 +51,9 @@ function Comment({
             onCommentChange(event.currentTarget.value);
           }}
           onKeyDown={(event) => {
-            event.stopPropagation();
+            if (event.key !== 'Tab') {
+              event.stopPropagation();
+            }
           }}
           rows={3}
         />

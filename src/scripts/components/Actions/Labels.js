@@ -10,6 +10,7 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
   const firstInputRef = useRef(null);
 
   const context = useContext(SequenceProcessContext);
+  const checkboxId = H5P.createUUID();
 
   function handleToggle() {
     togglePopover(!showPopover);
@@ -48,20 +49,17 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
               <div
                 key={label.id}
                 className="h5p-sequence-label-item"
-                tabIndex="0"
-                role="checkbox"
-                aria-checked={selectedLabelArray.indexOf(label.id) !== -1}
                 onKeyDown={(e) => handleLabelKeyDown(e, label.id)}
               >
                 <input
+                  id={checkboxId}
                   ref={index === 0 ? firstInputRef : null}
                   value={label.id}
                   type={'checkbox'}
                   checked={selectedLabelArray.indexOf(label.id) !== -1}
                   onChange={() => onLabelChange(label.id)}
-                  tabIndex="-1"
                 />
-                {label.label}
+                <label htmlFor={checkboxId}>{label.label}</label>
               </div>
             ))}
           </div>
