@@ -8,7 +8,7 @@ import { getSemanticsDefaults } from '@services/h5p-util.js';
 // TODO: Fix pre-populated sorting
 // TODO: Fix drag state when dropped and no statements remain
 // TODO: Fix export not showing items
-// TODO: Fix reset
+// TODO: Move huge SCSS to indivial CSS
 
 export default class SequenceProcess extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
@@ -43,6 +43,7 @@ export default class SequenceProcess extends H5P.EventDispatcher {
     this.registerReset = this.registerReset.bind(this);
     this.collectExportValues = this.collectExportValues.bind(this);
     this.translate = this.translate.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   collectExportValues(index, callback) {
