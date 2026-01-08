@@ -10,17 +10,21 @@
 .h5p-sequence-surface-main {
   margin: 1.5rem;
 
-  .h5p-sequence-surface-info {
+  & .h5p-sequence-surface-info {
     align-items: flex-start;
     display: flex;
 
-    .h5p-sequence-description {
+    & .h5p-sequence-description {
       flex-grow: 5;
       margin: 0 0.625rem 0.625rem 0;
     }
 
     .h5p-resource-list-wrapper {
-      margin-left: auto;
+      margin: 0 0 0 auto;
+
+      & .h5p-resource-list-button {
+        font: inherit;
+      }
     }
   }
 }

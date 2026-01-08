@@ -9,6 +9,7 @@
     border-radius: 5px;
     color: #363636;
     display: inline-block;
+    font: inherit;
     font-weight: bold;
     text-align: center;
     padding: 5px 10px;

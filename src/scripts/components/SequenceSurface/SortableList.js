@@ -939,7 +939,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
       )}
     </DndContext>
   );
-}
+};
 
 SortableList.propTypes = {
   params: PropTypes.object.isRequired,

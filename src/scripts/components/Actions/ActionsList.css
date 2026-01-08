@@ -1,0 +1,47 @@
+.h5p-sequence-actionlist {
+  border-left: 0.125rem solid #dbe2e8;
+
+  & .h5p-sequence-action-button {
+    background-color: transparent;
+    border: 0;
+    height: 100%;
+    padding: 0;
+    position: relative;
+    width: 3rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ffffff;
+    }
+
+    &:active {
+      background-color: #dbe2e8;
+    }
+
+    &::before {
+      content: "\f02b";
+      font-family: "H5PFontAwesome4", sans-serif;
+      font-size: 1.25rem;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &.empty::before {
+      color: #cccccc;
+    }
+
+    &.full::before {
+      color: #535c69;
+    }
+
+    &.label::before {
+      content: "\f02b";
+    }
+
+    &.comment::before {
+      content: "\f075";
+    }
+  }
+}

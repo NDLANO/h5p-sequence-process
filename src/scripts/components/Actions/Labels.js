@@ -68,7 +68,7 @@ const Labels = ({ labels = [], onLabelChange, selectedLabelArray = [] }) => {
     >
       <button
         onClick={handleToggle}
-        className={classnames('h5p-sequence-action label', {
+        className={classnames('h5p-sequence-action-button label', {
           'empty': !selectedLabelArray || selectedLabelArray.length === 0,
           'full': selectedLabelArray && selectedLabelArray.length > 0,
         })}

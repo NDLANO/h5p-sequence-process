@@ -1,3 +1,10 @@
 .h5p-sequence-surface {
   clear: both;
 }
+
+@container h5p-sequence-process (width >= 480px) {
+  .h5p-sequence-surface {
+    display: flex;
+    flex-flow: row;
+  }
+}

@@ -11,10 +11,15 @@
     margin: 0.3125rem;
   }
 
-  .h5p-sequence-button-restart,
-  .h5p-sequence-button-export {
+  .h5p-sequence-button {
     background-color: #507AA4;
     border: 2px solid #CCCCCC;
+    border-radius: 90px;
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: bold;
+    padding: 0.7rem 1rem;
 
     &:hover {
       background-color: #363636;
@@ -34,14 +39,14 @@
       font-family: "H5PFontAwesome4", sans-serif;
       margin-right: 0.5rem;
     }
-  }
 
-  .h5p-sequence-button-restart::before {
-    content: "\f01e";
-  }
+    &.h5p-sequence-button-restart::before {
+      content: "\f01e";
+    }
 
-  .h5p-sequence-button-export::before {
-    content: "\f016";
+    &.h5p-sequence-button-export::before {
+      content: "\f016";
+    }
   }
 }
 

@@ -2,6 +2,8 @@ import React, { Fragment, useContext } from 'react';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import { escapeHTML, stripHTML } from '@services/utils.js';
 
+import './Export.css';
+
 const Export = () => {
   const context = useContext(SequenceProcessContext);
   const exportContainer = React.useRef(null);

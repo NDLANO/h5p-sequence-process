@@ -4,6 +4,8 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import Popover from '@components/Popover/Popover.js';
 import classnames from 'classnames';
 
+import './Comment.css';
+
 const Comment = ({
   onCommentChange,
   comment = '',
@@ -43,6 +45,7 @@ const Comment = ({
       onCloseKeyDown={handleCloseKeyDown}
       popoverContent={(
         <textarea
+          className="h5p-sequence-statement-comment"
           ref={inputRef}
           placeholder={context.translate('typeYourReasonsForSuchAnswers')}
           value={comment}
@@ -61,7 +64,7 @@ const Comment = ({
     >
       <button
         onClick={handleToggle}
-        className={classnames('h5p-sequence-action comment', {
+        className={classnames('h5p-sequence-action-button comment', {
           'empty': !comment || comment.length === 0,
           'full': comment && comment.length > 0,
         })}

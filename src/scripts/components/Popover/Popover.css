@@ -20,12 +20,6 @@
   .h5p-sequence-popover-content {
     padding: 0.875rem;
 
-    & textarea {
-      box-sizing: border-box;
-      font: inherit;
-      width: 100%;
-    }
-
     .h5p-sequence-label-popover {
       .h5p-sequence-label-list {
         display: flex;

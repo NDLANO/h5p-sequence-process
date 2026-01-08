@@ -7,6 +7,9 @@ import Comment from '@components/Actions/Comment.js';
 import Labels from '@components/Actions/Labels.js';
 import PriorityNumber from '@components/StatementTypes/components/PriorityNumber.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import UnEditableStatement from '@components/StatementTypes/components/UnEditableStatement.js';
+
+import './SortableDropzone.css';
 
 const SortableDropZone = forwardRef((
   {
@@ -89,9 +92,7 @@ const SortableDropZone = forwardRef((
               <div className='h5p-sequence-statement'>
                 <div className='h5p-sequence-statement-sequenced'>
                   <div className='h5p-sequence-drag-element'></div>
-                  <p className="h5p-sequence-element">
-                    {statements[itemId]?.content || itemId}
-                  </p>
+                  <UnEditableStatement statement={statements[itemId]?.content || itemId} />
                 </div>
                 {isUnassignedEmpty && (
                   <Fragment>

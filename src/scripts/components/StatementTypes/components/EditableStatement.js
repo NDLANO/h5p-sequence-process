@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '@services/utils.js';
 
+import './EditableStatement.css';
+
 const EditableStatement = forwardRef((props, ref) => {
   const { statement, onBlur, idBase = false, isTabbable = false } = props;
   const [inEditMode, toggleEditMode] = useState(false);
@@ -68,37 +70,35 @@ const EditableStatement = forwardRef((props, ref) => {
       onKeyDown={handleKeyDown}
       aria-labelledby={labelId}
     >
-      <div>
-        <label
-          title={statement}
-          htmlFor={inputId}
-          id={labelId}
-        >
-          <span className="visible-hidden">Statement</span>
-          <input
-            type="text"
-            className={classnames('h5p-sequence-editable', {
-              hidden: !inEditMode,
-            })}
-            ref={inputRef}
-            defaultValue={statement}
-            onBlur={handleBlur}
-            onChange={debounce(() => onBlur(inputRef.current.value), 200)}
-            aria-label={'Edit statement ' + statement}
-            id={inputId}
-            tabIndex={isTabbable && inEditMode ? '0' : '-1'}
-            onKeyDown={handleInputKeyDown}
-          />
-        </label>
-        <p
-          className={classnames('h5p-sequence-noneditable', {
-            hidden: inEditMode,
+      <label
+        title={statement}
+        htmlFor={inputId}
+        id={labelId}
+      >
+        <span className="h5p-sequence-editable-label-hidden">Statement</span>
+        <input
+          type="text"
+          className={classnames('h5p-sequence-editable', {
+            hidden: !inEditMode,
           })}
-          data-no-dnd="true"
-        >
-          {statement}
-        </p>
-      </div>
+          ref={inputRef}
+          defaultValue={statement}
+          onBlur={handleBlur}
+          onChange={debounce(() => onBlur(inputRef.current.value), 200)}
+          aria-label={'Edit statement ' + statement}
+          id={inputId}
+          tabIndex={isTabbable && inEditMode ? '0' : '-1'}
+          onKeyDown={handleInputKeyDown}
+        />
+      </label>
+      <p
+        className={classnames('h5p-sequence-noneditable', {
+          hidden: inEditMode,
+        })}
+        data-no-dnd="true"
+      >
+        {statement}
+      </p>
     </div>
   );
 });

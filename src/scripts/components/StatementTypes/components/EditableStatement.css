@@ -1,0 +1,35 @@
+.h5p-sequence-editable-container {
+  display: flex;
+  flex: auto;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.3rem 0.6rem;
+
+  & .h5p-sequence-editable-label-hidden {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  & .h5p-sequence-editable {
+    flex: auto;
+    font-size: inherit;
+    height: 100%;
+    width: calc(100% - 4px); /* The sizing should be implemented differently */
+
+    &.hidden {
+      display: none !important; /* TODO: Why important? */
+    }
+  }
+
+  & .h5p-sequence-noneditable {
+    padding-left: 0.25rem;
+
+    &.hidden {
+      display: none !important; /* TODO: Why important? */
+    }
+  }
+}

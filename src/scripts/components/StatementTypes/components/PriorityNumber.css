@@ -1,0 +1,46 @@
+.h5p-order-priority-number {
+  margin-top: 1rem;
+
+  & .h5p-order-priority-number-circle {
+    border-radius: 50%;
+    height: 1.8rem;
+    width: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cccccc;
+    transition: background-color 200ms;
+    font-style: italic;
+    line-height: 2.25rem;
+    box-shadow: 0.25rem 0.25rem 0.25rem 0 rgba(3, 3, 3, 0.2);
+    position: absolute;
+    top: -0.25rem;
+    left: -0.25rem;
+    font-weight: bold;
+
+    &.h5p-order-priority-number-1 {
+      background-color: var(--h5p-number-base-color);
+      color: #ffffff;
+    }
+
+    &.h5p-order-priority-number-2 {
+      background-color: hsl(210, 62%, 57%);
+      color: #ffffff;
+    }
+
+    &.h5p-order-priority-number-3 {
+      background-color: hsl(210, 62%, 72%);
+      color: #1d5482;
+    }
+  }
+}
+
+@container h5p-sequence-process (width >= 480px) {
+  .h5p-order-priority-number .h5p-order-priority-number-circle {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.5rem;
+    font-size: 150%;
+    position: static;
+  }
+}

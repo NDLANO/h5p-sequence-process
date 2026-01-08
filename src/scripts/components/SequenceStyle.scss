@@ -9,148 +9,25 @@
   position: relative;
 }
 
-.h5p-sequence-button {
-  border: 0;
-  border-radius: 90px;
-  color: #ffffff;
-  cursor: pointer;
-  padding: 0.7rem 1rem;
-  font-weight: bold;
-}
-
-/* TODO: Don't set this globally */
-.h5p-sequence-wrapper {
-  textarea,
-  input,
-  button {
-    font: inherit;
-  }
-}
-
-.h5p-sequence-dropzones-list {
-  padding: 0.375rem;
-  flex: 1;
-  border: 1px solid #dbdbdb;
-  margin: 0.625rem 0;
-  border-radius: var(--border-radius);
-
-  .h5p-sequence-dropzones-list-description {
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-  }
-}
-
-.h5p-droparea {
-  padding: 0.25rem;
-  display: flex;
-  flex-grow: 1;
-  overflow: hidden;
-  border: 2px dashed #d1d1d1;
-  background-color: white;
-  min-height: 4rem;
-  flex-flow: column;
-  padding: 0.25rem;
-
-  &>div:not(.h5p-sequence-empty) {
-    &:hover,
-    &:active,
-    &.h5p-sequence-active-draggable {
-      cursor: pointer;
-      box-shadow: 0 0 3px 2px rgba(26, 115, 217, 0.2);
-
-      .h5p-sequence-statement-sequenced,
-      .h5p-sequence-actionlist>div,
-      .h5p-sequence-statement-container>div {
-        background-color: #edf4fd;
-      }
-    }
-  }
-
-  &.dragged {
-    .h5p-sequence-empty {
-      background-color: #bbd1f0;
-      background-size: cover;
-      box-shadow: inset 0 0 5px 1px rgba(39, 75, 143, 0.28);
-    }
-  }
-
-  .h5p-sequence-empty {
-    flex: auto;
-    background-color: #e6e6e6;
-    background-size: cover;
-    box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.h5p-sequence-draggable-container:focus-within {
-  .h5p-sequence-statement .h5p-sequence-delete-button {
-    opacity: 1;
-  }
-}
-
+/*
+ * This is used in both, SortableDropzone and SortableItem
+ * These could probably have a common subcomponent in the future
+ */
 .h5p-sequence-statement {
   background-color: #f6f8f9;
   border: 2px solid #dbe2e8;
   border-radius: var(--border-radius);
+  box-sizing: border-box;
   display: flex;
   flex-grow: 1;
+  height: 3.75rem;
   overflow: hidden;
-  min-height: 3.75rem;
   font-weight: bold;
 
   &:hover,
   &:active {
     .h5p-sequence-delete-button {
       opacity: 1;
-    }
-  }
-
-  .h5p-sequence-select-list & {
-    box-shadow: 3px 3px 4px 0 rgba(3, 3, 3, 0.2);
-    border: 2px solid #dbe2e8;
-
-    &:hover,
-    &:active,
-    &.h5p-sequence-active-draggable {
-      cursor: pointer;
-      box-shadow: 0 0 3px 2px rgba(26, 115, 217, 0.2);
-
-      div:not(.h5p-sequence-actionlist) {
-        background-color: #edf4fd;
-      }
-    }
-  }
-
-  p,
-  ul {
-    margin: 0;
-  }
-
-  .h5p-sequence-statement-sequenced {
-    width: 100%;
-    padding: 0.25rem 0;
-  }
-
-  .h5p-sequence-statement-remaining {
-    border-radius: var(--border-radius);
-    width: 100%;
-  }
-
-  &.h5p-sequence-statement-extra {
-    border-bottom: 2px solid #dbe2e8;
-
-    .h5p-sequence-statement-sequenced {
-      margin-bottom: 0;
-      border-radius: var(--border-radius) 0 0 0;
-    }
-
-    .h5p-sequence-actionlist,
-    .h5p-sequence-actionlist div {
-      margin-bottom: 0;
-      border-radius: 0 var(--border-radius) 0 0;
     }
   }
 
@@ -161,300 +38,22 @@
     flex: auto;
   }
 
-  & .h5p-sequence-element {
-    display: flex;
+  .h5p-sequence-drag-element {
     align-items: center;
-    padding: 0.8125rem;
-  }
-
-  .h5p-sequence-actionlist {
-    border-left: 0.125rem solid #dbe2e8;
-
-    button.h5p-sequence-action {
-      background-color: transparent;
-      border: 0;
-      height: 100%;
-      padding: 0;
-      position: relative;
-      width: 3rem;
-
-      &:hover {
-        background-color: #ffffff;
-      }
-
-      &:active {
-        background-color: #dbe2e8;
-      }
-
-      &::before {
-        content: "\f02b";
-        font-family: "H5PFontAwesome4", sans-serif;
-        font-size: 1.25rem;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      &.empty::before {
-        color: #cccccc;
-      }
-
-      &.full::before {
-        color: #535c69;
-      }
-
-      &.label::before {
-        content: "\f02b";
-      }
-
-      &.comment::before {
-        content: "\f075";
-      }
-    }
-  }
-}
-
-.h5p-sequence-statement-container {
-
-  &>div {
-    margin: 0 0.25rem 0.25rem 0.25rem;
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
-    overflow: hidden;
-    background-color: #f6f8f9;
-  }
-
-}
-
-.h5p-sequence-select-list {
-  padding: 0.375rem;
-  flex: 1;
-  border: 1px solid #dbdbdb;
-  margin: 0.625rem 0;
-  border: 0;
-
-  .h5p-sequence-statements-list-description {
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-  }
-}
-
-.h5p-sequence-action {
-  border-color: transparent;
-  padding: 0.5em;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1.2em;
-  transition: background-color 100ms, color 100ms;
-
-  &.h5p-sequence-action-active {
-    background-color: black;
-    color: white;
-  }
-
-  &:focus {
-    border: solid 2px #2196F3;
-  }
-}
-
-.h5p-sequence-drag-element {
-  align-items: center;
-  border-right: 1px solid #e6e6e6;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  width: 2.25rem;
-
-  &::before {
-    color: #535c69;
-    content: "\f047";
-    font-family: "H5PFontAwesome4", sans-serif;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.h5p-sequence-editable-container {
-  display: flex;
-  flex: auto;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0.3em 0.6em;
-
-  div {
-    width: 100%;
-  }
-
-  input {
-    min-height: 80%;
-    flex: auto;
-    font-size: inherit;
-    width: 100%;
-  }
-}
-
-.joubel-create-document {
-  top: 0;
-}
-
-.export-container {
-  button {
-    float: right;
-    cursor: pointer;
-    padding: 0 1em !important;
-    height: 100%;
-    box-sizing: border-box;
-    line-height: 3.5em;
-    color: #555;
-    font-family: Sans-Serif;
-    font-size: 1em;
-    background: none;
-    border: 0;
-    overflow: visible;
-  }
-}
-
-.export-preview {
-  .h1 {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-  }
-
-  .h2 {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-  }
-
-  .page-description {
-    font-style: italic;
-  }
-
-  table {
-    width: 100%;
-    border: 1px solid rgba(0, 90, 255, 0.34);
-  }
-
-  table tr:nth-child(even) {
-    background-color: rgba(176, 200, 236, 0.34);
-  }
-
-  th {
-    text-align: start;
-    background-color: rgba(45, 119, 193, 0.34);
-    border-collapse: collapse;
-  }
-
-  li {
-    margin-left: 0.3125rem;
-  }
-}
-
-.hidden {
-  display: none !important;
-}
-
-.h5p-sequence-no-transform {
-  transform: none !important;
-}
-
-.visible-hidden {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.visible-hidden:focus {
-  clip: auto;
-  height: auto;
-  overflow: auto;
-  position: absolute;
-  width: auto;
-}
-
-.h5p-order-priority-number {
-
-  margin-top: 1rem;
-
-  .h5p-order-priority-number-circle {
-    border-radius: 50%;
-    height: 1.8rem;
-    width: 1.8rem;
+    border-right: 1px solid #e6e6e6;
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: #cccccc;
-    transition: background-color 200ms;
-    font-style: italic;
-    line-height: 2.25rem;
-    box-shadow: 0.25rem 0.25rem 0.25rem 0 rgba(3, 3, 3, 0.2);
-    position: absolute;
-    top: -0.25rem;
-    left: -0.25rem;
-    font-weight: bold;
-  }
-}
+    min-width: 2.25rem;
+    position: relative;
 
-.h5p-order-priority-number-1 .h5p-order-priority-number-circle {
-  background-color: var(--h5p-number-base-color);
-  color: #ffffff;
-}
-
-.h5p-order-priority-number-2 .h5p-order-priority-number-circle {
-  background-color: hsl(210, 62%, 57%);
-  color: #ffffff;
-}
-
-.h5p-order-priority-number-3 .h5p-order-priority-number-circle {
-  background-color: hsl(210, 62%, 72%);
-  color: #1d5482;
-}
-
-@container h5p-sequence-process (width >= 480px) {
-  .h5p-sequence-surface {
-    display: flex;
-    flex-flow: row;
-  }
-
-  .h5p-order-priority-number .h5p-order-priority-number-circle {
-    width: 3rem;
-    height: 3rem;
-    margin-right: 0.5rem;
-    font-size: 150%;
-    position: static;
-  }
-}
-
-@container h5p-sequence-process (width >= 640px) {
-  .h5p-sequence-select-list {
-    margin-left: 0.75rem;
-  }
-
-  h5p-sequence-dropzones-list,
-  h5p-sequence-select-list {
-    padding: 1rem;
-  }
-
-  .h5p-sequence-statement-container div {
-    display: flex;
+    &::before {
+      color: #535c69;
+      content: "\f047";
+      font-family: "H5PFontAwesome4", sans-serif;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }

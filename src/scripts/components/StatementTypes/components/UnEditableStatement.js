@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './UnEditableStatement.css';
+
 const UnEditableStatement = (props) => {
   return (
     <p className={'h5p-sequence-element'}>

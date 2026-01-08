@@ -4,12 +4,23 @@
   margin: 0.8rem auto;
   position: relative;
 
-  .h5p-sequence-draggable-element {
+  & .h5p-sequence-draggable-element {
     flex-grow: 1;
 
-    .h5p-sequence-statement {
+    & .h5p-sequence-statement {
       background-color: #f6f8f9;
       display: flex;
+
+      & .h5p-sequence-statement-remaining {
+        border-radius: var(--border-radius);
+        width: 100%;
+      }
+    }
+  }
+
+  &:focus-within {
+    & .h5p-sequence-statement .h5p-sequence-delete-button {
+      opacity: 1;
     }
   }
 
