@@ -1,4 +1,3 @@
-import './SequenceStyle.scss';
 import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import SequenceSurface from '@components/SequenceSurface/SequenceSurface.js';
