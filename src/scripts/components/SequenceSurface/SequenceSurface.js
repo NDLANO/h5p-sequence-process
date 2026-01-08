@@ -3,7 +3,7 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import SortableList from './SortableList.js';
 import './SequenceSurface.css';
 
-function SequenceSurface() {
+const SequenceSurface = () => {
   const {
     registerReset,
     collectExportValues,
@@ -24,6 +24,6 @@ function SequenceSurface() {
       </div>
     </div>
   );
-}
+};
 
 export default SequenceSurface;

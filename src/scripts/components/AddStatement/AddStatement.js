@@ -1,12 +1,10 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 import './AddStatement.css';
 
-function AddStatement({ addStatement }) {
-
+const AddStatement = ({ addStatement }) => {
   const context = useContext(SequenceProcessContext);
 
   return (
@@ -28,7 +26,7 @@ function AddStatement({ addStatement }) {
       </button>
     </div>
   );
-}
+};
 
 AddStatement.propTypes = {
   addStatement: PropTypes.func,

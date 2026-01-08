@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ActionsList.css';
 
-const ActionsList = (
-  { children }
-) => {
+const ActionsList = ({ children }) => {
   return (
     <div className={'h5p-sequence-actionlist'}>
       {children}

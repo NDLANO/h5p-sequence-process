@@ -8,7 +8,7 @@ import Footer from '@components/Footer/Footer.js';
 import parse from 'html-react-parser';
 import './Main.css';
 
-function Main(props) {
+const Main = (props) => {
 
   const resourceContainer = useRef();
 
@@ -28,7 +28,7 @@ function Main(props) {
   } = props;
 
   useEffect(() => {
-    const filterResourceList = (element) => Object.keys(element).length !== 0 && element.constructor === Object;
+    const filterResourceList = (element) => element?.constructor === Object && Object.keys(element).length > 0;
     if (resourcesList.params.resourceList && resourcesList.params.resourceList.filter(filterResourceList).length > 0) {
       const resourceList = new H5P.ResourceList(resourcesList.params, id, language);
       resourceList.attach(resourceContainer.current);
@@ -72,7 +72,7 @@ function Main(props) {
       <Footer />
     </article>
   );
-}
+};
 
 Main.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

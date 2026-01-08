@@ -4,7 +4,7 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import Popover from '@components/Popover/Popover.js';
 import classnames from 'classnames';
 
-function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
+const Labels = ({ labels = [], onLabelChange, selectedLabelArray = [] }) => {
 
   const [showPopover, togglePopover] = useState(selectedLabelArray.length > 0);
   const firstInputRef = useRef(null);
@@ -12,23 +12,23 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
   const context = useContext(SequenceProcessContext);
   const checkboxId = H5P.createUUID();
 
-  function handleToggle() {
+  const handleToggle = () => {
     togglePopover(!showPopover);
-  }
+  };
 
-  function handleLabelKeyDown(event, labelId) {
+  const handleLabelKeyDown = (event, labelId) => {
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
       onLabelChange(labelId);
     }
-  }
+  };
 
-  function handleCloseKeyDown(event) {
+  const handleCloseKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       handleToggle();
     }
-  }
+  };
 
   return (
     <Popover
@@ -84,7 +84,7 @@ function Labels({ labels = [], onLabelChange, selectedLabelArray = [] }) {
       </button>
     </Popover>
   );
-}
+};
 
 Labels.propTypes = {
   labels: PropTypes.array,

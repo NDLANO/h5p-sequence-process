@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import './Summary.css';
 
-function Summary(props) {
+const Summary = (props) => {
   const context = useContext(SequenceProcessContext);
 
   const [comment, setComment] = useState('');
@@ -49,7 +49,7 @@ function Summary(props) {
       />
     </div>
   );
-}
+};
 
 Summary.propTypes = {
   reset: PropTypes.func,

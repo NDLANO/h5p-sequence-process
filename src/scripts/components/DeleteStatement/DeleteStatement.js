@@ -6,7 +6,7 @@ import './DeleteStatement.css';
 /**
  * @return {null}
  */
-function DeleteStatement(props) {
+const DeleteStatement = (props) => {
 
   const context = useContext(SequenceProcessContext);
 
@@ -29,7 +29,7 @@ function DeleteStatement(props) {
     <button
       onClick={onClick}
       onKeyUp={(event) => {
-        if (event.keyCode && event.keyCode === 8) {
+        if (event.key === 'Backspace') {
           onClick();
         }
       }}
@@ -46,7 +46,7 @@ function DeleteStatement(props) {
     >
     </button>
   );
-}
+};
 
 DeleteStatement.propTypes = {
   isTabbable: PropTypes.bool,

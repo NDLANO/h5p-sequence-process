@@ -4,7 +4,7 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 import './Reset.css';
 
-function Reset() {
+const Reset = () => {
 
   const [showPopover, setPopover] = useState(false);
   const sequenceProcessContext = useContext(SequenceProcessContext);
@@ -73,6 +73,6 @@ function Reset() {
       )}
     </Fragment>
   );
-}
+};
 
 export default Reset;

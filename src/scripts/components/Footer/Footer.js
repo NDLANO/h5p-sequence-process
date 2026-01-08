@@ -4,13 +4,13 @@ import Reset from './Reset.js';
 
 import './Footer.css';
 
-function Footer() {
+const Footer = () => {
   return (
     <section className={'h5p-sequence-footer'}>
       <Reset/>
       <Export/>
     </section>
   );
-}
+};
 
 export default Footer;

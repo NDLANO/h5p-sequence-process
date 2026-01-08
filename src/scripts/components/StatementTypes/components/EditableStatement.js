@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '@services/utils.js';
 
-const EditableStatement = forwardRef(({
-  statement,
-  onBlur,
-  idBase = false,
-  isTabbable = false,
-}, ref) => {
+const EditableStatement = forwardRef((props, ref) => {
+  const { statement, onBlur, idBase = false, isTabbable = false } = props;
   const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
 

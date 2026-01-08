@@ -4,16 +4,16 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import Popover from '@components/Popover/Popover.js';
 import classnames from 'classnames';
 
-function Comment({
+const Comment = ({
   onCommentChange,
   comment = '',
   inputRef,
   isOpen = false
-}) {
+}) => {
   const [showPopover, setShowPopover] = useState(isOpen);
   const context = useContext(SequenceProcessContext);
 
-  function handleToggle(event) {
+  const handleToggle = (event) => {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -23,15 +23,15 @@ function Comment({
     if (!showPopover) {
       setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
     }
-  }
+  };
 
-  function handleCloseKeyDown(event) {
+  const handleCloseKeyDown = (event) => {
     if (event.key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
       handleToggle(event);
     }
-  }
+  };
 
   return (
     <Popover
@@ -80,7 +80,7 @@ function Comment({
       </button>
     </Popover>
   );
-}
+};
 
 Comment.propTypes = {
   onCommentChange: PropTypes.func.isRequired,

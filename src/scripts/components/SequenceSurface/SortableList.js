@@ -26,7 +26,7 @@ import './SortableList.css';
 
 const STACKED_ITEM_OFFSET_PX = 12; // pixels (=0.8rem from CSS)
 
-function SortableList({ params, onUserInputChange, collectExportValues, reset }) {
+const SortableList = ({ params, onUserInputChange, collectExportValues, reset }) => {
   const context = useContext(SequenceProcessContext);
 
   // Behaviour params
