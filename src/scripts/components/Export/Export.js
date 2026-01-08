@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import { escapeHTML, stripHTML } from '@services/utils.js';
+import templateURL from '@assets/exportTemplate.docx';
 
 import './Export.css';
 
@@ -43,7 +44,10 @@ const Export = () => {
       hasSummaryComment: summary && summary.length > 0,
       summaryComment: summary,
       allLabels: userInput.labels.map((label) => label.label),
-      resources: resources,
+      resources: resources.map((resource) => {
+        resource.introduction = stripHTML(resource.introduction ?? '');
+        return resource;
+      }),
       sortedStatementList: userInput.sequencedStatements
         .map((statement) => userInput.statements[statement])
         .map((statement) => {
@@ -94,7 +98,6 @@ const Export = () => {
 
   const handleExport = () => {
     exportObject = getExportObject();
-
     context.triggerXAPIScored(0, 0, 'completed');
 
     exportDocument = new H5P.ExportPage(
@@ -105,7 +108,7 @@ const Export = () => {
       escapeHTML(context.translate('submitConfirmedText')),
       escapeHTML(context.translate('selectAll')),
       escapeHTML(context.translate('export')),
-      'exportTemplate.docx',
+      templateURL,
       exportObject
     );
     exportDocument.getElement().prependTo(exportContainer.current);
