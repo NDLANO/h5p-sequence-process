@@ -22,7 +22,7 @@
     }
 
     &::before {
-      content: "\f00d";
+      content: var(--icon-fontawesome-xmark);
       font-family: "H5PFontAwesome4", sans-serif;
       left: 50%;
       position: absolute;

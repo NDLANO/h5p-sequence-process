@@ -23,7 +23,7 @@
     }
 
     &::before {
-      content: "\f067";
+      content: var(--icon-fontawesome-plus);
       font-family: "H5PFontAwesome4", sans-serif;
       font-weight: normal;
       margin-right: 0.5rem;

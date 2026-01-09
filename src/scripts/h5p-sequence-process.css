@@ -3,6 +3,15 @@
   --h5p-number-base-color: #2880d0;
   --border-radius: 5px;
 
+  /* Icons */
+  --icon-fontawesome-arrow-rotate-right: "\f01e";
+  --icon-fontawesome-arrows-up-down-left-right: "\f047";
+  --icon-fontawesome-comment: "\f075";
+  --icon-fontawesome-file: "\f016";
+  --icon-fontawesome-plus: "\f067";
+  --icon-fontawesome-tag: "\f02b";
+  --icon-fontawesome-xmark: "\f00d";
+
   container-name: h5p-sequence-process;
   container-type: inline-size;
   font-family: "Open Sans", sans-serif;
@@ -48,7 +57,7 @@
 
     &::before {
       color: #535c69;
-      content: "\f047";
+      content: var(--icon-fontawesome-arrows-up-down-left-right);
       font-family: "H5PFontAwesome4", sans-serif;
       position: absolute;
       left: 50%;

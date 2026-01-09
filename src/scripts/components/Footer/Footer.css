@@ -41,11 +41,11 @@
     }
 
     &.h5p-sequence-button-restart::before {
-      content: "\f01e";
+      content: var(--icon-fontawesome-arrow-rotate-right);
     }
 
     &.h5p-sequence-button-export::before {
-      content: "\f016";
+      content: var(--icon-fontawesome-file);
     }
   }
 }

@@ -19,7 +19,6 @@
     }
 
     &::before {
-      content: "\f02b";
       font-family: "H5PFontAwesome4", sans-serif;
       font-size: 1.25rem;
       position: absolute;
@@ -37,11 +36,11 @@
     }
 
     &.label::before {
-      content: "\f02b";
+      content: var(--icon-fontawesome-tag);
     }
 
     &.comment::before {
-      content: "\f075";
+      content: var(--icon-fontawesome-comment)
     }
   }
 }
