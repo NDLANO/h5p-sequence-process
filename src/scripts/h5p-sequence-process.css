@@ -1,7 +1,17 @@
 .h5p-sequence-process {
-  --h5p-color-1: #1f71e8;
-  --h5p-number-base-color: #2880d0;
-  --border-radius: 5px;
+  /* Sizing */
+  --border-radius: var(--h5p-theme-border-radius-medium, 5px);
+  --spacing-xl: var(--h5p-theme-spacing-xl, 3.0rem);
+  --spacing-l: var(--h5p-theme-spacing-l, 2.0rem);
+  --spacing-m: var(--h5p-theme-spacing-m, 1.5rem);
+  --spacing-s: var(--h5p-theme-spacing-s, 1rem);
+  --spacing-xs: var(--h5p-theme-spacing-xs, 0.65rem);
+  --spacing-xxs: var(--h5p-theme-spacing-xss, 0.5rem);
+  --font-size-m: var(--h5p-theme-font-size-m, 1rem);
+  --font-size-xl: var(--h5p-theme-font-size-xl, 1.25rem);
+  --font-size-xxl: var(--h5p-theme-font-size-xxl, 1.5rem);
+
+  --draggable-height: calc(3.75 * var(--spacing-s));
 
   /* Icons */
   --icon-fontawesome-arrow-rotate-right: "\f01e";
@@ -12,10 +22,32 @@
   --icon-fontawesome-tag: "\f02b";
   --icon-fontawesome-xmark: "\f00d";
 
+  /* Colors */
+  --color-primary: var(--h5p-theme-main-cta-base, #505ddd);
+  --color-primary-contrast: var(--h5p-theme-contrast-cta, #ffffff);
+  --color-primary-contrast-to-white: var(--h5p-theme-contrast-cta-white, #006FBF);
+  --color-primary-light: var(--h5p-theme-main-cta-light, #007cd6);
+  --color-primary-dark: var(--h5p-theme-main-cta-dark, #005fa3);
+  --color-text-primary: var(--h5p-theme-text-primary, #101729);
+  --color-text-secondary: var(--h5p-theme-text-secondary, #354054);
+  --color-text-third: var(--h5p-theme-text-third, #737373);
+  --color-alternative: var(--h5p-theme-alternative-base, #f1f5fb);
+  --color-alternative-dark: var(--h5p-theme-alternative-dark, #dcdfaa);
+  --color-alternative-darker: var(--h5p-theme-alternative-darker, #ced1ee);
+  --color-background: var(--h5p-theme-ui-base, #ffffff);
+  --color-red: var(--h5p-theme-feedback-incorrect-main, #a13236);
+
+  background-color: var(--color-background);
   container-name: h5p-sequence-process;
   container-type: inline-size;
   font-family: "Open Sans", sans-serif;
+  font-size: var(--font-size-m);
   position: relative;
+
+  & *:focus-visible {
+    outline: 2px ridge var(--color-primary-contrast-to-white);
+    outline-offset: 2px;
+  }
 }
 
 /*
@@ -23,18 +55,23 @@
  * These could probably have a common subcomponent in the future
  */
 .h5p-sequence-statement {
-  background-color: #f6f8f9;
-  border: 2px solid #dbe2e8;
+  background-color: var(--color-alternative);
+  border: 2px solid var(--color-alternative-dark);
   border-radius: var(--border-radius);
+  box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   display: flex;
   flex-grow: 1;
-  height: 3.75rem;
+  height: var(--draggable-height);
   overflow: hidden;
   font-weight: bold;
 
   &:hover,
-  &:active {
+  &:active,
+  &.h5p-sequence-active-draggable {
+    cursor: pointer;
+    box-shadow: 0 0 3px 2px oklch(from var(--color-primary) l c h / 0.2);
+
     .h5p-sequence-delete-button {
       opacity: 1;
     }
@@ -43,20 +80,16 @@
   &>div {
     display: flex;
     align-items: stretch;
-    min-height: 2.75rem;
     flex: auto;
   }
 
   .h5p-sequence-drag-element {
-    align-items: center;
-    border-right: 1px solid #e6e6e6;
-    display: flex;
-    justify-content: center;
-    min-width: 2.25rem;
+    background-color: color-mix(in srgb, var(--color-alternative-dark), transparent 30%);
+    color: var(--color-text-third);
+    width: calc(2.25 * var(--spacing-s));
     position: relative;
 
     &::before {
-      color: #535c69;
       content: var(--icon-fontawesome-arrows-up-down-left-right);
       font-family: "H5PFontAwesome4", sans-serif;
       position: absolute;

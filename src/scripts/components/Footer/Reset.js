@@ -30,6 +30,7 @@ const Reset = () => {
     <Fragment>
       {enableRetry === true && (
         <Popover
+          parentElement={sequenceProcessContext.wrapper}
           handleClose={togglePopover}
           show={showPopover}
           close={translate('close')}

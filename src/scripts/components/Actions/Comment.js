@@ -37,6 +37,7 @@ const Comment = ({
 
   return (
     <Popover
+      parentElement={context.wrapper}
       handleClose={handleToggle}
       show={showPopover}
       classnames={context.activeBreakpoints}

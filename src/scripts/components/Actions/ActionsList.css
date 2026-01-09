@@ -1,5 +1,5 @@
 .h5p-sequence-actionlist {
-  border-left: 0.125rem solid #dbe2e8;
+  border-left: 2px solid var(--color-alternative-darker);
 
   & .h5p-sequence-action-button {
     background-color: transparent;
@@ -7,20 +7,25 @@
     height: 100%;
     padding: 0;
     position: relative;
-    width: 3rem;
+    width: var(--spacing-xl);
     cursor: pointer;
 
     &:hover {
-      background-color: #ffffff;
+      background-color: color-mix(in srgb, var(--color-alternative-dark), transparent 30%);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
     }
 
     &:active {
-      background-color: #dbe2e8;
+      background-color: var(--color-alternative-dark);
     }
 
     &::before {
       font-family: "H5PFontAwesome4", sans-serif;
-      font-size: 1.25rem;
+      font-size: var(--font-size-xl);
       position: absolute;
       left: 50%;
       top: 50%;
@@ -28,11 +33,11 @@
     }
 
     &.empty::before {
-      color: #cccccc;
+      color: var(--color-alternative-darker)
     }
 
     &.full::before {
-      color: #535c69;
+      color: var(--color-primary);
     }
 
     &.label::before {

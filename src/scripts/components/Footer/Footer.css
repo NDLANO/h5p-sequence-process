@@ -1,43 +1,39 @@
 .h5p-sequence-footer {
-  background-color: #507AA4;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
   display: flex;
-  flex-direction: column;
-  padding: 1.25rem;
+  flex-direction: row;
+  gap: var(--spacing-s);
+  padding: var(--spacing-m);
 
   .h5p-sequence-button {
-    background-color: transparent;
-    font-weight: bold;
-    margin: 0.3125rem;
-  }
-
-  .h5p-sequence-button {
-    background-color: #507AA4;
-    border: 2px solid #CCCCCC;
-    border-radius: 90px;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-primary-contrast);
+    border-radius: var(--border-radius);
+    color: var(--color-primary-contrast);
     cursor: pointer;
     font: inherit;
     font-weight: bold;
-    padding: 0.7rem 1rem;
+    padding: var(--spacing-xs) var(--spacing-s);
 
+    &:focus,
     &:hover {
-      background-color: #363636;
-      color: inherit;
+      background-color: var(--color-primary-contrast);
+      color: var(--color-primary);
     }
 
-    &:focus {
-      color: inherit;
+    &:focus-visible {
+      outline: 2px ridge var(--color-primary-contrast);
+      outline-offset: 2px;
     }
 
     &:active {
-      background-color: #000000;
-      color: inherit;
+      background-color: oklch(from var(--color-primary-contrast) calc(l * 0.95) c h);
     }
 
     &::before {
       font-family: "H5PFontAwesome4", sans-serif;
-      margin-right: 0.5rem;
+      margin-right: var(--spacing-xxs);
     }
 
     &.h5p-sequence-button-restart::before {

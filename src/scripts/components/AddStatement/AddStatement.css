@@ -4,29 +4,30 @@
   position: relative;
 
   .h5p-sequence-add {
-    background-color: rgba(219, 226, 232, 0.25);
-    border: 1px solid #dbe2e8;
-    border-radius: 5px;
-    color: #363636;
-    display: inline-block;
+    background-color: var(--color-primary);
+    border: 3px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    color: var(--color-primary-contrast);
     font: inherit;
     font-weight: bold;
-    text-align: center;
-    padding: 5px 10px;
+    padding: calc(0.5 * var(--spacing-xs)) var(--spacing-xs);
 
+    &:focus,
     &:hover {
-      background-color: #ffffff;
+      background-color: var(--color-primary-light);
+      border-color: var(--color-primary-light);
     }
 
     &:active {
-      background-color: #ebf0ff;
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
     }
 
     &::before {
       content: var(--icon-fontawesome-plus);
       font-family: "H5PFontAwesome4", sans-serif;
       font-weight: normal;
-      margin-right: 0.5rem;
+      margin-right: var(--spacing-xxs);
     }
   }
 }

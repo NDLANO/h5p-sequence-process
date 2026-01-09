@@ -1,97 +1,60 @@
 .h5p-sequence-popover {
   width: 95%;
   z-index: 1;
-}
 
-.h5p-sequence-popover-container {
-  background-color: #ffffff;
-  background-size: cover;
-  border-radius: 4px;
-  box-shadow: 5px 10px 22px rgba(0, 0, 0, 0.4);
-
-  .h5p-sequence-popover-header {
-    align-items: center;
-    border-bottom: 1px solid #dbe2e8;
-    display: flex;
-    padding: 0.875rem;
-    font-weight: bold;
+  & .popover-arrow-container > div {
+    /* Tiny popover sets these values on the element directly */
+    border-bottom-color: var(--color-alternative-dark) !important;
+    border-top-color: var(--color-alternative-dark) !important;
   }
 
-  .h5p-sequence-popover-content {
-    padding: 0.875rem;
+  & .h5p-sequence-popover-container {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-alternative-dark);
+    border-radius: var(--border-radius);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.4);
 
-    .h5p-sequence-label-popover {
-      .h5p-sequence-label-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-
-        .h5p-sequence-label-item {
-          cursor: pointer;
-        }
-      }
-    }
-
-    .h5p-sequence-reset-modal {
-      background-color: #ffffff;
+    & .h5p-sequence-popover-header {
+      align-items: center;
+      border-bottom: 1px solid var(--color-alternative-dark);
+      color: var(--color-text-primary);
       display: flex;
-      flex-flow: column;
-      gap: 1rem;
-      max-width: 85%;
+      padding: var(--spacing-s);
+      font-weight: bold;
+    }
 
-      .h5p-sequence-reset-modal-buttons {
-        display: flex;
-        gap: 1rem;
+    & .h5p-sequence-popover-content {
+      padding: var(--spacing-s);
+    }
 
-        button {
-          cursor: pointer;
-          font-weight: 600;
-          font-size: inherit;
+    & .close-button {
+      aspect-ratio: 1;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      margin-left: auto;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 0;
+      position: relative;
+      width: var(--spacing-l);
 
-          &.continue {
-            background-color: #1f1f1f;
-            color: #fff;
-          }
+      &:hover {
+        background-color: var(--h5p-theme-alternative-base);
+      }
 
-          &.cancel {
-            background-color: transparent;
-            border: 0;
-            color: #2071e3;
-          }
-        }
+      &::before {
+        content: var(--icon-fontawesome-xmark);
+        font-family: "H5PFontAwesome4", sans-serif;
+        font-size: var(--font-size-xxl);
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
       }
     }
   }
 
-  .close-button {
-    background: white;
-    color: black;
-    cursor: pointer;
-    margin-left: auto;
-    padding: 0;
-
-    background-color: #ffffff;
-    border: 2px solid;
-    border-radius: 50%;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    height: 1.875rem;
-    padding: 0;
-    position: relative;
-    width: 1.875rem;
-
-    &:hover {
-      background-color: #f6f8f9;
-    }
-
-    &::before {
-      content: "\f00d";
-      font-family: "H5PFontAwesome4", sans-serif;
-      font-size: 1rem;
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
 }

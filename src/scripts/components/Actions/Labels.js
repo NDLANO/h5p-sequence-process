@@ -4,6 +4,8 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import Popover from '@components/Popover/Popover.js';
 import classnames from 'classnames';
 
+import './Labels.css';
+
 const Labels = ({ labels = [], onLabelChange, selectedLabelArray = [] }) => {
 
   const [showPopover, togglePopover] = useState(selectedLabelArray.length > 0);
@@ -32,6 +34,7 @@ const Labels = ({ labels = [], onLabelChange, selectedLabelArray = [] }) => {
 
   return (
     <Popover
+      parentElement={context.wrapper}
       handleClose={handleToggle}
       show={showPopover}
       classnames={context.activeBreakpoints}

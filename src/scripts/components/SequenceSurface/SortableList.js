@@ -43,6 +43,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [autoEditStatementId, setAutoEditStatementId] = useState(null);
   const [stackedMode, setStackedMode] = useState(params.behaviour.useStackedView);
+  const [resizeCounter, setResizeCounter] = useState(0);
 
   const [tabIndexDropzonesList, setTabIndexDropzonesList] = useState(0);
   const [currentTabIndexDropzones, setCurrentTabIndexDropzones] = useState(0);
@@ -779,6 +780,19 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
     dropzonesListDescription = `${dropzonesListDescription} ${context.translate('listsDescriptionEditable')}`;
     statementsListDescription = `${statementsListDescription} ${context.translate('listsDescriptionEditable')}`;
   }
+
+  // Add resize listener effect
+  useEffect(() => {
+    const handleResize = () => {
+      setResizeCounter((prev) => prev + 1);
+    };
+
+    context.on('resize', handleResize);
+
+    return () => {
+      context.off('resize', handleResize);
+    };
+  }, [context]);
 
   return (
     <DndContext

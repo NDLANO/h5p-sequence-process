@@ -12,6 +12,7 @@ const Popover = ({
   header,
   close,
   align = 'end',
+  parentElement
 }) => {
   const classnamesRef = useRef([...classnames, 'h5p-sequence-popover']);
   const popoverRef = useRef(null);
@@ -58,6 +59,7 @@ const Popover = ({
 
   return (
     <TinyPopover
+      parentElement={parentElement}
       isOpen={show}
       positions={['top', 'bottom']}
       padding={10}
@@ -125,6 +127,7 @@ Popover.propTypes = {
   header: PropTypes.string,
   close: PropTypes.string,
   align: PropTypes.oneOf(['start', 'center', 'end']),
+  parentElement: PropTypes.oneOf([PropTypes.instanceOf(HTMLElement), undefined]),
 };
 
 export default Popover;

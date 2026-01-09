@@ -1,25 +1,31 @@
 .h5p-sequence-header {
   align-items: center;
-  background-color: #507AA4;
-  color: #ffffff;
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
   display: flex;
-  font-size: 1.25rem;
-  padding: 1.3125rem;
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  padding: var(--spacing-m)
 }
 
 .h5p-sequence-surface-main {
-  margin: 1.5rem;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  margin: var(--spacing-m);
 
   & .h5p-sequence-surface-info {
     align-items: flex-start;
     display: flex;
+    gap: var(--spacing-xs);
 
     & .h5p-sequence-description {
       flex-grow: 5;
-      margin: 0 0.625rem 0.625rem 0;
     }
 
-    .h5p-resource-list-wrapper {
+    & .h5p-resource-list-wrapper {
       margin: 0 0 0 auto;
 
       & .h5p-resource-list-button {

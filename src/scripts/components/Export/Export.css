@@ -1,4 +1,7 @@
 .export-preview {
+  /*
+   * This needs support for theming, but we need to migrate this to H5P.DocumentExportPage anyway
+   */
   .h1 {
     display: block;
     font-size: 2em;

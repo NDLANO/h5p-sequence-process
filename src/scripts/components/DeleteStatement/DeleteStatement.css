@@ -1,24 +1,23 @@
   .h5p-sequence-delete-button {
-    background-color: #ffffff;
-    border: 2px solid #e03c34;
+    aspect-ratio: 1;
+    background-color: var(--color-background);
+    border: 2px solid var(--color-red);
     border-radius: 50%;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-    color: #e03c34;
+    color: var(--color-red);
     cursor: pointer;
-    height: 1.875rem;
     padding: 0;
     opacity: 0;
     position: absolute;
-    right: -0.75rem;
-    top: -0.75rem;
-    width: 1.875rem;
+    right: calc(-0.75 * var(--spacing-s));
+    top: calc(-0.75 * var(--spacing-s));
+    width: calc(1.875 * var(--spacing-s));
 
     &:focus {
       opacity: 1;
     }
 
     &:hover {
-      background-color: #f6f8f9;
+      background-color: color-mix(in lch, var(--color-red) 15%, var(--color-background) 85%);
     }
 
     &::before {

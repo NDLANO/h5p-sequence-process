@@ -1,11 +1,9 @@
 .h5p-droparea {
-  display: flex;
+  background-color: var(--color-background);
+  border: 2px dashed var(--color-alternative-dark);
   flex-grow: 1;
   overflow: hidden;
-  border: 2px dashed #d1d1d1;
-  background-color: white;
-  flex-flow: column;
-  padding: 0.25rem;
+  padding: calc(0.5 * var(--spacing-xxs));
 
   &>div:not(.h5p-sequence-empty) {
     &:hover,
@@ -13,33 +11,18 @@
     &.h5p-sequence-active-draggable {
       cursor: pointer;
       box-shadow: 0 0 3px 2px rgba(26, 115, 217, 0.2);
-
-      .h5p-sequence-statement-sequenced,
-      .h5p-sequence-actionlist>div {
-        background-color: #edf4fd;
-      }
-    }
-  }
-
-  &.dragged {
-    .h5p-sequence-empty {
-      background-color: #bbd1f0;
-      background-size: cover;
-      box-shadow: inset 0 0 5px 1px rgba(39, 75, 143, 0.28);
     }
   }
 
   .h5p-sequence-empty {
     flex: auto;
-    background-color: #e6e6e6;
-    background-size: cover;
+    background-color: var(--color-alternative-dark);
     box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    height: 3.75rem;
+    height: var(--draggable-height);
   }
 }
 
 .h5p-sequence-statement-sequenced {
   width: 100%;
-  padding: 0.25rem 0;
 }
