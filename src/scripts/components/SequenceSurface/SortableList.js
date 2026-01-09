@@ -360,7 +360,28 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
       setCurrentTabIndexDropzones(getIndexOfDropzone(getDropzoneById(overId)));
     }
     else if (isDropzoneGroup(active.id)) {
-      // Not commissioned yet: Dragging back to unassigned items list from dropzoneGroups
+      // Remove item from dropzone
+      const item = getStatementIdFromDropzoneId(active.id);
+      setDropzoneGroups((lists) =>
+        lists.map((list) => {
+          if (list.id === active.id) {
+            return { ...list, items: [] };
+          }
+          return list;
+        })
+      );
+
+      // Add item to top of unassigned items
+      setUnassignedItemIds((items) => [item, ...items]);
+      setUserInput((prev) => ({
+        ...prev,
+        sequencedStatements: prev.sequencedStatements.filter((sid) => sid !== item)
+      }));
+      pendingFocusIdRef.current = item;
+
+      setActiveId(null);
+
+      context.trigger('resize');
     }
     else {
       // Put dropped element at the bottom of unassigned items
@@ -934,7 +955,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
                 heightOfPreviousSiblings={getSumHeightOfPreviousSiblings(index)}
               />
             ))}
-            <DragOverlay className="h5p-sequence-drag-overlay">
+            <DragOverlay className="h5p-sequence-drag-overlay" dropAnimation={null}>
               {activeId ? (
                 <DraggableOverlay
                   id={activeId}

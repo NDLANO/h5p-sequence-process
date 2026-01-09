@@ -7,8 +7,6 @@ import { getSemanticsDefaults } from '@services/h5p-util.js';
 import './h5p-sequence-process.css';
 
 // TODO: Fix drag state when dropped and no statements remain
-// TODO: Fix dragging state not reset when swithcing from keyboard to mouse
-// TODO: Allow putting draggables back to the remaining list
 
 export default class SequenceProcess extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
