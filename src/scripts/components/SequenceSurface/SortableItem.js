@@ -24,6 +24,7 @@ const SortableItem = forwardRef((
     onReceivedFocus = () => {},
     isDragged = false,
     heightOfPreviousSiblings,
+    onBlur: onBlurProp,
   },
   ref
 ) => {
@@ -63,7 +64,8 @@ const SortableItem = forwardRef((
 
   const handleBlur = useCallback(() => {
     setSelectedState(false);
-  }, []);
+    onBlurProp?.();
+  }, [onBlurProp]);
 
   return (
     <li
@@ -128,6 +130,7 @@ SortableItem.propTypes = {
   onReceivedFocus: PropTypes.func,
   isDragged: PropTypes.bool,
   heightOfPreviousSiblings: PropTypes.number,
+  onBlur: PropTypes.func,
 };
 
 SortableItem.defaultProps = {

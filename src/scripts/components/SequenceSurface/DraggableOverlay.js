@@ -17,6 +17,17 @@ const DraggableOverlay = ({ id, statements, dropzoneGroups }) => {
     };
   }, [id]);
 
+  const handleBlur = () => {
+    const escapeEvent = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      code: 'Escape',
+      keyCode: 27,
+      bubbles: true,
+      cancelable: true,
+    });
+    document.dispatchEvent(escapeEvent);
+  };
+
   let statement = statements[id]?.content;
 
   if (!statement) {
@@ -26,7 +37,7 @@ const DraggableOverlay = ({ id, statements, dropzoneGroups }) => {
     }
   }
 
-  return <SortableItem ref={sortableRef} itemId={id} statement={statement} />;
+  return <SortableItem ref={sortableRef} itemId={id} statement={statement} onBlur={handleBlur} />;
 };
 
 DraggableOverlay.propTypes = {
