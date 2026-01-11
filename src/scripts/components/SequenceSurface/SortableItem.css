@@ -12,4 +12,9 @@
       opacity: 1;
     }
   }
+
+  &.dragging .h5p-sequence-statement {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
