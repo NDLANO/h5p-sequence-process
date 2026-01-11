@@ -893,6 +893,15 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
               />
             ))}
           </SortableContext>
+          <DragOverlay className="h5p-sequence-drag-overlay" dropAnimation={null}>
+            {activeId ? (
+              <DraggableOverlay
+                id={activeId}
+                statements={statements}
+                dropzoneGroups={dropzoneGroups}
+              />
+            ) : null}
+          </DragOverlay>
         </ul>
       </div>
 
@@ -955,15 +964,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
                 heightOfPreviousSiblings={getSumHeightOfPreviousSiblings(index)}
               />
             ))}
-            <DragOverlay className="h5p-sequence-drag-overlay" dropAnimation={null}>
-              {activeId ? (
-                <DraggableOverlay
-                  id={activeId}
-                  statements={statements}
-                  dropzoneGroups={dropzoneGroups}
-                />
-              ) : null}
-            </DragOverlay>
+
           </ul>
           {addStatementButton && (
             <AddStatement
