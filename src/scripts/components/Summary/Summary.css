@@ -11,7 +11,7 @@
 
   textarea {
     background-color: var(--color-background);
-    border: 2px solid var(--color-alternative-dark);
+    border: 2px solid var(--color-alternative-darker);
     border-radius: var(--border-radius);
     box-sizing: border-box;
     color: var(--color-text-primary);

@@ -4,19 +4,19 @@
 
   & .popover-arrow-container > div {
     /* Tiny popover sets these values on the element directly */
-    border-bottom-color: var(--color-alternative-dark) !important;
-    border-top-color: var(--color-alternative-dark) !important;
+    border-bottom-color: var(--color-alternative-darker) !important;
+    border-top-color: var(--color-alternative-darker) !important;
   }
 
   & .h5p-sequence-popover-container {
     background-color: var(--color-background);
-    border: 2px solid var(--color-alternative-dark);
+    border: 2px solid var(--color-alternative-darker);
     border-radius: var(--border-radius);
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.4);
 
     & .h5p-sequence-popover-header {
       align-items: center;
-      border-bottom: 1px solid var(--color-alternative-dark);
+      border-bottom: 1px solid var(--color-alternative-darker);
       color: var(--color-text-primary);
       display: flex;
       padding: var(--spacing-s);
