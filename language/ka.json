@@ -127,6 +127,14 @@
           "default": "თავიდან ჩართვა"
         },
         {
+          "label": "Label for \"Cancel\"-button",
+          "default": "Cancel"
+        },
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
+        },
+        {
           "label": "წარწერა \"ალტერნატივის დამატების\" ღილაკისთვის",
           "default": "დაამატეთ ალტერნატივა"
         },
@@ -137,6 +145,10 @@
         {
           "label": "წარწერა \"არა\" ღილაკისთვის",
           "default": "არა"
+        },
+        {
+          "label": "Label for the \"Continue\"-button",
+          "default": "Continue"
         },
         {
           "label": "აცნობეთ მომხმარებელს, რომ მონაცემები დაიკარგება, თუ ის გააგრძელებს",
@@ -163,10 +175,6 @@
     {
       "label": "რესურსის ანგარიში",
       "fields": [
-        {
-          "label": "წარწერა \"დოკუმენტის შექმნის\" ღილაკისთვის",
-          "default": "დოკუმენტის შექმნა"
-        },
         {
           "label": "წარწერა \"ექსპორტის\" ღილაკზე",
           "default": "ექსპორტი"

@@ -127,6 +127,14 @@
           "default": "Start på nytt"
         },
         {
+          "label": "Label for \"Cancel\"-button",
+          "default": "Cancel"
+        },
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
+        },
+        {
           "label": "Tekst på \"Lag alternativ\"-knappen",
           "default": "Lag alternativ"
         },
@@ -137,6 +145,10 @@
         {
           "label": "Tekst på \"Nei\"-knappen",
           "default": "Nei"
+        },
+        {
+          "label": "Label for the \"Continue\"-button",
+          "default": "Continue"
         },
         {
           "label": "Informer brukeren om at all data vil gå tapt om vedkommende fortsetter",
@@ -163,10 +175,6 @@
     {
       "label": "Ressursrapport",
       "fields": [
-        {
-          "label": "Tekst på \"Opprett dokument\"-knappen",
-          "default": "Opprett dokument"
-        },
         {
           "label": "Tekst på \"Eksporter\"-knappen",
           "default": "Eksporter"

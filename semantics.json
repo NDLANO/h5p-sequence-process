@@ -268,6 +268,18 @@
         "default": "Restart"
       },
       {
+        "name": "cancel",
+        "type": "text",
+        "label": "Label for \"Cancel\"-button",
+        "default": "Cancel"
+      },
+      {
+        "name": "createDocument",
+        "type": "text",
+        "label": "Label for \"Create document\"-button",
+        "default": "Create document"
+      },
+      {
         "name": "add",
         "type": "text",
         "label": "Label for the \"Add alternative\"-button",
@@ -284,6 +296,12 @@
         "type": "text",
         "label": "Label for the \"No\"-button",
         "default": "No"
+      },
+      {
+        "name": "continue",
+        "type": "text",
+        "label": "Label for the \"Continue\"-button",
+        "default": "Continue"
       },
       {
         "name": "ifYouContinueAllYourChangesWillBeLost",
@@ -324,12 +342,6 @@
     "type": "group",
     "common": true,
     "fields": [
-      {
-        "name": "createDocument",
-        "type": "text",
-        "label": "Label for \"Create document\"-button",
-        "default": "Create document"
-      },
       {
         "name": "export",
         "type": "text",

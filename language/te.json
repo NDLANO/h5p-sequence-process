@@ -127,6 +127,14 @@
           "default": "Restart"
         },
         {
+          "label": "Label for \"Cancel\"-button",
+          "default": "Cancel"
+        },
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
+        },
+        {
           "label": "Label for the \"Add alternative\"-button",
           "default": "Add alternative"
         },
@@ -137,6 +145,10 @@
         {
           "label": "Label for the \"No\"-button",
           "default": "No"
+        },
+        {
+          "label": "Label for the \"Continue\"-button",
+          "default": "Continue"
         },
         {
           "label": "Inform the user that data will be lost if he/she continues",
@@ -163,10 +175,6 @@
     {
       "label": "Resource report",
       "fields": [
-        {
-          "label": "Label for \"Create document\"-button",
-          "default": "Create document"
-        },
         {
           "label": "Label on \"Export\" button",
           "default": "Export"

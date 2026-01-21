@@ -127,6 +127,14 @@
           "default": "Reiniciar"
         },
         {
+          "label": "Label for \"Cancel\"-button",
+          "default": "Cancel"
+        },
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
+        },
+        {
           "label": "Etiqueta para el botón \"Añadir alternativa\"",
           "default": "Añadir alternativa"
         },
@@ -137,6 +145,10 @@
         {
           "label": "Etiqueta para el botón \"No\"",
           "default": "No"
+        },
+        {
+          "label": "Label for the \"Continue\"-button",
+          "default": "Continue"
         },
         {
           "label": "Informar al usuario que se perderán sus datos si continúa",
@@ -163,10 +175,6 @@
     {
       "label": "Informe de recursos",
       "fields": [
-        {
-          "label": "Etiqueta para el botón \"Crear documento\"",
-          "default": "Crear documento"
-        },
         {
           "label": "Etiqueta para el botón \"Exportar\"",
           "default": "Exportar"
