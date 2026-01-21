@@ -25,6 +25,7 @@ const SortableItem = forwardRef((
     isDragged = false,
     heightOfPreviousSiblings,
     onBlur: onBlurProp,
+    disabled,
   },
   ref
 ) => {
@@ -86,6 +87,7 @@ const SortableItem = forwardRef((
       tabIndex={isTabbable ? 0 : -1}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      {...(disabled && { onKeyDown: () => {} })} // onKeyDown overwrites dnd-kit handler
     >
       <div className="h5p-sequence-draggable-element">
         <div className="h5p-sequence-statement">
@@ -99,6 +101,7 @@ const SortableItem = forwardRef((
                 isTabbable={isTabbable}
                 onBlur={(newStatement) => onStatementChange(itemId, newStatement)}
                 idBase={itemId}
+                disabled={disabled}
               />
             ) : (
               <UnEditableStatement
@@ -106,7 +109,9 @@ const SortableItem = forwardRef((
               />
             )}
             {/* Only show delete button for list1 AND when adding statements is allowed */}
-            {allowDelete && <DeleteStatement isTabbable={isTabbable} onClick={() => onStatementDelete(itemId)} />}
+            {allowDelete && !disabled &&
+              <DeleteStatement isTabbable={isTabbable} onClick={() => onStatementDelete(itemId)} />
+            }
           </div>
         </div>
       </div>
@@ -131,6 +136,7 @@ SortableItem.propTypes = {
   isDragged: PropTypes.bool,
   heightOfPreviousSiblings: PropTypes.number,
   onBlur: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 SortableItem.defaultProps = {
@@ -142,6 +148,7 @@ SortableItem.defaultProps = {
   isTabbable: false,
   onReceivedFocus: () => {},
   isDragged: false,
+  disabled: false,
 };
 
 export default SortableItem;

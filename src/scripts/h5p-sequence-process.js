@@ -73,6 +73,7 @@ export default class SequenceProcess extends H5P.EventDispatcher {
             id={this.contentId}
             language={this.language}
             collectExportValues={this.collectExportValues}
+            showSolution={this.getSampleSolution.bind(this)}
           />
         </SequenceProcessContext.Provider>
       );
@@ -82,6 +83,15 @@ export default class SequenceProcess extends H5P.EventDispatcher {
     this.container = $container[0];
     this.container.appendChild(this.wrapper);
     this.container.classList.add('h5p-sequence-process');
+  }
+
+  /**
+   * Get sample solution if available.
+   * @returns {object|null} Sample solution.
+   */
+  getSampleSolution() {
+    const { sample, introduction } = this.params.solution;
+    return sample ? { sample, explanation: introduction || '' } : null;
   }
 
   getRect() {

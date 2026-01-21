@@ -29,5 +29,11 @@
       font-weight: normal;
       margin-right: var(--spacing-xxs);
     }
+
+    &:disabled {
+      background-color: var(--color-alternative);
+      border-color: var(--color-alternative);
+      color: var(--color-text-secondary);
+    }
   }
 }

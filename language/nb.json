@@ -50,6 +50,21 @@
       "label": "Instruksjoner til oppsummeringen"
     },
     {
+      "label": "Løsningsforslag",
+      "description": "Du kan velge å legge til et løsningsforslag som vises etter at brukeren har skrevet en tekst. Det kalles “løsningsforslag” fordi det sannsynligvis finnes flere mulige løsninger.",
+      "fields": [
+        {
+          "label": "Innledning",
+          "description": "Du kan velge å legge til løsningsforslaget ditt. Den blir bare vist dersom du også legger inn et løsningsforslag.",
+          "placeholder": "Husk: Dette eksemplet er bare et godt forslag. Du har kanskje funnet et annet godt svar."
+        },
+        {
+          "label": "Tekst til løsningsforslag",
+          "description": "Dersom du skriver inn tekst her, dukker det opp en “Vis svar”-knapp når bruker har levert svaret sitt."
+        }
+      ]
+    },
+    {
       "label": "Ressurser",
       "fields": [
         {
@@ -102,6 +117,10 @@
         {
           "label": "Hjelpetekst når bruker skal velge merkelapper",
           "default": "Velg merkelappene forbundet med dette elementet"
+        },
+        {
+          "label": "Text for \"Show solution\" button",
+          "default": "Show solution"
         },
         {
           "label": "Tekst på \"Start på nytt\"-knappen",
@@ -199,6 +218,10 @@
         {
           "label": "Overskrift før utlisting av \"Tilgjengelige etiketter\"",
           "default": "Tilgjengelige etiketter"
+        },
+        {
+          "label": "Header above the sample solution section",
+          "default": "Sample solution"
         }
       ]
     },

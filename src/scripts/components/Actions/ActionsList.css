@@ -8,10 +8,10 @@
     padding: 0;
     position: relative;
     width: var(--spacing-xl);
-    cursor: pointer;
 
-    &:hover {
+    &:hover:not([aria-disabled="true"]) {
       background-color: color-mix(in srgb, var(--color-alternative-darker), transparent 30%);
+      cursor: pointer;
     }
 
     &:focus-visible {
@@ -19,7 +19,7 @@
       outline-offset: -2px;
     }
 
-    &:active {
+    &:active:not([aria-disabled="true"]) {
       background-color: var(--color-alternative-darker);
     }
 

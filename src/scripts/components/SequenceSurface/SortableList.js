@@ -26,7 +26,7 @@ import './SortableList.css';
 
 const STACKED_ITEM_OFFSET_PX = 12; // pixels (=0.8rem from CSS)
 
-const SortableList = ({ params, onUserInputChange, collectExportValues, reset }) => {
+const SortableList = ({ params, onUserInputChange, collectExportValues, reset, disabled }) => {
   const context = useContext(SequenceProcessContext);
 
   // Behaviour params
@@ -760,34 +760,36 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
     }
   }, [autoEditStatementId, unassignedItemIds]);
 
-  reset(() => {
-    // Reset userInput to initial state
-    const initialUserInput = createEmptyUserInput();
-    initialUserInput.labels = createInitialLabels();
-    initialUserInput.statements = createInitialStatements();
+  useEffect(() => {
+    reset(() => {
+      // Reset userInput to initial state
+      const initialUserInput = createEmptyUserInput();
+      initialUserInput.labels = createInitialLabels();
+      initialUserInput.statements = createInitialStatements();
 
-    setUserInput(initialUserInput);
+      setUserInput(initialUserInput);
 
-    // Reset dropzone groups to initial state
-    const statementIds = Object.keys(initialUserInput.statements);
-    const labelIds = Object.keys(initialUserInput.labels);
-    const initialDropzoneGroups = createInitialDropzoneGroups(statementIds, labelIds);
+      // Reset dropzone groups to initial state
+      const statementIds = Object.keys(initialUserInput.statements);
+      const labelIds = Object.keys(initialUserInput.labels);
+      const initialDropzoneGroups = createInitialDropzoneGroups(statementIds, labelIds);
 
-    setDropzoneGroups(initialDropzoneGroups);
+      setDropzoneGroups(initialDropzoneGroups);
 
-    // Reset unassigned items
-    setUnassignedItemIds(prepopulate ? [] : statementIds);
+      // Reset unassigned items
+      setUnassignedItemIds(prepopulate ? [] : statementIds);
 
-    // Reset UI state
-    setActiveId(null);
-    setActiveCommentId(null);
-    setAutoEditStatementId(null);
+      // Reset UI state
+      setActiveId(null);
+      setActiveCommentId(null);
+      setAutoEditStatementId(null);
 
-    // Clear refs and trigger resize
-    dropzoneRefs.current = {};
-    itemRefs.current = {};
-    context.trigger('resize');
-  });
+      // Clear refs and trigger resize
+      dropzoneRefs.current = {};
+      itemRefs.current = {};
+      context.trigger('resize');
+    });
+  }, [reset, prepopulate, context]);
 
   const descriptionIdSegment = 'description';
   const dropzonesListId = `${H5P.createUUID()}-dropzones-list`;
@@ -881,6 +883,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
                 isTabbable={currentTabIndexDropzones === index}
                 onReceivedFocus={handleDropzonesItemReceivedFocus}
                 isDragged={activeId === list.id}
+                disabled={disabled}
                 ref={(ref) => {
                   if (ref) {
                     dropzoneRefs.current[list.id] = ref;
@@ -962,6 +965,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
                 onReceivedFocus={handleElementReceivedFocus}
                 isDragged={ activeId === itemId }
                 heightOfPreviousSiblings={getSumHeightOfPreviousSiblings(index)}
+                disabled={disabled}
               />
             ))}
 
@@ -969,6 +973,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset })
           {addStatementButton && (
             <AddStatement
               addStatement={handleAddStatement}
+              disabled={disabled}
             />
           )}
         </div>
@@ -982,6 +987,7 @@ SortableList.propTypes = {
   onUserInputChange: PropTypes.func,
   collectExportValues: PropTypes.func,
   reset: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default SortableList;

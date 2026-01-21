@@ -1,32 +1,26 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import './ShowSolution.css';
+import PropTypes from 'prop-types';
 
-function ShowSolution() {
-
-  const sequenceProcessContext = useContext(SequenceProcessContext);
-
-  const {
-    translate,
-  } = sequenceProcessContext;
+function ShowSolution({ showSolution }) {
+  const { translate } = useContext(SequenceProcessContext);
 
   return (
     <Fragment>
       <button
-        className={'h5p-sequence-button-show-solution'}
-        onClick={
-          () => {
-            console.log(sequenceProcessContext);
-          }
-        }
+        className={'h5p-sequence-button h5p-sequence-button-show-solution'}
+        onClick={showSolution}
         type={'button'}
       >
-        <span
-          className={'h5p-ri hri-show-solution'}
-        />
         {translate('showSolution')}
       </button>
     </Fragment>
   );
 }
+
+ShowSolution.propTypes = {
+  showSolution: PropTypes.func.isRequired,
+};
 
 export default ShowSolution;

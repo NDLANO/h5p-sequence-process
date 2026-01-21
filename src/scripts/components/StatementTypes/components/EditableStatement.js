@@ -6,11 +6,15 @@ import { debounce } from '@services/utils.js';
 import './EditableStatement.css';
 
 const EditableStatement = forwardRef((props, ref) => {
-  const { statement, onBlur, idBase = false, isTabbable = false } = props;
+  const { statement, onBlur, idBase = false, isTabbable = false, disabled = false } = props;
   const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
 
   const handleClick = () => {
+    if (disabled) {
+      return;
+    }
+
     toggleEditMode(true);
     inputRef.current.value = statement;
     setTimeout(() => {
@@ -31,6 +35,10 @@ const EditableStatement = forwardRef((props, ref) => {
   };
 
   const handleKeyDown = (event) => {
+    if (disabled) {
+      return;
+    }
+
     if (event.key === 'Enter') {
       event.preventDefault();
       if (!inEditMode) {
@@ -48,6 +56,10 @@ const EditableStatement = forwardRef((props, ref) => {
   };
 
   const handleInputKeyDown = (event) => {
+    if (disabled) {
+      return;
+    }
+
     if (event.key === ' ' || event.key === 'Spacebar') {
       // Only stop propagation, don't prevent default
       event.stopPropagation();
@@ -64,11 +76,12 @@ const EditableStatement = forwardRef((props, ref) => {
   return (
     <div
       role="textbox"
-      tabIndex={isTabbable && !inEditMode ? '0' : '-1'}
+      tabIndex={isTabbable && !inEditMode && !disabled ? '0' : '-1'}
       onClick={handleClick}
       className="h5p-sequence-editable-container"
       onKeyDown={handleKeyDown}
       aria-labelledby={labelId}
+      aria-disabled={disabled}
     >
       <label
         title={statement}
@@ -113,6 +126,7 @@ EditableStatement.propTypes = {
     PropTypes.number,
   ]),
   isTabbable: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default EditableStatement;

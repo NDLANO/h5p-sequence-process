@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { use, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import SequenceSurface from '@components/SequenceSurface/SequenceSurface.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import SolutionDisplay from '@components/SolutionDisplay/SolutionDisplay.js';
 import Summary from '@components/Summary/Summary.js';
 import Footer from '@components/Footer/Footer.js';
 import parse from 'html-react-parser';
@@ -15,7 +16,12 @@ const Main = (props) => {
     registerReset,
     behaviour,
     params,
+    trigger,
   } = useContext(SequenceProcessContext);
+
+  const [solution, setSolution] = useState(null);
+  const [hideSolutionButton, setHideSolutionButton] = useState(false);
+  const [disableSurface, setDisableSurface] = useState(false);
 
   const {
     id,
@@ -24,7 +30,46 @@ const Main = (props) => {
     header,
     description = '',
     resources: resourcesList,
+    showSolution,
   } = props;
+
+  // Check if solution is available
+  const isNonEmptyString = (str) => typeof str === 'string' && str.trim().length > 0;
+  const hasNoPlaceholderDiv = (str) => !str.includes('<div>&nbsp;</div>');
+
+  const hasSolution = props.solution &&
+    isNonEmptyString(props.solution.sample) && isNonEmptyString(props.solution.introduction) &&
+    (hasNoPlaceholderDiv(props.solution.sample) || hasNoPlaceholderDiv(props.solution.introduction));
+
+  useEffect(() => {
+    document.querySelectorAll('.h5p-sequence-draggable-container').forEach((element) => {
+      element.classList.toggle('disabled', disableSurface);
+    });
+  }, [disableSurface]);
+
+  useEffect(() => {
+    registerReset(() => {
+      setSolution(null);
+      setDisableSurface(false);
+      setHideSolutionButton(false);
+
+      trigger('resize');
+    });
+  }, [registerReset]);
+
+  const handleShowSolution = () => {
+    const solutionData = showSolution();
+    if (solutionData) {
+      setSolution(solutionData);
+      setDisableSurface(true);
+      setHideSolutionButton(true);
+
+      trigger('resize');
+    }
+    else {
+      console.warn('No solution available.');
+    }
+  };
 
   useEffect(() => {
     const filterResourceList = (element) => element?.constructor === Object && Object.keys(element).length > 0;
@@ -44,31 +89,29 @@ const Main = (props) => {
 
   return (
     <article>
-      <div
-        className={'h5p-sequence-header'}
-      >{header}</div>
-      <div
-        className={'h5p-sequence-surface-main'}
-      >
-        <div
-          className={'h5p-sequence-surface-info'}
-          ref={resourceContainer}
-        >
+      <div className={'h5p-sequence-header'}>{header}</div>
+      <div className={'h5p-sequence-surface-main'}>
+        <div className={'h5p-sequence-surface-info'} ref={resourceContainer}>
           {description && (
             <div className={'h5p-sequence-description'}>{parse(description)}</div>
           )}
         </div>
-        <SequenceSurface />
+        <SequenceSurface disabled={disableSurface}/>
         {behaviour.provideSummary === true && (
           <Summary
             reset={registerReset}
             exportValues={collectExportValues}
             summaryHeader={params.summaryHeader}
             summaryInstruction={params.summaryInstruction}
+            disabled={disableSurface}
           />
         )}
       </div>
-      <Footer />
+      {solution && <SolutionDisplay solution={solution} reset={registerReset} />}
+      <Footer
+        showSolution={handleShowSolution}
+        hasSolution={hasSolution && !hideSolutionButton}
+      />
     </article>
   );
 };
@@ -80,6 +123,8 @@ Main.propTypes = {
   description: PropTypes.string,
   collectExportValues: PropTypes.func,
   resources: PropTypes.object,
+  solution: PropTypes.object,
+  showSolution: PropTypes.func,
 };
 
 export default Main;

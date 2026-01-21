@@ -18,6 +18,12 @@
     font: inherit;
     min-height: calc(5 * var(--font-size-m));
     padding: var(--spacing-xs);
+    resize: vertical;
     width: 100%;
+
+    &:disabled {
+      background-color: var(--color-alternative);
+      color: var(--color-text-secondary);
+    }
   }
 }

@@ -29,6 +29,7 @@ const SortableDropZone = forwardRef((
     onReceivedFocus = () => {},
     isDragged = false,
     getElementIdentifier = () => '',
+    disabled,
   },
   ref
 ) => {
@@ -77,6 +78,7 @@ const SortableDropZone = forwardRef((
       aria-describedby={`${id}-description`}
       onFocus={handleFocus}
       onBlur={() => setSelectedState(false)}
+      {...(disabled && { onKeyDown: () => {} })} // onKeyDown overwrites dnd-kit handler
       role='listitem'
       aria-label={ariaLabel}
     >
@@ -89,10 +91,12 @@ const SortableDropZone = forwardRef((
         {(items.length > 0 && !isDragged) ? (
           items.map((itemId) => (
             <Fragment key={itemId}>
-              <div className='h5p-sequence-statement'>
+              <div className={`h5p-sequence-statement${disabled ? ' disabled' : ''}`}>
                 <div className='h5p-sequence-statement-sequenced'>
                   <div className='h5p-sequence-drag-element'></div>
-                  <UnEditableStatement statement={statements[itemId]?.content || itemId} />
+                  <UnEditableStatement
+                    statement={statements[itemId]?.content || itemId}
+                  />
                 </div>
                 {isUnassignedEmpty && (
                   <Fragment>
@@ -108,6 +112,7 @@ const SortableDropZone = forwardRef((
                           }}
                           isOpen={activeLabelId === itemId}
                           onClick={() => handleLabelClick(itemId)}
+                          disabled={disabled}
                         />
                       </ActionsList>
                     )}
@@ -118,6 +123,7 @@ const SortableDropZone = forwardRef((
                         inputRef={inputRef}
                         isOpen={activeCommentId === items[0]}
                         onClick={() => onCommentClick(items[0])}
+                        disabled={disabled}
                       />
                     </ActionsList>
                   </Fragment>
@@ -152,6 +158,7 @@ SortableDropZone.propTypes = {
   onReceivedFocus: PropTypes.func,
   isDragged: PropTypes.bool,
   getElementIdentifier: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default SortableDropZone;

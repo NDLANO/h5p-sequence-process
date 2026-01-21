@@ -10,12 +10,17 @@ const Comment = ({
   onCommentChange,
   comment = '',
   inputRef,
-  isOpen = false
+  isOpen = false,
+  disabled = false,
 }) => {
   const [showPopover, setShowPopover] = useState(isOpen);
   const context = useContext(SequenceProcessContext);
 
   const handleToggle = (event) => {
+    if (disabled) {
+      return;
+    }
+
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -70,10 +75,15 @@ const Comment = ({
           'full': comment && comment.length > 0,
         })}
         type={'button'}
+        aria-disabled={disabled}
         aria-expanded={showPopover}
         aria-label={context.translate('addComment')}
         aria-haspopup="dialog"
         onKeyDown={(event) => {
+          if (disabled) {
+            return;
+          }
+
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             event.stopPropagation();
@@ -92,6 +102,7 @@ Comment.propTypes = {
   onClick: PropTypes.func,
   inputRef: PropTypes.object,
   isOpen: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default Comment;

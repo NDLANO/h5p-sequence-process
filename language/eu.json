@@ -50,6 +50,21 @@
       "label": "Summary instruction"
     },
     {
+      "label": "Adibidezko emaitza",
+      "description": "Nahi baduzu emaitzaren adibide bat gehitu dezakezu ikasleak testua sortu ondoren erakusteko. Adibidezko emaitza deitzen zaio emaitza zuzen bat baino gehiago egon daitekeelako.",
+      "fields": [
+        {
+          "label": "Sarrera",
+          "description": "Zure adibidearen inguruko ikasleentzako azalpena gehitu dezakezu. Azalpena soilik erakutsiko da adibide bat ere gehitzen baduzu.",
+          "placeholder": "Gogoratu ezazu mesedez ez duzula zertan emaitza berbera derrigorrez eman behar. Adibide on bat baino ez da."
+        },
+        {
+          "label": "Emaitza-adibidearen testua",
+          "description": "Ikasleak bidalketa egin ondoren \"Erakutsi emaitza\" botoia ikusiko du hemen testu bat idazten baduzu."
+        }
+      ]
+    },
+    {
       "label": "Resources",
       "fields": [
         {
@@ -102,6 +117,10 @@
         {
           "label": "Guiding text when selecting labels",
           "default": "Select all labels connected to this item"
+        },
+        {
+          "label": "Text for \"Show solution\" button",
+          "default": "Show solution"
         },
         {
           "label": "Label for \"Restart\"-button",
@@ -199,6 +218,10 @@
         {
           "label": "Header for listing of labels in the report",
           "default": "Available labels"
+        },
+        {
+          "label": "Header above the sample solution section",
+          "default": "Sample solution"
         }
       ]
     },

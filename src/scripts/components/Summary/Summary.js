@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, use } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import parse from 'html-react-parser';
@@ -15,10 +15,14 @@ const Summary = (props) => {
     exportValues,
     summaryHeader,
     summaryInstruction,
+    disabled,
   } = props;
 
   exportValues('summary', () => comment);
-  reset(() => setComment(''));
+
+  useEffect(() => {
+    reset(() => setComment(''));
+  }, [reset]);
 
   const headerId = `${H5P.createUUID()}-summary-header`;
   const textareaId = `${H5P.createUUID()}-summary`;
@@ -46,6 +50,7 @@ const Summary = (props) => {
         value={comment}
         onChange={(event) => setComment(event.target.value)}
         aria-label={context.translate('giveABriefSummary')}
+        disabled={disabled}
       />
     </div>
   );
@@ -56,6 +61,7 @@ Summary.propTypes = {
   exportValues: PropTypes.func,
   summaryHeader: PropTypes.string,
   summaryInstruction: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default Summary;

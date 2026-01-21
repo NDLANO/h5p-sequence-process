@@ -36,6 +36,10 @@
       margin-right: var(--spacing-xxs);
     }
 
+    &.h5p-sequence-button-show-solution::before {
+      content: var(--icon-fontawesome-eye);
+    }
+
     &.h5p-sequence-button-restart::before {
       content: var(--icon-fontawesome-arrow-rotate-right);
     }

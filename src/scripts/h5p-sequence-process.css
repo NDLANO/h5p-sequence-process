@@ -17,6 +17,7 @@
   --icon-fontawesome-arrow-rotate-right: "\f01e";
   --icon-fontawesome-arrows-up-down-left-right: "\f047";
   --icon-fontawesome-comment: "\f075";
+  --icon-fontawesome-eye: "\f06e";
   --icon-fontawesome-file: "\f016";
   --icon-fontawesome-plus: "\f067";
   --icon-fontawesome-tag: "\f02b";
@@ -65,9 +66,9 @@
   overflow: hidden;
   font-weight: bold;
 
-  &:hover,
-  &:active,
-  &.h5p-sequence-active-draggable {
+  &:hover:not(.disabled),
+  &:active:not(.disabled),
+  &.h5p-sequence-active-draggable:not(.disabled) {
     cursor: pointer;
     box-shadow: 0 0 3px 2px oklch(from var(--color-primary) l c h / 0.2);
 

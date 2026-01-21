@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import './Labels.css';
 
-const Labels = ({ labels = [], onLabelChange, selectedLabelArray = [] }) => {
+const Labels = ({ disabled = false, labels = [], onLabelChange, selectedLabelArray = [] }) => {
 
   const [showPopover, togglePopover] = useState(selectedLabelArray.length > 0);
   const firstInputRef = useRef(null);
@@ -15,6 +15,10 @@ const Labels = ({ labels = [], onLabelChange, selectedLabelArray = [] }) => {
   const checkboxId = H5P.createUUID();
 
   const handleToggle = () => {
+    if (disabled) {
+      return;
+    }
+
     togglePopover(!showPopover);
   };
 
@@ -77,12 +81,17 @@ const Labels = ({ labels = [], onLabelChange, selectedLabelArray = [] }) => {
         })}
         type={'button'}
         onKeyDown={(event) => {
+          if (disabled) {
+            return;
+          }
+
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             handleToggle();
           }
         }}
         aria-label={context.translate('addLabel')}
+        aria-disabled={disabled}
       >
       </button>
     </Popover>
@@ -93,6 +102,7 @@ Labels.propTypes = {
   labels: PropTypes.array,
   onLabelChange: PropTypes.func,
   selectedLabelArray: PropTypes.array,
+  disabled: PropTypes.bool,
 };
 
 export default Labels;

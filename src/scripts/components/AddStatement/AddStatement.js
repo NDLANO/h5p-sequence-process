@@ -4,7 +4,7 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 import './AddStatement.css';
 
-const AddStatement = ({ addStatement }) => {
+const AddStatement = ({ addStatement, disabled }) => {
   const context = useContext(SequenceProcessContext);
 
   return (
@@ -14,13 +14,16 @@ const AddStatement = ({ addStatement }) => {
       <button
         type={'button'}
         className={'h5p-sequence-add'}
-        onClick={addStatement}
+        onClick={() => {
+          addStatement();
+        }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             addStatement();
             event.preventDefault();
           }
         }}
+        disabled={disabled}
       >
         {context.translate('add')}
       </button>
@@ -30,6 +33,7 @@ const AddStatement = ({ addStatement }) => {
 
 AddStatement.propTypes = {
   addStatement: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default AddStatement;

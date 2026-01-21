@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import SortableList from './SortableList.js';
 import './SequenceSurface.css';
 
-const SequenceSurface = () => {
+const SequenceSurface = ({ disabled }) => {
   const {
     registerReset,
     collectExportValues,
@@ -20,10 +21,15 @@ const SequenceSurface = () => {
           params={params}
           collectExportValues={collectExportValues}
           reset={registerReset}
+          disabled={disabled}
         />
       </div>
     </div>
   );
+};
+
+SequenceSurface.propTypes = {
+  disabled: PropTypes.bool,
 };
 
 export default SequenceSurface;
