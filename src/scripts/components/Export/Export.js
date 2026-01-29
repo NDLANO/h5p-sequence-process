@@ -44,7 +44,7 @@ const Export = () => {
       hasSummaryComment: summary && summary.length > 0,
       summaryComment: summary,
       allLabels: userInput.labels.map((label) => label.label),
-      resources: resources.map((resource) => {
+      resources: (resources ?? []).map((resource) => {
         resource.introduction = stripHTML(resource.introduction ?? '');
         return resource;
       }),
