@@ -4,16 +4,23 @@ import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import Popover from '@components/Popover/Popover.js';
 import classnames from 'classnames';
 
-function Comment({
+import './Comment.css';
+
+const Comment = ({
   onCommentChange,
   comment = '',
   inputRef,
-  isOpen = false
-}) {
+  isOpen = false,
+  disabled = false,
+}) => {
   const [showPopover, setShowPopover] = useState(isOpen);
   const context = useContext(SequenceProcessContext);
 
-  function handleToggle(event) {
+  const handleToggle = (event) => {
+    if (disabled) {
+      return;
+    }
+
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -23,18 +30,19 @@ function Comment({
     if (!showPopover) {
       setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
     }
-  }
+  };
 
-  function handleCloseKeyDown(event) {
+  const handleCloseKeyDown = (event) => {
     if (event.key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
       handleToggle(event);
     }
-  }
+  };
 
   return (
     <Popover
+      parentElement={context.wrapper}
       handleClose={handleToggle}
       show={showPopover}
       classnames={context.activeBreakpoints}
@@ -43,6 +51,7 @@ function Comment({
       onCloseKeyDown={handleCloseKeyDown}
       popoverContent={(
         <textarea
+          className="h5p-sequence-statement-comment"
           ref={inputRef}
           placeholder={context.translate('typeYourReasonsForSuchAnswers')}
           value={comment}
@@ -51,7 +60,9 @@ function Comment({
             onCommentChange(event.currentTarget.value);
           }}
           onKeyDown={(event) => {
-            event.stopPropagation();
+            if (event.key !== 'Tab') {
+              event.stopPropagation();
+            }
           }}
           rows={3}
         />
@@ -59,11 +70,20 @@ function Comment({
     >
       <button
         onClick={handleToggle}
-        className={'h5p-sequence-action'}
+        className={classnames('h5p-sequence-action-button comment', {
+          'empty': !comment || comment.length === 0,
+          'full': comment && comment.length > 0,
+        })}
         type={'button'}
+        aria-disabled={disabled}
         aria-expanded={showPopover}
+        aria-label={context.translate('addComment')}
         aria-haspopup="dialog"
         onKeyDown={(event) => {
+          if (disabled) {
+            return;
+          }
+
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             event.stopPropagation();
@@ -71,17 +91,10 @@ function Comment({
           }
         }}
       >
-        <span
-          className={classnames('h5p-ri', {
-            'hri-comment-empty': !comment || comment.length === 0,
-            'hri-comment-full': comment && comment.length > 0,
-          })}
-        />
-        <span className="visible-hidden">{context.translate('addComment')}</span>
       </button>
     </Popover>
   );
-}
+};
 
 Comment.propTypes = {
   onCommentChange: PropTypes.func.isRequired,
@@ -89,6 +102,7 @@ Comment.propTypes = {
   onClick: PropTypes.func,
   inputRef: PropTypes.object,
   isOpen: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default Comment;

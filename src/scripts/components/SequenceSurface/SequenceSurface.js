@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import SortableList from './SortableList.js';
-import Summary from '../Summary/Summary.js';
+import './SequenceSurface.css';
 
-function SequenceSurface() {
+const SequenceSurface = ({ disabled }) => {
   const {
     registerReset,
     collectExportValues,
-    behaviour,
     params,
   } = useContext(SequenceProcessContext);
 
@@ -21,18 +21,15 @@ function SequenceSurface() {
           params={params}
           collectExportValues={collectExportValues}
           reset={registerReset}
+          disabled={disabled}
         />
       </div>
-      {behaviour.provideSummary === true && (
-        <Summary
-          reset={registerReset}
-          exportValues={collectExportValues}
-          summaryHeader={params.summaryHeader}
-          summaryInstruction={params.summaryInstruction}
-        />
-      )}
     </div>
   );
-}
+};
+
+SequenceSurface.propTypes = {
+  disabled: PropTypes.bool,
+};
 
 export default SequenceSurface;

@@ -1,0 +1,99 @@
+.h5p-sequence-process {
+  /* Sizing */
+  --border-radius: var(--h5p-theme-border-radius-medium, 5px);
+  --spacing-xl: var(--h5p-theme-spacing-xl, 3.0rem);
+  --spacing-l: var(--h5p-theme-spacing-l, 2.0rem);
+  --spacing-m: var(--h5p-theme-spacing-m, 1.5rem);
+  --spacing-s: var(--h5p-theme-spacing-s, 1rem);
+  --spacing-xs: var(--h5p-theme-spacing-xs, 0.65rem);
+  --spacing-xxs: var(--h5p-theme-spacing-xss, 0.5rem);
+  --font-size-m: var(--h5p-theme-font-size-m, 1rem);
+  --font-size-xl: var(--h5p-theme-font-size-xl, 1.25rem);
+  --font-size-xxl: var(--h5p-theme-font-size-xxl, 1.5rem);
+
+  /* Icons */
+  --icon-fontawesome-arrow-rotate-right: "\f01e";
+  --icon-fontawesome-arrows-up-down-left-right: "\f047";
+  --icon-fontawesome-comment: "\f075";
+  --icon-fontawesome-eye: "\f06e";
+  --icon-fontawesome-file: "\f016";
+  --icon-fontawesome-plus: "\f067";
+  --icon-fontawesome-tag: "\f02b";
+  --icon-fontawesome-xmark: "\f00d";
+
+  /* Colors */
+  --color-primary: var(--h5p-theme-main-cta-base, #006FBF);
+  --color-primary-contrast: var(--h5p-theme-contrast-cta, #ffffff);
+  --color-primary-contrast-to-white: var(--h5p-theme-contrast-cta-white, #006FBF);
+  --color-primary-light: var(--h5p-theme-main-cta-light, #007CD6);
+  --color-primary-dark: var(--h5p-theme-main-cta-dark, #005FA3);
+  --color-text-primary: var(--h5p-theme-text-primary, #101729);
+  --color-text-secondary: var(--h5p-theme-text-secondary, #354054);
+  --color-text-third: var(--h5p-theme-text-third, #737373);
+  --color-alternative: var(--h5p-theme-alternative-base, #f1f5fb);
+  --color-alternative-darker: var(--h5p-theme-alternative-darker, #ced1ee);
+  --color-background: var(--h5p-theme-ui-base, #ffffff);
+  --color-red: var(--h5p-theme-feedback-incorrect-main, #a13236);
+
+  background-color: var(--color-background);
+  container-name: h5p-sequence-process;
+  container-type: inline-size;
+  font-family: "Open Sans", sans-serif;
+  font-size: var(--font-size-m);
+  position: relative;
+
+  & *:focus-visible {
+    outline: 2px ridge var(--color-primary-contrast-to-white);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * This is used in both, SortableDropzone and SortableItem
+ * These could probably have a common subcomponent in the future
+ */
+.h5p-sequence-statement {
+  background-color: var(--color-alternative);
+  border: 2px solid var(--color-alternative-darker);
+  border-radius: var(--border-radius);
+  box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  height: var(--draggable-height);
+  overflow: hidden;
+  font-weight: bold;
+
+  &:hover:not(.disabled),
+  &:active:not(.disabled),
+  &.h5p-sequence-active-draggable:not(.disabled) {
+    cursor: pointer;
+    box-shadow: 0 0 3px 2px oklch(from var(--color-primary) l c h / 0.2);
+
+    .h5p-sequence-delete-button {
+      opacity: 1;
+    }
+  }
+
+  &>div {
+    display: flex;
+    align-items: stretch;
+    flex: auto;
+  }
+
+  .h5p-sequence-drag-element {
+    background-color: color-mix(in srgb, var(--color-alternative-darker), transparent 30%);
+    color: var(--color-text-third);
+    width: calc(2.25 * var(--spacing-s));
+    position: relative;
+
+    &::before {
+      content: var(--icon-fontawesome-arrows-up-down-left-right);
+      font-family: "H5PFontAwesome4", sans-serif;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

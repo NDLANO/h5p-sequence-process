@@ -1,12 +1,10 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
 import './AddStatement.css';
 
-function AddStatement({ addStatement }) {
-
+const AddStatement = ({ addStatement, disabled }) => {
   const context = useContext(SequenceProcessContext);
 
   return (
@@ -16,25 +14,26 @@ function AddStatement({ addStatement }) {
       <button
         type={'button'}
         className={'h5p-sequence-add'}
-        onClick={addStatement}
+        onClick={() => {
+          addStatement();
+        }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             addStatement();
             event.preventDefault();
           }
         }}
+        disabled={disabled}
       >
-        <span>
-          <span className={'h5p-ri hri-pencil'} />
-          <span>{context.translate('add')}</span>
-        </span>
+        {context.translate('add')}
       </button>
     </div>
   );
-}
+};
 
 AddStatement.propTypes = {
   addStatement: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default AddStatement;

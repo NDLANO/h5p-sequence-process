@@ -50,6 +50,21 @@
       "label": "Instrucións do resumo"
     },
     {
+      "label": "Exemplo de solución",
+      "description": "Podes engadir un exemplo de solución opcional que se amosará despois de que o alumno cree un texto. Chámase exemplo de solución porque probablemente non sexa a única solución posible.",
+      "fields": [
+        {
+          "label": "Introdución",
+          "description": "Podes proporcionar explicacións opcionais sobre o teu exemplo. As explicacións só se amosarán se ti tamén engades un exemplo.",
+          "placeholder": "Por favor, lembra que non tes porqué dar exactamente esta mesma solución. Só é un bo exemplo."
+        },
+        {
+          "label": "Texto do exemplo de solución",
+          "description": "O alumno verá un botón \"Amosar solución\" despois de enviar o seu traballo se escribes un texto aquí."
+        }
+      ]
+    },
+    {
       "label": "Recursos",
       "fields": [
         {
@@ -104,8 +119,20 @@
           "default": "Selecciona todas as etiquetas conectadas con este elemento"
         },
         {
+          "label": "Text for \"Show sample solution\" button",
+          "default": "Show sample solution"
+        },
+        {
           "label": "Etiqueta para o botón \"reiniciar\"",
           "default": "Reiniciar"
+        },
+        {
+          "label": "Label for \"Cancel\"-button",
+          "default": "Cancel"
+        },
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
         },
         {
           "label": "Etiqueta para o botón \"Engadir alternativa\"",
@@ -118,6 +145,10 @@
         {
           "label": "Etiqueta para o botón \"Non\"",
           "default": "Non"
+        },
+        {
+          "label": "Label for the \"Continue\"-button",
+          "default": "Continue"
         },
         {
           "label": "Informar ao usuario de que os datos perderanse se continúa",
@@ -144,10 +175,6 @@
     {
       "label": "Informe de recursos",
       "fields": [
-        {
-          "label": "Etiqueta para o botón \"Crear documento\"",
-          "default": "Crear documento"
-        },
         {
           "label": "Etiqueta para o botón \"Exportar\"",
           "default": "Exportar"
@@ -199,6 +226,10 @@
         {
           "label": "Cabeceira para a lista de etiquetas no informe",
           "default": "Etiquetas dispoñibles"
+        },
+        {
+          "label": "Header above the sample solution section",
+          "default": "Sample solution"
         }
       ]
     },
@@ -208,6 +239,10 @@
         {
           "label": "Empregado no canto da icona «Comentario»",
           "default": "Engadir comentario"
+        },
+        {
+          "label": "Used instead of 'Label'-icon",
+          "default": "Add label"
         },
         {
           "label": "Empregado no canto da icona «Pechar»",

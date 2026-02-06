@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, use } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import parse from 'html-react-parser';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import './Summary.css';
 
-function Summary(props) {
+const Summary = (props) => {
   const context = useContext(SequenceProcessContext);
 
   const [comment, setComment] = useState('');
@@ -14,41 +15,53 @@ function Summary(props) {
     exportValues,
     summaryHeader,
     summaryInstruction,
+    disabled,
   } = props;
 
   exportValues('summary', () => comment);
-  reset(() => setComment(''));
+
+  useEffect(() => {
+    reset(() => setComment(''));
+  }, [reset]);
+
+  const headerId = `${H5P.createUUID()}-summary-header`;
+  const textareaId = `${H5P.createUUID()}-summary`;
 
   return (
     <div
       className={classnames('h5p-sequence-summary')}
-      aria-labelledby={'summary-header'}
+      aria-labelledby={headerId}
     >
       <label
-        id={'summary-header'}
-        htmlFor={'summary'}
+        className={'h5p-sequence-summary-header'}
+        id={headerId}
+        htmlFor={textareaId}
       >
-        <div>{summaryHeader ? summaryHeader : context.translate('summary')}</div>
+        {summaryHeader ? summaryHeader : context.translate('summary')}
       </label>
       {summaryInstruction && (
-        <div>{parse(summaryInstruction)}</div>
+        <div className={'h5p-sequence-summary-instruction'}>
+          {parse(summaryInstruction)}
+        </div>
       )}
       <textarea
-        id={'summary'}
+        id={textareaId}
         placeholder={context.translate('giveABriefSummary')}
         value={comment}
         onChange={(event) => setComment(event.target.value)}
         aria-label={context.translate('giveABriefSummary')}
+        disabled={disabled}
       />
     </div>
   );
-}
+};
 
 Summary.propTypes = {
   reset: PropTypes.func,
   exportValues: PropTypes.func,
   summaryHeader: PropTypes.string,
   summaryInstruction: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default Summary;

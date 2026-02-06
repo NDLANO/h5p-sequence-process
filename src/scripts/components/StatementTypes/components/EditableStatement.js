@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '@services/utils.js';
 
-const EditableStatement = forwardRef(({
-  statement,
-  onBlur,
-  idBase = false,
-  isTabbable = false,
-}, ref) => {
+import './EditableStatement.css';
+
+const EditableStatement = forwardRef((props, ref) => {
+  const { statement, onBlur, idBase = false, isTabbable = false, disabled = false } = props;
   const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
 
   const handleClick = () => {
+    if (disabled) {
+      return;
+    }
+
     toggleEditMode(true);
     inputRef.current.value = statement;
     setTimeout(() => {
@@ -33,6 +35,10 @@ const EditableStatement = forwardRef(({
   };
 
   const handleKeyDown = (event) => {
+    if (disabled) {
+      return;
+    }
+
     if (event.key === 'Enter') {
       event.preventDefault();
       if (!inEditMode) {
@@ -50,6 +56,10 @@ const EditableStatement = forwardRef(({
   };
 
   const handleInputKeyDown = (event) => {
+    if (disabled) {
+      return;
+    }
+
     if (event.key === ' ' || event.key === 'Spacebar') {
       // Only stop propagation, don't prevent default
       event.stopPropagation();
@@ -66,43 +76,42 @@ const EditableStatement = forwardRef(({
   return (
     <div
       role="textbox"
-      tabIndex={isTabbable && !inEditMode ? '0' : '-1'}
+      tabIndex={isTabbable && !inEditMode && !disabled ? '0' : '-1'}
       onClick={handleClick}
       className="h5p-sequence-editable-container"
       onKeyDown={handleKeyDown}
       aria-labelledby={labelId}
+      aria-disabled={disabled}
     >
-      <div>
-        <label
-          title={statement}
-          htmlFor={inputId}
-          id={labelId}
-        >
-          <span className="visible-hidden">Statement</span>
-          <input
-            type="text"
-            className={classnames('h5p-sequence-editable', {
-              hidden: !inEditMode,
-            })}
-            ref={inputRef}
-            defaultValue={statement}
-            onBlur={handleBlur}
-            onChange={debounce(() => onBlur(inputRef.current.value), 200)}
-            aria-label={'Edit statement ' + statement}
-            id={inputId}
-            tabIndex={isTabbable && inEditMode ? '0' : '-1'}
-            onKeyDown={handleInputKeyDown}
-          />
-        </label>
-        <p
-          className={classnames('h5p-sequence-noneditable', {
-            hidden: inEditMode,
+      <label
+        title={statement}
+        htmlFor={inputId}
+        id={labelId}
+      >
+        <span className="h5p-sequence-editable-label-hidden">Statement</span>
+        <input
+          type="text"
+          className={classnames('h5p-sequence-editable', {
+            hidden: !inEditMode,
           })}
-          data-no-dnd="true"
-        >
-          {statement}
-        </p>
-      </div>
+          ref={inputRef}
+          defaultValue={statement}
+          onBlur={handleBlur}
+          onChange={debounce(() => onBlur(inputRef.current.value), 200)}
+          aria-label={'Edit statement ' + statement}
+          id={inputId}
+          tabIndex={isTabbable && inEditMode ? '0' : '-1'}
+          onKeyDown={handleInputKeyDown}
+        />
+      </label>
+      <p
+        className={classnames('h5p-sequence-noneditable', {
+          hidden: inEditMode,
+        })}
+        data-no-dnd="true"
+      >
+        {statement}
+      </p>
     </div>
   );
 });
@@ -117,6 +126,7 @@ EditableStatement.propTypes = {
     PropTypes.number,
   ]),
   isTabbable: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default EditableStatement;

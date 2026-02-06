@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Popover as TinyPopover, ArrowContainer } from 'react-tiny-popover';
 import PropTypes from 'prop-types';
+import './Popover.css';
 
 const Popover = ({
   handleClose,
@@ -11,6 +12,7 @@ const Popover = ({
   header,
   close,
   align = 'end',
+  parentElement
 }) => {
   const classnamesRef = useRef([...classnames, 'h5p-sequence-popover']);
   const popoverRef = useRef(null);
@@ -57,6 +59,7 @@ const Popover = ({
 
   return (
     <TinyPopover
+      parentElement={parentElement}
       isOpen={show}
       positions={['top', 'bottom']}
       padding={10}
@@ -88,7 +91,7 @@ const Popover = ({
               </div>
               <button
                 ref={closeButtonRef}
-                className="close-button"
+                className="h5p-sequence-button close-button"
                 type="button"
                 onClick={handleClose}
                 onKeyDown={(event) => {
@@ -100,8 +103,6 @@ const Popover = ({
                 }}
                 aria-label={close}
               >
-                <span className="h5p-ri hri-close" />
-                <span className="visible-hidden">{close}</span>
               </button>
             </div>
             <div className="h5p-sequence-popover-content">{popoverContent}</div>
@@ -126,6 +127,7 @@ Popover.propTypes = {
   header: PropTypes.string,
   close: PropTypes.string,
   align: PropTypes.oneOf(['start', 'center', 'end']),
+  parentElement: PropTypes.oneOf([PropTypes.instanceOf(HTMLElement), undefined]),
 };
 
 export default Popover;

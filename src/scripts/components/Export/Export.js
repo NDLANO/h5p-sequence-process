@@ -1,22 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import { escapeHTML, stripHTML } from '@services/utils.js';
+import templateURL from '@assets/exportTemplate.docx';
 
-export default class Export extends Component {
-  static contextType = SequenceProcessContext;
+import './Export.css';
 
-  exportDocument = null;
-  exportContainer = null;
+const Export = () => {
+  const context = useContext(SequenceProcessContext);
+  const exportContainer = React.useRef(null);
+  let exportDocument = null;
+  let exportObject = null;
 
-  exportObject = null;
-
-  constructor(props) {
-    super(props);
-
-    this.handleExport = this.handleExport.bind(this);
-  }
-
-  getExportObject() {
+  const getExportObject = () => {
     const {
       params: {
         header,
@@ -24,7 +19,7 @@ export default class Export extends Component {
       },
       translations,
       collectExportValues,
-    } = this.context;
+    } = context;
 
     const {
       resources,
@@ -49,7 +44,10 @@ export default class Export extends Component {
       hasSummaryComment: summary && summary.length > 0,
       summaryComment: summary,
       allLabels: userInput.labels.map((label) => label.label),
-      resources: resources,
+      resources: (resources ?? []).map((resource) => {
+        resource.introduction = stripHTML(resource.introduction ?? '');
+        return resource;
+      }),
       sortedStatementList: userInput.sequencedStatements
         .map((statement) => userInput.statements[statement])
         .map((statement) => {
@@ -60,9 +58,9 @@ export default class Export extends Component {
           };
         })
     });
-  }
+  };
 
-  getExportPreview() {
+  const getExportPreview = () => {
     const documentExportTemplate =
       '<div class="export-preview">' +
       '<div class="page-header" role="heading" tabindex="-1">' +
@@ -95,42 +93,40 @@ export default class Export extends Component {
       '{{/allLabels}}' +
       '</div>';
 
-    return Mustache.render(documentExportTemplate, this.exportObject);
-  }
+    return Mustache.render(documentExportTemplate, exportObject);
+  };
 
-  handleExport() {
-    this.exportObject = this.getExportObject();
+  const handleExport = () => {
+    exportObject = getExportObject();
+    context.triggerXAPIScored(0, 0, 'completed');
 
-    this.context.triggerXAPIScored(0, 0, 'completed');
-
-    this.exportDocument = new H5P.ExportPage(
-      escapeHTML(this.exportObject.mainTitle),
-      this.getExportPreview(),
+    exportDocument = new H5P.ExportPage(
+      escapeHTML(exportObject.mainTitle),
+      getExportPreview(),
       H5PIntegration.reportingIsEnabled || false,
-      escapeHTML(this.context.translate('submitText')),
-      escapeHTML(this.context.translate('submitConfirmedText')),
-      escapeHTML(this.context.translate('selectAll')),
-      escapeHTML(this.context.translate('export')),
-      H5P.instances[0].getLibraryFilePath('exportTemplate.docx'),
-      this.exportObject
+      escapeHTML(context.translate('submitText')),
+      escapeHTML(context.translate('submitConfirmedText')),
+      escapeHTML(context.translate('selectAll')),
+      escapeHTML(context.translate('export')),
+      templateURL,
+      exportObject
     );
-    this.exportDocument.getElement().prependTo(this.exportContainer);
-    H5P.$window.on('resize', () => this.exportDocument.trigger('resize'));
-  }
+    exportDocument.getElement().prependTo(exportContainer.current);
+    H5P.$window.on('resize', () => exportDocument.trigger('resize'));
+  };
 
-  render() {
-    return (
-      <Fragment>
-        <button
-          className={'h5p-sequence-button-export pull-right'}
-          onClick={this.handleExport}
-          type={'button'}
-        >
-          <span className={'h5p-ri hri-document'} />
-          {this.context.translate('createDocument')}
-        </button>
-        <div className={'export-container'} ref={(el) => this.exportContainer = el} />
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <button
+        className={'h5p-sequence-button h5p-sequence-button-export pull-right'}
+        onClick={handleExport}
+        type={'button'}
+      >
+        {context.translate('createDocument')}
+      </button>
+      <div className={'export-container'} ref={exportContainer} />
+    </Fragment>
+  );
+};
+
+export default Export;

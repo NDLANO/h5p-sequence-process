@@ -4,6 +4,9 @@ import Main from '@components/Main.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 import { sanitizeParams } from '@services/utils.js';
 import { getSemanticsDefaults } from '@services/h5p-util.js';
+import './h5p-sequence-process.css';
+
+// TODO: Fix drag state when dropped and no statements remain
 
 export default class SequenceProcess extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
@@ -38,6 +41,7 @@ export default class SequenceProcess extends H5P.EventDispatcher {
     this.registerReset = this.registerReset.bind(this);
     this.collectExportValues = this.collectExportValues.bind(this);
     this.translate = this.translate.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   collectExportValues(index, callback) {
@@ -69,6 +73,7 @@ export default class SequenceProcess extends H5P.EventDispatcher {
             id={this.contentId}
             language={this.language}
             collectExportValues={this.collectExportValues}
+            showSolution={this.getSampleSolution.bind(this)}
           />
         </SequenceProcessContext.Provider>
       );
@@ -78,6 +83,15 @@ export default class SequenceProcess extends H5P.EventDispatcher {
     this.container = $container[0];
     this.container.appendChild(this.wrapper);
     this.container.classList.add('h5p-sequence-process');
+  }
+
+  /**
+   * Get sample solution if available.
+   * @returns {object|null} Sample solution.
+   */
+  getSampleSolution() {
+    const { sample, introduction } = this.params.solution;
+    return sample ? { sample, explanation: introduction || '' } : null;
   }
 
   getRect() {

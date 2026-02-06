@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
+import './DeleteStatement.css';
 
 /**
  * @return {null}
  */
-function DeleteStatement(props) {
+const DeleteStatement = (props) => {
 
   const context = useContext(SequenceProcessContext);
 
@@ -28,7 +29,7 @@ function DeleteStatement(props) {
     <button
       onClick={onClick}
       onKeyUp={(event) => {
-        if (event.keyCode && event.keyCode === 8) {
+        if (event.key === 'Backspace') {
           onClick();
         }
       }}
@@ -43,12 +44,9 @@ function DeleteStatement(props) {
       type={'button'}
       aria-label={context.translate('close')}
     >
-      <span
-        className={'h5p-ri hri-times'}
-      />
     </button>
   );
-}
+};
 
 DeleteStatement.propTypes = {
   isTabbable: PropTypes.bool,

@@ -27,6 +27,7 @@ export default {
   ],
   resolve: {
     alias: {
+      '@assets': path.resolve(__dirname, 'assets'),
       '@components': path.resolve(__dirname, 'src/scripts/components'),
       '@context': path.resolve(__dirname, 'src/scripts/context'),
       '@models': path.resolve(__dirname, 'src/scripts/models'),
@@ -60,13 +61,12 @@ export default {
             }
           },
           { loader: 'css-loader' },
-          { loader: 'sass-loader' }
         ]
       },
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg|gif)$/,
+        test: /\.(png|woff|woff2|eot|ttf|svg|gif|docx)$/,
         include: [
-          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'assets'),
         ],
         type: 'asset/resource'
       }

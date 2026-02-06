@@ -1,0 +1,40 @@
+.h5p-sequence-header {
+  align-items: center;
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  display: flex;
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  padding: var(--spacing-m)
+}
+
+.h5p-sequence-surface-main {
+  --lines-per-statement: 3;
+  --draggable-padding: var(--spacing-xxs);
+  --draggable-height: calc(var(--lines-per-statement) * var(--spacing-m) + 2 * var(--draggable-padding));
+
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  margin: var(--spacing-m);
+
+  & .h5p-sequence-surface-info {
+    align-items: flex-start;
+    display: flex;
+    gap: var(--spacing-xs);
+
+    & .h5p-sequence-description {
+      flex-grow: 5;
+    }
+
+    & .h5p-resource-list-wrapper {
+      margin: 0 0 0 auto;
+
+      & .h5p-resource-list-button {
+        font: inherit;
+      }
+    }
+  }
+}

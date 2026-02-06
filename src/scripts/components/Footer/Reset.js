@@ -2,7 +2,9 @@ import React, { Fragment, useContext, useState } from 'react';
 import Popover from '@components/Popover/Popover.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';
 
-function Reset() {
+import './Reset.css';
+
+const Reset = () => {
 
   const [showPopover, setPopover] = useState(false);
   const sequenceProcessContext = useContext(SequenceProcessContext);
@@ -15,22 +17,22 @@ function Reset() {
     reset,
   } = sequenceProcessContext;
 
-  function togglePopover() {
+  const togglePopover = () => {
     setPopover(!showPopover);
-  }
+  };
 
-  function confirmReset() {
+  const confirmReset = () => {
     reset();
     togglePopover();
-  }
+  };
 
   return (
     <Fragment>
       {enableRetry === true && (
         <Popover
+          parentElement={sequenceProcessContext.wrapper}
           handleClose={togglePopover}
           show={showPopover}
-          classnames={translate('activeBreakpoints')}
           close={translate('close')}
           header={translate('restart')}
           align={'start'}
@@ -42,10 +44,10 @@ function Reset() {
               <div>
                 {translate('ifYouContinueAllYourChangesWillBeLost')}
               </div>
-              <div>
+              <div className={'h5p-sequence-reset-modal-buttons'}>
                 <button
                   onClick={confirmReset}
-                  className={'continue'}
+                  className={'h5p-sequence-button continue'}
                   type={'button'}
                 >
                   {translate('continue')}
@@ -62,19 +64,16 @@ function Reset() {
           )}
         >
           <button
-            className={'h5p-sequence-button-restart'}
+            className={'h5p-sequence-button h5p-sequence-button-restart'}
             onClick={togglePopover}
             type={'button'}
           >
-            <span
-              className={'h5p-ri hri-restart'}
-            />
             {translate('restart')}
           </button>
         </Popover>
       )}
     </Fragment>
   );
-}
+};
 
 export default Reset;

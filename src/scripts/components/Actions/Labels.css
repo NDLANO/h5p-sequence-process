@@ -1,0 +1,12 @@
+.h5p-sequence-label-popover {
+  & .h5p-sequence-label-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xxs);
+
+    & .h5p-sequence-label-item {
+      color: var(--color-text-primary);
+      cursor: pointer;
+    }
+  }
+}

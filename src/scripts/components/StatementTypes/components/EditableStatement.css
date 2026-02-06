@@ -1,0 +1,44 @@
+.h5p-sequence-editable-container {
+  display: flex;
+  flex: auto;
+  justify-content: flex-start;
+  align-items: center;
+  padding: calc(0.5 * var(--spacing-xxs)) var(--spacing-xxs);
+
+  .h5p-sequence-process &:focus-visible {
+    outline: 2px ridge var(--color-primary-contrast-to-white);
+    outline-offset: -2px;
+  }
+
+  & label {
+    width: calc(100% - var(--spacing-xxs)); /* The sizing should be implemented differently */
+
+    &:has(.hidden) {
+      display: none;
+    }
+
+    & .h5p-sequence-editable-label-hidden {
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+
+    & .h5p-sequence-editable {
+      flex: auto;
+      font-size: inherit;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  & .h5p-sequence-noneditable {
+    padding-left: calc(0.5 * var(--spacing-xxs));
+
+    &.hidden {
+      display: none;
+    }
+  }
+}

@@ -26,7 +26,7 @@ import './SortableList.css';
 
 const STACKED_ITEM_OFFSET_PX = 12; // pixels (=0.8rem from CSS)
 
-function SortableList({ params, onUserInputChange, collectExportValues, reset }) {
+const SortableList = ({ params, onUserInputChange, collectExportValues, reset, disabled }) => {
   const context = useContext(SequenceProcessContext);
 
   // Behaviour params
@@ -43,6 +43,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [autoEditStatementId, setAutoEditStatementId] = useState(null);
   const [stackedMode, setStackedMode] = useState(params.behaviour.useStackedView);
+  const [resizeCounter, setResizeCounter] = useState(0);
 
   const [tabIndexDropzonesList, setTabIndexDropzonesList] = useState(0);
   const [currentTabIndexDropzones, setCurrentTabIndexDropzones] = useState(0);
@@ -359,7 +360,28 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
       setCurrentTabIndexDropzones(getIndexOfDropzone(getDropzoneById(overId)));
     }
     else if (isDropzoneGroup(active.id)) {
-      // Not commissioned yet: Dragging back to unassigned items list from dropzoneGroups
+      // Remove item from dropzone
+      const item = getStatementIdFromDropzoneId(active.id);
+      setDropzoneGroups((lists) =>
+        lists.map((list) => {
+          if (list.id === active.id) {
+            return { ...list, items: [] };
+          }
+          return list;
+        })
+      );
+
+      // Add item to top of unassigned items
+      setUnassignedItemIds((items) => [item, ...items]);
+      setUserInput((prev) => ({
+        ...prev,
+        sequencedStatements: prev.sequencedStatements.filter((sid) => sid !== item)
+      }));
+      pendingFocusIdRef.current = item;
+
+      setActiveId(null);
+
+      context.trigger('resize');
     }
     else {
       // Put dropped element at the bottom of unassigned items
@@ -738,34 +760,36 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     }
   }, [autoEditStatementId, unassignedItemIds]);
 
-  reset(() => {
-    // Reset userInput to initial state
-    const initialUserInput = createEmptyUserInput();
-    initialUserInput.labels = createInitialLabels();
-    initialUserInput.statements = createInitialStatements();
+  useEffect(() => {
+    reset(() => {
+      // Reset userInput to initial state
+      const initialUserInput = createEmptyUserInput();
+      initialUserInput.labels = createInitialLabels();
+      initialUserInput.statements = createInitialStatements();
 
-    setUserInput(initialUserInput);
+      setUserInput(initialUserInput);
 
-    // Reset dropzone groups to initial state
-    const statementIds = Object.keys(initialUserInput.statements);
-    const labelIds = Object.keys(initialUserInput.labels);
-    const initialDropzoneGroups = createInitialDropzoneGroups(statementIds, labelIds);
+      // Reset dropzone groups to initial state
+      const statementIds = Object.keys(initialUserInput.statements);
+      const labelIds = Object.keys(initialUserInput.labels);
+      const initialDropzoneGroups = createInitialDropzoneGroups(statementIds, labelIds);
 
-    setDropzoneGroups(initialDropzoneGroups);
+      setDropzoneGroups(initialDropzoneGroups);
 
-    // Reset unassigned items
-    setUnassignedItemIds(prepopulate ? [] : statementIds);
+      // Reset unassigned items
+      setUnassignedItemIds(prepopulate ? [] : statementIds);
 
-    // Reset UI state
-    setActiveId(null);
-    setActiveCommentId(null);
-    setAutoEditStatementId(null);
+      // Reset UI state
+      setActiveId(null);
+      setActiveCommentId(null);
+      setAutoEditStatementId(null);
 
-    // Clear refs and trigger resize
-    dropzoneRefs.current = {};
-    itemRefs.current = {};
-    context.trigger('resize');
-  });
+      // Clear refs and trigger resize
+      dropzoneRefs.current = {};
+      itemRefs.current = {};
+      context.trigger('resize');
+    });
+  }, [reset, prepopulate, context]);
 
   const descriptionIdSegment = 'description';
   const dropzonesListId = `${H5P.createUUID()}-dropzones-list`;
@@ -779,6 +803,19 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
     dropzonesListDescription = `${dropzonesListDescription} ${context.translate('listsDescriptionEditable')}`;
     statementsListDescription = `${statementsListDescription} ${context.translate('listsDescriptionEditable')}`;
   }
+
+  // Add resize listener effect
+  useEffect(() => {
+    const handleResize = () => {
+      setResizeCounter((prev) => prev + 1);
+    };
+
+    context.on('resize', handleResize);
+
+    return () => {
+      context.off('resize', handleResize);
+    };
+  }, [context]);
 
   return (
     <DndContext
@@ -814,7 +851,9 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
               event.target.closest('.h5p-sequence-column') === event.currentTarget
             );
 
-            if (!focusOnChild) {
+            const focusOnPopopver = event.target.closest('.h5p-sequence-popover') !== null;
+
+            if (!focusOnChild && !focusOnPopopver) {
               focusDropzonesItemAt(currentTabIndexDropzones);
             }
 
@@ -844,6 +883,7 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 isTabbable={currentTabIndexDropzones === index}
                 onReceivedFocus={handleDropzonesItemReceivedFocus}
                 isDragged={activeId === list.id}
+                disabled={disabled}
                 ref={(ref) => {
                   if (ref) {
                     dropzoneRefs.current[list.id] = ref;
@@ -856,6 +896,15 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
               />
             ))}
           </SortableContext>
+          <DragOverlay className="h5p-sequence-drag-overlay" dropAnimation={null}>
+            {activeId ? (
+              <DraggableOverlay
+                id={activeId}
+                statements={statements}
+                dropzoneGroups={dropzoneGroups}
+              />
+            ) : null}
+          </DragOverlay>
         </ul>
       </div>
 
@@ -916,34 +965,29 @@ function SortableList({ params, onUserInputChange, collectExportValues, reset })
                 onReceivedFocus={handleElementReceivedFocus}
                 isDragged={ activeId === itemId }
                 heightOfPreviousSiblings={getSumHeightOfPreviousSiblings(index)}
+                disabled={disabled}
               />
             ))}
-            <DragOverlay className="h5p-sequence-drag-overlay">
-              {activeId ? (
-                <DraggableOverlay
-                  id={activeId}
-                  statements={statements}
-                  dropzoneGroups={dropzoneGroups}
-                />
-              ) : null}
-            </DragOverlay>
+
           </ul>
           {addStatementButton && (
             <AddStatement
               addStatement={handleAddStatement}
+              disabled={disabled}
             />
           )}
         </div>
       )}
     </DndContext>
   );
-}
+};
 
 SortableList.propTypes = {
   params: PropTypes.object.isRequired,
   onUserInputChange: PropTypes.func,
   collectExportValues: PropTypes.func,
   reset: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default SortableList;

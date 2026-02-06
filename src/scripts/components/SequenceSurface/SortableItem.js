@@ -23,7 +23,10 @@ const SortableItem = forwardRef((
     isTabbable = false,
     onReceivedFocus = () => {},
     isDragged = false,
+    hideTooltip = false,
     heightOfPreviousSiblings,
+    onBlur: onBlurProp,
+    disabled,
   },
   ref
 ) => {
@@ -63,7 +66,8 @@ const SortableItem = forwardRef((
 
   const handleBlur = useCallback(() => {
     setSelectedState(false);
-  }, []);
+    onBlurProp?.();
+  }, [onBlurProp]);
 
   return (
     <li
@@ -84,13 +88,12 @@ const SortableItem = forwardRef((
       tabIndex={isTabbable ? 0 : -1}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      {...(disabled && { onKeyDown: () => {} })} // onKeyDown overwrites dnd-kit handler
     >
       <div className="h5p-sequence-draggable-element">
         <div className="h5p-sequence-statement">
           <div className="h5p-sequence-statement-remaining">
-            <div className="h5p-sequence-drag-element">
-              <span className="h5p-ri hri-move" data-no-dnd="true" />
-            </div>
+            <div className="h5p-sequence-drag-element"></div>
             {/* Conditionally render the statement based on enableEditing */}
             {enableEditing ? (
               <EditableStatement
@@ -99,14 +102,18 @@ const SortableItem = forwardRef((
                 isTabbable={isTabbable}
                 onBlur={(newStatement) => onStatementChange(itemId, newStatement)}
                 idBase={itemId}
+                disabled={disabled}
               />
             ) : (
               <UnEditableStatement
                 statement={statement}
+                hideTooltip={hideTooltip}
               />
             )}
             {/* Only show delete button for list1 AND when adding statements is allowed */}
-            {allowDelete && <DeleteStatement isTabbable={isTabbable} onClick={() => onStatementDelete(itemId)} />}
+            {allowDelete && !disabled &&
+              <DeleteStatement isTabbable={isTabbable} onClick={() => onStatementDelete(itemId)} />
+            }
           </div>
         </div>
       </div>
@@ -130,6 +137,9 @@ SortableItem.propTypes = {
   onReceivedFocus: PropTypes.func,
   isDragged: PropTypes.bool,
   heightOfPreviousSiblings: PropTypes.number,
+  onBlur: PropTypes.func,
+  disabled: PropTypes.bool,
+  hideTooltip: PropTypes.bool,
 };
 
 SortableItem.defaultProps = {
@@ -141,6 +151,8 @@ SortableItem.defaultProps = {
   isTabbable: false,
   onReceivedFocus: () => {},
   isDragged: false,
+  disabled: false,
+  hideTooltip: false,
 };
 
 export default SortableItem;

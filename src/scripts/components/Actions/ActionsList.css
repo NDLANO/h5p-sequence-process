@@ -1,0 +1,51 @@
+.h5p-sequence-actionlist {
+  border-left: 2px solid var(--color-alternative-darker);
+
+  & .h5p-sequence-action-button {
+    background-color: transparent;
+    border: 0;
+    height: 100%;
+    padding: 0;
+    position: relative;
+    width: var(--spacing-xl);
+
+    &:hover:not([aria-disabled="true"]) {
+      background-color: color-mix(in srgb, var(--color-alternative-darker), transparent 30%);
+      cursor: pointer;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
+    }
+
+    &:active:not([aria-disabled="true"]) {
+      background-color: var(--color-alternative-darker);
+    }
+
+    &::before {
+      font-family: "H5PFontAwesome4", sans-serif;
+      font-size: var(--font-size-xl);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &.empty::before {
+      color: var(--color-alternative-darker)
+    }
+
+    &.full::before {
+      color: var(--color-primary);
+    }
+
+    &.label::before {
+      content: var(--icon-fontawesome-tag);
+    }
+
+    &.comment::before {
+      content: var(--icon-fontawesome-comment)
+    }
+  }
+}

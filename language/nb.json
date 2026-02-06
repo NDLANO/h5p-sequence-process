@@ -50,6 +50,21 @@
       "label": "Instruksjoner til oppsummeringen"
     },
     {
+      "label": "Løsningsforslag",
+      "description": "Du kan velge å legge til et løsningsforslag som vises etter at brukeren har skrevet en tekst. Det kalles “løsningsforslag” fordi det sannsynligvis finnes flere mulige løsninger.",
+      "fields": [
+        {
+          "label": "Innledning",
+          "description": "Du kan velge å legge til løsningsforslaget ditt. Den blir bare vist dersom du også legger inn et løsningsforslag.",
+          "placeholder": "Husk: Dette eksemplet er bare et godt forslag. Du har kanskje funnet et annet godt svar."
+        },
+        {
+          "label": "Tekst til løsningsforslag",
+          "description": "Dersom du skriver inn tekst her, dukker det opp en “Vis svar”-knapp når bruker har levert svaret sitt."
+        }
+      ]
+    },
+    {
       "label": "Ressurser",
       "fields": [
         {
@@ -104,8 +119,20 @@
           "default": "Velg merkelappene forbundet med dette elementet"
         },
         {
+          "label": "Text for \"Show sample solution\" button",
+          "default": "Show sample solution"
+        },
+        {
           "label": "Tekst på \"Start på nytt\"-knappen",
           "default": "Start på nytt"
+        },
+        {
+          "label": "Label for \"Cancel\"-button",
+          "default": "Cancel"
+        },
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
         },
         {
           "label": "Tekst på \"Lag alternativ\"-knappen",
@@ -118,6 +145,10 @@
         {
           "label": "Tekst på \"Nei\"-knappen",
           "default": "Nei"
+        },
+        {
+          "label": "Label for the \"Continue\"-button",
+          "default": "Continue"
         },
         {
           "label": "Informer brukeren om at all data vil gå tapt om vedkommende fortsetter",
@@ -144,10 +175,6 @@
     {
       "label": "Ressursrapport",
       "fields": [
-        {
-          "label": "Tekst på \"Opprett dokument\"-knappen",
-          "default": "Opprett dokument"
-        },
         {
           "label": "Tekst på \"Eksporter\"-knappen",
           "default": "Eksporter"
@@ -199,6 +226,10 @@
         {
           "label": "Overskrift før utlisting av \"Tilgjengelige etiketter\"",
           "default": "Tilgjengelige etiketter"
+        },
+        {
+          "label": "Header above the sample solution section",
+          "default": "Sample solution"
         }
       ]
     },
@@ -208,6 +239,10 @@
         {
           "label": "Brukt istedenfor 'Kommentar'-ikonet",
           "default": "Legg til kommentar"
+        },
+        {
+          "label": "Used instead of 'Label'-icon",
+          "default": "Add label"
         },
         {
           "label": "Brukt istedenfor 'Lukk' ikonet",

@@ -1,0 +1,6 @@
+.h5p-sequence-surface {
+  --minimum-column-size: 240px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--minimum-column-size), 100%), 1fr));
+}

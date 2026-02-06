@@ -1,20 +1,24 @@
 .h5p-sequence-draggable-container {
   display: flex;
   align-items: stretch;
-  margin: 0.8rem auto;
   position: relative;
 
-  .h5p-sequence-draggable-element {
-    flex-grow: 1;
+  &.disabled {
+    pointer-events: none;
+  }
 
-    .h5p-sequence-statement {
-      display: flex;
+  & .h5p-sequence-draggable-element {
+    flex-grow: 1;
+  }
+
+  &:focus-within:not(.disabled) {
+    & .h5p-sequence-statement .h5p-sequence-delete-button {
+      opacity: 1;
     }
   }
 
-  &:focus {
-    outline-color: auto;
-    outline-style: auto;
-    outline-width: 1px;
+  &.dragging .h5p-sequence-statement {
+    opacity: 0;
+    pointer-events: none;
   }
 }

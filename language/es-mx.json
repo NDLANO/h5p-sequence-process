@@ -50,6 +50,21 @@
       "label": "Instrucciones para el resumen"
     },
     {
+      "label": "Solución de muestra",
+      "description": "Opcionalmente Usted puede añadir una solución de muestra sencilla que es mostrada después que el estudiante creó un texto. Se llama solución de muestra porque probablemente no sea la única solución.",
+      "fields": [
+        {
+          "label": "Introducción",
+          "description": "Opcionalmente Usted puede dejarles a los estudiantes unas explicaciones acerca de su ejemplo. La explicación solamente se mostrará si Usted también añade un ejemplo.",
+          "placeholder": "Por favor recuerde que no se espera que Usted proporcione exactamente la misma solución. Solamente es un buen ejemplo."
+        },
+        {
+          "label": "Texto de solución de muestra",
+          "description": "El estudiante verá un botón para \"Mostrar solución\" después de enviar si Usted proporciona un texto aquí."
+        }
+      ]
+    },
+    {
       "label": "Recursos",
       "fields": [
         {
@@ -104,8 +119,20 @@
           "default": "Seleccionar todas las etiquetas conectadas a este elemento"
         },
         {
+          "label": "Text for \"Show sample solution\" button",
+          "default": "Show sample solution"
+        },
+        {
           "label": "Etiqueta para botón \"Reiniciar\"",
           "default": "Reiniciar"
+        },
+        {
+          "label": "Label for \"Cancel\"-button",
+          "default": "Cancel"
+        },
+        {
+          "label": "Label for \"Create document\"-button",
+          "default": "Create document"
         },
         {
           "label": "Etiqueta para el botón \"Añadir alternativa\"",
@@ -118,6 +145,10 @@
         {
           "label": "Etiqueta para el botón \"No\"",
           "default": "No"
+        },
+        {
+          "label": "Label for the \"Continue\"-button",
+          "default": "Continue"
         },
         {
           "label": "Informar al usuario que se perderán sus datos si continúa",
@@ -144,10 +175,6 @@
     {
       "label": "Informe de recursos",
       "fields": [
-        {
-          "label": "Etiqueta para el botón \"Crear documento\"",
-          "default": "Crear documento"
-        },
         {
           "label": "Etiqueta para el botón \"Exportar\"",
           "default": "Exportar"
@@ -199,6 +226,10 @@
         {
           "label": "Encabezado para la lista de etiquetas en el reporte",
           "default": "Etiquetas disponibles"
+        },
+        {
+          "label": "Header above the sample solution section",
+          "default": "Sample solution"
         }
       ]
     },
@@ -208,6 +239,10 @@
         {
           "label": "Usado en lugar del icono 'Comentario'",
           "default": "Añadir comentario"
+        },
+        {
+          "label": "Used instead of 'Label'-icon",
+          "default": "Add label"
         },
         {
           "label": "Usado en lugar del icono 'Cerrar'",
