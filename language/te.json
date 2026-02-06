@@ -60,7 +60,7 @@
         },
         {
           "label": "Sample solution text",
-          "description": "The student will see a \"Show solution\" button after submitting if you provide some text here."
+          "description": "The student will see a \"Show sample solution\" button after submitting if you provide some text here."
         }
       ]
     },
@@ -119,8 +119,8 @@
           "default": "Select all labels connected to this item"
         },
         {
-          "label": "Text for \"Show solution\" button",
-          "default": "Show solution"
+          "label": "Text for \"Show sample solution\" button",
+          "default": "Show sample solution"
         },
         {
           "label": "Label for \"Restart\"-button",

@@ -141,7 +141,7 @@
         "type": "text",
         "label": "Sample solution text",
         "importance": "low",
-        "description": "The student will see a \"Show solution\" button after submitting if you provide some text here.",
+        "description": "The student will see a \"Show sample solution\" button after submitting if you provide some text here.",
         "optional": true,
         "widget": "html",
         "enterMode": "div",
@@ -258,8 +258,8 @@
       {
         "name": "showSolution",
         "type": "text",
-        "label": "Text for \"Show solution\" button",
-        "default": "Show solution"
+        "label": "Text for \"Show sample solution\" button",
+        "default": "Show sample solution"
       },
       {
         "name": "restart",

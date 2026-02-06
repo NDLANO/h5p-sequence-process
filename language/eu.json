@@ -119,8 +119,8 @@
           "default": "Select all labels connected to this item"
         },
         {
-          "label": "Text for \"Show solution\" button",
-          "default": "Show solution"
+          "label": "Text for \"Show sample solution\" button",
+          "default": "Show sample solution"
         },
         {
           "label": "Label for \"Restart\"-button",

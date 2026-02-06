@@ -119,8 +119,8 @@
           "default": "Selecciona todas as etiquetas conectadas con este elemento"
         },
         {
-          "label": "Text for \"Show solution\" button",
-          "default": "Show solution"
+          "label": "Text for \"Show sample solution\" button",
+          "default": "Show sample solution"
         },
         {
           "label": "Etiqueta para o botón \"reiniciar\"",
