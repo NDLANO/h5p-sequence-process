@@ -9,6 +9,10 @@
 }
 
 .h5p-sequence-surface-main {
+  --lines-per-statement: 3;
+  --draggable-padding: var(--spacing-xxs);
+  --draggable-height: calc(var(--lines-per-statement) * var(--spacing-m) + 2 * var(--draggable-padding));
+
   background-color: var(--color-background);
   color: var(--color-text-primary);
   display: flex;

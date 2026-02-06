@@ -2,5 +2,14 @@
   display: flex;
   align-items: center;
   margin: 0;
-  padding: var(--spacing-xxs) var(--spacing-xxs) var(--spacing-xxs) calc(1.5 * var(--spacing-xxs)) ;
+  padding: var(--spacing-xxs) var(--spacing-xxs) var(--spacing-xxs) calc(1.5 * var(--spacing-xxs));
+  width: 100%;
+
+  .h5p-sequence-element-text {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--lines-per-statement);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+  }
 }

@@ -8,7 +8,6 @@
 
 .h5p-sequence-dropzones-list {
   padding: var(--spacing-xxs);
-  flex: 1;
   border: 2px solid var(--color-alternative-darker);
   border-radius: var(--border-radius);
 
@@ -23,7 +22,6 @@
 
 .h5p-sequence-select-list {
   padding: var(--spacing-xxs);
-  flex: 1;
   border: 0;
 
   & .h5p-sequence-column {

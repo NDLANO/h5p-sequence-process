@@ -11,8 +11,6 @@
   --font-size-xl: var(--h5p-theme-font-size-xl, 1.25rem);
   --font-size-xxl: var(--h5p-theme-font-size-xxl, 1.5rem);
 
-  --draggable-height: calc(3.75 * var(--spacing-s));
-
   /* Icons */
   --icon-fontawesome-arrow-rotate-right: "\f01e";
   --icon-fontawesome-arrows-up-down-left-right: "\f047";

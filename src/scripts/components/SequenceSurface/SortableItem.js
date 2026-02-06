@@ -23,6 +23,7 @@ const SortableItem = forwardRef((
     isTabbable = false,
     onReceivedFocus = () => {},
     isDragged = false,
+    hideTooltip = false,
     heightOfPreviousSiblings,
     onBlur: onBlurProp,
     disabled,
@@ -106,6 +107,7 @@ const SortableItem = forwardRef((
             ) : (
               <UnEditableStatement
                 statement={statement}
+                hideTooltip={hideTooltip}
               />
             )}
             {/* Only show delete button for list1 AND when adding statements is allowed */}
@@ -137,6 +139,7 @@ SortableItem.propTypes = {
   heightOfPreviousSiblings: PropTypes.number,
   onBlur: PropTypes.func,
   disabled: PropTypes.bool,
+  hideTooltip: PropTypes.bool,
 };
 
 SortableItem.defaultProps = {
@@ -149,6 +152,7 @@ SortableItem.defaultProps = {
   onReceivedFocus: () => {},
   isDragged: false,
   disabled: false,
+  hideTooltip: false,
 };
 
 export default SortableItem;

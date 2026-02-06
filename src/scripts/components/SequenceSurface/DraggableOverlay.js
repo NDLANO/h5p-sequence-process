@@ -44,7 +44,13 @@ const DraggableOverlay = ({ id, statements, dropzoneGroups }) => {
     }
   }
 
-  return <SortableItem ref={sortableRef} itemId={id} statement={statement} onBlur={handleBlur} />;
+  return <SortableItem
+    ref={sortableRef}
+    itemId={id}
+    statement={statement}
+    hideTooltip={true}
+    onBlur={handleBlur}
+  />;
 };
 
 DraggableOverlay.propTypes = {
