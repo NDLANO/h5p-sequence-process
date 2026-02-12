@@ -1,312 +1,340 @@
 {
   "semantics": [
     {
-      "label": "Mode",
-      "description": "Choose the mode of the activity. \"Sequence\" means to merely order the statements, while \"Priority\" also means to express an order of precedence among the statements.",
-      "options": [
+      "fields": [
         {
-          "label": "Sequence"
+          "label": "სათაური"
         },
         {
-          "label": "Priority"
-        }
-      ]
-    },
-    {
-      "label": "სათაური"
-    },
-    {
-      "label": "ამოცანის აღწერა"
-    },
-    {
-      "label": "განცხადებები",
-      "fields": [
+          "label": "ამოცანის აღწერა"
+        },
         {
           "label": "განცხადებები",
-          "entity": "განცხადება",
-          "field": {
-            "label": "განცხადება"
-          }
-        }
-      ]
-    },
-    {
-      "label": "წარწერები",
-      "fields": [
+          "fields": [
+            {
+              "label": "განცხადებები",
+              "entity": "განცხადება",
+              "field": {
+                "label": "განცხადება"
+              }
+            }
+          ]
+        },
         {
           "label": "წარწერები",
-          "entity": "წარწერა",
-          "field": {
-            "label": "წარწერა"
-          }
-        }
-      ]
-    },
-    {
-      "label": "შეჯამება",
-      "default": "შეჯამება"
-    },
-    {
-      "label": "შემაჯამებელი ინსტრუქცია"
-    },
-    {
-      "label": "სანიმუშო ამოხსნა",
-      "description": "სურვილისამებრ შეგიძლიათ დაამატოთ ამოხსნის ნიმუში, რომელიც გამოჩნდება მას შემდეგ, რაც სტუდენტი შექმნის ტექსტს. მას უწოდებენ სანიმუშო ამოხსნას, რადგან სავარაუდოდ არ არის მხოლოდ ერთი გამოსავალი.",
-      "fields": [
+          "fields": [
+            {
+              "label": "წარწერები",
+              "entity": "წარწერა",
+              "field": {
+                "label": "წარწერა"
+              }
+            }
+          ]
+        },
         {
-          "label": "შესავალი",
-          "description": "სურვილისამებრ, შეგიძლიათ სტუდენტებს დაუტოვოთ რამდენიმე ახსნა თქვენი მაგალითის შესახებ. განმარტებები გამოჩნდება მხოლოდ იმ შემთხვევაში, თუ მაგალითსაც დაამატებთ.",
-          "placeholder": "გთხოვთ დაიმახსოვროთ, რომ თქვენგან არ მოითხოვება ზუსტად იგივე გამოსავალი. ეს უბრალოდ კარგი მაგალითია."
+          "label": "Dropzones",
+          "fields": [
+            {
+              "label": "Dropzones",
+              "entity": "dropzone",
+              "widgets": [
+                {
+                  "label": "Default"
+                }
+              ],
+              "field": {
+                "label": "Dropzone",
+                "fields": [
+                  {
+                    "label": "Background color"
+                  },
+                  {
+                    "label": "Show enumeration"
+                  },
+                  {
+                    "label": "Enumeration",
+                    "fields": [
+                      {
+                        "label": "Background color"
+                      },
+                      {
+                        "label": "Enumeration"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "შეჯამება",
+          "default": "შეჯამება"
+        },
+        {
+          "label": "შემაჯამებელი ინსტრუქცია"
         },
         {
           "label": "სანიმუშო ამოხსნა",
-          "description": "სტუდენტი იხილავს ღილაკს \"აჩვენე გადაწყვეტა\" გაგზავნის შემდეგ, თუ აქ იქნება თქვენ მიერ მოწოდებული ტექსტი."
-        }
-      ]
-    },
-    {
-      "label": "რესურსები",
-      "fields": [
+          "description": "სურვილისამებრ შეგიძლიათ დაამატოთ ამოხსნის ნიმუში, რომელიც გამოჩნდება მას შემდეგ, რაც სტუდენტი შექმნის ტექსტს. მას უწოდებენ სანიმუშო ამოხსნას, რადგან სავარაუდოდ არ არის მხოლოდ ერთი გამოსავალი.",
+          "fields": [
+            {
+              "label": "შესავალი",
+              "description": "სურვილისამებრ, შეგიძლიათ სტუდენტებს დაუტოვოთ რამდენიმე ახსნა თქვენი მაგალითის შესახებ. განმარტებები გამოჩნდება მხოლოდ იმ შემთხვევაში, თუ მაგალითსაც დაამატებთ.",
+              "placeholder": "გთხოვთ დაიმახსოვროთ, რომ თქვენგან არ მოითხოვება ზუსტად იგივე გამოსავალი. ეს უბრალოდ კარგი მაგალითია."
+            },
+            {
+              "label": "სანიმუშო ამოხსნა",
+              "description": "სტუდენტი იხილავს ღილაკს \"აჩვენე გადაწყვეტა\" გაგზავნის შემდეგ, თუ აქ იქნება თქვენ მიერ მოწოდებული ტექსტი."
+            }
+          ]
+        },
         {
           "label": "რესურსები",
-          "description": "არჩევითი ბმულები რესურსებთან."
-        }
-      ]
-    },
-    {
-      "label": "ქცევის პარამეტრები",
-      "description": "ეს პარამეტრები საშუალებას მოგცემთ გააკონტროლოთ ქცევა.",
-      "fields": [
-        {
-          "label": "დავუშვათ თავიდან ცდა?",
-          "description": "მონიშნეთ ეს, თუ გსურთ, რომ მომხმარებელმა შეძლოს ხელახლა ცდა"
+          "fields": [
+            {
+              "label": "რესურსები",
+              "description": "არჩევითი ბმულები რესურსებთან."
+            }
+          ]
         },
         {
-          "label": "შეჯამების ჩვენება",
-          "description": "გსურთ მომხმარებელმა მოგაწოდოთ შეჯამება, სადაც ახსნილია მისი პასუხების მიზეზები"
+          "label": "ქცევის პარამეტრები",
+          "description": "ეს პარამეტრები საშუალებას მოგცემთ გააკონტროლოთ ქცევა.",
+          "fields": [
+            {
+              "label": "დავუშვათ თავიდან ცდა?",
+              "description": "მონიშნეთ ეს, თუ გსურთ, რომ მომხმარებელმა შეძლოს ხელახლა ცდა"
+            },
+            {
+              "label": "შეჯამების ჩვენება",
+              "description": "გსურთ მომხმარებელმა მოგაწოდოთ შეჯამება, სადაც ახსნილია მისი პასუხების მიზეზები"
+            },
+            {
+              "label": "წინასწარ შეავსეთ განცხადებები",
+              "description": "მომხმარებელი იწყებს უკვე დალაგებული განცხადებებით"
+            },
+            {
+              "label": "განცხადებების შემთხვევითობა",
+              "description": "მოხდება წინასწარ გენერირებული განცხადებების რანდომიზირება"
+            },
+            {
+              "label": "მიეცით საშუალება მომხმარებლებს დაამატონ საკუთარი განცხადებები",
+              "description": "საშუალებას აძლევს მომხმარებელს დაამატოს საკუთარი განცხადებები"
+            },
+            {
+              "label": "Use stacked view",
+              "description": "If checked, statements will be presented in a stacked view."
+            }
+          ]
         },
         {
-          "label": "წინასწარ შეავსეთ განცხადებები",
-          "description": "მომხმარებელი იწყებს უკვე დალაგებული განცხადებებით"
+          "label": "ლოკალიზება",
+          "fields": [
+            {
+              "label": "ჩანაცვლების ველი კომენტარების ტექსტური ველებისთვის",
+              "default": "დაწვრილებით განიხილეთ ეს რეფლექსია"
+            },
+            {
+              "label": "წარწერა \"რესურსების\" ღილაკისთვის",
+              "default": "რესურსები"
+            },
+            {
+              "label": "სახელმძღვანელო ტექსტი წარწერების არჩევისას",
+              "default": "აირჩიეთ ამ ელემენტთან დაკავშირებული ყველა წარწერა"
+            },
+            {
+              "label": "Text for \"Show sample solution\" button",
+              "default": "Show sample solution"
+            },
+            {
+              "label": "წარწერა \"თავიდან ჩართვის\" ღილაკისთვის",
+              "default": "თავიდან ჩართვა"
+            },
+            {
+              "label": "Label for \"Cancel\"-button",
+              "default": "Cancel"
+            },
+            {
+              "label": "Label for \"Create document\"-button",
+              "default": "Create document"
+            },
+            {
+              "label": "წარწერა \"ალტერნატივის დამატების\" ღილაკისთვის",
+              "default": "დაამატეთ ალტერნატივა"
+            },
+            {
+              "label": "წარწერა \"დიახ\" ღილაკისთვის",
+              "default": "დიახ"
+            },
+            {
+              "label": "წარწერა \"არა\" ღილაკისთვის",
+              "default": "არა"
+            },
+            {
+              "label": "Label for the \"Continue\"-button",
+              "default": "Continue"
+            },
+            {
+              "label": "აცნობეთ მომხმარებელს, რომ მონაცემები დაიკარგება, თუ ის გააგრძელებს",
+              "default": "თუ გააგრძელებთ, ყველა თქვენი ცვლილება დაიკარგება"
+            },
+            {
+              "label": "ჰკითხეთ მომხმარებელს, სურს თუ არა მას გაგრძელება",
+              "default": "დარწმუნებული ხართ?"
+            },
+            {
+              "label": "შემაჯამებელი ველის შემავსებელი",
+              "default": "გააკეთეთ მოკლე შეჯამება თქვენი სიტყვებით"
+            },
+            {
+              "label": "კომენტარების ველში არსებული სათაური",
+              "default": "უკუკავშირი"
+            },
+            {
+              "label": "Default text for new statement",
+              "default": "New statement"
+            }
+          ]
         },
         {
-          "label": "განცხადებების შემთხვევითობა",
-          "description": "მოხდება წინასწარ გენერირებული განცხადებების რანდომიზირება"
+          "label": "რესურსის ანგარიში",
+          "fields": [
+            {
+              "label": "წარწერა \"ექსპორტის\" ღილაკზე",
+              "default": "ექსპორტი"
+            },
+            {
+              "label": "წარწერა \"აირჩიე ყველა\" ღილაკზე",
+              "default": "აირჩიე ყველა"
+            },
+            {
+              "label": "განცხადების სათაური განცხადების ცხრილში",
+              "default": "განცხადებები"
+            },
+            {
+              "label": "წარწერების სათაური განცხადებების ცხრილში",
+              "default": "წარწერები"
+            },
+            {
+              "label": "კომენტარის სათაური განცხადების ცხრილში",
+              "default": "კომენტარი"
+            },
+            {
+              "label": "სათაური \"რესურსების\" ცხრილის ზემოთ",
+              "default": "რესურსები"
+            },
+            {
+              "label": "სათაური რესურსების ცხრილში",
+              "default": "სათაური"
+            },
+            {
+              "label": "შესავალი სათაური რესურსების ცხრილში",
+              "default": "შესავალი"
+            },
+            {
+              "label": "URL-ის სათაური რესურსების ცხრილში",
+              "default": "URL"
+            },
+            {
+              "label": "წარწერა, როდესაც რესურსები არ არის ნაპოვნი",
+              "default": "წყარო არ არის"
+            },
+            {
+              "label": "სათაური შემაჯამებელი კომენტარისთვის",
+              "default": "შემაჯამებელი კომენტარი"
+            },
+            {
+              "label": "წარწერა, როდესაც შეჯამება არ არის მოწოდებული",
+              "default": "უკომენტაროდ"
+            },
+            {
+              "label": "ანგარიშში წარწერების ჩამონათვალის სათაური",
+              "default": "ხელმისაწვდომი წარწერები"
+            },
+            {
+              "label": "Header above the sample solution section",
+              "default": "Sample solution"
+            }
+          ]
         },
         {
-          "label": "მიეცით საშუალება მომხმარებლებს დაამატონ საკუთარი განცხადებები",
-          "description": "საშუალებას აძლევს მომხმარებელს დაამატოს საკუთარი განცხადებები"
-        },
-        {
-          "label": "Use stacked view",
-          "description": "If checked, statements will be presented in a stacked view."
-        }
-      ]
-    },
-    {
-      "label": "ლოკალიზება",
-      "fields": [
-        {
-          "label": "ჩანაცვლების ველი კომენტარების ტექსტური ველებისთვის",
-          "default": "დაწვრილებით განიხილეთ ეს რეფლექსია"
-        },
-        {
-          "label": "წარწერა \"რესურსების\" ღილაკისთვის",
-          "default": "რესურსები"
-        },
-        {
-          "label": "სახელმძღვანელო ტექსტი წარწერების არჩევისას",
-          "default": "აირჩიეთ ამ ელემენტთან დაკავშირებული ყველა წარწერა"
-        },
-        {
-          "label": "Text for \"Show sample solution\" button",
-          "default": "Show sample solution"
-        },
-        {
-          "label": "წარწერა \"თავიდან ჩართვის\" ღილაკისთვის",
-          "default": "თავიდან ჩართვა"
-        },
-        {
-          "label": "Label for \"Cancel\"-button",
-          "default": "Cancel"
-        },
-        {
-          "label": "Label for \"Create document\"-button",
-          "default": "Create document"
-        },
-        {
-          "label": "წარწერა \"ალტერნატივის დამატების\" ღილაკისთვის",
-          "default": "დაამატეთ ალტერნატივა"
-        },
-        {
-          "label": "წარწერა \"დიახ\" ღილაკისთვის",
-          "default": "დიახ"
-        },
-        {
-          "label": "წარწერა \"არა\" ღილაკისთვის",
-          "default": "არა"
-        },
-        {
-          "label": "Label for the \"Continue\"-button",
-          "default": "Continue"
-        },
-        {
-          "label": "აცნობეთ მომხმარებელს, რომ მონაცემები დაიკარგება, თუ ის გააგრძელებს",
-          "default": "თუ გააგრძელებთ, ყველა თქვენი ცვლილება დაიკარგება"
-        },
-        {
-          "label": "ჰკითხეთ მომხმარებელს, სურს თუ არა მას გაგრძელება",
-          "default": "დარწმუნებული ხართ?"
-        },
-        {
-          "label": "შემაჯამებელი ველის შემავსებელი",
-          "default": "გააკეთეთ მოკლე შეჯამება თქვენი სიტყვებით"
-        },
-        {
-          "label": "კომენტარების ველში არსებული სათაური",
-          "default": "უკუკავშირი"
-        },
-        {
-          "label": "Default text for new statement",
-          "default": "New statement"
-        }
-      ]
-    },
-    {
-      "label": "რესურსის ანგარიში",
-      "fields": [
-        {
-          "label": "წარწერა \"ექსპორტის\" ღილაკზე",
-          "default": "ექსპორტი"
-        },
-        {
-          "label": "წარწერა \"აირჩიე ყველა\" ღილაკზე",
-          "default": "აირჩიე ყველა"
-        },
-        {
-          "label": "განცხადების სათაური განცხადების ცხრილში",
-          "default": "განცხადებები"
-        },
-        {
-          "label": "წარწერების სათაური განცხადებების ცხრილში",
-          "default": "წარწერები"
-        },
-        {
-          "label": "კომენტარის სათაური განცხადების ცხრილში",
-          "default": "კომენტარი"
-        },
-        {
-          "label": "სათაური \"რესურსების\" ცხრილის ზემოთ",
-          "default": "რესურსები"
-        },
-        {
-          "label": "სათაური რესურსების ცხრილში",
-          "default": "სათაური"
-        },
-        {
-          "label": "შესავალი სათაური რესურსების ცხრილში",
-          "default": "შესავალი"
-        },
-        {
-          "label": "URL-ის სათაური რესურსების ცხრილში",
-          "default": "URL"
-        },
-        {
-          "label": "წარწერა, როდესაც რესურსები არ არის ნაპოვნი",
-          "default": "წყარო არ არის"
-        },
-        {
-          "label": "სათაური შემაჯამებელი კომენტარისთვის",
-          "default": "შემაჯამებელი კომენტარი"
-        },
-        {
-          "label": "წარწერა, როდესაც შეჯამება არ არის მოწოდებული",
-          "default": "უკომენტაროდ"
-        },
-        {
-          "label": "ანგარიშში წარწერების ჩამონათვალის სათაური",
-          "default": "ხელმისაწვდომი წარწერები"
-        },
-        {
-          "label": "Header above the sample solution section",
-          "default": "Sample solution"
-        }
-      ]
-    },
-    {
-      "label": "ხელმისაწვდომობა",
-      "fields": [
-        {
-          "label": "გამოიყენება \"კომენტარის\" ღილაკის ნაცვლად",
-          "default": "დაამატე კომენტარი"
-        },
-        {
-          "label": "Used instead of 'Label'-icon",
-          "default": "Add label"
-        },
-        {
-          "label": "გამოიყენება \"დახურვის\" ღილაკის ნაცვლად",
-          "default": "დახურვა"
-        },
-        {
-          "label": "Dropzones list label for screenreaders",
-          "default": "Dropzones"
-        },
-        {
-          "label": "Dropzones list description for screenreaders",
-          "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
-        },
-        {
-          "label": "Statements list description for screenreaders",
-          "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
-        },
-        {
-          "label": "Statements list description for screenreaders when adding own statements is allowed",
-          "default": "Use the tab key to jump to editing or deletion of the statement."
-        },
-        {
-          "label": "'Sortable item' roledescription for screenreaders",
-          "default": "Sortable item"
-        },
-        {
-          "label": "'Dropzone' label for screenreaders",
-          "default": "Dropzone"
-        },
-        {
-          "label": "'Statement' label for screenreaders",
-          "default": "Statement"
-        },
-        {
-          "label": "'Dropzone with content' label for screenreaders",
-          "description": "@content is a placeholder and will be replaced with the respective value.",
-          "default": "Dropzone with @content"
-        },
-        {
-          "label": "Message read by screenreaders when dragging starts",
-          "description": "@draggable is a placeholder and will be replaced with the respective value.",
-          "default": "Started dragging @draggable"
-        },
-        {
-          "label": "Message read by screenreaders when dragging a statement over a target",
-          "description": "@target is a placeholder and will be replaced with the respective value.",
-          "default": "Moving over @target"
-        },
-        {
-          "label": "Message read by screenreaders when dragging ends",
-          "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
-          "default": "Dropped @draggable on @target"
-        },
-        {
-          "label": "Message read by screenreaders when dragging is cancelled",
-          "default": "Dragging cancelled"
-        },
-        {
-          "label": "Label for unknown elements for screenreaders",
-          "default": "Unknown element"
-        },
-        {
-          "label": "List of unassigned statements label for screenreaders",
-          "default": "Unassigned statements"
+          "label": "ხელმისაწვდომობა",
+          "fields": [
+            {
+              "label": "გამოიყენება \"კომენტარის\" ღილაკის ნაცვლად",
+              "default": "დაამატე კომენტარი"
+            },
+            {
+              "label": "Used instead of 'Label'-icon",
+              "default": "Add label"
+            },
+            {
+              "label": "გამოიყენება \"დახურვის\" ღილაკის ნაცვლად",
+              "default": "დახურვა"
+            },
+            {
+              "label": "Dropzones list label for screenreaders",
+              "default": "Dropzones"
+            },
+            {
+              "label": "Dropzones list description for screenreaders",
+              "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+            },
+            {
+              "label": "Statements list description for screenreaders",
+              "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+            },
+            {
+              "label": "Statements list description for screenreaders when adding own statements is allowed",
+              "default": "Use the tab key to jump to editing or deletion of the statement."
+            },
+            {
+              "label": "'Sortable item' roledescription for screenreaders",
+              "default": "Sortable item"
+            },
+            {
+              "label": "'Dropzone' label for screenreaders",
+              "default": "Dropzone"
+            },
+            {
+              "label": "'Statement' label for screenreaders",
+              "default": "Statement"
+            },
+            {
+              "label": "'Dropzone with content' label for screenreaders",
+              "description": "@content is a placeholder and will be replaced with the respective value.",
+              "default": "Dropzone with @content"
+            },
+            {
+              "label": "Message read by screenreaders when dragging starts",
+              "description": "@draggable is a placeholder and will be replaced with the respective value.",
+              "default": "Started dragging @draggable"
+            },
+            {
+              "label": "Message read by screenreaders when dragging a statement over a target",
+              "description": "@target is a placeholder and will be replaced with the respective value.",
+              "default": "Moving over @target"
+            },
+            {
+              "label": "Message read by screenreaders when dragging ends",
+              "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
+              "default": "Dropped @draggable on @target"
+            },
+            {
+              "label": "Message read by screenreaders when dragging is cancelled",
+              "default": "Dragging cancelled"
+            },
+            {
+              "label": "Label for unknown elements for screenreaders",
+              "default": "Unknown element"
+            },
+            {
+              "label": "List of unassigned statements label for screenreaders",
+              "default": "Unassigned statements"
+            }
+          ]
         }
       ]
     }

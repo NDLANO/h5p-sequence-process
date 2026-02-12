@@ -2,8 +2,8 @@
   "title": "Sequence",
   "description": "Put elements in the right sequence with additional labels and reflection on why the specific order",
   "majorVersion": 1,
-  "minorVersion": 6,
-  "patchVersion": 7,
+  "minorVersion": 7,
+  "patchVersion": 0,
   "runnable": 1,
   "hasIcon": 1,
   "author": "NDLA",
@@ -64,7 +64,12 @@
       "minorVersion": 0
     },
     {
-      "machineName": "H5PEditor.SelectButtons",
+      "machineName": "H5PEditor.ColorSelector",
+      "majorVersion": 1,
+      "minorVersion": 3
+    },
+    {
+      "machineName": "H5PEditor.SequenceProcess",
       "majorVersion": 1,
       "minorVersion": 0
     }

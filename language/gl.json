@@ -1,312 +1,340 @@
 {
   "semantics": [
     {
-      "label": "Mode",
-      "description": "Choose the mode of the activity. \"Sequence\" means to merely order the statements, while \"Priority\" also means to express an order of precedence among the statements.",
-      "options": [
+      "fields": [
         {
-          "label": "Sequence"
+          "label": "Cabeceira"
         },
         {
-          "label": "Priority"
-        }
-      ]
-    },
-    {
-      "label": "Cabeceira"
-    },
-    {
-      "label": "Descrición da tarefa"
-    },
-    {
-      "label": "Declaracións",
-      "fields": [
+          "label": "Descrición da tarefa"
+        },
         {
           "label": "Declaracións",
-          "entity": "declaración",
-          "field": {
-            "label": "Declaración"
-          }
-        }
-      ]
-    },
-    {
-      "label": "Etiquetas",
-      "fields": [
+          "fields": [
+            {
+              "label": "Declaracións",
+              "entity": "declaración",
+              "field": {
+                "label": "Declaración"
+              }
+            }
+          ]
+        },
         {
           "label": "Etiquetas",
-          "entity": "etiqueta",
-          "field": {
-            "label": "Etiqueta"
-          }
-        }
-      ]
-    },
-    {
-      "label": "Resumo",
-      "default": "Resumo"
-    },
-    {
-      "label": "Instrucións do resumo"
-    },
-    {
-      "label": "Exemplo de solución",
-      "description": "Podes engadir un exemplo de solución opcional que se amosará despois de que o alumno cree un texto. Chámase exemplo de solución porque probablemente non sexa a única solución posible.",
-      "fields": [
-        {
-          "label": "Introdución",
-          "description": "Podes proporcionar explicacións opcionais sobre o teu exemplo. As explicacións só se amosarán se ti tamén engades un exemplo.",
-          "placeholder": "Por favor, lembra que non tes porqué dar exactamente esta mesma solución. Só é un bo exemplo."
+          "fields": [
+            {
+              "label": "Etiquetas",
+              "entity": "etiqueta",
+              "field": {
+                "label": "Etiqueta"
+              }
+            }
+          ]
         },
         {
-          "label": "Texto do exemplo de solución",
-          "description": "O alumno verá un botón \"Amosar solución\" despois de enviar o seu traballo se escribes un texto aquí."
-        }
-      ]
-    },
-    {
-      "label": "Recursos",
-      "fields": [
+          "label": "Dropzones",
+          "fields": [
+            {
+              "label": "Dropzones",
+              "entity": "dropzone",
+              "widgets": [
+                {
+                  "label": "Default"
+                }
+              ],
+              "field": {
+                "label": "Dropzone",
+                "fields": [
+                  {
+                    "label": "Background color"
+                  },
+                  {
+                    "label": "Show enumeration"
+                  },
+                  {
+                    "label": "Enumeration",
+                    "fields": [
+                      {
+                        "label": "Background color"
+                      },
+                      {
+                        "label": "Enumeration"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Resumo",
+          "default": "Resumo"
+        },
+        {
+          "label": "Instrucións do resumo"
+        },
+        {
+          "label": "Exemplo de solución",
+          "description": "Podes engadir un exemplo de solución opcional que se amosará despois de que o alumno cree un texto. Chámase exemplo de solución porque probablemente non sexa a única solución posible.",
+          "fields": [
+            {
+              "label": "Introdución",
+              "description": "Podes proporcionar explicacións opcionais sobre o teu exemplo. As explicacións só se amosarán se ti tamén engades un exemplo.",
+              "placeholder": "Por favor, lembra que non tes porqué dar exactamente esta mesma solución. Só é un bo exemplo."
+            },
+            {
+              "label": "Texto do exemplo de solución",
+              "description": "O alumno verá un botón \"Amosar solución\" despois de enviar o seu traballo se escribes un texto aquí."
+            }
+          ]
+        },
         {
           "label": "Recursos",
-          "description": "Enlaces opcionais a recursos."
-        }
-      ]
-    },
-    {
-      "label": "Configuración do comportamento",
-      "description": "Estas opcións permitiranche controlar o comportamento.",
-      "fields": [
-        {
-          "label": "Activar tentar de novo?",
-          "description": "Marca isto se queres que o usuario poida tentar de novo"
+          "fields": [
+            {
+              "label": "Recursos",
+              "description": "Enlaces opcionais a recursos."
+            }
+          ]
         },
         {
-          "label": "Amosar resumo",
-          "description": "Queres que o usuario forneza un resumo explicando as razóns para as súas respostas?"
+          "label": "Configuración do comportamento",
+          "description": "Estas opcións permitiranche controlar o comportamento.",
+          "fields": [
+            {
+              "label": "Activar tentar de novo?",
+              "description": "Marca isto se queres que o usuario poida tentar de novo"
+            },
+            {
+              "label": "Amosar resumo",
+              "description": "Queres que o usuario forneza un resumo explicando as razóns para as súas respostas?"
+            },
+            {
+              "label": "Pre-encher os enunciados",
+              "description": "O usuario comeza coas declaracións xa en orde"
+            },
+            {
+              "label": "Cambiar as declaracións ao chou",
+              "description": "Moverá ao chou as declaracións fornecidas previamente"
+            },
+            {
+              "label": "Permitir que os usuarios engadan as súas propias afirmacións",
+              "description": "Permitir ao usuario engadir as súas propias declaracións"
+            },
+            {
+              "label": "Use stacked view",
+              "description": "If checked, statements will be presented in a stacked view."
+            }
+          ]
         },
         {
-          "label": "Pre-encher os enunciados",
-          "description": "O usuario comeza coas declaracións xa en orde"
+          "label": "Adaptación local",
+          "fields": [
+            {
+              "label": "Marcador de posición para as caixas de texto de comentarios",
+              "default": "Desenrola esta reflexión"
+            },
+            {
+              "label": "Etiqueta para o botón \"Recursos\"",
+              "default": "Recursos"
+            },
+            {
+              "label": "Texto de orientación ao seleccionar etiquetas",
+              "default": "Selecciona todas as etiquetas conectadas con este elemento"
+            },
+            {
+              "label": "Text for \"Show sample solution\" button",
+              "default": "Show sample solution"
+            },
+            {
+              "label": "Etiqueta para o botón \"reiniciar\"",
+              "default": "Reiniciar"
+            },
+            {
+              "label": "Label for \"Cancel\"-button",
+              "default": "Cancel"
+            },
+            {
+              "label": "Label for \"Create document\"-button",
+              "default": "Create document"
+            },
+            {
+              "label": "Etiqueta para o botón \"Engadir alternativa\"",
+              "default": "Engadir alternativa"
+            },
+            {
+              "label": "Etiqueta para o botón \"Si\"",
+              "default": "Si"
+            },
+            {
+              "label": "Etiqueta para o botón \"Non\"",
+              "default": "Non"
+            },
+            {
+              "label": "Label for the \"Continue\"-button",
+              "default": "Continue"
+            },
+            {
+              "label": "Informar ao usuario de que os datos perderanse se continúa",
+              "default": "Perderanse todos os teus cambios se continúas"
+            },
+            {
+              "label": "Pregúntalle ao usuario se quere continuar",
+              "default": "Estás seguro?"
+            },
+            {
+              "label": "Texto por defecto para a caixa do resumo",
+              "default": "Fai un breve resumo coas túas propias palabras"
+            },
+            {
+              "label": "Cabeceira na caixa de comentarios",
+              "default": "Retroalimentación"
+            },
+            {
+              "label": "Default text for new statement",
+              "default": "New statement"
+            }
+          ]
         },
         {
-          "label": "Cambiar as declaracións ao chou",
-          "description": "Moverá ao chou as declaracións fornecidas previamente"
+          "label": "Informe de recursos",
+          "fields": [
+            {
+              "label": "Etiqueta para o botón \"Exportar\"",
+              "default": "Exportar"
+            },
+            {
+              "label": "Etiqueta para o botón \"Seleccionar todo\"",
+              "default": "Seleccionar todo"
+            },
+            {
+              "label": "Cabeceira das declaracións na táboa de declaracións",
+              "default": "Declaracións"
+            },
+            {
+              "label": "Cabeceira das etiquetas na táboa de declaracións",
+              "default": "Etiquetas"
+            },
+            {
+              "label": "Cabeceira dos comentarios na táboa de declaracións",
+              "default": "Comentarios"
+            },
+            {
+              "label": "Cabeceira da táboa \"Recurso\"",
+              "default": "Recursos"
+            },
+            {
+              "label": "Título da cabeceira da táboa de recursos",
+              "default": "Título"
+            },
+            {
+              "label": "Encabezado de introdución na táboa de recursos",
+              "default": "Introdución"
+            },
+            {
+              "label": "Encabezado de Url na táboa de recursos",
+              "default": "URL"
+            },
+            {
+              "label": "Etiqueta cando non se atopan recursos",
+              "default": "Non hai recursos"
+            },
+            {
+              "label": "Cabeceira para \"Comentario de resumo\"",
+              "default": "Comentario do resumo"
+            },
+            {
+              "label": "Etiqueta cando non se forneceu ningún resumo",
+              "default": "Sen comentarios"
+            },
+            {
+              "label": "Cabeceira para a lista de etiquetas no informe",
+              "default": "Etiquetas dispoñibles"
+            },
+            {
+              "label": "Header above the sample solution section",
+              "default": "Sample solution"
+            }
+          ]
         },
         {
-          "label": "Permitir que os usuarios engadan as súas propias afirmacións",
-          "description": "Permitir ao usuario engadir as súas propias declaracións"
-        },
-        {
-          "label": "Use stacked view",
-          "description": "If checked, statements will be presented in a stacked view."
-        }
-      ]
-    },
-    {
-      "label": "Adaptación local",
-      "fields": [
-        {
-          "label": "Marcador de posición para as caixas de texto de comentarios",
-          "default": "Desenrola esta reflexión"
-        },
-        {
-          "label": "Etiqueta para o botón \"Recursos\"",
-          "default": "Recursos"
-        },
-        {
-          "label": "Texto de orientación ao seleccionar etiquetas",
-          "default": "Selecciona todas as etiquetas conectadas con este elemento"
-        },
-        {
-          "label": "Text for \"Show sample solution\" button",
-          "default": "Show sample solution"
-        },
-        {
-          "label": "Etiqueta para o botón \"reiniciar\"",
-          "default": "Reiniciar"
-        },
-        {
-          "label": "Label for \"Cancel\"-button",
-          "default": "Cancel"
-        },
-        {
-          "label": "Label for \"Create document\"-button",
-          "default": "Create document"
-        },
-        {
-          "label": "Etiqueta para o botón \"Engadir alternativa\"",
-          "default": "Engadir alternativa"
-        },
-        {
-          "label": "Etiqueta para o botón \"Si\"",
-          "default": "Si"
-        },
-        {
-          "label": "Etiqueta para o botón \"Non\"",
-          "default": "Non"
-        },
-        {
-          "label": "Label for the \"Continue\"-button",
-          "default": "Continue"
-        },
-        {
-          "label": "Informar ao usuario de que os datos perderanse se continúa",
-          "default": "Perderanse todos os teus cambios se continúas"
-        },
-        {
-          "label": "Pregúntalle ao usuario se quere continuar",
-          "default": "Estás seguro?"
-        },
-        {
-          "label": "Texto por defecto para a caixa do resumo",
-          "default": "Fai un breve resumo coas túas propias palabras"
-        },
-        {
-          "label": "Cabeceira na caixa de comentarios",
-          "default": "Retroalimentación"
-        },
-        {
-          "label": "Default text for new statement",
-          "default": "New statement"
-        }
-      ]
-    },
-    {
-      "label": "Informe de recursos",
-      "fields": [
-        {
-          "label": "Etiqueta para o botón \"Exportar\"",
-          "default": "Exportar"
-        },
-        {
-          "label": "Etiqueta para o botón \"Seleccionar todo\"",
-          "default": "Seleccionar todo"
-        },
-        {
-          "label": "Cabeceira das declaracións na táboa de declaracións",
-          "default": "Declaracións"
-        },
-        {
-          "label": "Cabeceira das etiquetas na táboa de declaracións",
-          "default": "Etiquetas"
-        },
-        {
-          "label": "Cabeceira dos comentarios na táboa de declaracións",
-          "default": "Comentarios"
-        },
-        {
-          "label": "Cabeceira da táboa \"Recurso\"",
-          "default": "Recursos"
-        },
-        {
-          "label": "Título da cabeceira da táboa de recursos",
-          "default": "Título"
-        },
-        {
-          "label": "Encabezado de introdución na táboa de recursos",
-          "default": "Introdución"
-        },
-        {
-          "label": "Encabezado de Url na táboa de recursos",
-          "default": "URL"
-        },
-        {
-          "label": "Etiqueta cando non se atopan recursos",
-          "default": "Non hai recursos"
-        },
-        {
-          "label": "Cabeceira para \"Comentario de resumo\"",
-          "default": "Comentario do resumo"
-        },
-        {
-          "label": "Etiqueta cando non se forneceu ningún resumo",
-          "default": "Sen comentarios"
-        },
-        {
-          "label": "Cabeceira para a lista de etiquetas no informe",
-          "default": "Etiquetas dispoñibles"
-        },
-        {
-          "label": "Header above the sample solution section",
-          "default": "Sample solution"
-        }
-      ]
-    },
-    {
-      "label": "Accesibilidade",
-      "fields": [
-        {
-          "label": "Empregado no canto da icona «Comentario»",
-          "default": "Engadir comentario"
-        },
-        {
-          "label": "Used instead of 'Label'-icon",
-          "default": "Add label"
-        },
-        {
-          "label": "Empregado no canto da icona «Pechar»",
-          "default": "Pechar"
-        },
-        {
-          "label": "Dropzones list label for screenreaders",
-          "default": "Dropzones"
-        },
-        {
-          "label": "Dropzones list description for screenreaders",
-          "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
-        },
-        {
-          "label": "Statements list description for screenreaders",
-          "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
-        },
-        {
-          "label": "Statements list description for screenreaders when adding own statements is allowed",
-          "default": "Use the tab key to jump to editing or deletion of the statement."
-        },
-        {
-          "label": "'Sortable item' roledescription for screenreaders",
-          "default": "Sortable item"
-        },
-        {
-          "label": "'Dropzone' label for screenreaders",
-          "default": "Dropzone"
-        },
-        {
-          "label": "'Statement' label for screenreaders",
-          "default": "Statement"
-        },
-        {
-          "label": "'Dropzone with content' label for screenreaders",
-          "description": "@content is a placeholder and will be replaced with the respective value.",
-          "default": "Dropzone with @content"
-        },
-        {
-          "label": "Message read by screenreaders when dragging starts",
-          "description": "@draggable is a placeholder and will be replaced with the respective value.",
-          "default": "Started dragging @draggable"
-        },
-        {
-          "label": "Message read by screenreaders when dragging a statement over a target",
-          "description": "@target is a placeholder and will be replaced with the respective value.",
-          "default": "Moving over @target"
-        },
-        {
-          "label": "Message read by screenreaders when dragging ends",
-          "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
-          "default": "Dropped @draggable on @target"
-        },
-        {
-          "label": "Message read by screenreaders when dragging is cancelled",
-          "default": "Dragging cancelled"
-        },
-        {
-          "label": "Label for unknown elements for screenreaders",
-          "default": "Unknown element"
-        },
-        {
-          "label": "List of unassigned statements label for screenreaders",
-          "default": "Unassigned statements"
+          "label": "Accesibilidade",
+          "fields": [
+            {
+              "label": "Empregado no canto da icona «Comentario»",
+              "default": "Engadir comentario"
+            },
+            {
+              "label": "Used instead of 'Label'-icon",
+              "default": "Add label"
+            },
+            {
+              "label": "Empregado no canto da icona «Pechar»",
+              "default": "Pechar"
+            },
+            {
+              "label": "Dropzones list label for screenreaders",
+              "default": "Dropzones"
+            },
+            {
+              "label": "Dropzones list description for screenreaders",
+              "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+            },
+            {
+              "label": "Statements list description for screenreaders",
+              "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+            },
+            {
+              "label": "Statements list description for screenreaders when adding own statements is allowed",
+              "default": "Use the tab key to jump to editing or deletion of the statement."
+            },
+            {
+              "label": "'Sortable item' roledescription for screenreaders",
+              "default": "Sortable item"
+            },
+            {
+              "label": "'Dropzone' label for screenreaders",
+              "default": "Dropzone"
+            },
+            {
+              "label": "'Statement' label for screenreaders",
+              "default": "Statement"
+            },
+            {
+              "label": "'Dropzone with content' label for screenreaders",
+              "description": "@content is a placeholder and will be replaced with the respective value.",
+              "default": "Dropzone with @content"
+            },
+            {
+              "label": "Message read by screenreaders when dragging starts",
+              "description": "@draggable is a placeholder and will be replaced with the respective value.",
+              "default": "Started dragging @draggable"
+            },
+            {
+              "label": "Message read by screenreaders when dragging a statement over a target",
+              "description": "@target is a placeholder and will be replaced with the respective value.",
+              "default": "Moving over @target"
+            },
+            {
+              "label": "Message read by screenreaders when dragging ends",
+              "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
+              "default": "Dropped @draggable on @target"
+            },
+            {
+              "label": "Message read by screenreaders when dragging is cancelled",
+              "default": "Dragging cancelled"
+            },
+            {
+              "label": "Label for unknown elements for screenreaders",
+              "default": "Unknown element"
+            },
+            {
+              "label": "List of unassigned statements label for screenreaders",
+              "default": "Unassigned statements"
+            }
+          ]
         }
       ]
     }

@@ -12,7 +12,7 @@ export default class SequenceProcess extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
     super();
 
-    this.params = sanitizeParams(params);
+    this.params = sanitizeParams(params.sequenceProcess);
     this.contentId = contentId;
 
     this.language = extras.metadata?.defaultLanguage || 'en';
