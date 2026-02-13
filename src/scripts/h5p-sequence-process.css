@@ -21,12 +21,16 @@
   --icon-fontawesome-tag: "\f02b";
   --icon-fontawesome-xmark: "\f00d";
 
+  --ndla-blue: hsl(210, 34%, 48%);
+  --ndla-blue-light: hsl(from var(--ndla-blue) l c calc(h + 5) );
+  --ndla-blue-dark: hsl(from var(--ndla-blue) l c calc(h - 5) );
+
   /* Colors */
-  --color-primary: var(--h5p-theme-main-cta-base, #006FBF);
+  --color-primary: var(--h5p-theme-main-cta-base, var(--ndla-blue));
   --color-primary-contrast: var(--h5p-theme-contrast-cta, #ffffff);
-  --color-primary-contrast-to-white: var(--h5p-theme-contrast-cta-white, #006FBF);
-  --color-primary-light: var(--h5p-theme-main-cta-light, #007CD6);
-  --color-primary-dark: var(--h5p-theme-main-cta-dark, #005FA3);
+  --color-primary-contrast-to-white: var(--h5p-theme-contrast-cta-white, var(--ndla-blue));
+  --color-primary-light: var(--h5p-theme-main-cta-light, var(--ndla-blue-light));
+  --color-primary-dark: var(--h5p-theme-main-cta-dark, var(--ndla-blue-dark));
   --color-text-primary: var(--h5p-theme-text-primary, #101729);
   --color-text-secondary: var(--h5p-theme-text-secondary, #354054);
   --color-text-third: var(--h5p-theme-text-third, #737373);

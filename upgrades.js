@@ -47,15 +47,15 @@ H5PUpgrades['H5P.SequenceProcess'] = (() => {
               dropzone.enumeration = { enumeration: `${index + 1}` };
 
               if (index === 0) {
-                dropzone.enumeration.backgroundColor = '#006FBF';
+                dropzone.enumeration.backgroundColor = '#517aa4';
               }
 
               if (index === 1) {
-                dropzone.enumeration.backgroundColor = '#008DF2';
+                dropzone.enumeration.backgroundColor = '#486e93';
               }
 
               if (index === 2) {
-                dropzone.enumeration.backgroundColor = '#26A5FF';
+                dropzone.enumeration.backgroundColor = '#406182';
               }
 
               return dropzone;
