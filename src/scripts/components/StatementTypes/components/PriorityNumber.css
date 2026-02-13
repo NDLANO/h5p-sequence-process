@@ -42,7 +42,6 @@
 
 @container h5p-sequence-process (width >= 480px) {
   .h5p-order-priority-number .h5p-order-priority-number-circle {
-    height: calc(0.75 * var(--draggable-height));
     margin-right: var(--spacing-xxs);
     font-size: var(--font-size-xxl);
     position: static;
