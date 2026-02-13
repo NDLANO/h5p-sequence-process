@@ -9,6 +9,7 @@
     display: -webkit-box;
     -webkit-line-clamp: var(--lines-per-statement);
     -webkit-box-orient: vertical;
+    line-height: var(--h5p-theme-font-size-xxl);
     overflow: hidden;
     word-break: break-word;
   }
