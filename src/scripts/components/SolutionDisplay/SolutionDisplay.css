@@ -2,6 +2,7 @@
   background: var(--color-background);
   border: 2px solid var(--color-alternative-darker);
   border-radius: var(--border-radius);
+  color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
@@ -40,6 +41,7 @@
 .h5p-sequence-solution-sample-text {
   background-color: var(--color-alternative);
   border-radius: var(--border-radius);
+  color: var(--color-text-secondary);
   padding: var(--spacing-xxs) var(--spacing-s);
   line-height: 1.4;
 }
