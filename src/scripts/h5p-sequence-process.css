@@ -88,6 +88,7 @@
   .h5p-sequence-drag-element {
     background-color: color-mix(in srgb, var(--color-alternative-darker), transparent 30%);
     color: var(--color-text-third);
+    flex-shrink: 0;
     width: calc(2.25 * var(--spacing-s));
     position: relative;
 
