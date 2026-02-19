@@ -1,57 +1,61 @@
-.export-preview {
-  /*
-   * This needs support for theming, but we need to migrate this to H5P.DocumentExportPage anyway
-   */
-  .h1 {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
+.export-container {
+  z-index: var(--min-overlay-z-index);
+
+  .export-preview {
+    /*
+    * This needs support for theming, but we need to migrate this to H5P.DocumentExportPage anyway
+    */
+    .h1 {
+      display: block;
+      font-size: 2em;
+      margin-block-start: 0.67em;
+      margin-block-end: 0.67em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+    }
+
+    .h2 {
+      display: block;
+      font-size: 1.5em;
+      margin-block-start: 0.83em;
+      margin-block-end: 0.83em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+    }
+
+    .page-description {
+      font-style: italic;
+    }
+
+    table {
+      width: 100%;
+      border: 1px solid rgba(0, 90, 255, 0.34);
+    }
+
+    table tr:nth-child(even) {
+      background-color: rgba(176, 200, 236, 0.34);
+    }
+
+    th {
+      text-align: start;
+      background-color: rgba(45, 119, 193, 0.34);
+      border-collapse: collapse;
+    }
+
+    li {
+      margin-left: 0.3125rem;
+    }
   }
 
-  .h2 {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-  }
+  .joubel-create-document {
+    & button {
+      background: none;
+      border: none;
+      font: inherit;
+    }
 
-  .page-description {
-    font-style: italic;
+    top: 0;
   }
-
-  table {
-    width: 100%;
-    border: 1px solid rgba(0, 90, 255, 0.34);
-  }
-
-  table tr:nth-child(even) {
-    background-color: rgba(176, 200, 236, 0.34);
-  }
-
-  th {
-    text-align: start;
-    background-color: rgba(45, 119, 193, 0.34);
-    border-collapse: collapse;
-  }
-
-  li {
-    margin-left: 0.3125rem;
-  }
-}
-
-.joubel-create-document {
-  & button {
-    background: none;
-    border: none;
-    font: inherit;
-  }
-
-  top: 0;
 }

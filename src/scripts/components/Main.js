@@ -88,7 +88,9 @@ const Main = (props) => {
   }, [resourcesList]);
 
   return (
-    <article>
+    <article
+      style={{ '--min-overlay-z-index': behaviour.useStackedView === true ? params.statementsList.length : undefined }}
+    >
       <div className={'h5p-sequence-header'}>{header}</div>
       <div className={'h5p-sequence-surface-main'}>
         <div className={'h5p-sequence-surface-info'} ref={resourceContainer}>
