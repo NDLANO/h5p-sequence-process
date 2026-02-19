@@ -61,6 +61,7 @@ export default {
             }
           },
           { loader: 'css-loader' },
+          { loader: 'sass-loader' },
         ]
       },
       {

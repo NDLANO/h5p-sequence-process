@@ -4,18 +4,24 @@
   & .h5p-order-priority-number-circle {
     align-items: center;
     aspect-ratio: 1;
-    background-color: var(--color-alternative);
+    background-color: var(--backgroundColor, var(--color-alternative));
     border-radius: 50%;
     box-shadow: calc(0.5 * var(--spacing-xxs)) calc(0.5 * var(--spacing-xxs)) calc(0.5 * var(--spacing-xxs)) 0 rgba(3, 3, 3, 0.2);
-    color: var(--color-text-primary);
+    color: var(--focusColor, var(--color-text-primary));
     display: flex;
     font-style: italic;
     font-weight: bold;
     height: calc(0.5 * var(--draggable-height));
     justify-content: center;
     left: calc(-0.5 * var(--spacing-xxs));
+    overflow: hidden;
     position: absolute;
     top: calc(-0.5 * var(--spacing-xxs));
+
+    &.hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
 
     &.h5p-order-priority-number-1 {
       background-color: var(--color-primary);
@@ -36,7 +42,6 @@
 
 @container h5p-sequence-process (width >= 480px) {
   .h5p-order-priority-number .h5p-order-priority-number-circle {
-    height: calc(0.75 * var(--draggable-height));
     margin-right: var(--spacing-xxs);
     font-size: var(--font-size-xxl);
     position: static;

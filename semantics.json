@@ -1,545 +1,639 @@
 [
   {
-    "name": "mode",
-    "type": "select",
-    "label": "Mode",
-    "description": "Choose the mode of the activity. \"Sequence\" means to merely order the statements, while \"Priority\" also means to express an order of precedence among the statements.",
+    "name": "sequenceProcess",
+    "type": "group",
     "importance": "high",
-    "options": [
+    "expanded": true,
+    "widget": "sequenceProcess",
+    "fields": [
       {
-        "value": "sequence",
-        "label": "Sequence"
+        "name": "header",
+        "type": "text",
+        "label": "Header",
+        "importance": "medium"
       },
       {
-        "value": "priority",
-        "label": "Priority"
-      }
-    ],
-    "default": "sequence",
-    "widget": "selectButtons"
-  },
-  {
-    "name": "header",
-    "type": "text",
-    "label": "Header",
-    "importance": "medium"
-  },
-  {
-    "name": "description",
-    "type": "text",
-    "label": "Task description",
-    "importance": "low",
-    "optional": true,
-    "widget": "html",
-    "enterMode": "p",
-    "tags": [
-      "strong",
-      "em",
-      "u",
-      "ol",
-      "ul"
-    ]
-  },
-  {
-    "name": "statementsList",
-    "label": "Statements",
-    "type": "group",
-    "importance": "high",
-    "expanded": true,
-    "fields": [
-      {
-        "name": "statementsList",
-        "type": "list",
-        "label": "Statements",
-        "importance": "high",
-        "entity": "statement",
-        "optional": true,
-        "min": 1,
-        "field": {
-          "name": "text",
-          "type": "text",
-          "label": "Statement"
-        }
-      }
-    ]
-  },
-  {
-    "name": "labelsList",
-    "label": "Labels",
-    "type": "group",
-    "expanded": true,
-    "fields": [
-      {
-        "name": "labelsList",
-        "type": "list",
-        "label": "Labels",
-        "entity": "label",
-        "optional": true,
-        "min": 1,
-        "field": {
-          "name": "text",
-          "type": "text",
-          "label": "Label"
-        }
-      }
-    ]
-  },
-  {
-    "name": "summaryHeader",
-    "type": "text",
-    "label": "Summary",
-    "default": "Summary",
-    "importance": "medium"
-  },
-  {
-    "name": "summaryInstruction",
-    "type": "text",
-    "widget": "html",
-    "label": "Summary instruction",
-    "importance": "low",
-    "optional": true,
-    "enterMode": "p",
-    "tags": [
-      "strong",
-      "em",
-      "u",
-      "ol",
-      "ul"
-    ]
-  },
-  {
-    "name": "solution",
-    "type": "group",
-    "label": "Sample solution",
-    "importance": "high",
-    "expanded": true,
-    "description": "You can optionally add a sample solution that's shown after the student created a text. It's called sample solution because there probably is not only one solution.",
-    "fields": [
-      {
-        "name": "introduction",
+        "name": "description",
         "type": "text",
-        "label": "Introduction",
+        "label": "Task description",
         "importance": "low",
-        "description": "You can optionally leave the students some explanations about your example. The explanations will only show up if you add an example, too.",
-        "placeholder": "Please remember that you were not expected to come up with the exact same solution. It's just a good example.",
         "optional": true,
         "widget": "html",
-        "enterMode": "div",
+        "enterMode": "p",
         "tags": [
           "strong",
           "em",
           "u",
-          "a",
-          "ul",
           "ol",
-          "hr",
-          "code"
+          "ul"
         ]
       },
       {
-        "name": "sample",
-        "type": "text",
-        "label": "Sample solution text",
-        "importance": "low",
-        "description": "The student will see a \"Show sample solution\" button after submitting if you provide some text here.",
-        "optional": true,
-        "widget": "html",
-        "enterMode": "div",
-        "tags": [
-          "strong",
-          "a"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "resources",
-    "type": "group",
-    "label": "Resources",
-    "importance": "low",
-    "fields": [
-      {
-        "name": "resourcesList",
-        "type": "library",
-        "label": "Resources",
-        "importance": "medium",
-        "options": [
-          "H5P.ResourceList 1.1"
-        ],
-        "description": "Optional links to resources."
-      }
-    ]
-  },
-  {
-    "name": "behaviour",
-    "type": "group",
-    "label": "Behavioural settings",
-    "importance": "low",
-    "description": "These options will let you control the behaviour.",
-    "fields": [
-      {
-        "name": "enableRetry",
-        "type": "boolean",
-        "label": "Enable retry?",
-        "description": "Tick off this if you want the user to be able to retry",
-        "default": true
-      },
-      {
-        "name": "provideSummary",
-        "type": "boolean",
-        "label": "Show summary",
-        "description": "Do you want the user to provide a summary explaining the reasons for his/her answers",
-        "default": true
-      },
-      {
-        "name": "prepopulate",
-        "type": "boolean",
-        "label": "Pre-populate the statements",
-        "description": "The user starts off with the statements already ordered",
-        "default": false
-      },
-      {
-        "name": "randomizeStatements",
-        "type": "boolean",
-        "label": "Randomize the statements",
-        "description": "Will randomize the pre-populated statements",
-        "default": false,
-        "widget": "showWhen",
-        "showWhen": {
-          "rules": [
-            {
-              "field": "prepopulate",
-              "equals": true
+        "name": "statementsList",
+        "label": "Statements",
+        "type": "group",
+        "importance": "high",
+        "expanded": true,
+        "fields": [
+          {
+            "name": "statementsList",
+            "type": "list",
+            "label": "Statements",
+            "importance": "high",
+            "entity": "statement",
+            "optional": true,
+            "min": 1,
+            "field": {
+              "name": "text",
+              "type": "text",
+              "label": "Statement"
             }
-          ]
-        }
+          }
+        ]
       },
       {
-        "name": "allowAddingOfStatements",
-        "type": "boolean",
-        "label": "Allow users to add their own statements",
-        "description": "Lets the user add their own statements",
-        "default": false
-      },
-      {
-        "name": "useStackedView",
-        "type": "boolean",
-        "label": "Use stacked view",
-        "description": "If checked, statements will be presented in a stacked view.",
-        "default": false
-      }
-    ]
-  },
-  {
-    "name": "l10n",
-    "type": "group",
-    "importance": "low",
-    "label": "Localize",
-    "common": true,
-    "fields": [
-      {
-        "name": "typeYourReasonsForSuchAnswers",
-        "type": "text",
-        "label": "Placeholder for the comment text boxes",
-        "default": "Elaborate on this reflection"
-      },
-      {
-        "name": "resources",
-        "type": "text",
-        "label": "Label for \"Resources\"-button",
-        "default": "Resources"
-      },
-      {
-        "name": "selectAllLabelsConnectedToThisItem",
-        "type": "text",
-        "label": "Guiding text when selecting labels",
-        "default": "Select all labels connected to this item"
-      },
-      {
-        "name": "showSolution",
-        "type": "text",
-        "label": "Text for \"Show sample solution\" button",
-        "default": "Show sample solution"
-      },
-      {
-        "name": "restart",
-        "type": "text",
-        "label": "Label for \"Restart\"-button",
-        "default": "Restart"
-      },
-      {
-        "name": "cancel",
-        "type": "text",
-        "label": "Label for \"Cancel\"-button",
-        "default": "Cancel"
-      },
-      {
-        "name": "createDocument",
-        "type": "text",
-        "label": "Label for \"Create document\"-button",
-        "default": "Create document"
-      },
-      {
-        "name": "add",
-        "type": "text",
-        "label": "Label for the \"Add alternative\"-button",
-        "default": "Add alternative"
-      },
-      {
-        "name": "yes",
-        "type": "text",
-        "label": "Label for the \"Yes\"-button",
-        "default": "Yes"
-      },
-      {
-        "name": "no",
-        "type": "text",
-        "label": "Label for the \"No\"-button",
-        "default": "No"
-      },
-      {
-        "name": "continue",
-        "type": "text",
-        "label": "Label for the \"Continue\"-button",
-        "default": "Continue"
-      },
-      {
-        "name": "ifYouContinueAllYourChangesWillBeLost",
-        "type": "text",
-        "label": "Inform the user that data will be lost if he/she continues",
-        "default": "If you continue all your changes will be lost"
-      },
-      {
-        "name": "areYouSure",
-        "type": "text",
-        "label": "Ask the user if he/she wants to continue",
-        "default": "Are you sure?"
-      },
-      {
-        "name": "giveABriefSummary",
-        "type": "text",
-        "label": "Placeholder for the summary box",
-        "default": "Give a brief summary in your own words"
-      },
-      {
-        "name": "feedback",
-        "type": "text",
-        "label": "Header in comment box",
-        "default": "Feedback"
-      },
-      {
-        "name": "newStatement",
-        "type": "text",
-        "label": "Default text for new statement",
-        "default": "New statement"
-      }
-    ]
-  },
-  {
-    "label": "Resource report",
-    "importance": "low",
-    "name": "resourceReport",
-    "type": "group",
-    "common": true,
-    "fields": [
-      {
-        "name": "export",
-        "type": "text",
-        "label": "Label on \"Export\" button",
-        "default": "Export"
-      },
-      {
-        "name": "selectAll",
-        "type": "text",
-        "label": "Label on \"Select all\" button",
-        "default": "Select all"
-      },
-      {
-        "name": "headerStatement",
-        "type": "text",
-        "label": "Statement header in statement table",
-        "default": "Statements"
-      },
-      {
-        "name": "headerLabels",
-        "type": "text",
-        "label": "Labels header in statement table",
-        "default": "Labels"
-      },
-      {
-        "name": "headerComment",
-        "type": "text",
-        "label": "Comment header in statement table",
-        "default": "Comment"
-      },
-      {
-        "name": "header",
-        "type": "text",
-        "label": "Header above the \"Resource\" table",
-        "default": "Resources"
-      },
-      {
-        "name": "headerTitle",
-        "type": "text",
-        "label": "Title header in resource table",
-        "default": "Title"
-      },
-      {
-        "name": "headerIntro",
-        "type": "text",
-        "label": "Intro header in resource table",
-        "default": "Intro"
-      },
-      {
-        "name": "headerUrl",
-        "type": "text",
-        "label": "Url header in resource table",
-        "default": "Url"
-      },
-      {
-        "name": "labelNoResources",
-        "type": "text",
-        "label": "Label when no resources are found",
-        "default": "No resources"
-      },
-      {
-        "name": "labelSummaryComment",
-        "type": "text",
-        "label": "Header for summary comment",
-        "default": "Summary comment"
-      },
-      {
-        "name": "labelNoSummaryComment",
-        "type": "text",
-        "label": "Label when no summary is provided",
-        "default": "No comment"
-      },
-      {
-        "name": "headerAvailableLabels",
-        "type": "text",
-        "label": "Header for listing of labels in the report",
-        "default": "Available labels"
-      },
-      {
-        "name": "headerSolution",
-        "type": "text",
-        "label": "Header above the sample solution section",
-        "default": "Sample solution"
-      }
-    ]
-  },
-  {
-    "label": "Accessibility",
-    "importance": "low",
-    "name": "accessibility",
-    "type": "group",
-    "common": true,
-    "fields": [
-      {
-        "name": "addComment",
-        "type": "text",
-        "label": "Used instead of 'Comment'-icon",
-        "default": "Add comment"
-      },
-      {
-        "name": "addLabel",
-        "type": "text",
-        "label": "Used instead of 'Label'-icon",
-        "default": "Add label"
-      },
-      {
-        "name": "close",
-        "type": "text",
-        "label": "Used instead of 'Close'-icon",
-        "default": "Close"
+        "name": "labelsList",
+        "label": "Labels",
+        "type": "group",
+        "fields": [
+          {
+            "name": "labelsList",
+            "type": "list",
+            "label": "Labels",
+            "entity": "label",
+            "optional": true,
+            "min": 1,
+            "field": {
+              "name": "text",
+              "type": "text",
+              "label": "Label"
+            }
+          }
+        ]
       },
       {
         "name": "dropzonesList",
-        "type": "text",
-        "label": "Dropzones list label for screenreaders",
-        "default": "Dropzones"
+        "label": "Dropzones",
+        "type": "group",
+        "importance": "medium",
+        "fields": [
+          {
+            "name": "dropzonesList",
+            "type": "list",
+            "label": "Dropzones",
+            "entity": "dropzone",
+            "optional": true,
+            "widgets": [
+              {
+                "name": "SequenceProcessPassiveList",
+                "label": "Default"
+              }
+            ],
+            "min": 1,
+            "field": {
+              "name": "dropzone",
+              "type": "group",
+              "label": "Dropzone",
+              "importance": "low",
+              "fields": [
+                {
+                  "name": "backgroundColor",
+                  "type": "text",
+                  "label": "Background color",
+                  "optional": true,
+                  "widget": "colorSelector",
+                  "spectrum": {
+                    "showInput": true,
+                    "showInitial": true,
+                    "showPalette": true,
+                    "allowEmpty": true,
+                    "palette": [
+                      ["#006FBF"],
+                      ["#256D1D"],
+                      ["#a13236"],
+                      ["#E6C81D"]
+                    ]
+                  }
+                },
+                {
+                  "name":"showEnumeration",
+                  "type": "boolean",
+                  "label": "Show enumeration",
+                  "default": false
+                },
+                {
+                  "name": "enumeration",
+                  "type": "group",
+                  "label": "Enumeration",
+                  "importance": "low",
+                  "widget": "showWhen",
+                  "showWhen": {
+                    "rules": [
+                      {
+                        "field": "showEnumeration",
+                        "equals": true
+                      }
+                    ]
+                  },
+                  "fields": [
+                    {
+                      "name": "backgroundColor",
+                      "type": "text",
+                      "label": "Background color",
+                      "optional": true,
+                      "widget": "colorSelector",
+                      "spectrum": {
+                        "showInput": true,
+                        "showInitial": true,
+                        "showPalette": true,
+                        "allowEmpty": true,
+                        "palette": [
+                          [
+                            "#006FBF", "#008DF2", "#26A5FF"
+                          ],
+                          [
+                            "#256D1D", "#339528", "#40BE32"
+                          ],
+                          [
+                            "#A13236", "#C44044", "#D0676A"
+                          ],
+                          [
+                            "#E6C81D", "#ebd34c", "#F0DE7A"
+                          ]
+                        ]
+                      }
+                    },
+                    {
+                      "name": "enumeration",
+                      "type": "text",
+                      "label": "Enumeration",
+                      "optional": true
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
       },
       {
-        "name": "dropzonesListDescription",
+        "name": "summaryHeader",
         "type": "text",
-        "label": "Dropzones list description for screenreaders",
-        "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+        "label": "Summary",
+        "default": "Summary",
+        "importance": "medium"
       },
       {
-        "name": "statementsListDescription",
+        "name": "summaryInstruction",
         "type": "text",
-        "label": "Statements list description for screenreaders",
-        "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+        "widget": "html",
+        "label": "Summary instruction",
+        "importance": "low",
+        "optional": true,
+        "enterMode": "p",
+        "tags": [
+          "strong",
+          "em",
+          "u",
+          "ol",
+          "ul"
+        ]
       },
       {
-        "name": "listsDescriptionEditable",
-        "type": "text",
-        "label": "Statements list description for screenreaders when adding own statements is allowed",
-        "default": "Use the tab key to jump to editing or deletion of the statement."
+        "name": "solution",
+        "type": "group",
+        "label": "Sample solution",
+        "importance": "high",
+        "expanded": true,
+        "description": "You can optionally add a sample solution that's shown after the student created a text. It's called sample solution because there probably is not only one solution.",
+        "fields": [
+          {
+            "name": "introduction",
+            "type": "text",
+            "label": "Introduction",
+            "importance": "low",
+            "description": "You can optionally leave the students some explanations about your example. The explanations will only show up if you add an example, too.",
+            "placeholder": "Please remember that you were not expected to come up with the exact same solution. It's just a good example.",
+            "optional": true,
+            "widget": "html",
+            "enterMode": "div",
+            "tags": [
+              "strong",
+              "em",
+              "u",
+              "a",
+              "ul",
+              "ol",
+              "hr",
+              "code"
+            ]
+          },
+          {
+            "name": "sample",
+            "type": "text",
+            "label": "Sample solution text",
+            "importance": "low",
+            "description": "The student will see a \"Show sample solution\" button after submitting if you provide some text here.",
+            "optional": true,
+            "widget": "html",
+            "enterMode": "div",
+            "tags": [
+              "strong",
+              "a"
+            ]
+          }
+        ]
       },
       {
-        "name": "sortableItem",
-        "type": "text",
-        "label": "'Sortable item' roledescription for screenreaders",
-        "default": "Sortable item"
+        "name": "resources",
+        "type": "group",
+        "label": "Resources",
+        "importance": "low",
+        "fields": [
+          {
+            "name": "resourcesList",
+            "type": "library",
+            "label": "Resources",
+            "importance": "medium",
+            "options": [
+              "H5P.ResourceList 1.1"
+            ],
+            "description": "Optional links to resources."
+          }
+        ]
       },
       {
-        "name": "dropzone",
-        "type": "text",
-        "label": "'Dropzone' label for screenreaders",
-        "default": "Dropzone"
+        "name": "behaviour",
+        "type": "group",
+        "label": "Behavioural settings",
+        "importance": "low",
+        "description": "These options will let you control the behaviour.",
+        "fields": [
+          {
+            "name": "enableRetry",
+            "type": "boolean",
+            "label": "Enable retry?",
+            "description": "Tick off this if you want the user to be able to retry",
+            "default": true
+          },
+          {
+            "name": "provideSummary",
+            "type": "boolean",
+            "label": "Show summary",
+            "description": "Do you want the user to provide a summary explaining the reasons for his/her answers",
+            "default": true
+          },
+          {
+            "name": "prepopulate",
+            "type": "boolean",
+            "label": "Pre-populate the statements",
+            "description": "The user starts off with the statements already ordered",
+            "default": false
+          },
+          {
+            "name": "randomizeStatements",
+            "type": "boolean",
+            "label": "Randomize the statements",
+            "description": "Will randomize the pre-populated statements",
+            "default": false,
+            "widget": "showWhen",
+            "showWhen": {
+              "rules": [
+                {
+                  "field": "prepopulate",
+                  "equals": true
+                }
+              ]
+            }
+          },
+          {
+            "name": "allowAddingOfStatements",
+            "type": "boolean",
+            "label": "Allow users to add their own statements",
+            "description": "Lets the user add their own statements",
+            "default": false
+          },
+          {
+            "name": "useStackedView",
+            "type": "boolean",
+            "label": "Use stacked view",
+            "description": "If checked, statements will be presented in a stacked view.",
+            "default": false
+          }
+        ]
       },
       {
-        "name": "statement",
-        "type": "text",
-        "label": "'Statement' label for screenreaders",
-        "default": "Statement"
+        "name": "l10n",
+        "type": "group",
+        "importance": "low",
+        "label": "Localize",
+        "common": true,
+        "fields": [
+          {
+            "name": "typeYourReasonsForSuchAnswers",
+            "type": "text",
+            "label": "Placeholder for the comment text boxes",
+            "default": "Elaborate on this reflection"
+          },
+          {
+            "name": "resources",
+            "type": "text",
+            "label": "Label for \"Resources\"-button",
+            "default": "Resources"
+          },
+          {
+            "name": "selectAllLabelsConnectedToThisItem",
+            "type": "text",
+            "label": "Guiding text when selecting labels",
+            "default": "Select all labels connected to this item"
+          },
+          {
+            "name": "showSolution",
+            "type": "text",
+            "label": "Text for \"Show sample solution\" button",
+            "default": "Show sample solution"
+          },
+          {
+            "name": "restart",
+            "type": "text",
+            "label": "Label for \"Restart\"-button",
+            "default": "Restart"
+          },
+          {
+            "name": "cancel",
+            "type": "text",
+            "label": "Label for \"Cancel\"-button",
+            "default": "Cancel"
+          },
+          {
+            "name": "createDocument",
+            "type": "text",
+            "label": "Label for \"Create document\"-button",
+            "default": "Create document"
+          },
+          {
+            "name": "add",
+            "type": "text",
+            "label": "Label for the \"Add alternative\"-button",
+            "default": "Add alternative"
+          },
+          {
+            "name": "yes",
+            "type": "text",
+            "label": "Label for the \"Yes\"-button",
+            "default": "Yes"
+          },
+          {
+            "name": "no",
+            "type": "text",
+            "label": "Label for the \"No\"-button",
+            "default": "No"
+          },
+          {
+            "name": "continue",
+            "type": "text",
+            "label": "Label for the \"Continue\"-button",
+            "default": "Continue"
+          },
+          {
+            "name": "ifYouContinueAllYourChangesWillBeLost",
+            "type": "text",
+            "label": "Inform the user that data will be lost if he/she continues",
+            "default": "If you continue all your changes will be lost"
+          },
+          {
+            "name": "areYouSure",
+            "type": "text",
+            "label": "Ask the user if he/she wants to continue",
+            "default": "Are you sure?"
+          },
+          {
+            "name": "giveABriefSummary",
+            "type": "text",
+            "label": "Placeholder for the summary box",
+            "default": "Give a brief summary in your own words"
+          },
+          {
+            "name": "feedback",
+            "type": "text",
+            "label": "Header in comment box",
+            "default": "Feedback"
+          },
+          {
+            "name": "newStatement",
+            "type": "text",
+            "label": "Default text for new statement",
+            "default": "New statement"
+          }
+        ]
       },
       {
-        "name": "dropzoneWithContent",
-        "type": "text",
-        "label": "'Dropzone with content' label for screenreaders",
-        "description": "@content is a placeholder and will be replaced with the respective value.",
-        "default": "Dropzone with @content"
+        "label": "Resource report",
+        "importance": "low",
+        "name": "resourceReport",
+        "type": "group",
+        "common": true,
+        "fields": [
+          {
+            "name": "export",
+            "type": "text",
+            "label": "Label on \"Export\" button",
+            "default": "Export"
+          },
+          {
+            "name": "selectAll",
+            "type": "text",
+            "label": "Label on \"Select all\" button",
+            "default": "Select all"
+          },
+          {
+            "name": "headerStatement",
+            "type": "text",
+            "label": "Statement header in statement table",
+            "default": "Statements"
+          },
+          {
+            "name": "headerLabels",
+            "type": "text",
+            "label": "Labels header in statement table",
+            "default": "Labels"
+          },
+          {
+            "name": "headerComment",
+            "type": "text",
+            "label": "Comment header in statement table",
+            "default": "Comment"
+          },
+          {
+            "name": "header",
+            "type": "text",
+            "label": "Header above the \"Resource\" table",
+            "default": "Resources"
+          },
+          {
+            "name": "headerTitle",
+            "type": "text",
+            "label": "Title header in resource table",
+            "default": "Title"
+          },
+          {
+            "name": "headerIntro",
+            "type": "text",
+            "label": "Intro header in resource table",
+            "default": "Intro"
+          },
+          {
+            "name": "headerUrl",
+            "type": "text",
+            "label": "Url header in resource table",
+            "default": "Url"
+          },
+          {
+            "name": "labelNoResources",
+            "type": "text",
+            "label": "Label when no resources are found",
+            "default": "No resources"
+          },
+          {
+            "name": "labelSummaryComment",
+            "type": "text",
+            "label": "Header for summary comment",
+            "default": "Summary comment"
+          },
+          {
+            "name": "labelNoSummaryComment",
+            "type": "text",
+            "label": "Label when no summary is provided",
+            "default": "No comment"
+          },
+          {
+            "name": "headerAvailableLabels",
+            "type": "text",
+            "label": "Header for listing of labels in the report",
+            "default": "Available labels"
+          },
+          {
+            "name": "headerSolution",
+            "type": "text",
+            "label": "Header above the sample solution section",
+            "default": "Sample solution"
+          }
+        ]
       },
       {
-        "name": "dragStartMessage",
-        "type": "text",
-        "label": "Message read by screenreaders when dragging starts",
-        "description": "@draggable is a placeholder and will be replaced with the respective value.",
-        "default": "Started dragging @draggable"
-      },
-      {
-        "name": "dragOverMessage",
-        "type": "text",
-        "label": "Message read by screenreaders when dragging a statement over a target",
-        "description": "@target is a placeholder and will be replaced with the respective value.",
-        "default": "Moving over @target"
-      },
-      {
-        "name": "dragEndMessage",
-        "type": "text",
-        "label": "Message read by screenreaders when dragging ends",
-        "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
-        "default": "Dropped @draggable on @target"
-      },
-      {
-        "name": "dragCancelMessage",
-        "type": "text",
-        "label": "Message read by screenreaders when dragging is cancelled",
-        "default": "Dragging cancelled"
-      },
-      {
-        "name": "unknownElement",
-        "type": "text",
-        "label": "Label for unknown elements for screenreaders",
-        "default": "Unknown element"
-      },
-      {
-        "name": "unassignedStatementsList",
-        "type": "text",
-        "label": "List of unassigned statements label for screenreaders",
-        "default": "Unassigned statements"
+        "label": "Accessibility",
+        "importance": "low",
+        "name": "accessibility",
+        "type": "group",
+        "common": true,
+        "fields": [
+          {
+            "name": "addComment",
+            "type": "text",
+            "label": "Used instead of 'Comment'-icon",
+            "default": "Add comment"
+          },
+          {
+            "name": "addLabel",
+            "type": "text",
+            "label": "Used instead of 'Label'-icon",
+            "default": "Add label"
+          },
+          {
+            "name": "close",
+            "type": "text",
+            "label": "Used instead of 'Close'-icon",
+            "default": "Close"
+          },
+          {
+            "name": "dropzonesList",
+            "type": "text",
+            "label": "Dropzones list label for screenreaders",
+            "default": "Dropzones"
+          },
+          {
+            "name": "dropzonesListDescription",
+            "type": "text",
+            "label": "Dropzones list description for screenreaders",
+            "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+          },
+          {
+            "name": "statementsListDescription",
+            "type": "text",
+            "label": "Statements list description for screenreaders",
+            "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+          },
+          {
+            "name": "listsDescriptionEditable",
+            "type": "text",
+            "label": "Statements list description for screenreaders when adding own statements is allowed",
+            "default": "Use the tab key to jump to editing or deletion of the statement."
+          },
+          {
+            "name": "sortableItem",
+            "type": "text",
+            "label": "'Sortable item' roledescription for screenreaders",
+            "default": "Sortable item"
+          },
+          {
+            "name": "dropzone",
+            "type": "text",
+            "label": "'Dropzone' label for screenreaders",
+            "default": "Dropzone"
+          },
+          {
+            "name": "statement",
+            "type": "text",
+            "label": "'Statement' label for screenreaders",
+            "default": "Statement"
+          },
+          {
+            "name": "dropzoneWithContent",
+            "type": "text",
+            "label": "'Dropzone with content' label for screenreaders",
+            "description": "@content is a placeholder and will be replaced with the respective value.",
+            "default": "Dropzone with @content"
+          },
+          {
+            "name": "dragStartMessage",
+            "type": "text",
+            "label": "Message read by screenreaders when dragging starts",
+            "description": "@draggable is a placeholder and will be replaced with the respective value.",
+            "default": "Started dragging @draggable"
+          },
+          {
+            "name": "dragOverMessage",
+            "type": "text",
+            "label": "Message read by screenreaders when dragging a statement over a target",
+            "description": "@target is a placeholder and will be replaced with the respective value.",
+            "default": "Moving over @target"
+          },
+          {
+            "name": "dragEndMessage",
+            "type": "text",
+            "label": "Message read by screenreaders when dragging ends",
+            "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
+            "default": "Dropped @draggable on @target"
+          },
+          {
+            "name": "dragCancelMessage",
+            "type": "text",
+            "label": "Message read by screenreaders when dragging is cancelled",
+            "default": "Dragging cancelled"
+          },
+          {
+            "name": "unknownElement",
+            "type": "text",
+            "label": "Label for unknown elements for screenreaders",
+            "default": "Unknown element"
+          },
+          {
+            "name": "unassignedStatementsList",
+            "type": "text",
+            "label": "List of unassigned statements label for screenreaders",
+            "default": "Unassigned statements"
+          }
+        ]
       }
     ]
   }

@@ -1,25 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { computeFocusColor } from '@services/utils.js';
 
 import './PriorityNumber.css';
 
 /**
- * Container with number indicating what priority a statement has.
+ * Container with enumeration indicating what priority a statement has.
  * @param {object} props React props.
  * @returns {object} JSX element.
  */
 const PriorityNumber = (props) => {
-  const { index } = props;
+  const { enumeration, hidden, backgroundColor } = props;
+  const focusColor = computeFocusColor(backgroundColor);
 
   return (
     <div className={'h5p-order-priority-number'}>
-      <div className={'h5p-order-priority-number-circle h5p-order-priority-number-' + (index + 1)}>{index + 1}</div>
+      <div
+        className={`h5p-order-priority-number-circle ${hidden === true ? 'hidden' : ''}`}
+        style={{ '--backgroundColor': backgroundColor, '--focusColor': focusColor }}
+      >
+        {enumeration ?? ''}
+      </div>
     </div>
   );
 };
 
 PriorityNumber.propTypes = {
-  index: PropTypes.number,
+  enumeration: PropTypes.string,
+  hidden: PropTypes.bool,
+  backgroundColor: PropTypes.string,
 };
 
 export default PriorityNumber;

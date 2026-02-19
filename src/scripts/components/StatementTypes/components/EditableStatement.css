@@ -35,7 +35,15 @@
   }
 
   & .h5p-sequence-noneditable {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--lines-per-statement);
+    -webkit-box-orient: vertical;
+    line-height: var(--h5p-theme-font-size-xxl);
+    margin: 0;
+    max-height: 100%;
+    overflow: hidden;
     padding-left: calc(0.5 * var(--spacing-xxs));
+    word-break: break-word;
 
     &.hidden {
       display: none;

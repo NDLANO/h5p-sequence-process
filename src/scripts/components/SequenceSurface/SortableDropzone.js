@@ -15,6 +15,7 @@ const SortableDropZone = forwardRef((
   {
     index,
     id,
+    params,
     items,
     isUnassignedEmpty,
     comment,
@@ -43,7 +44,7 @@ const SortableDropZone = forwardRef((
   const dropzoneElementRef = useRef(null);
 
   const [selectedState, setSelectedState] = useState(false);
-  const isPrioritizeable = context.params.mode === 'priority';
+  const showEnumeration = params.showEnumeration === true;
 
   const handleLabelClick = (id) => {
     setActiveLabelId((prevId) => (prevId === id ? null : id));
@@ -62,7 +63,7 @@ const SortableDropZone = forwardRef((
 
   const ariaLabel = (items.length) === 0 ?
     context.translate('dropzone') :
-    context.translate('dropzoneWithContent').replace('@content', getElementIdentifier(items[0]));
+    context.translate('dropzoneWithContent').replace('@content', getElementIdentifier(items[0]));  
 
   return (
     <li
@@ -82,9 +83,11 @@ const SortableDropZone = forwardRef((
       role='listitem'
       aria-label={ariaLabel}
     >
-      {isPrioritizeable && (
+      {showEnumeration && (
         <PriorityNumber
-          index={index}
+          enumeration={params.enumeration?.enumeration}
+          hidden={params.hidden}
+          backgroundColor={params.enumeration?.backgroundColor}
         />
       )}
       <div className='h5p-droparea'>
@@ -132,7 +135,10 @@ const SortableDropZone = forwardRef((
             </Fragment>
           ))
         ) : (
-          <div className='h5p-sequence-empty'></div>
+          <div
+            className='h5p-sequence-empty'
+            style={{ '--backgroundColor': params.backgroundColor }}
+          ></div>
         )}
       </div>
     </li>
@@ -144,6 +150,7 @@ SortableDropZone.displayName = 'SortableDropZone';
 SortableDropZone.propTypes = {
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
+  params: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
   isUnassignedEmpty: PropTypes.bool,
   comment: PropTypes.string,

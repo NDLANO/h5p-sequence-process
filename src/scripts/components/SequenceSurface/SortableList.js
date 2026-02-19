@@ -869,6 +869,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
               <SortableDropZone
                 key={list.id}
                 index={index}
+                params={params.dropzonesList[index]}
                 id={list.id}
                 items={list.items}
                 isUnassignedEmpty={unassignedItemIds.length === 0}

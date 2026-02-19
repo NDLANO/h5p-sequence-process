@@ -50,8 +50,8 @@
   }
 }
 
-@container h5p-sequence-process (width >= 480px) {
+@container h5p-sequence-process (width <= 640px) {
   .h5p-sequence-footer {
-    flex-direction: row;
+    flex-direction: column;
   }
 }
