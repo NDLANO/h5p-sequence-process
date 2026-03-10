@@ -15,7 +15,7 @@
               "label": "Uttalelser",
               "entity": "uttalelser",
               "field": {
-                "label": "Statement"
+                "label": "Påstand"
               }
             }
           ]
@@ -33,33 +33,33 @@
           ]
         },
         {
-          "label": "Dropzones",
+          "label": "Dropsoner",
           "fields": [
             {
-              "label": "Dropzones",
+              "label": "Dropsoner",
               "entity": "dropzone",
               "widgets": [
                 {
-                  "label": "Default"
+                  "label": "Standard"
                 }
               ],
               "field": {
-                "label": "Dropzone",
+                "label": "Dropsone",
                 "fields": [
                   {
-                    "label": "Background color"
+                    "label": "Bakgrunnsfarge"
                   },
                   {
-                    "label": "Show enumeration"
+                    "label": "Vis nummerering"
                   },
                   {
-                    "label": "Enumeration",
+                    "label": "Nummerering",
                     "fields": [
                       {
-                        "label": "Background color"
+                        "label": "Bakgrunnsfarge"
                       },
                       {
-                        "label": "Enumeration"
+                        "label": "Nummerering"
                       }
                     ]
                   }
@@ -76,17 +76,17 @@
           "label": "Instruksjoner til oppsummeringen"
         },
         {
-          "label": "Løsningsforslag",
-          "description": "Du kan velge å legge til et løsningsforslag som vises etter at brukeren har skrevet en tekst. Det kalles “løsningsforslag” fordi det sannsynligvis finnes flere mulige løsninger.",
+          "label": "Eksempelløsning",
+          "description": "Du kan eventuelt legge til en eksempelløsning som vises etter at studenten har skrevet en tekst. Den kalles eksempelløsning fordi det sannsynligvis ikke finnes bare én løsning.",
           "fields": [
             {
-              "label": "Innledning",
-              "description": "Du kan velge å legge til løsningsforslaget ditt. Den blir bare vist dersom du også legger inn et løsningsforslag.",
-              "placeholder": "Husk: Dette eksemplet er bare et godt forslag. Du har kanskje funnet et annet godt svar."
+              "label": "Introduksjon",
+              "description": "Du kan eventuelt gi studentene noen forklaringer til eksempelet ditt. Forklaringene vises bare hvis du også legger til et eksempel.",
+              "placeholder": "Husk at du ikke var forventet å komme frem til nøyaktig samme løsning. Dette er bare et godt eksempel."
             },
             {
-              "label": "Tekst til løsningsforslag",
-              "description": "Dersom du skriver inn tekst her, dukker det opp en “Vis svar”-knapp når bruker har levert svaret sitt."
+              "label": "Tekst til eksempelløsning",
+              "description": "Studenten vil se en \"Vis eksempelløsning\"-knapp etter innsending dersom du oppgir tekst her."
             }
           ]
         },
@@ -124,13 +124,13 @@
               "description": "Lar brukeren legge til sine egne uttalelser"
             },
             {
-              "label": "Use stacked view",
-              "description": "If checked, statements will be presented in a stacked view."
+              "label": "Bruk stablet visning",
+              "description": "Hvis avkrysset, vil påstandene bli presentert i en stablet visning."
             }
           ]
         },
         {
-          "label": "Localize",
+          "label": "Lokalisering",
           "fields": [
             {
               "label": "Midlertidig tekst for kommentar tekstfeltene",
@@ -145,20 +145,20 @@
               "default": "Velg merkelappene forbundet med dette elementet"
             },
             {
-              "label": "Text for \"Show sample solution\" button",
-              "default": "Show sample solution"
+              "label": "Tekst for \"Vis eksempelløsning\"-knapp",
+              "default": "Vis eksempelløsning"
             },
             {
               "label": "Tekst på \"Start på nytt\"-knappen",
               "default": "Start på nytt"
             },
             {
-              "label": "Label for \"Cancel\"-button",
-              "default": "Cancel"
+              "label": "Etikett for \"Avbryt\"-knappen",
+              "default": "Avbryt"
             },
             {
-              "label": "Label for \"Create document\"-button",
-              "default": "Create document"
+              "label": "Etikett for \"Opprett dokument\"-knappen",
+              "default": "Opprett dokument"
             },
             {
               "label": "Tekst på \"Lag alternativ\"-knappen",
@@ -166,15 +166,15 @@
             },
             {
               "label": "Tekst på \"Ja\"-knappen",
-              "default": "Yes"
+              "default": "Ja"
             },
             {
               "label": "Tekst på \"Nei\"-knappen",
               "default": "Nei"
             },
             {
-              "label": "Label for the \"Continue\"-button",
-              "default": "Continue"
+              "label": "Etikett for \"Fortsett\"-knappen",
+              "default": "Fortsett"
             },
             {
               "label": "Informer brukeren om at all data vil gå tapt om vedkommende fortsetter",
@@ -193,8 +193,8 @@
               "default": "Tilbakemelding"
             },
             {
-              "label": "Default text for new statement",
-              "default": "New statement"
+              "label": "Standardtekst for ny påstand",
+              "default": "Ny påstand"
             }
           ]
         },
@@ -210,15 +210,15 @@
               "default": "Velg alt"
             },
             {
-              "label": "Overskrift i \"Påstand\"-kolonnen,",
+              "label": "Overskrift i \"Påstand\"-kolonnen",
               "default": "Påstand"
             },
             {
-              "label": "Overskrift i \"Etikkett\"-kolonnen,",
+              "label": "Overskrift i \"Etikett\"-kolonnen",
               "default": "Etiketter"
             },
             {
-              "label": "Overskrift i \"Kommentar\"-kolonnen,",
+              "label": "Overskrift i \"Kommentar\"-kolonnen",
               "default": "Kommentar"
             },
             {
@@ -254,8 +254,8 @@
               "default": "Tilgjengelige etiketter"
             },
             {
-              "label": "Header above the sample solution section",
-              "default": "Sample solution"
+              "label": "Overskrift over eksempelløsningsseksjon",
+              "default": "Eksempelløsning"
             }
           ]
         },
@@ -263,76 +263,76 @@
           "label": "Tilgjengelighet",
           "fields": [
             {
-              "label": "Brukt istedenfor 'Kommentar'-ikonet",
+              "label": "Brukt i stedet for 'Kommentar'-ikonet",
               "default": "Legg til kommentar"
             },
             {
-              "label": "Used instead of 'Label'-icon",
-              "default": "Add label"
+              "label": "Brukt i stedet for 'Merkelapp'-ikonet",
+              "default": "Legg til merkelapp"
             },
             {
-              "label": "Brukt istedenfor 'Lukk' ikonet",
+              "label": "Brukt i stedet for 'Lukk'-ikonet",
               "default": "Lukk"
             },
             {
-              "label": "Dropzones list label for screenreaders",
-              "default": "Dropzones"
+              "label": "Dropsoner listeetikett for skjermlesere",
+              "default": "Dropsoner"
             },
             {
-              "label": "Dropzones list description for screenreaders",
-              "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+              "label": "Dropsoner listebeskrivelse for skjermlesere",
+              "default": "Bruk piltastene for å navigere mellom dropsoner. Trykk mellomrom for å plukke opp eller slippe et element hvis tilgjengelig. Flytt element med piltastene når det er plukket opp."
             },
             {
-              "label": "Statements list description for screenreaders",
-              "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+              "label": "Beskrivelse av liste med påstander for skjermlesere",
+              "default": "Bruk piltastene for å navigere mellom påstander. Trykk mellomrom for å plukke opp eller slippe et element. Flytt element med piltastene når det er plukket opp."
             },
             {
-              "label": "Statements list description for screenreaders when adding own statements is allowed",
-              "default": "Use the tab key to jump to editing or deletion of the statement."
+              "label": "Beskrivelse av liste med påstander for skjermlesere når egne påstander kan legges til",
+              "default": "Bruk tabulatortasten for å hoppe til redigering eller sletting av påstanden."
             },
             {
-              "label": "'Sortable item' roledescription for screenreaders",
-              "default": "Sortable item"
+              "label": "'Sorterbart element' rollebeskrivelse for skjermlesere",
+              "default": "Sorterbart element"
             },
             {
-              "label": "'Dropzone' label for screenreaders",
-              "default": "Dropzone"
+              "label": "'Dropsone' etikett for skjermlesere",
+              "default": "Dropsone"
             },
             {
-              "label": "'Statement' label for screenreaders",
-              "default": "Statement"
+              "label": "'Påstand' etikett for skjermlesere",
+              "default": "Påstand"
             },
             {
-              "label": "'Dropzone with content' label for screenreaders",
-              "description": "@content is a placeholder and will be replaced with the respective value.",
-              "default": "Dropzone with @content"
+              "label": "'Dropsone med innhold' etikett for skjermlesere",
+              "description": "@content er en plassholder og vil bli erstattet med verdien.",
+              "default": "Dropsone med @content"
             },
             {
-              "label": "Message read by screenreaders when dragging starts",
-              "description": "@draggable is a placeholder and will be replaced with the respective value.",
-              "default": "Started dragging @draggable"
+              "label": "Melding lest av skjermlesere når draing starter",
+              "description": "@draggable er en plassholder og vil bli erstattet med verdien.",
+              "default": "Startet draing av @draggable"
             },
             {
-              "label": "Message read by screenreaders when dragging a statement over a target",
-              "description": "@target is a placeholder and will be replaced with the respective value.",
-              "default": "Moving over @target"
+              "label": "Melding lest av skjermlesere når en påstand dras over et mål",
+              "description": "@target er en plassholder og vil bli erstattet med verdien.",
+              "default": "Flytter over @target"
             },
             {
-              "label": "Message read by screenreaders when dragging ends",
-              "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
-              "default": "Dropped @draggable on @target"
+              "label": "Melding lest av skjermlesere når draing avsluttes",
+              "description": "@draggable og @target er plassholdere og vil bli erstattet med verdiene.",
+              "default": "Slapp @draggable på @target"
             },
             {
-              "label": "Message read by screenreaders when dragging is cancelled",
-              "default": "Dragging cancelled"
+              "label": "Melding lest av skjermlesere når draing avbrytes",
+              "default": "Draing avbrutt"
             },
             {
-              "label": "Label for unknown elements for screenreaders",
-              "default": "Unknown element"
+              "label": "Etikett for ukjente elementer for skjermlesere",
+              "default": "Ukjent element"
             },
             {
-              "label": "List of unassigned statements label for screenreaders",
-              "default": "Unassigned statements"
+              "label": "Liste over ufordelte påstander for skjermlesere",
+              "default": "Ufordelte påstander"
             }
           ]
         }
