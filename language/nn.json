@@ -6,60 +6,60 @@
           "label": "Overskrift"
         },
         {
-          "label": "Beskrivelse"
+          "label": "Skildring"
         },
         {
-          "label": "Påstander",
+          "label": "Påstandar",
           "fields": [
             {
-              "label": "Uttalelser",
+              "label": "Uttalelsar",
               "entity": "uttalelser",
               "field": {
-                "label": "Statement"
+                "label": "Påstand"
               }
             }
           ]
         },
         {
-          "label": "Merkelapper",
+          "label": "Merkelappar",
           "fields": [
             {
-              "label": "Merkelapper",
+              "label": "Merkelappar",
               "entity": "merkelapp",
               "field": {
-                "label": "Merkelapper"
+                "label": "Merkelappar"
               }
             }
           ]
         },
         {
-          "label": "Dropzones",
+          "label": "Dropsoner",
           "fields": [
             {
-              "label": "Dropzones",
+              "label": "Dropsoner",
               "entity": "dropzone",
               "widgets": [
                 {
-                  "label": "Default"
+                  "label": "Standard"
                 }
               ],
               "field": {
-                "label": "Dropzone",
+                "label": "Dropsone",
                 "fields": [
                   {
-                    "label": "Background color"
+                    "label": "Bakgrunnsfarge"
                   },
                   {
-                    "label": "Show enumeration"
+                    "label": "Vis nummerering"
                   },
                   {
-                    "label": "Enumeration",
+                    "label": "Nummerering",
                     "fields": [
                       {
-                        "label": "Background color"
+                        "label": "Bakgrunnsfarge"
                       },
                       {
-                        "label": "Enumeration"
+                        "label": "Nummerering"
                       }
                     ]
                   }
@@ -73,92 +73,92 @@
           "default": "Oppsummering"
         },
         {
-          "label": "Instruksjoner til oppsummeringen"
+          "label": "Instruksjonar til oppsummeringa"
         },
         {
-          "label": "Sample solution",
-          "description": "You can optionally add a sample solution that's shown after the student created a text. It's called sample solution because there probably is not only one solution.",
+          "label": "Eksempelløysing",
+          "description": "Du kan eventuelt leggje til ei eksempelløysing som blir vist etter at studenten har skrive ein tekst. Ho blir kalla eksempelløysing fordi det truleg ikkje finst berre éi løysing.",
           "fields": [
             {
-              "label": "Introduction",
-              "description": "You can optionally leave the students some explanations about your example. The explanations will only show up if you add an example, too.",
-              "placeholder": "Please remember that you were not expected to come up with the exact same solution. It's just a good example."
+              "label": "Introduksjon",
+              "description": "Du kan eventuelt gi studentane nokre forklaringar til dømet ditt. Forklaringane vil berre bli vist dersom du òg legg til eit døme.",
+              "placeholder": "Hugs at du ikkje var forventa å kome fram til nøyaktig same løysing. Dette er berre eit godt døme."
             },
             {
-              "label": "Sample solution text",
-              "description": "The student will see a \"Show sample solution\" button after submitting if you provide some text here."
+              "label": "Tekst til eksempelløysing",
+              "description": "Studenten vil sjå ein \"Vis eksempelløysing\"-knapp etter innsending dersom du oppgir tekst her."
             }
           ]
         },
         {
-          "label": "Ressurser",
+          "label": "Ressursar",
           "fields": [
             {
-              "label": "Ressurser",
-              "description": "Valgfrie lenker til ressurser."
+              "label": "Ressursar",
+              "description": "Valfrie lenkjer til ressursar."
             }
           ]
         },
         {
-          "label": "Innstillinger",
-          "description": "Disse innstillingene lar deg bestemme oppførsel.",
+          "label": "Innstillingar",
+          "description": "Desse innstillingane lèt deg bestemme åtferd.",
           "fields": [
             {
               "label": "Tillat å ta på nytt?",
-              "description": "Kryss av hvis du vil at brukeren skal kunne besvare på nytt"
+              "description": "Kryss av dersom du vil at brukaren skal kunne svare på nytt"
             },
             {
               "label": "Vis oppsummering",
-              "description": "Vil du at brukeren skal oppgi en oppsummering der vedkommende begrunner sine valg?"
+              "description": "Vil du at brukaren skal oppgi ei oppsummering der vedkomande grunngir vala sine?"
             },
             {
-              "label": "Forhåndsutfyll påstandene",
-              "description": "Når brukeren starter er påstandene ferdig plassert i rekkefølge"
+              "label": "Forhandsutfyll påstandane",
+              "description": "Når brukaren startar, er påstandane ferdig plasserte i rekkefølgje"
             },
             {
-              "label": "Tilfeldig utsagn",
-              "description": "Vil randomisere de forhåndsutfylte uttalelsene"
+              "label": "Tilfeldige utsagn",
+              "description": "Vil randomisere dei forhåndsutfylte uttalelsane"
             },
             {
-              "label": "Tillat brukere å legge til sine egne uttalelser",
-              "description": "Lar brukeren legge til sine egne uttalelser"
+              "label": "Tillat brukarar å leggje til eigne uttalelsar",
+              "description": "Lèt brukaren leggje til eigne uttalelsar"
             },
             {
-              "label": "Use stacked view",
-              "description": "If checked, statements will be presented in a stacked view."
+              "label": "Bruk stabla vising",
+              "description": "Dersom avkryssa, vil påstandane bli presenterte i ei stabla vising."
             }
           ]
         },
         {
-          "label": "Localize",
+          "label": "Lokalisering",
           "fields": [
             {
-              "label": "Midlertidig tekst for kommentar tekstfeltene",
-              "default": "Utdyp ditt valg"
+              "label": "Midlertidig tekst for kommentar tekstfelt",
+              "default": "Utdjup valet ditt"
             },
             {
               "label": "Tekst på \"Ressurs\"-knappen",
-              "default": "Ressurser"
+              "default": "Ressursar"
             },
             {
-              "label": "Hjelpetekst når bruker skal velge merkelapper",
-              "default": "Velg merkelappene forbundet med dette elementet"
+              "label": "Hjelpetekst når brukar skal velje merkelappar",
+              "default": "Velg merkelappane som høyrer til dette elementet"
             },
             {
-              "label": "Text for \"Show sample solution\" button",
-              "default": "Show sample solution"
+              "label": "Tekst for \"Vis eksempelløysing\"-knapp",
+              "default": "Vis eksempelløysing"
             },
             {
               "label": "Tekst på \"Start på nytt\"-knappen",
               "default": "Start på nytt"
             },
             {
-              "label": "Label for \"Cancel\"-button",
-              "default": "Cancel"
+              "label": "Etikett for \"Avbryt\"-knappen",
+              "default": "Avbryt"
             },
             {
-              "label": "Label for \"Create document\"-button",
-              "default": "Create document"
+              "label": "Etikett for \"Opprett dokument\"-knappen",
+              "default": "Opprett dokument"
             },
             {
               "label": "Tekst på \"Lag alternativ\"-knappen",
@@ -166,35 +166,35 @@
             },
             {
               "label": "Tekst på \"Ja\"-knappen",
-              "default": "Yes"
+              "default": "Ja"
             },
             {
               "label": "Tekst på \"Nei\"-knappen",
               "default": "Nei"
             },
             {
-              "label": "Label for the \"Continue\"-button",
-              "default": "Continue"
+              "label": "Etikett for \"Fortsett\"-knappen",
+              "default": "Fortsett"
             },
             {
-              "label": "Informer brukeren om at all data vil gå tapt om vedkommende fortsetter",
-              "default": "Hvis du fortsetter vil alle data gå tapt."
+              "label": "Informer brukaren om at alle data vil gå tapt om vedkomande held fram",
+              "default": "Dersom du held fram vil alle data gå tapt."
             },
             {
-              "label": "Spør brukeren om vedkommende vil fortsette",
+              "label": "Spør brukaren om vedkomande vil halde fram",
               "default": "Er du sikker?"
             },
             {
               "label": "Midlertidig tekst for sammendrag tekstfeltet",
-              "default": "Gi et kort sammendrag med egne ord"
+              "default": "Gje eit kort sammendrag med eigne ord"
             },
             {
               "label": "Overskrift i kommentarboks",
               "default": "Tilbakemelding"
             },
             {
-              "label": "Default text for new statement",
-              "default": "New statement"
+              "label": "Standardtekst for ny påstand",
+              "default": "Ny påstand"
             }
           ]
         },
@@ -210,20 +210,20 @@
               "default": "Velg alt"
             },
             {
-              "label": "Overskrift i \"Påstand\"-kolonnen,",
+              "label": "Overskrift i \"Påstand\"-kolonnen",
               "default": "Påstand"
             },
             {
-              "label": "Overskrift i \"Etikkett\"-kolonnen,",
+              "label": "Overskrift i \"Etikett\"-kolonnen",
               "default": "Etiketter"
             },
             {
-              "label": "Overskrift i \"Kommentar\"-kolonnen,",
+              "label": "Overskrift i \"Kommentar\"-kolonnen",
               "default": "Kommentar"
             },
             {
-              "label": "Overskrift over \"Ressurser\"-tabellen",
-              "default": "Ressurser"
+              "label": "Overskrift over \"Ressursar\"-tabellen",
+              "default": "Ressursar"
             },
             {
               "label": "Overskrift i 'Tittel'-kolonnen",
@@ -234,12 +234,12 @@
               "default": "Ingress"
             },
             {
-              "label": "Overskrift i 'Lenke'-kolonnen",
-              "default": "Lenke"
+              "label": "Overskrift i 'Lenkje'-kolonnen",
+              "default": "Lenkje"
             },
             {
-              "label": "Tekst når ingen ressurser er registrert",
-              "default": "Ingen ressurser"
+              "label": "Tekst når ingen ressursar er registrerte",
+              "default": "Ingen ressursar"
             },
             {
               "label": "Overskrift for \"Oppsummering kommentar\"",
@@ -247,92 +247,92 @@
             },
             {
               "label": "Tekst som vises når ingen oppsummering er gitt",
-              "default": "Ingen oppstummering"
+              "default": "Ingen oppsummering"
             },
             {
-              "label": "Overskrift før utlisting av \"Tilgjengelige etiketter\"",
-              "default": "Tilgjengelige etiketter"
+              "label": "Overskrift før lista over \"Tilgjengelege etiketter\"",
+              "default": "Tilgjengelege etiketter"
             },
             {
-              "label": "Header above the sample solution section",
-              "default": "Sample solution"
+              "label": "Overskrift over eksempelløysingsseksjon",
+              "default": "Eksempelløysing"
             }
           ]
         },
         {
-          "label": "Tilgjengelighet",
+          "label": "Tilgjengelegheit",
           "fields": [
             {
-              "label": "Brukt istedenfor 'Kommentar'-ikonet",
+              "label": "Brukt i staden for 'Kommentar'-ikonet",
               "default": "Legg til kommentar"
             },
             {
-              "label": "Used instead of 'Label'-icon",
-              "default": "Add label"
+              "label": "Brukt i staden for 'Merkelapp'-ikonet",
+              "default": "Legg til merkelapp"
             },
             {
-              "label": "Brukt istedenfor 'Lukk' ikonet",
+              "label": "Brukt i staden for 'Lukk'-ikonet",
               "default": "Lukk"
             },
             {
-              "label": "Dropzones list label for screenreaders",
-              "default": "Dropzones"
+              "label": "Dropsoner listeetikett for skjermlesarar",
+              "default": "Dropsoner"
             },
             {
-              "label": "Dropzones list description for screenreaders",
-              "default": "Use the arrow keys to navigate between dropzones. Press space to pick up or drop an item if available. Move item with arrow keys when picked up."
+              "label": "Dropsoner listebeskriving for skjermlesarar",
+              "default": "Bruk piltastene for å navigere mellom dropsoner. Trykk mellomrom for å plukke opp eller sleppe eit element dersom tilgjengeleg. Flytt element med piltastene når det er plukka opp."
             },
             {
-              "label": "Statements list description for screenreaders",
-              "default": "Use the arrow keys to navigate between statements. Press space to pick up or drop an item. Move item with arrow keys when picked up."
+              "label": "Beskriving av liste for påstandar for skjermlesarar",
+              "default": "Bruk piltastene for å navigere mellom påstandar. Trykk mellomrom for å plukke opp eller sleppe eit element. Flytt element med piltastene når det er plukka opp."
             },
             {
-              "label": "Statements list description for screenreaders when adding own statements is allowed",
-              "default": "Use the tab key to jump to editing or deletion of the statement."
+              "label": "Beskriving av liste for påstandar for skjermlesarar når eigne påstandar kan leggast til",
+              "default": "Bruk tabulatortasten for å hoppe til redigering eller sletting av påstanden."
             },
             {
-              "label": "'Sortable item' roledescription for screenreaders",
-              "default": "Sortable item"
+              "label": "'Sorterbart element' rollebeskriving for skjermlesarar",
+              "default": "Sorterbart element"
             },
             {
-              "label": "'Dropzone' label for screenreaders",
-              "default": "Dropzone"
+              "label": "'Dropsone' etikett for skjermlesarar",
+              "default": "Dropsone"
             },
             {
-              "label": "'Statement' label for screenreaders",
-              "default": "Statement"
+              "label": "'Påstand' etikett for skjermlesarar",
+              "default": "Påstand"
             },
             {
-              "label": "'Dropzone with content' label for screenreaders",
-              "description": "@content is a placeholder and will be replaced with the respective value.",
-              "default": "Dropzone with @content"
+              "label": "'Dropsone med innhald' etikett for skjermlesarar",
+              "description": "@content er ein plasshaldar og vil bli erstatta med verdien.",
+              "default": "Dropsone med @content"
             },
             {
-              "label": "Message read by screenreaders when dragging starts",
-              "description": "@draggable is a placeholder and will be replaced with the respective value.",
-              "default": "Started dragging @draggable"
+              "label": "Melding lest av skjermlesarar når draing startar",
+              "description": "@draggable er ein plasshaldar og vil bli erstatta med verdien.",
+              "default": "Starta draing av @draggable"
             },
             {
-              "label": "Message read by screenreaders when dragging a statement over a target",
-              "description": "@target is a placeholder and will be replaced with the respective value.",
-              "default": "Moving over @target"
+              "label": "Melding lest av skjermlesarar når ein påstand blir dradd over eit mål",
+              "description": "@target er ein plasshaldar og vil bli erstatta med verdien.",
+              "default": "Flyttar over @target"
             },
             {
-              "label": "Message read by screenreaders when dragging ends",
-              "description": "@draggable and @target are placeholders and will be replaced with the respective values.",
-              "default": "Dropped @draggable on @target"
+              "label": "Melding lest av skjermlesarar når draing avsluttast",
+              "description": "@draggable og @target er plasshaldarar og vil bli erstatta med verdiane.",
+              "default": "Slapp @draggable på @target"
             },
             {
-              "label": "Message read by screenreaders when dragging is cancelled",
-              "default": "Dragging cancelled"
+              "label": "Melding lest av skjermlesarar når draing blir avbrote",
+              "default": "Draing avbrote"
             },
             {
-              "label": "Label for unknown elements for screenreaders",
-              "default": "Unknown element"
+              "label": "Etikett for ukjende element for skjermlesarar",
+              "default": "Ukjend element"
             },
             {
-              "label": "List of unassigned statements label for screenreaders",
-              "default": "Unassigned statements"
+              "label": "Liste over ufordelte påstandar for skjermlesarar",
+              "default": "Ufordelte påstandar"
             }
           ]
         }
