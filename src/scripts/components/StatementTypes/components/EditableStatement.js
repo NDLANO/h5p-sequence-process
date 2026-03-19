@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react';
+import React, { useState, useRef, useImperativeHandle, forwardRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '@services/utils.js';
@@ -73,6 +73,17 @@ const EditableStatement = forwardRef((props, ref) => {
   const labelId = 'label_' + id;
   const inputId = 'input_' + id;
 
+  const pRef = useRef();
+  useEffect(() => {
+    if (pRef.current) {
+      const tooltip = H5P?.Tooltip(pRef.current);
+
+      return () => {
+        tooltip.remove();
+      };
+    }
+  }, []);
+
   return (
     <div
       role="textbox"
@@ -105,9 +116,11 @@ const EditableStatement = forwardRef((props, ref) => {
         />
       </label>
       <p
+        ref={pRef}
         className={classnames('h5p-sequence-noneditable', {
           hidden: inEditMode,
         })}
+        aria-label={statement}
         data-no-dnd="true"
       >
         {statement}
