@@ -53,6 +53,9 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
   const [currentTabIndexElements, setCurrentTabIndexElements] = useState(0);
   const [currentElementsAriaDescendant, setCurrentElementsAriaDescendant] = useState(null);
 
+  const [dropzoneParams, setDropzoneParams] = useState(() => [...(params.dropzonesList || [])]);
+
+
   // Create refs for SortableItems
   const itemRefs = useRef({});
   const dropzoneRefs = useRef({});
@@ -434,6 +437,23 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
     }));
     setUnassignedItemIds((prevList) => [...prevList, newId]);
     setAutoEditStatementId(newId);
+
+    setDropzoneParams((prevParams) => [
+      ...prevParams,
+      {
+        showEnumeration: false,
+      }
+    ]);
+
+    setDropzoneGroups((prevGroups) => [
+      ...prevGroups,
+      {
+        id: `${H5P.createUUID()}-dropzone-${prevGroups.length + 1}`,
+        items: [],
+        labelId: null // Or assign a labelId if needed
+      }
+    ]);
+
     context.trigger('resize');
   };
 
@@ -450,6 +470,31 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
     });
 
     setUnassignedItemIds((prev) => prev.filter((itemId) => itemId !== id));
+
+    setDropzoneParams((prevParams) => {
+      // Find all empty dropzones
+      const emptyDropzoneIndexes = dropzoneGroups
+        .map((group, idx) => group.items.length === 0 ? idx : -1)
+        .filter((idx) => idx !== -1);
+
+      if (emptyDropzoneIndexes.length > 0) {
+        // Remove the last empty dropzone param
+        const lastEmptyIndex = emptyDropzoneIndexes[emptyDropzoneIndexes.length - 1];
+        return prevParams.filter((_, idx) => idx !== lastEmptyIndex);
+      }
+      return prevParams;
+    });
+
+    setDropzoneGroups((prevGroups) => {
+      // Remove the last empty dropzone
+      const emptyDropzones = prevGroups.filter((group) => group.items.length === 0);
+      if (emptyDropzones.length > 0) {
+        const lastEmptyIndex = prevGroups.lastIndexOf(emptyDropzones[emptyDropzones.length - 1]);
+        return prevGroups.filter((_, idx) => idx !== lastEmptyIndex);
+      }
+      return prevGroups;
+    });
+
     context.trigger('resize');
   };
 
@@ -869,7 +914,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
               <SortableDropZone
                 key={list.id}
                 index={index}
-                params={params.dropzonesList[index]}
+                params={dropzoneParams[index]}
                 id={list.id}
                 items={list.items}
                 isUnassignedEmpty={unassignedItemIds.length === 0}
@@ -909,7 +954,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
         </ul>
       </div>
 
-      {unassignedItemIds.length > 0 && (
+      {(params.behaviour.allowAddingOfStatements || unassignedItemIds.length > 0) && (
         <div className='h5p-sequence-select-list'>
           <div id={statementsListDescriptionId} className={'h5p-sequence-statements-list-description'}>
             {statementsListDescription}
