@@ -25,7 +25,9 @@
   border: 0;
 
   & .h5p-sequence-column {
-    margin-bottom: var(--spacing-s);
+    &:has(.h5p-sequence-draggable-container) {
+      margin-bottom: var(--spacing-s);
+    }
 
     & .h5p-sequence-draggable-element {
       /* TODO: variable for padding + border of other container */
