@@ -22,8 +22,8 @@
   --icon-fontawesome-xmark: "\f00d";
 
   --ndla-blue: hsl(210, 34%, 48%);
-  --ndla-blue-light: hsl(from var(--ndla-blue) l c calc(h + 5) );
-  --ndla-blue-dark: hsl(from var(--ndla-blue) l c calc(h - 5) );
+  --ndla-blue-light: hsl(from var(--ndla-blue) h s calc(l + 5) );
+  --ndla-blue-dark: hsl(from var(--ndla-blue) h s calc(l - 5) );
 
   /* Colors */
   --color-primary: var(--h5p-theme-main-cta-base, var(--ndla-blue));
