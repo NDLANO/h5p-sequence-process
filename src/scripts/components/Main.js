@@ -72,7 +72,9 @@ const Main = (props) => {
   };
 
   useEffect(() => {
-    const filterResourceList = (element) => element?.constructor === Object && Object.keys(element).length > 0;
+    const filterResourceList = (element) => {
+      return element?.constructor === Object && Object.keys(element).length > 0 && element.title;
+    };
     if (resourcesList.params.resourceList && resourcesList.params.resourceList.filter(filterResourceList).length > 0) {
       const resourceList = new H5P.ResourceList(resourcesList.params, id, language);
       resourceList.attach(resourceContainer.current);
