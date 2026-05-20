@@ -93,7 +93,7 @@ const Export = () => {
       '{{/allLabels}}' +
       '</div>';
 
-    return Mustache.render(documentExportTemplate, exportObject);
+    return window.Mustache.render(documentExportTemplate, exportObject);
   };
 
   const handleExport = () => {

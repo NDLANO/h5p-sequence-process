@@ -1,4 +1,4 @@
-import React, { use, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import SequenceSurface from '@components/SequenceSurface/SequenceSurface.js';
 import { SequenceProcessContext } from '@context/SequenceProcessContext.js';

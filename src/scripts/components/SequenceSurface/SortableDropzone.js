@@ -13,7 +13,6 @@ import './SortableDropzone.css';
 
 const SortableDropZone = forwardRef((
   {
-    index,
     id,
     params,
     items,
@@ -43,7 +42,6 @@ const SortableDropZone = forwardRef((
   });
   const dropzoneElementRef = useRef(null);
 
-  const [selectedState, setSelectedState] = useState(false);
   const showEnumeration = params.showEnumeration === true;
 
   const handleLabelClick = (id) => {
@@ -51,7 +49,6 @@ const SortableDropZone = forwardRef((
   };
 
   const handleFocus = useCallback(() => {
-    setSelectedState(true);
     onReceivedFocus(id);
   }, [id, onReceivedFocus]);
 
@@ -63,7 +60,7 @@ const SortableDropZone = forwardRef((
 
   const ariaLabel = (items.length) === 0 ?
     context.translate('dropzone') :
-    context.translate('dropzoneWithContent').replace('@content', getElementIdentifier(items[0]));  
+    context.translate('dropzoneWithContent').replace('@content', getElementIdentifier(items[0]));
 
   return (
     <li
@@ -78,7 +75,6 @@ const SortableDropZone = forwardRef((
       tabIndex={isTabbable ? '0' : '-1'}
       aria-describedby={`${id}-description`}
       onFocus={handleFocus}
-      onBlur={() => setSelectedState(false)}
       {...(disabled && { onKeyDown: () => {} })} // onKeyDown overwrites dnd-kit handler
       role='listitem'
       aria-label={ariaLabel}
