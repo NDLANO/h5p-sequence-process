@@ -30,7 +30,7 @@
     "prop-types": "^15.8.1",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.99.0",
-    "sass-loader": "^16.0.8",
+    "sass-loader": "^17.0.0",
     "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2"
   },
@@ -43,7 +43,7 @@
     "buffer": "^6.0.3",
     "classnames": "^2.5.1",
     "he": "^1.2.0",
-    "html-react-parser": "^6.1.0",
+    "html-react-parser": "^6.1.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-tiny-popover": "^8.1.6"
