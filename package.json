@@ -15,7 +15,7 @@
   "author": "NDLA (https://www.ndla.no)",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^8.0.1",
+    "@babel/cli": "^8.0.4",
     "@babel/core": "^8.0.1",
     "@babel/eslint-parser": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
@@ -30,8 +30,8 @@
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.101.0",
     "sass-loader": "^17.0.0",
-    "webpack": "^5.108.3",
-    "webpack-cli": "^7.1.0"
+    "webpack": "^5.108.4",
+    "webpack-cli": "^7.2.1"
   },
   "dependencies": {
     "@babel/core": "^8.0.1",
@@ -42,7 +42,7 @@
     "buffer": "^6.0.3",
     "classnames": "^2.5.1",
     "he": "^1.2.0",
-    "html-react-parser": "^6.1.3",
+    "html-react-parser": "^6.1.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-tiny-popover": "^8.1.6"
