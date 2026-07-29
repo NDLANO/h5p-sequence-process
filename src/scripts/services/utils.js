@@ -12,9 +12,6 @@ const LUMINANCE_FACTOR_GREEN = 0.587;
 /** @constant {number} LUMINANCE_FACTOR_BLUE Blue channel luminance factor for contrast calculation. */
 const LUMINANCE_FACTOR_BLUE = 0.114;
 
-/** @constant {number} LUMINANCE_THRESHOLD Threshold for luminance to decide light/dark color. */
-const LUMINANCE_THRESHOLD = 0.5;
-
 export const decodeHTML = (html) => {
   return html ? decode(html) : html;
 };

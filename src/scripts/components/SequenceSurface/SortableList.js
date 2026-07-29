@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef, useContext, useCallback } from 'react';
+import React, { useState, useReducer, useMemo, useEffect, useRef, useContext, useCallback } from 'react';
 import {
   DndContext,
   DragOverlay,
@@ -33,6 +33,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
   const prepopulate = params.behaviour.prepopulate;
   const randomize = params.behaviour.randomizeStatements;
   const addStatementButton = params.behaviour.allowAddingOfStatements;
+  const stackedMode = params.behaviour.useStackedView;
 
   // Content params
   const statementsFromParams = params.statementsList;
@@ -42,8 +43,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
   const [activeId, setActiveId] = useState(null);
   const [activeCommentId, setActiveCommentId] = useState(null);
   const [autoEditStatementId, setAutoEditStatementId] = useState(null);
-  const [stackedMode, setStackedMode] = useState(params.behaviour.useStackedView);
-  const [resizeCounter, setResizeCounter] = useState(0);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [tabIndexDropzonesList, setTabIndexDropzonesList] = useState(0);
   const [currentTabIndexDropzones, setCurrentTabIndexDropzones] = useState(0);
@@ -282,7 +282,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
     setActiveId(active.id);
   };
 
-  const handleDragCancel = (event) => {
+  const handleDragCancel = () => {
     setActiveId(null);
     context.trigger('resize');
   };
@@ -592,7 +592,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
       return;
     }
 
-    let nextIndex = currentTabIndexElements;
+    let nextIndex;
 
     switch (key) {
       case 'ArrowDown':
@@ -633,7 +633,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
       return;
     }
 
-    let nextIndex = currentTabIndexDropzones;
+    let nextIndex;
 
     switch (key) {
       case 'ArrowDown':
@@ -852,7 +852,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
   // Add resize listener effect
   useEffect(() => {
     const handleResize = () => {
-      setResizeCounter((prev) => prev + 1);
+      forceUpdate();
     };
 
     context.on('resize', handleResize);
