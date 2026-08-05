@@ -27,7 +27,7 @@
     "mini-css-extract-plugin": "^2.10.2",
     "prop-types": "^15.8.1",
     "resolve-url-loader": "^5.0.0",
-    "sass": "^1.101.0",
+    "sass": "^1.101.3",
     "sass-loader": "^17.0.0",
     "webpack": "^5.108.4",
     "webpack-cli": "^7.2.1"
@@ -41,9 +41,9 @@
     "buffer": "^6.0.3",
     "classnames": "^2.5.1",
     "he": "^1.2.0",
-    "html-react-parser": "^6.1.4",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
+    "html-react-parser": "^6.1.5",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-tiny-popover": "^8.1.6"
   },
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead",
