@@ -27,6 +27,7 @@ const SortableItem = forwardRef((
     heightOfPreviousSiblings,
     onBlur: onBlurProp,
     disabled,
+    clearOnEdit = false,
   },
   ref
 ) => {
@@ -103,6 +104,7 @@ const SortableItem = forwardRef((
                 onBlur={(newStatement) => onStatementChange(itemId, newStatement)}
                 idBase={itemId}
                 disabled={disabled}
+                clearOnEdit={clearOnEdit}
               />
             ) : (
               <UnEditableStatement
@@ -140,6 +142,7 @@ SortableItem.propTypes = {
   onBlur: PropTypes.func,
   disabled: PropTypes.bool,
   hideTooltip: PropTypes.bool,
+  clearOnEdit: PropTypes.bool,
 };
 
 SortableItem.defaultProps = {
@@ -153,6 +156,7 @@ SortableItem.defaultProps = {
   isDragged: false,
   disabled: false,
   hideTooltip: false,
+  clearOnEdit: false,
 };
 
 export default SortableItem;

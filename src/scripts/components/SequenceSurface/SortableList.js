@@ -80,7 +80,8 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
         touched: false,
         selectedLabels: [],
         comment: '',
-        statement: statementText
+        statement: statementText,
+        userEdited: false
       };
     });
 
@@ -431,7 +432,8 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
           touched: false,
           selectedLabels: [],
           comment: '',
-          statement: context.translate('newStatement')
+          statement: context.translate('newStatement'),
+          userEdited: true // User-added statement is owned by the user, so its text is kept when edited.
         }
       }
     }));
@@ -505,7 +507,9 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
         ...prev.statements,
         [id]: {
           ...prev.statements[id],
-          statement: newContent
+          statement: newContent,
+          // Once user commits real text, keep it on future edits instead of clearing again
+          userEdited: prev.statements[id].userEdited || newContent !== ''
         }
       }
     }));
@@ -671,7 +675,8 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
         touched: false,
         selectedLabels: [],
         comment: '',
-        statement: statementText
+        statement: statementText,
+        userEdited: false
       };
     });
     return statements;
@@ -1002,6 +1007,7 @@ const SortableList = ({ params, onUserInputChange, collectExportValues, reset, d
                 onStatementDelete={handleRemove}
                 onStatementChange={handleStatementChange}
                 enableEditing={addStatementButton}
+                clearOnEdit={addStatementButton && !userInput.statements[itemId].userEdited}
                 listId='unassignedItemIds'
                 allowDelete={addStatementButton}
                 stackedMode={stackedMode}

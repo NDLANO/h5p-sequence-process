@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { debounce } from '@services/utils.js';
 
+/** @constant {number} CHANGE_TIMEOUT_MS Delay to react to change event. */
+const CHANGE_TIMEOUT_MS = 200;
+
 import './EditableStatement.css';
 
 const EditableStatement = forwardRef((props, ref) => {
-  const { statement, onBlur, idBase = false, isTabbable = false, disabled = false } = props;
+  const { statement, onBlur, idBase = false, isTabbable = false, disabled = false, clearOnEdit = false } = props;
   const [inEditMode, toggleEditMode] = useState(false);
   const inputRef = useRef();
+  const editStartRef = useRef({ cleared: false, original: '' });
 
   const handleClick = () => {
     if (disabled) {
@@ -16,7 +20,13 @@ const EditableStatement = forwardRef((props, ref) => {
     }
 
     toggleEditMode(true);
-    inputRef.current.value = statement;
+    editStartRef.current = {
+      cleared: clearOnEdit,
+      original: statement,
+    };
+
+    // On first edit, start with empty field so user writes their own version; otherwise keep the text.
+    inputRef.current.value = clearOnEdit ? '' : statement;
     setTimeout(() => {
       inputRef.current.focus();
       inputRef.current.setSelectionRange(0, inputRef.current.value.length);
@@ -32,6 +42,19 @@ const EditableStatement = forwardRef((props, ref) => {
 
   const handleBlur = () => {
     toggleEditMode(false);
+
+    const { cleared, original } = editStartRef.current;
+    const value = inputRef.current?.value;
+
+    if (cleared && value === '') {
+      // First edit of author-defined statement was left empty: restore original text instead of saving empty statement
+      if (inputRef.current) {
+        inputRef.current.value = original;
+      }
+      return;
+    }
+
+    onBlur(value);
   };
 
   const handleKeyDown = (event) => {
@@ -108,7 +131,12 @@ const EditableStatement = forwardRef((props, ref) => {
           ref={inputRef}
           defaultValue={statement}
           onBlur={handleBlur}
-          onChange={debounce(() => onBlur(inputRef.current.value), 200)}
+          onChange={debounce(() => {
+            if (editStartRef.current.cleared) {
+              return;
+            }
+            onBlur(inputRef.current.value);
+          }, CHANGE_TIMEOUT_MS)}
           aria-label={'Edit statement ' + statement}
           id={inputId}
           tabIndex={isTabbable && inEditMode ? '0' : '-1'}
@@ -134,6 +162,7 @@ EditableStatement.displayName = 'EditableStatement';
 EditableStatement.propTypes = {
   statement: PropTypes.string,
   onBlur: PropTypes.func,
+  clearOnEdit: PropTypes.bool,
   idBase: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

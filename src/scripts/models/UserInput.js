@@ -10,6 +10,7 @@
  * @property {string[]} selectedLabels - Array of label IDs that apply to this statement
  * @property {string} comment - User's comment on the statement
  * @property {string} statement - The actual statement text
+ * @property {boolean} userEdited - True once text is user's own.
  */
 
 /**
@@ -36,13 +37,15 @@ export const exampleUserInput = {
       touched: true,
       selectedLabels: ['1'],
       comment: 'First comment',
-      statement: 'First statement'
+      statement: 'First statement',
+      userEdited: false
     },
     'stmt2': {
       touched: true,
       selectedLabels: ['1', '2'],
       comment: 'Second comment',
-      statement: 'Second statement'
+      statement: 'Second statement',
+      userEdited: false
     }
   }
-}; 
+};
