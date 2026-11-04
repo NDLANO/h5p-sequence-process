@@ -120,8 +120,7 @@
               "description": "Vil randomisere dei forhåndsutfylte uttalelsane"
             },
             {
-              "label": "Tillat brukarar å leggje til eigne uttalelsar",
-              "description": "Lèt brukaren leggje til eigne uttalelsar"
+              "label": "Tillat brukarar å leggje til eigne uttalelsar å slette uttalelsar"
             },
             {
               "label": "Bruk stabla vising",

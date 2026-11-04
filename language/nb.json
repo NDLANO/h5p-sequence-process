@@ -120,8 +120,7 @@
               "description": "Vil randomisere de forhåndsutfylte uttalelsene"
             },
             {
-              "label": "Tillat brukere å legge til sine egne uttalelser",
-              "description": "Lar brukeren legge til sine egne uttalelser"
+              "label": "Tillat brukere å legge til sine egne uttalelser og å slette uttalelser"
             },
             {
               "label": "Bruk stablet visning",

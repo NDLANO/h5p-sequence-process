@@ -120,8 +120,7 @@
               "description": "Moverá ao chou as declaracións fornecidas previamente"
             },
             {
-              "label": "Permitir que os usuarios engadan as súas propias afirmacións",
-              "description": "Permitir ao usuario engadir as súas propias declaracións"
+              "label": "Permitir que os usuarios engadan as súas propias afirmacións"
             },
             {
               "label": "Use stacked view",
